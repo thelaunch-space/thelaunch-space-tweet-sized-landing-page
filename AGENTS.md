@@ -13,10 +13,10 @@
   - **Desktop:** A magnification effect with a descriptive tooltip appears on hover.
   - **Mobile:** The tooltip appears on tap, with logic to handle which icon is active.
   - **Implementation:** The tooltip is rendered in a React Portal to prevent it from being clipped by parent containers, ensuring it is always visible.
-- **Lead Capture Modal:** A modal form for potential clients to submit their project needs, integrated with a Supabase backend for lead storage.
+- **Lead Capture Modal:** A modal form for potential clients to submit their project needs, integrated with a Make.com webhook for lead processing.
 
 ## Development Log
-- **Initial Setup:** Project bootstrapped with Vite, React, TypeScript, and Tailwind CSS. Supabase client and basic database migrations are in place.
+- **Initial Setup:** Project bootstrapped with Vite, React, TypeScript, and Tailwind CSS. Lead submissions are sent directly to Make.com via webhook.
 - **Client Logo Display:** Replaced an initial static, scrolling logo banner with a dynamic, animated `Dock` component for superior visual appeal and interactivity.
 - **Dock Component Refactor:**
   - **Portal Implementation:** Resolved a complex tooltip clipping issue by refactoring the component to use a React Portal, ensuring the tooltip always appears on top of other UI elements.
@@ -27,13 +27,12 @@
 ---
 
 ## Project Structure & Module Organization
-- `src/` holds the React 18 + TypeScript app; `main.tsx` wires `App.tsx`, `components/` stores UI atoms such as `Modal`, and `lib/` houses integration helpers (e.g., `supabase.ts`).
+- `src/` holds the React 18 + TypeScript app; `main.tsx` wires `App.tsx`, `components/` stores UI atoms such as `Modal`, and `lib/` houses integration helpers (e.g., `webhook.ts`).
 - Tailwind styles live in `src/index.css` with supporting config in `tailwind.config.js` and `postcss.config.js`.
 - Static assets (logo, portraits) are served from `public/`; keep filenames stable because they are referenced directly via `/asset.png` paths inside JSX.
-- Supabase SQL migrations belong under `supabase/migrations/`; add new tables or policies there and keep files timestamped for ordering.
 
 ## Build, Test, and Development Commands
-- `npm install` boots the toolchain (Vite, ESLint 9, Tailwind, Supabase client).
+- `npm install` boots the toolchain (Vite, ESLint 9, Tailwind).
 - `npm run dev` starts the Vite dev server with HMR at `http://localhost:5173`.
 - `npm run build` emits the production bundle into `dist/`; pair it with `npm run preview` for a local smoke test of the built assets.
 - `npm run lint` runs the flat ESLint config (`eslint.config.js`) against TS/JS and JSX files; fix warnings before committing.
@@ -48,13 +47,13 @@
 ## Testing Guidelines
 - Automated tests are not yet wired up—when introducing them, colocate specs under `src/__tests__/` or alongside the component (`Component.test.tsx`) and use Vitest + React Testing Library so they align with the Vite stack.
 - Until a formal suite exists, document manual QA steps in PRs (scenarios exercised, browsers used) and rely on `npm run lint` plus `npm run typecheck` as a minimum gate.
-- Target coverage for customer-facing flows (lead capture modal, Supabase insertions, routing) before shipping net-new features.
+- Target coverage for customer-facing flows (lead capture modal, webhook submissions, routing) before shipping net-new features.
 
 ## Commit & Pull Request Guidelines
 - Keep commits short, imperative, and scoped (e.g., `add lead form validation` rather than narrative tense); amend only your own work.
-- Each PR should describe motivation, implementation notes, and screenshots or recordings for UI-visible changes; link Linear/GitHub issues when available and list any Supabase migration IDs that must be deployed.
+- Each PR should describe motivation, implementation notes, and screenshots or recordings for UI-visible changes; link Linear/GitHub issues when available.
 - Block PRs on failing lint/typecheck runs and call out any required environment changes (`.env.local` vars) in the description.
 
 ## Security & Configuration Tips
-- Create a `.env.local` with `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`; never commit real keys. Provide sanitized examples (`https://xxx.supabase.co`) in docs instead.
-- Rotate Supabase anon keys after sharing preview builds and keep Row Level Security rules versioned in `supabase/migrations/`.
+- Create a `.env.local` with `VITE_WEBHOOK_URL`; never commit real webhook URLs. Provide sanitized examples (`https://hook.make.com/xxx`) in docs instead.
+- Keep webhook URLs secure and rotate them if they are exposed in preview builds.
