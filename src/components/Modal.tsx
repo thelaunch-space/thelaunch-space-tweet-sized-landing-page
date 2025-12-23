@@ -1,5 +1,6 @@
 import { X } from 'lucide-react';
 import { useState, FormEvent } from 'react';
+import { sendLeadToWebhook } from '../lib/webhook';
 
 interface ModalProps {
   isOpen: boolean;
@@ -46,24 +47,15 @@ export default function Modal({ isOpen, onClose }: ModalProps) {
         whatsapp_number: preferWhatsApp ? whatsappNumber : null,
       };
 
-      const webhookUrl = import.meta.env.VITE_WEBHOOK_URL;
+      console.log('Submitting lead with payload:', payload);
 
-      if (!webhookUrl) {
-        throw new Error('Webhook URL is not configured');
+      const result = await sendLeadToWebhook(payload);
+
+      if (!result.success) {
+        throw new Error(result.error || 'Failed to submit lead');
       }
 
-      const response = await fetch(webhookUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Webhook request failed with status ${response.status}`);
-      }
-
+      console.log('Lead submitted successfully');
       setIsSuccess(true);
       setTimeout(() => {
         onClose();
@@ -77,8 +69,9 @@ export default function Modal({ isOpen, onClose }: ModalProps) {
         }, 300);
       }, 2000);
     } catch (err) {
-      setError('Something went wrong. Please try again.');
-      console.error(err);
+      const errorMessage = err instanceof Error ? err.message : 'Something went wrong. Please try again.';
+      setError(errorMessage);
+      console.error('Error submitting lead:', err);
     } finally {
       setIsSubmitting(false);
     }
