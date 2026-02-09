@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { ArrowLeft, Linkedin } from 'lucide-react';
 import XIcon from '@/components/XIcon';
 import Modal from '@/components/Modal';
@@ -8,8 +9,13 @@ import { Dock } from "@/components/ui/dock";
 import { SparklesCore } from "@/components/ui/sparkles";
 
 export default function LandingPage() {
+  const searchParams = useSearchParams();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showWhatWeDo, setShowWhatWeDo] = useState(false);
+
+  useEffect(() => {
+    if (searchParams.get('cta') === 'open') setIsModalOpen(true);
+  }, [searchParams]);
 
   const dockItems = [
     {
