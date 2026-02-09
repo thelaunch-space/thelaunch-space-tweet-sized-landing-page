@@ -60,7 +60,7 @@ export default function BlogPost() {
           <div className="flex items-center gap-3 text-sm text-text-secondary mb-10">
             <span>thelaunch.space</span><span>·</span>
             <time dateTime="2026-02-09">Feb 9, 2026</time><span>·</span>
-            <span>12 min read</span>
+            <span>14 min read</span>
           </div>
 
           <p className="text-lg md:text-xl text-text-primary leading-relaxed mb-8">
@@ -183,29 +183,133 @@ export default function BlogPost() {
 
           <hr className="border-border-color my-12" />
 
-          <h2 className="text-2xl md:text-3xl font-bold mt-16 mb-4">When to Use What: The Decision Framework</h2>
+          <h2 className="text-2xl md:text-3xl font-bold mt-16 mb-4">When to Use What: A Guide for Founders Building Their Own Products</h2>
 
           <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
-            Not everything needs AI-first building. Here is the framework we use at thelaunch.space to decide the right approach for each project:
+            If you are a non-technical founder who wants to build your own products and has no prior experience with AI coding tools, this section is for you. We will break down the landscape into clear categories so you know exactly where to start.
+          </p>
+
+          <div className="border-l-4 border-accent-blue pl-6 my-8">
+            <p className="text-base md:text-lg text-text-primary font-medium leading-relaxed">
+              A note on how we work at thelaunch.space: for all our client projects, we use <span className="font-semibold">Claude Code + Cursor</span> as our primary stack. This combination gives us maximum flexibility and control for production-grade software. But when you are just starting out and building for yourself, you do not need to start there.
+            </p>
+          </div>
+
+          <h3 className="text-xl md:text-2xl font-bold mt-8 mb-3">Pure No-Code Tools (When They Make Sense)</h3>
+
+          <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
+            For certain use cases, traditional no-code platforms remain the fastest path:
           </p>
 
           <div className="space-y-4 my-8">
             <div className="bg-border-color/20 rounded-xl p-5">
-              <p className="text-text-primary font-semibold mb-1">Landing Pages → Webflow or Carrd</p>
-              <p className="text-text-secondary text-base leading-relaxed">Marketing sites without complex logic. No-code platforms are perfect here. Fast, beautiful, sufficient. Carrd for simple pages, <a href="https://webflow.com" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Webflow</a> for more design control.</p>
+              <p className="text-text-primary font-semibold mb-1">Template-Based Websites and Portals → <a href="https://www.softr.io" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Softr</a></p>
+              <p className="text-text-secondary text-base leading-relaxed">Excellent for building client portals, directories, and internal tools on top of Airtable or Google Sheets. Drag-and-drop blocks, user authentication built in, custom domains. Great for MVPs that are essentially "database with a nice interface."</p>
             </div>
             <div className="bg-border-color/20 rounded-xl p-5">
-              <p className="text-text-primary font-semibold mb-1">Internal Tools → Airtable or Retool</p>
-              <p className="text-text-secondary text-base leading-relaxed">Dashboards, CRMs, and workflow tools for your team. Airtable for database-centric needs. <a href="https://retool.com" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Retool</a> for more complex internal apps. These tools excel when the users are your employees, not paying customers.</p>
+              <p className="text-text-primary font-semibold mb-1">Gorgeous Marketing Sites → <a href="https://www.framer.com" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Framer</a></p>
+              <p className="text-text-secondary text-base leading-relaxed">When design matters more than functionality. Framer produces beautiful, responsive websites with smooth animations. Figma-like interface, real-time collaboration, one-click publishing. Perfect for landing pages where visual impact drives conversion.</p>
             </div>
             <div className="bg-border-color/20 rounded-xl p-5">
-              <p className="text-text-primary font-semibold mb-1">Customer-Facing Products → AI-First</p>
-              <p className="text-text-secondary text-base leading-relaxed">Any software that paying customers will use. MVPs. SaaS products. Client portals. Mobile apps. This is where AI tools shine. You need reliability, scalability, and the ability to customize without limits.</p>
+              <p className="text-text-primary font-semibold mb-1">Automations and Workflows → <a href="https://make.com" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Make.com</a> or <a href="https://zapier.com" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Zapier</a></p>
+              <p className="text-text-secondary text-base leading-relaxed">Connect your apps without code. When a form is submitted, send to Slack, add to spreadsheet, trigger email sequence. Make.com offers more complex logic at lower cost; Zapier is simpler for basic automations.</p>
             </div>
             <div className="bg-border-color/20 rounded-xl p-5">
-              <p className="text-text-primary font-semibold mb-1">Enterprise or Regulated Industries → AI-First with Expert Review</p>
-              <p className="text-text-secondary text-base leading-relaxed">Healthcare, finance, legal. Build with AI tools for speed, but have a security expert review before deployment. The code is auditable. No-code black boxes are not.</p>
+              <p className="text-text-primary font-semibold mb-1">For the Tinkerer → <a href="https://n8n.io" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">n8n</a></p>
+              <p className="text-text-secondary text-base leading-relaxed">Open-source automation platform you can self-host. More powerful than Zapier, with 400+ integrations and native AI agent support. If you enjoy understanding how things work under the hood, n8n rewards that curiosity. Free tier available, or run it on a $5/month server.</p>
             </div>
+          </div>
+
+          <hr className="border-border-color my-12" />
+
+          <h2 className="text-2xl md:text-3xl font-bold mt-16 mb-4">The Learning Roadmap: From First Prompt to Production</h2>
+
+          <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
+            If you want to actually learn to build software with AI tools and get better at it over time, here is the progression we recommend. Think of this as your skill development roadmap.
+          </p>
+
+          <div className="bg-border-color/30 border border-border-color rounded-xl p-8 my-10 text-center">
+            <p className="text-2xl md:text-3xl font-bold text-text-primary mb-2">Web → IDE → CLI</p>
+            <p className="text-sm md:text-base text-text-secondary">The natural progression as your skills and projects grow in complexity</p>
+          </div>
+
+          <h3 className="text-xl md:text-2xl font-bold mt-8 mb-3">Stage 1: Web-Based AI Coding Tools</h3>
+
+          <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
+            Start here. Zero setup required. These tools have gotten remarkably good in 2025-2026, with most providing built-in databases, deployments, and hosting. Perfect for shipping a simple landing page with lead collection, or a straightforward SaaS app.
+          </p>
+
+          <div className="space-y-4 my-8">
+            <div className="bg-border-color/20 rounded-xl p-5">
+              <p className="text-text-primary font-semibold mb-1"><a href="https://bolt.new" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Bolt.new</a></p>
+              <p className="text-text-secondary text-base leading-relaxed">Our top recommendation for beginners. Describe your app, watch it build, iterate through conversation. From idea to deployed app in hours. Integrates with Supabase and Netlify for production infrastructure.</p>
+            </div>
+            <div className="bg-border-color/20 rounded-xl p-5">
+              <p className="text-text-primary font-semibold mb-1"><a href="https://lovable.dev" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Lovable.dev</a></p>
+              <p className="text-text-secondary text-base leading-relaxed">Strong alternative to Bolt. Particularly good at generating clean, well-structured code. Built-in Supabase integration for databases. Good for founders who want to eventually understand and modify their codebase.</p>
+            </div>
+            <div className="bg-border-color/20 rounded-xl p-5">
+              <p className="text-text-primary font-semibold mb-1"><a href="https://getmocha.com" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Mocha</a></p>
+              <p className="text-text-secondary text-base leading-relaxed">Full-stack apps from natural language. Handles authentication, databases, payments, and hosting in one platform. Their "Discuss Mode" lets you brainstorm and refine before committing to building. Great for complex requirements.</p>
+            </div>
+            <div className="bg-border-color/20 rounded-xl p-5">
+              <p className="text-text-primary font-semibold mb-1"><a href="https://replit.com" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Replit</a></p>
+              <p className="text-text-secondary text-base leading-relaxed">Browser-based development environment with AI assistance. More developer-oriented than Bolt, but still accessible to beginners. Good for learning because you see the actual code as it is written.</p>
+            </div>
+            <div className="bg-border-color/20 rounded-xl p-5">
+              <p className="text-text-primary font-semibold mb-1"><a href="https://base44.com" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Base44</a></p>
+              <p className="text-text-secondary text-base leading-relaxed">Text-to-app generation with built-in infrastructure. Acquired by Wix in 2025, now has solid backing. Includes templates for common use cases like CRMs and e-commerce. Good for rapid prototyping when you need to validate quickly.</p>
+            </div>
+            <div className="bg-border-color/20 rounded-xl p-5">
+              <p className="text-text-primary font-semibold mb-1"><a href="https://emergent.sh" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Emergent.sh</a></p>
+              <p className="text-text-secondary text-base leading-relaxed">Multi-agent system where specialized AI agents handle different parts of your app (planning, frontend, backend, testing, deployment). Hit $25M ARR in 4.5 months. Supports both web and mobile apps with React Native.</p>
+            </div>
+          </div>
+
+          <h3 className="text-xl md:text-2xl font-bold mt-8 mb-3">Stage 2: IDE-Based AI Coding Agents</h3>
+
+          <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
+            As your codebase grows and you need more control, move to IDE-based tools. These run on your computer and give you direct access to your code files. The learning curve is steeper, but the capability ceiling is much higher.
+          </p>
+
+          <div className="space-y-4 my-8">
+            <div className="bg-border-color/20 rounded-xl p-5">
+              <p className="text-text-primary font-semibold mb-1"><a href="https://cursor.com" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Cursor</a></p>
+              <p className="text-text-secondary text-base leading-relaxed">AI-powered editor built on VS Code. Deep codebase understanding, intelligent suggestions, natural language commands. The most popular choice among developers using AI tools. $20/month for Pro tier.</p>
+            </div>
+            <div className="bg-border-color/20 rounded-xl p-5">
+              <p className="text-text-primary font-semibold mb-1"><a href="https://antigravity.google" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Google Antigravity</a></p>
+              <p className="text-text-secondary text-base leading-relaxed">Google's agentic IDE, launched November 2025. Features a "Manager View" where you can spawn multiple AI agents to work on different tasks simultaneously. Free during public preview, powered by Gemini 3. Early reviews praise its ability to handle architect-level tasks.</p>
+            </div>
+            <div className="bg-border-color/20 rounded-xl p-5">
+              <p className="text-text-primary font-semibold mb-1"><a href="https://kiro.dev" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Kiro</a></p>
+              <p className="text-text-secondary text-base leading-relaxed">AWS's spec-driven development IDE, launched July 2025. Unique approach: creates user stories and technical design documents before generating code. Their autonomous agent can work independently for hours on complex tasks. Free tier with 50 monthly interactions.</p>
+            </div>
+          </div>
+
+          <h3 className="text-xl md:text-2xl font-bold mt-8 mb-3">Stage 3: Command-Line AI Tools</h3>
+
+          <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
+            If you can embrace the command line, these tools offer the most power and flexibility. They operate directly in your terminal, understand your entire project structure, and can execute complex multi-step tasks.
+          </p>
+
+          <div className="space-y-4 my-8">
+            <div className="bg-border-color/20 rounded-xl p-5">
+              <p className="text-text-primary font-semibold mb-1"><a href="https://www.anthropic.com/claude-code" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Claude Code</a></p>
+              <p className="text-text-secondary text-base leading-relaxed">Anthropic's command-line tool. Excellent reasoning capabilities, handles complex debugging, understands large codebases. Our go-to for sophisticated projects at thelaunch.space. Works best for multi-step problem solving and architectural decisions.</p>
+            </div>
+            <div className="bg-border-color/20 rounded-xl p-5">
+              <p className="text-text-primary font-semibold mb-1"><a href="https://platform.openai.com/docs/guides/code" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Codex CLI</a></p>
+              <p className="text-text-secondary text-base leading-relaxed">OpenAI's command-line coding assistant. Strong at code generation and explanation. Integrates well with existing development workflows. Good alternative if you prefer GPT-style interactions.</p>
+            </div>
+            <div className="bg-border-color/20 rounded-xl p-5">
+              <p className="text-text-primary font-semibold mb-1"><a href="https://ai.google.dev/gemini-api/docs/code-assist" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Gemini CLI</a></p>
+              <p className="text-text-secondary text-base leading-relaxed">Google's terminal-based coding assistant. Powered by Gemini models with strong multimodal capabilities. Can understand screenshots and diagrams alongside code. Good for projects involving visual design specifications.</p>
+            </div>
+          </div>
+
+          <div className="bg-border-color/30 border border-border-color rounded-xl p-6 my-8">
+            <p className="text-text-primary font-medium"><span className="font-semibold">Our picks at thelaunch.space:</span> Start with Bolt.new to learn the fundamentals. Once you are comfortable, graduate to Cursor + Claude Code for production work. This combination handles everything from simple landing pages to complex enterprise applications.</p>
           </div>
 
           <hr className="border-border-color my-12" />
@@ -308,7 +412,7 @@ export default function BlogPost() {
           </p>
 
           <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
-            The path: Start with <a href="https://bolt.new" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Bolt.new</a> for the fastest learning curve. Graduate to Claude Code or Cursor for more complex projects. Use Supabase for your database and Netlify for deployment. Ship in weeks, not months.
+            The path: Start with <a href="https://bolt.new" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Bolt.new</a> for the fastest learning curve. As your projects grow, graduate to Cursor + Claude Code. Use Supabase for your database and Netlify for deployment. For automations, use Make.com or Zapier. For beautiful marketing sites, try Framer. Ship in weeks, not months.
           </p>
 
           <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
