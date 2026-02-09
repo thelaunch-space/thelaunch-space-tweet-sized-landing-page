@@ -31,6 +31,7 @@ Last updated: 2026-02-09
 - [x] **`/?cta=open` query param — auto-opens lead capture modal (for blog CTAs)**
 - [x] **LandingPage wrapped in Suspense (required by Next.js 14 for useSearchParams)**
 - [x] **GitHub branch protection on `main` (requires PR + approval)**
+- [x] **`robots.txt` and `sitemap.xml` via Next.js metadata API (auto-discovers blog posts)**
 
 ## In Progress
 - Nothing currently in progress
@@ -39,7 +40,8 @@ Last updated: 2026-02-09
 - Nothing currently blocked
 
 ## Recent Changes (latest first)
-1. Published first blog post via AI agent PR workflow (2026-02-09)
+1. Added robots.txt and sitemap.xml with auto-discovery (2026-02-09)
+2. Published first blog post via AI agent PR workflow (2026-02-09)
 2. Added `/?cta=open` query param to auto-open modal from blog CTAs (2026-02-09)
 3. Wrapped LandingPage in Suspense for useSearchParams (2026-02-09)
 4. Netlify config added for Next.js deployment (2026-02-08)

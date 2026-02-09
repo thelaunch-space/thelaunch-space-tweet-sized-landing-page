@@ -11,6 +11,8 @@ app/
 ├── layout.tsx              # Root layout (next/font, metadata API)
 ├── page.tsx                # Server Component → <Suspense><LandingPage /></Suspense>
 ├── globals.css             # Tailwind directives + custom keyframes
+├── robots.ts               # robots.txt (allows all, points to sitemap)
+├── sitemap.ts              # sitemap.xml (auto-discovers blog posts from filesystem)
 ├── api/lead/route.ts       # POST handler (proxies to Make.com webhook)
 ├── blogs/[topic]/[title]/  # Dynamic blog route (fallback)
 │   └── page.tsx

@@ -4,7 +4,7 @@ Last updated: 2026-02-09
 
 ## Priority: High
 - [ ] Build out free tools pages (`/tools/[tool-slug]`)
-- [ ] Add `robots.txt` and `sitemap.xml` (via Next.js metadata API) — important now that blog pages exist
+- [x] ~~Add `robots.txt` and `sitemap.xml`~~ — done (auto-discovers blog posts from filesystem)
 
 ## Priority: Medium
 - [ ] Add Vitest + React Testing Library for lead capture flow
