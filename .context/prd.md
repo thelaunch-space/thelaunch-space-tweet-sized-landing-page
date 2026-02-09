@@ -45,9 +45,20 @@ Ambitious founders and product leaders who prioritize execution and clarity over
 - Dark theme with blue/purple accents
 - Google Fonts: Sora (body), Syne (headings)
 
+### Site-Wide Navigation (NavBar)
+- Rendered in root layout, visible on ALL pages
+- Left: Logo linked to `/` — Right: "Blog" link, X icon, LinkedIn icon
+- Active link highlighting via `usePathname()`
+
 ### Blog System
 - AI agent creates SEO-optimized blog posts via GitHub PRs
 - Self-contained static pages at `/blogs/<topic>/<slug>`
+- Blog index at `/blogs` auto-discovers and lists all posts grouped by category
 - Dark theme consistent with landing page design
 - Blog CTAs link to `/?cta=open` (directly opens lead capture modal)
 - Human reviews and merges every post before it goes live
+
+### Analytics
+- Google Analytics (GA4) via `next/script` in root layout
+- Auto-tracks page views on all routes (landing page + blog posts)
+- Measurement ID via `NEXT_PUBLIC_GA_MEASUREMENT_ID` env var

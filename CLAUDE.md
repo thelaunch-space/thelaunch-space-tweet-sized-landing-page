@@ -45,7 +45,9 @@ NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
 ## Git
 - `main` — production
 - `staging` — development (current)
+- `blog/*` — AI agent (OpenClaw) creates these branches for blog post PRs
 - Run `lint` and `typecheck` before committing
+- **Branch protection on `main`:** Requires PR + 1 approval. This exists to gate the AI blog agent's PRs (see `docs/BLOG-AGENT-INSTRUCTIONS.md`), NOT to block the owner. Use `gh pr merge --admin` to bypass when merging your own PRs.
 
 ---
 IMPORTANT: After ANY code change, update relevant .context/ docs to keep this system alive and accurate.

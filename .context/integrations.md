@@ -43,6 +43,15 @@ Last updated: 2026-02-09
   - PR revisions push to same branch (no new PRs for fixes)
   - Include YouTube video links with channel citations where relevant
 
+## Google Analytics GA4 (Active)
+- **Purpose:** Page view and engagement tracking across all pages (landing + blog)
+- **Implementation:** `next/script` with `strategy="afterInteractive"` in `app/layout.tsx`
+- **Env var:** `NEXT_PUBLIC_GA_MEASUREMENT_ID` (client-side, in `.env.local`)
+- **Measurement ID:** `G-TQXCZMEZDQ`
+- **Auto-tracks:** Page views on all route changes (including Next.js client-side navigation)
+- **No extra code needed:** GA4 handles blog page tracking automatically since scripts are in root layout
+- **Netlify env:** Must also set `NEXT_PUBLIC_GA_MEASUREMENT_ID` in Netlify dashboard
+
 ## GitHub (Active)
 - **Repo:** `thelaunch-space/thelaunch-space-tweet-sized-landing-page`
 - **Branch protection:** `main` requires PR with 1 approval
