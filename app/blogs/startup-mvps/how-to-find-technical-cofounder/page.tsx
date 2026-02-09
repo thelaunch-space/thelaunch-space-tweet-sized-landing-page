@@ -48,13 +48,7 @@ export default function BlogPost() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="min-h-screen bg-background text-text-primary">
-        <header className="max-w-[720px] mx-auto px-6 md:px-8 pt-8 md:pt-12">
-          <a href="/" className="inline-flex items-center gap-2 text-text-secondary hover:text-accent-blue text-sm font-medium transition-colors">
-            ← thelaunch.space
-          </a>
-        </header>
-
+      <div className="min-h-full bg-background text-text-primary">
         <article className="max-w-[720px] mx-auto px-6 md:px-8 py-12 md:py-16">
           <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">How to Find a Technical Cofounder (Without Getting Ghosted)</h1>
           <div className="flex items-center gap-3 text-sm text-text-secondary mb-10">

@@ -3,17 +3,18 @@
 Last updated: 2026-02-09
 
 ## Overview
-Next.js 14 App Router application. Server-side rendered for SEO/crawlability. Landing page content rendered as a client component for interactivity. Blog posts are static Server Components created by an AI agent via GitHub PRs. Webhook proxy via API route (server-side, no secrets exposed to browser). Hosted on Netlify.
+Next.js 14 App Router application. Server-side rendered for SEO/crawlability. Landing page content rendered as a client component for interactivity. Blog posts are static Server Components created by an AI agent via GitHub PRs. Webhook proxy via API route (server-side, no secrets exposed to browser). Hosted on Netlify. Google Analytics (GA4) tracking via `next/script`.
 
 ## File Structure
 ```
 app/
-├── layout.tsx              # Root layout (next/font, metadata API)
+├── layout.tsx              # Root layout (next/font, metadata API, NavBar, GA4 scripts)
 ├── page.tsx                # Server Component → <Suspense><LandingPage /></Suspense>
 ├── globals.css             # Tailwind directives + custom keyframes
 ├── robots.ts               # robots.txt (allows all, points to sitemap)
-├── sitemap.ts              # sitemap.xml (auto-discovers blog posts from filesystem)
+├── sitemap.ts              # sitemap.xml (uses lib/blog.ts to auto-discover posts)
 ├── api/lead/route.ts       # POST handler (proxies to Make.com webhook)
+├── blogs/page.tsx          # Blog index page (server component, lists all posts by category)
 ├── blogs/[topic]/[title]/  # Dynamic blog route (fallback)
 │   └── page.tsx
 ├── blogs/startup-mvps/     # Blog topic folder
@@ -21,6 +22,7 @@ app/
 │       └── page.tsx        # First published blog post (static Server Component)
 └── tools/[tool-slug]/      # Future tool routes (placeholder)
 components/
+├── NavBar.tsx              # "use client" — site-wide nav bar (logo, blog link, social icons)
 ├── LandingPage.tsx         # "use client" — main landing page (hero + services)
 ├── Modal.tsx               # "use client" — lead capture form
 ├── XIcon.tsx               # Pure SVG component
@@ -28,6 +30,7 @@ components/
     ├── dock.tsx            # "use client" — macOS-style magnification dock
     └── sparkles.tsx        # "use client" — tsparticles background
 lib/
+├── blog.ts                # Blog discovery utility (shared by sitemap.ts + blogs/page.tsx)
 ├── utils.ts               # cn() (clsx+tailwind-merge), scaleValue()
 └── submit-lead.ts          # Client fetch to /api/lead
 docs/
@@ -41,19 +44,26 @@ netlify.toml                # Netlify build config (@netlify/plugin-nextjs)
 ## Component Tree
 ```
 RootLayout (Server)
+├── NavBar ("use client")       — Logo (link to /), Blog link, X + LinkedIn icons
 ├── page.tsx (Server)
 │   └── Suspense
 │       └── LandingPage ("use client")
 │           ├── SparklesCore      — Particle effects background
-│           ├── Header             — Logo, social links (X, LinkedIn)
 │           ├── Hero / WhatWeDo    — State-toggled views (useState)
 │           ├── Dock               — Client logos with magnification
 │           │   └── Tooltip (Portal) — Rendered outside DOM tree
 │           ├── CTA Button         — Opens Modal
 │           └── Modal              — Lead capture form → /api/lead
+├── blogs/page.tsx (Server)       — Blog index (lists posts by category)
 └── blogs/<topic>/<slug>/page.tsx (Server)
     └── Static blog post (no "use client", self-contained)
 ```
+
+## NavBar
+- Rendered in `app/layout.tsx`, visible on ALL pages
+- Left: Logo linked to `/` — Right: "Blog" link, X icon, LinkedIn icon
+- Uses `usePathname()` to highlight active nav link
+- The "What We Do" view in LandingPage has its own fixed header (z-40) that overlays the NavBar
 
 ## Data Flow
 1. User fills Modal form → client-side validation
@@ -74,6 +84,13 @@ RootLayout (Server)
 - Agent creates `blog/*` branches and opens PRs for human review
 - Owner reviews locally (`npm run dev`) or on GitHub, then merges to `main`
 - Netlify auto-deploys on merge
+- `lib/blog.ts` provides `discoverBlogPosts()` and `getBlogCategories()` — shared by sitemap and blog index
+- Blog index at `/blogs` auto-discovers and lists all posts grouped by category
+
+## Google Analytics (GA4)
+- Measurement ID stored in `NEXT_PUBLIC_GA_MEASUREMENT_ID` env var
+- gtag.js loaded via `next/script` with `strategy="afterInteractive"` in layout.tsx
+- Auto-tracks page views on all route changes (no extra code needed)
 
 ## State Management
 - `useState` only — no global state, no context

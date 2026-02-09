@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { ArrowLeft, Linkedin } from 'lucide-react';
-import XIcon from '@/components/XIcon';
+import { ArrowLeft } from 'lucide-react';
 import Modal from '@/components/Modal';
 import { Dock } from "@/components/ui/dock";
 import { SparklesCore } from "@/components/ui/sparkles";
@@ -125,28 +124,11 @@ export default function LandingPage() {
   }
 
   return (
-    <div className="min-h-screen text-text-primary relative">
+    <div className="flex-1 text-text-primary relative flex flex-col">
       <SparklesCore className="absolute inset-0 z-[-1]" />
-      <div className="mx-auto flex min-h-screen w-full max-w-[1200px] flex-col px-6 py-6 md:py-12 md:px-10 lg:px-16">
-        <header className="flex items-center justify-between py-2">
-          <div className="flex items-center gap-4">
-            <a href="https://x.com/nkgoutham" target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-text-primary">
-              <XIcon size={20} />
-            </a>
-            <a href="https://www.linkedin.com/in/krishna-goutham/" target="_blank" rel="noopener noreferrer" className="text-text-secondary hover:text-text-primary">
-              <Linkedin size={20} />
-            </a>
-          </div>
-          <img
-            src="/logo.png"
-            alt="Agency Logo"
-            className="h-20 md:h-24 w-auto absolute left-1/2 -translate-x-1/2"
-          />
-
-        </header>
-
+      <div className="mx-auto flex flex-1 w-full max-w-[1200px] flex-col px-6 py-6 md:py-8 md:px-10 lg:px-16">
         <main className="flex flex-1 flex-col justify-center">
-          <section className="flex flex-1 flex-col justify-center pt-16">
+          <section className="flex flex-1 flex-col justify-center">
             <div className="flex flex-col items-center text-center gap-8 md:gap-10">
               <div className="max-w-[820px]">
                 <h1 className="font-display text-[clamp(2.75rem,7vw,5.25rem)] font-bold leading-[1.05] tracking-tight">

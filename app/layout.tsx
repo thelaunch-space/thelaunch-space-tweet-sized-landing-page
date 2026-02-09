@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Sora, Syne } from "next/font/google";
+import Script from "next/script";
+import NavBar from "@/components/NavBar";
 import "./globals.css";
 
 const sora = Sora({
@@ -15,6 +17,8 @@ const syne = Syne({
   variable: "--font-syne",
   display: "swap",
 });
+
+const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -62,7 +66,21 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${sora.variable} ${syne.variable}`}>
-      <body>{children}</body>
+      <body className="flex flex-col min-h-dvh">
+        {gaId && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+              strategy="afterInteractive"
+            />
+            <Script id="gtag-init" strategy="afterInteractive">
+              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${gaId}');`}
+            </Script>
+          </>
+        )}
+        <NavBar />
+        <div className="flex-1 flex flex-col">{children}</div>
+      </body>
     </html>
   );
 }

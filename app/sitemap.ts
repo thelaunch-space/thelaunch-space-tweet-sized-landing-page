@@ -1,6 +1,5 @@
 import type { MetadataRoute } from "next";
-import { readdirSync, existsSync } from "fs";
-import { join } from "path";
+import { discoverBlogPosts } from "@/lib/blog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://thelaunch.space";
@@ -12,34 +11,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 1,
     },
+    {
+      url: `${baseUrl}/blogs`,
+      lastModified: new Date(),
+      changeFrequency: "daily",
+      priority: 0.8,
+    },
   ];
 
-  // Auto-discover blog posts from app/blogs/<topic>/<slug>/page.tsx
-  const blogsDir = join(process.cwd(), "app", "blogs");
-  const blogPages: MetadataRoute.Sitemap = [];
-
-  if (existsSync(blogsDir)) {
-    const topics = readdirSync(blogsDir, { withFileTypes: true })
-      .filter((d) => d.isDirectory() && !d.name.startsWith("["));
-
-    for (const topic of topics) {
-      const topicDir = join(blogsDir, topic.name);
-      const slugs = readdirSync(topicDir, { withFileTypes: true })
-        .filter((d) => d.isDirectory() && !d.name.startsWith("["));
-
-      for (const slug of slugs) {
-        const pagePath = join(topicDir, slug.name, "page.tsx");
-        if (existsSync(pagePath)) {
-          blogPages.push({
-            url: `${baseUrl}/blogs/${topic.name}/${slug.name}`,
-            lastModified: new Date(),
-            changeFrequency: "monthly",
-            priority: 0.7,
-          });
-        }
-      }
-    }
-  }
+  const blogPages: MetadataRoute.Sitemap = discoverBlogPosts().map(
+    (post) => ({
+      url: `${baseUrl}${post.url}`,
+      lastModified: new Date(post.publishedTime),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })
+  );
 
   return [...staticPages, ...blogPages];
 }

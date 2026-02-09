@@ -26,16 +26,21 @@ Reference `.context/` files when needed:
 
 ## Key Patterns
 - **No scrolling:** All primary content must be above the fold on all devices. This is non-negotiable.
+- **NavBar in layout:** `components/NavBar.tsx` renders in `app/layout.tsx` (visible on ALL pages). Uses `usePathname()` for active link highlighting. The "What We Do" view has its own fixed header at z-40 that overlays it.
+- **Blog index:** `app/blogs/page.tsx` (server component) auto-discovers posts via `lib/blog.ts` and lists them by category. Can scroll (unlike landing page).
+- **Blog discovery:** `lib/blog.ts` exports `discoverBlogPosts()` and `getBlogCategories()` — shared by `app/sitemap.ts` and `app/blogs/page.tsx`.
 - **State-based routing:** Landing page views (hero, "what we do") toggle via `useState` in `components/LandingPage.tsx`. File-based routing for future pages (blogs, tools).
 - **Lead capture → API route → Make.com:** Modal form POSTs to `/api/lead` (server-side route handler), which proxies to Make.com webhook. Webhook URL never reaches the browser.
-- **`"use client"` components:** LandingPage, Modal, Dock, SparklesCore all require client-side interactivity. XIcon is a pure SVG (no directive needed).
+- **`"use client"` components:** LandingPage, Modal, NavBar, Dock, SparklesCore all require client-side interactivity. XIcon is a pure SVG (no directive needed).
 
 ## Environment
 Requires `.env.local` with:
 ```
 WEBHOOK_URL=https://hook.us2.make.com/...
+NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
 ```
-Server-only (no `NEXT_PUBLIC_` prefix). Never commit real webhook URLs.
+`WEBHOOK_URL` is server-only (no `NEXT_PUBLIC_` prefix). Never commit real webhook URLs.
+`NEXT_PUBLIC_GA_MEASUREMENT_ID` is client-side (GA4 gtag loaded via `next/script` in layout).
 
 ## Git
 - `main` — production
