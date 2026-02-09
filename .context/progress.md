@@ -1,6 +1,6 @@
-# Progress — thelaunch.space Landing Page
+# Progress — thelaunch.space Landing Page + Blog
 
-Last updated: 2026-02-07
+Last updated: 2026-02-09
 
 ## Completed
 - [x] Project scaffolding (Vite + React 18 + TS + Tailwind)
@@ -24,6 +24,13 @@ Last updated: 2026-02-07
 - [x] **Fonts self-hosted via next/font (no CDN dependency)**
 - [x] **Supabase fully removed (package + file)**
 - [x] **Route stubs for /blogs/[topic]/[title] and /tools/[tool-slug]**
+- [x] **Netlify deployment configured (@netlify/plugin-nextjs)**
+- [x] **Blog publishing system — AI agent (OpenClaw) creates posts via GitHub PRs**
+- [x] **Blog agent docs: BLOG-AGENT-INSTRUCTIONS.md, BLOG-STYLE-REFERENCE.md, BLOG-OWNER-GUIDE.md**
+- [x] **First blog post published: "How to Find a Technical Cofounder (Without Getting Ghosted)"**
+- [x] **`/?cta=open` query param — auto-opens lead capture modal (for blog CTAs)**
+- [x] **LandingPage wrapped in Suspense (required by Next.js 14 for useSearchParams)**
+- [x] **GitHub branch protection on `main` (requires PR + approval)**
 
 ## In Progress
 - Nothing currently in progress
@@ -32,9 +39,9 @@ Last updated: 2026-02-07
 - Nothing currently blocked
 
 ## Recent Changes (latest first)
-1. Migrated to Next.js 14 App Router (SSR, API routes, next/font)
-2. Removed Supabase files, updated docs (cbeeb68)
-3. Replaced Supabase with Make.com webhook (888f255)
-4. Subtle styling refinements (77d72ea)
-5. Background particle tuning (23672b8)
-6. Copy tweaks (dcb6d86)
+1. Published first blog post via AI agent PR workflow (2026-02-09)
+2. Added `/?cta=open` query param to auto-open modal from blog CTAs (2026-02-09)
+3. Wrapped LandingPage in Suspense for useSearchParams (2026-02-09)
+4. Netlify config added for Next.js deployment (2026-02-08)
+5. Migrated to Next.js 14 App Router (SSR, API routes, next/font)
+6. Removed Supabase files, updated docs
