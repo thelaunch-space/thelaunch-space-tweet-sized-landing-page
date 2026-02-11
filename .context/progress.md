@@ -1,6 +1,6 @@
 # Progress — thelaunch.space Landing Page + Blog
 
-Last updated: 2026-02-09
+Last updated: 2026-02-11
 
 ## Completed
 - [x] Project scaffolding (Vite + React 18 + TS + Tailwind)
@@ -36,6 +36,8 @@ Last updated: 2026-02-09
 - [x] **Blog index page (`/blogs`) — auto-discovers and lists posts by category**
 - [x] **Google Analytics (GA4) — gtag.js via next/script, auto page view tracking**
 - [x] **`lib/blog.ts` — shared blog discovery utility (used by sitemap + blog index)**
+- [x] **Blog category index pages (`/blogs/[topic]/`) — dynamic route filtering posts by topic**
+- [x] **New blog post: "Why Your Agency Wasted $30K on Your MVP"**
 
 ## In Progress
 - Nothing currently in progress
@@ -44,7 +46,9 @@ Last updated: 2026-02-09
 - Nothing currently blocked
 
 ## Recent Changes (latest first)
-1. Added NavBar, blog index page, GA4 tracking, shared blog discovery utility (2026-02-09)
+1. Added blog category index pages at `/blogs/[topic]/` with SEO metadata (2026-02-11)
+2. Published blog: "Why Your Agency Wasted $30K on Your MVP" (2026-02-11)
+3. Added NavBar, blog index page, GA4 tracking, shared blog discovery utility (2026-02-09)
 2. Added robots.txt and sitemap.xml with auto-discovery (2026-02-09)
 3. Published first blog post via AI agent PR workflow (2026-02-09)
 4. Added `/?cta=open` query param to auto-open modal from blog CTAs (2026-02-09)

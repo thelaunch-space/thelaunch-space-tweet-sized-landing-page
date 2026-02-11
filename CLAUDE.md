@@ -28,7 +28,8 @@ Reference `.context/` files when needed:
 - **No scrolling:** All primary content must be above the fold on all devices. This is non-negotiable.
 - **NavBar in layout:** `components/NavBar.tsx` renders in `app/layout.tsx` (visible on ALL pages). Uses `usePathname()` for active link highlighting. The "What We Do" view has its own fixed header at z-40 that overlays it.
 - **Blog index:** `app/blogs/page.tsx` (server component) auto-discovers posts via `lib/blog.ts` and lists them by category. Can scroll (unlike landing page).
-- **Blog discovery:** `lib/blog.ts` exports `discoverBlogPosts()` and `getBlogCategories()` — shared by `app/sitemap.ts` and `app/blogs/page.tsx`.
+- **Blog category pages:** `app/blogs/[topic]/page.tsx` (server component) filters posts by topic slug, returns 404 for unknown topics. Same card design as blog index.
+- **Blog discovery:** `lib/blog.ts` exports `discoverBlogPosts()`, `getBlogCategories()`, and `CATEGORY_LABELS` — shared by `app/sitemap.ts`, `app/blogs/page.tsx`, and `app/blogs/[topic]/page.tsx`.
 - **State-based routing:** Landing page views (hero, "what we do") toggle via `useState` in `components/LandingPage.tsx`. File-based routing for future pages (blogs, tools).
 - **Lead capture → API route → Make.com:** Modal form POSTs to `/api/lead` (server-side route handler), which proxies to Make.com webhook. Webhook URL never reaches the browser.
 - **`"use client"` components:** LandingPage, Modal, NavBar, Dock, SparklesCore all require client-side interactivity. XIcon is a pure SVG (no directive needed).

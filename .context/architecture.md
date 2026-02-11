@@ -1,6 +1,6 @@
 # Architecture — thelaunch.space Landing Page + Blog
 
-Last updated: 2026-02-09
+Last updated: 2026-02-11
 
 ## Overview
 Next.js 14 App Router application. Server-side rendered for SEO/crawlability. Landing page content rendered as a client component for interactivity. Blog posts are static Server Components created by an AI agent via GitHub PRs. Webhook proxy via API route (server-side, no secrets exposed to browser). Hosted on Netlify. Google Analytics (GA4) tracking via `next/script`.
@@ -15,6 +15,7 @@ app/
 ├── sitemap.ts              # sitemap.xml (uses lib/blog.ts to auto-discover posts)
 ├── api/lead/route.ts       # POST handler (proxies to Make.com webhook)
 ├── blogs/page.tsx          # Blog index page (server component, lists all posts by category)
+├── blogs/[topic]/page.tsx  # Category index page (server component, filtered by topic)
 ├── blogs/[topic]/[title]/  # Dynamic blog route (fallback)
 │   └── page.tsx
 ├── blogs/startup-mvps/     # Blog topic folder
@@ -55,6 +56,7 @@ RootLayout (Server)
 │           ├── CTA Button         — Opens Modal
 │           └── Modal              — Lead capture form → /api/lead
 ├── blogs/page.tsx (Server)       — Blog index (lists posts by category)
+├── blogs/<topic>/page.tsx (Server) — Category index (filtered by topic, 404 if empty)
 └── blogs/<topic>/<slug>/page.tsx (Server)
     └── Static blog post (no "use client", self-contained)
 ```
@@ -84,8 +86,9 @@ RootLayout (Server)
 - Agent creates `blog/*` branches and opens PRs for human review
 - Owner reviews locally (`npm run dev`) or on GitHub, then merges to `main`
 - Netlify auto-deploys on merge
-- `lib/blog.ts` provides `discoverBlogPosts()` and `getBlogCategories()` — shared by sitemap and blog index
+- `lib/blog.ts` provides `discoverBlogPosts()`, `getBlogCategories()`, and `CATEGORY_LABELS` — shared by sitemap, blog index, and category pages
 - Blog index at `/blogs` auto-discovers and lists all posts grouped by category
+- Category index at `/blogs/[topic]/` filters posts by topic slug, returns 404 for empty/unknown topics
 
 ## Google Analytics (GA4)
 - Measurement ID stored in `NEXT_PUBLIC_GA_MEASUREMENT_ID` env var
