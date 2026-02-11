@@ -1,6 +1,6 @@
 # Product Requirements — thelaunch.space Landing Page + Blog
 
-Last updated: 2026-02-09
+Last updated: 2026-02-11
 
 ## Core Concept
 "Tweet-sized" landing page — deliver the full value prop instantly, no scrolling. Reflects agency ethos: cut bureaucracy, deliver fast. Also hosts SEO-optimized blog posts for programmatic content marketing.
@@ -57,6 +57,7 @@ Ambitious founders and product leaders who prioritize execution and clarity over
 - Dark theme consistent with landing page design
 - Blog CTAs link to `/?cta=open` (directly opens lead capture modal)
 - Human reviews and merges every post before it goes live
+- Category index pages at `/blogs/<topic>/` show filtered post listings per topic
 
 ### Analytics
 - Google Analytics (GA4) via `next/script` in root layout

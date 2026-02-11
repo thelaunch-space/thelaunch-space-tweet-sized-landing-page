@@ -1,6 +1,6 @@
 # Todo — thelaunch.space Landing Page + Blog
 
-Last updated: 2026-02-09
+Last updated: 2026-02-11
 
 ## Priority: High
 - [ ] Build out free tools pages (`/tools/[tool-slug]`)
@@ -23,3 +23,4 @@ Last updated: 2026-02-09
 - [x] Add analytics tracking — GA4 via next/script (`NEXT_PUBLIC_GA_MEASUREMENT_ID`)
 - [x] Add site-wide navigation (NavBar) with blog link
 - [x] Blog index page (`/blogs`) listing all posts by category
+- [x] Blog category index pages (`/blogs/[topic]/`) — dynamic route with filtered listings
