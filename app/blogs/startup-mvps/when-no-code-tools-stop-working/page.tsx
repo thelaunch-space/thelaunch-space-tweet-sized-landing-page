@@ -68,7 +68,7 @@ export default function BlogPost() {
           </p>
 
           <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
-            We have helped founders navigate this exact transition at <a href="/" className="text-accent-blue hover:underline">thelaunch.space</a>. The pattern is consistent: a domain expert builds a working product on Bubble or Webflow, gets paying customers, then hits a wall they cannot code their way around. The natural instinct is panic. The smart move is precision.
+            At <a href="/" className="text-accent-blue hover:underline">thelaunch.space</a>, we help founders navigate exactly this decision. The pattern is consistent: a domain expert builds a working product on Bubble or Webflow, gets paying customers, then hits a wall they cannot code their way around. The natural instinct is panic. The smart move is precision.
           </p>
 
           <hr className="border-border-color my-12" />
@@ -205,28 +205,28 @@ export default function BlogPost() {
           </div>
 
           <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
-            At thelaunch.space, this is exactly what we do. We have shipped 65+ projects using AI-assisted development - not because we cannot code traditionally, but because the tools genuinely produce better results faster. A founder who has <a href="/blogs/startup-mvps/build-mvp-without-coding-ai-tools" className="text-accent-blue hover:underline">built their MVP without coding using AI tools</a> can now also transition off no-code without the traditional $50K price tag.
+            At thelaunch.space, we have shipped 65+ projects using AI-assisted development - not because we cannot code traditionally, but because the tools genuinely produce better results faster. A founder who has <a href="/blogs/startup-mvps/build-mvp-without-coding-ai-tools" className="text-accent-blue hover:underline">built their MVP without coding using AI tools</a> can now also transition off no-code without the traditional $50K price tag.
           </p>
 
           <hr className="border-border-color my-12" />
 
-          <h2 className="text-2xl md:text-3xl font-bold mt-16 mb-4">What a Real Transition Looks Like</h2>
+          <h2 className="text-2xl md:text-3xl font-bold mt-16 mb-4">What a Typical Transition Looks Like</h2>
 
           <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
-            We recently worked with a client whose Bubble app was loading in five to seven seconds - unacceptable for their B2B customers. Their core problem was a data-heavy dashboard that Bubble simply could not render quickly.
+            The pattern we see repeatedly across the industry follows a consistent structure. A founder has a Bubble app loading in five to seven seconds - unacceptable for B2B customers with expectations set by fast SaaS tools.
           </p>
 
           <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
-            Instead of rebuilding everything, we kept their admin panel and internal tools on Bubble (they worked fine for their team of 15). We rebuilt only the customer-facing dashboard in Next.js with a proper database layer.
+            The smart approach is not rebuilding everything. Admin panels and internal tools that work fine for a small team can stay on no-code. The customer-facing dashboard that is causing complaints gets rebuilt in Next.js with a proper database layer.
           </p>
 
           <div className="bg-border-color/30 border border-border-color rounded-xl p-8 my-10 text-center">
             <p className="text-3xl md:text-4xl font-bold text-text-primary mb-2">5-7s → &lt;1s</p>
-            <p className="text-sm md:text-base text-text-secondary">Load time improvement after targeted migration - no full rebuild required</p>
+            <p className="text-sm md:text-base text-text-secondary">Typical load time improvement after targeted migration - no full rebuild required</p>
           </div>
 
           <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
-            Total cost: under $4,000. Timeline: three weeks. Their customers stopped complaining, their churn dropped, and they did not have to raise money to pay for it.
+            With AI-assisted development, targeted rebuilds like this typically cost $1,500 to $4,000 and take three to four weeks - a fraction of traditional agency quotes. The key is precision: fix what is broken, keep what works.
           </p>
 
           <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
