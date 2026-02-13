@@ -44,63 +44,160 @@ export default function BlogIndex() {
   const totalPosts = categories.reduce((n, c) => n + c.posts.length, 0);
 
   return (
-    <div className="min-h-full bg-background text-text-primary">
-      <div className="max-w-[720px] mx-auto px-6 md:px-8 py-12 md:py-16">
-        <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-3">
-          Blog
-        </h1>
-        <p className="text-text-secondary text-base md:text-lg mb-12">
-          Actionable guides for founders who build.{" "}
-          <span className="text-text-secondary/60">
-            {totalPosts} {totalPosts === 1 ? "post" : "posts"}
-          </span>
-        </p>
+    <div className="flex flex-col h-[calc(100dvh-80px)] bg-background text-text-primary">
+      {/* ── Fixed header ── */}
+      <header className="shrink-0 bg-background border-b border-border-color/60">
+        <div className="max-w-6xl mx-auto px-5 md:px-10 py-4 md:py-5">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 sm:gap-6">
+            <div>
+              <h1 className="text-3xl md:text-4xl font-bold leading-none tracking-tight">
+                Blog
+              </h1>
+              <p className="text-text-secondary text-sm md:text-base mt-1.5">
+                Actionable guides for founders who build.{" "}
+                <span className="text-text-secondary/40">
+                  {totalPosts} {totalPosts === 1 ? "post" : "posts"}
+                </span>
+              </p>
+            </div>
 
-        {categories.map((category) => (
-          <section key={category.topic} className="mb-12">
-            <h2 className="text-lg font-semibold text-text-secondary uppercase tracking-widest mb-6">
-              {category.label}
-            </h2>
-            <div className="space-y-6">
-              {category.posts.map((post) => (
+            {/* Category pills */}
+            <nav className="flex flex-wrap gap-1.5 sm:gap-2 shrink-0">
+              {categories.map((category) => (
                 <a
-                  key={post.url}
-                  href={post.url}
-                  className="block group border border-border-color rounded-xl p-6 hover:border-accent-blue/50 transition-colors"
+                  key={category.topic}
+                  href={`/blogs/${category.topic}`}
+                  className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium border border-border-color text-text-secondary hover:border-accent-blue/50 hover:text-text-primary transition-colors"
                 >
-                  <h3 className="text-xl md:text-2xl font-bold mb-2 group-hover:text-accent-blue transition-colors">
-                    {post.title}
-                  </h3>
-                  {post.description && (
-                    <p className="text-text-secondary text-sm md:text-base leading-relaxed mb-3">
-                      {post.description}
-                    </p>
-                  )}
-                  <time
-                    dateTime={post.publishedTime}
-                    className="text-xs text-text-secondary/60"
-                  >
-                    {formatDate(post.publishedTime)}
-                  </time>
+                  {category.label}
+                  <span className="text-text-secondary/40 text-[10px]">
+                    {category.posts.length}
+                  </span>
                 </a>
               ))}
+            </nav>
+          </div>
+        </div>
+      </header>
+
+      {/* ── Scrollable category rows ── */}
+      <main className="flex-1 overflow-y-auto scrollbar-hide py-6 md:py-8 space-y-8 md:space-y-10">
+        {categories.map((category) => (
+          <section key={category.topic}>
+            {/* Section header */}
+            <div className="max-w-6xl mx-auto px-5 md:px-10 flex items-center justify-between mb-3 md:mb-4">
+              <div className="flex items-baseline gap-2">
+                <h2 className="text-lg md:text-xl font-bold tracking-tight">
+                  {category.label}
+                </h2>
+                <span className="text-[11px] text-text-secondary/40 font-medium">
+                  {category.posts.length}{" "}
+                  {category.posts.length === 1 ? "post" : "posts"}
+                </span>
+              </div>
+              <a
+                href={`/blogs/${category.topic}`}
+                className="text-xs md:text-sm font-semibold text-accent-blue hover:text-accent-purple transition-colors flex items-center gap-1 shrink-0"
+              >
+                View All
+                <svg
+                  className="w-3.5 h-3.5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M13 7l5 5m0 0l-5 5m5-5H6"
+                  />
+                </svg>
+              </a>
+            </div>
+
+            {/* Horizontal scroll row */}
+            <div className="max-w-6xl mx-auto px-5 md:px-10 overflow-x-auto scrollbar-hide">
+              <div className="flex gap-3 md:gap-4 pb-1">
+                {category.posts.map((post) => (
+                  <a
+                    key={post.url}
+                    href={post.url}
+                    className="group relative flex-none w-[260px] md:w-[300px] rounded-xl border border-border-color bg-[#14141f] p-4 md:p-5 hover:border-accent-blue/40 transition-all duration-300 hover:-translate-y-0.5"
+                  >
+                    {/* Gradient accent line at top */}
+                    <div className="absolute top-0 left-4 right-4 h-px bg-gradient-to-r from-accent-blue/0 via-accent-blue/20 to-accent-purple/0 group-hover:via-accent-blue/60 group-hover:to-accent-purple/40 transition-all duration-300" />
+
+                    {/* Topic badge */}
+                    <span className="inline-block text-[10px] font-bold uppercase tracking-[0.12em] text-accent-blue/70 bg-accent-blue/10 px-2 py-0.5 rounded mb-3">
+                      {category.label}
+                    </span>
+
+                    {/* Title */}
+                    <h3 className="text-sm md:text-[15px] font-bold leading-snug mb-2 group-hover:text-accent-blue transition-colors line-clamp-2 min-h-[2.5rem]">
+                      {post.title}
+                    </h3>
+
+                    {/* Description — 2 lines max */}
+                    {post.description && (
+                      <p className="text-text-secondary text-xs md:text-[13px] leading-relaxed mb-3 line-clamp-2 min-h-[2rem]">
+                        {post.description}
+                      </p>
+                    )}
+
+                    {/* Date + read indicator */}
+                    <div className="flex items-center justify-between pt-3 border-t border-border-color/40">
+                      <time
+                        dateTime={post.publishedTime}
+                        className="text-[11px] text-text-secondary/40 font-medium"
+                      >
+                        {formatDate(post.publishedTime)}
+                      </time>
+                      <span className="text-[11px] font-semibold text-text-secondary/30 group-hover:text-accent-blue transition-colors flex items-center gap-0.5">
+                        Read
+                        <svg
+                          className="w-3 h-3 transform group-hover:translate-x-0.5 transition-transform"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth={2.5}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M9 5l7 7-7 7"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </a>
+                ))}
+              </div>
             </div>
           </section>
         ))}
 
         {totalPosts === 0 && (
-          <p className="text-text-secondary">No posts yet. Check back soon.</p>
+          <div className="max-w-6xl mx-auto px-5 md:px-10 text-center py-16">
+            <p className="text-text-secondary">
+              No posts yet. Check back soon.
+            </p>
+          </div>
         )}
-      </div>
+      </main>
 
-      <footer className="max-w-[720px] mx-auto px-6 md:px-8 pb-16">
-        <div className="border-t border-border-color pt-10">
-          <p className="text-text-secondary mb-4">
+      {/* ── Fixed footer CTA ── */}
+      <footer className="shrink-0 bg-background/90 backdrop-blur-md border-t border-border-color">
+        <div className="max-w-6xl mx-auto px-5 md:px-10 py-3 md:py-3.5 flex items-center justify-between gap-4">
+          <p className="text-text-secondary text-xs md:text-sm hidden sm:block">
             Ready to build? We ship MVPs in 21 days.
+          </p>
+          <p className="text-text-secondary text-xs sm:hidden">
+            Ready to build?
           </p>
           <a
             href="/?cta=open"
-            className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-accent-blue to-accent-purple px-10 text-base font-semibold text-white shadow-[0_20px_35px_rgba(37,99,235,0.35)] transition-transform hover:-translate-y-0.5"
+            className="inline-flex h-9 md:h-10 items-center justify-center rounded-full bg-gradient-to-r from-accent-blue to-accent-purple px-6 md:px-8 text-xs md:text-sm font-semibold text-white shadow-[0_12px_24px_rgba(37,99,235,0.3)] transition-transform hover:-translate-y-0.5 shrink-0"
           >
             Get Your Launch Roadmap
           </a>
