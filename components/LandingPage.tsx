@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import Modal from '@/components/Modal';
-import { Dock } from "@/components/ui/dock";
 import { SparklesCore } from "@/components/ui/sparkles";
 
 export default function LandingPage() {
@@ -16,49 +15,16 @@ export default function LandingPage() {
     if (searchParams.get('cta') === 'open') setIsModalOpen(true);
   }, [searchParams]);
 
-  const dockItems = [
-    {
-      src: "/bolt.png",
-      name: "Bolt",
-      href: "#",
-      outcome: "Curriculum Design",
-    },
-    {
-      src: "/beacon-house.png",
-      name: "Beacon House",
-      href: "#",
-      outcome: "Retainer",
-    },
-    {
-      src: "/directshelf.png",
-      name: "DirectShelf",
-      href: "#",
-      outcome: "Landing Page",
-    },
-    {
-      src: "/dreamvid.png",
-      name: "DreamVid",
-      href: "#",
-      outcome: "Retainer",
-    },
-    {
-      src: "/fractalhive.png",
-      name: "Fractal Hive",
-      href: "#",
-      outcome: "School SaaS Product",
-    },
-    {
-      src: "/tripture.png",
-      name: "Tripture",
-      href: "#",
-      outcome: "Retainer, Growth Strategy",
-    },
-    {
-      src: "/poai.png",
-      name: "Po AI",
-      href: "#",
-      outcome: "Landing Page, Strategy",
-    },
+  const clients = [
+    { src: "/bolt.png", name: "Bolt" },
+    { src: "/beacon-house.png", name: "Beacon House" },
+    { src: "/directshelf.png", name: "DirectShelf" },
+    { src: "/dreamvid.png", name: "DreamVid" },
+    { src: "/fractalhive.png", name: "Fractal Hive" },
+    { src: "/tripture.png", name: "Tripture" },
+    { src: "/poai.png", name: "Po AI" },
+    { src: "/vitalyf.png", name: "Vitalyf" },
+    { name: "Classroots", textLogo: ["Classroots", "Learning"] },
   ];
 
   if (showWhatWeDo) {
@@ -203,10 +169,11 @@ export default function LandingPage() {
 
               {/* Subheadline — the positioning statement */}
               <div className="flex w-full flex-col items-center hero-entrance-3">
-                <h2 className="max-w-[600px] text-[clamp(1.25rem,2.5vw,1.625rem)] font-normal leading-relaxed text-text-secondary font-sans">
+                <h2 className="text-[clamp(1.35rem,2.8vw,1.875rem)] font-normal leading-snug text-text-secondary font-sans text-center">
                   We think like your{' '}
                   <span className="text-text-primary font-medium keyword-underline">cofounder</span>
-                  , and build like your{' '}
+                  <br />
+                  and build like your{' '}
                   <span className="text-text-primary font-medium keyword-underline">CTO</span>
                 </h2>
               </div>
@@ -228,7 +195,7 @@ export default function LandingPage() {
               <div className="flex flex-col items-center gap-4 mt-2 hero-entrance-5">
                 <button
                   onClick={() => setIsModalOpen(true)}
-                  className="group inline-flex items-center justify-center rounded-2xl bg-gradient-to-b from-accent-blue to-[#002d7a] px-12 py-5 text-lg font-semibold text-white shadow-cta transition-all hover:-translate-y-1 hover:shadow-cta-hover active:translate-y-0 active:scale-[0.98]"
+                  className="group inline-flex items-center justify-center whitespace-nowrap rounded-2xl bg-gradient-to-b from-accent-blue to-[#002d7a] px-8 py-3.5 md:px-12 md:py-5 text-base md:text-lg font-semibold text-white shadow-cta transition-all hover:-translate-y-1 hover:shadow-cta-hover active:translate-y-0 active:scale-[0.98]"
                 >
                   <span>Get Your Launch Roadmap</span>
                   <span className="inline-block ml-2.5 transition-transform group-hover:translate-x-1">&rarr;</span>
@@ -240,11 +207,35 @@ export default function LandingPage() {
             </div>
           </section>
 
-          {/* Trusted by — anchored at bottom with breathing room above */}
-          <section className="shrink-0 pt-8 md:pt-10 flex w-full flex-col items-center gap-4 hero-entrance-5">
+          {/* Trusted by — inline grayscale logos, horizontal scroll on mobile */}
+          <section className="shrink-0 pt-6 md:pt-8 flex w-full flex-col items-center gap-3 hero-entrance-5">
             <p className="meta-label text-text-secondary">Trusted by founders at</p>
-            <div className="max-w-full overflow-x-auto">
-              <Dock items={dockItems} />
+            <div className="w-full overflow-x-auto md:overflow-x-visible scrollbar-hide">
+              <div className="flex gap-2.5 md:gap-3 px-1 pb-8 w-max mx-auto">
+                {clients.map((client) => (
+                  <div
+                    key={client.name}
+                    className="group relative w-[56px] h-[56px] md:w-[68px] md:h-[68px] shrink-0 rounded-xl bg-white border border-border-color/40 shadow-card flex items-center justify-center p-2 md:p-2.5 transition-all duration-300 hover:shadow-card-hover hover:border-border-color/70 hover:-translate-y-0.5"
+                  >
+                    {client.src ? (
+                      <img
+                        src={client.src}
+                        alt={client.name}
+                        className="w-full h-full object-contain rounded-lg grayscale opacity-60 transition-all duration-300 group-hover:grayscale-0 group-hover:opacity-100"
+                      />
+                    ) : client.textLogo ? (
+                      <div className="flex flex-col items-center justify-center leading-none opacity-60 group-hover:opacity-100 transition-opacity duration-300">
+                        {client.textLogo.map((line) => (
+                          <span key={line} className="text-[9px] md:text-[11px] font-bold text-text-primary tracking-tight">{line}</span>
+                        ))}
+                      </div>
+                    ) : null}
+                    <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-surface border border-border-color/60 px-2 py-0.5 text-[11px] font-medium text-text-primary shadow-card opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                      {client.name}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
           </section>
         </main>
