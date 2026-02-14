@@ -49,13 +49,13 @@ export default function BlogPost() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="min-h-screen bg-background text-text-primary">
-        <header className="max-w-[720px] mx-auto px-6 md:px-8 pt-8 md:pt-12">
+        <header className="max-w-6xl mx-auto px-6 md:px-8 pt-8 md:pt-12">
           <a href="/" className="inline-flex items-center gap-2 text-text-secondary hover:text-accent-blue text-sm font-medium transition-colors">
             ← thelaunch.space
           </a>
         </header>
 
-        <article className="max-w-[720px] mx-auto px-6 md:px-8 py-12 md:py-16">
+        <article className="max-w-6xl mx-auto px-6 md:px-8 py-12 md:py-16">
           <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">Why Your Agency Wasted $30K on Your MVP (And What to Do Instead)</h1>
           <div className="flex items-center gap-3 text-sm text-text-secondary mb-10">
             <span>thelaunch.space</span><span>·</span>
@@ -67,7 +67,7 @@ export default function BlogPost() {
             The agency delivered exactly what you asked for. Working code. Clean designs. On time, on budget. And yet, three months post-launch, you have zero paying customers and an empty bank account. The agency wasn't incompetent. The model was structurally misaligned for what you actually needed. Here's what went wrong and what to do instead.
           </p>
 
-          <div className="bg-border-color/30 border border-border-color rounded-xl p-6 my-8">
+          <div className="bg-surface-alt border border-border-color/40 shadow-sm rounded-2xl p-6 my-8">
             <p className="text-text-primary font-medium">This post is for founders who've already spent $30-80K with an agency and are wondering what went wrong. If you're considering hiring an agency for your MVP, read this first.</p>
           </div>
 
@@ -83,7 +83,7 @@ export default function BlogPost() {
             No signups. No sales. No feedback worth acting on. The founder had burned through their runway building something nobody wanted. And here's the painful part: the agency technically succeeded. They built what was asked for, on time, within budget.
           </p>
 
-          <div className="bg-border-color/30 border border-border-color rounded-xl p-8 my-10 text-center">
+          <div className="bg-surface-alt border border-border-color/40 shadow-sm rounded-2xl p-8 my-10 text-center">
             <p className="text-3xl md:text-4xl font-bold text-text-primary mb-2">42%</p>
             <p className="text-sm md:text-base text-text-secondary">of startups fail because there's no market need - the #1 reason according to <a href="https://www.cbinsights.com/research/report/startup-failure-reasons-top/" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">CB Insights</a></p>
           </div>
@@ -109,15 +109,15 @@ export default function BlogPost() {
           </p>
 
           <div className="space-y-4 my-8">
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">1. They Bill Hours, Not Outcomes</p>
               <p className="text-text-secondary text-base leading-relaxed">Agencies make money by delivering what you ask for, not by validating whether you should ask for it. More features, more hours, more revenue. Their incentive is to build what's in the spec, not to challenge whether the spec makes sense. US agencies charge $100-250/hour. At 200-400 hours for a basic MVP, you're looking at $20-100K before you've learned whether anyone wants what you're building.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">2. They Execute Specifications, Not Strategy</p>
               <p className="text-text-secondary text-base leading-relaxed">When you hand an agency a detailed spec, they optimize for delivery. Their project manager tracks whether features are complete, not whether those features solve a real problem. <a href="https://steveblank.com/category/customer-development/" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Steve Blank's customer development methodology</a> emphasizes that startups exist to search for a business model. Agencies exist to execute on a known business model. That's a fundamental mismatch.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">3. They Deliver Code, Then Walk Away</p>
               <p className="text-text-secondary text-base leading-relaxed">The agency engagement ends at launch. But for an MVP, launch is when the real work begins. You need to watch how users actually behave, identify what's broken, rebuild based on feedback. Agencies don't iterate with you. They're already on to the next client. You're left with a codebase you may not understand and no one to help you adapt it.</p>
             </div>
@@ -177,7 +177,7 @@ export default function BlogPost() {
             Traditional startup advice says: validate before you build. Talk to customers. Run surveys. Create landing pages. But here's what that advice often misses, especially for domain experts with years of experience in their field:
           </p>
 
-          <div className="bg-border-color/30 border border-border-color rounded-xl p-6 my-8">
+          <div className="bg-surface-alt border border-border-color/40 shadow-sm rounded-2xl p-6 my-8">
             <p className="text-text-primary font-medium">When building is cheap and fast enough, building IS validation. The fastest way to test your assumptions is often to ship something real and watch what happens.</p>
           </div>
 
@@ -206,15 +206,15 @@ export default function BlogPost() {
           </p>
 
           <div className="space-y-4 my-8">
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">Execution Studios</p>
               <p className="text-text-secondary text-base leading-relaxed">Small teams that work with you, not for you. They challenge your assumptions, push back on bloated specs, and optimize for learning speed, not billable hours. They often use time-boxed sprints (2-3 weeks) with defined learning goals, not open-ended development.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">Fractional CTOs</p>
               <p className="text-text-secondary text-base leading-relaxed">Technical leaders who provide strategic guidance without the cost of a full-time hire. They help you make architectural decisions, evaluate what to build vs. buy, and manage technical vendors. Particularly valuable for non-technical founders who need someone to translate business goals into technical reality.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">AI-Assisted Solo Building</p>
               <p className="text-text-secondary text-base leading-relaxed">Tools like <a href="/blogs/startup-mvps/build-mvp-without-coding-ai-tools" className="text-accent-blue hover:underline">Claude Code, Cursor, and Bolt.new</a> have made it possible for non-developers to build production software. The 65+ projects we've shipped at thelaunch.space were built by someone who's never written a line of production code. Prompting is the new programming.</p>
             </div>
@@ -224,7 +224,7 @@ export default function BlogPost() {
             The common thread: staying close to the problem. When you're building with (or as) the founder, pivots are cheap. When an agency is building for you, pivots are expensive.
           </p>
 
-          <div className="bg-border-color/30 border border-border-color rounded-xl p-8 my-10 text-center">
+          <div className="bg-surface-alt border border-border-color/40 shadow-sm rounded-2xl p-8 my-10 text-center">
             <p className="text-3xl md:text-4xl font-bold text-text-primary mb-2">21 days vs. 6 months</p>
             <p className="text-sm md:text-base text-text-secondary">Time to first real user feedback: execution studio vs. traditional agency</p>
           </div>
@@ -302,10 +302,10 @@ export default function BlogPost() {
 
         </article>
 
-        <footer className="max-w-[720px] mx-auto px-6 md:px-8 pb-16">
+        <footer className="max-w-6xl mx-auto px-6 md:px-8 pb-16">
           <div className="border-t border-border-color pt-10">
             <p className="text-text-secondary mb-4">Burned by an agency? We ship MVPs in 21 days, built for learning, not just launching.</p>
-            <a href="/?cta=open" className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-accent-blue to-accent-purple px-10 text-base font-semibold text-white shadow-[0_20px_35px_rgba(37,99,235,0.35)] transition-transform hover:-translate-y-0.5">
+            <a href="/?cta=open" className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-accent-blue to-accent-purple px-10 text-base font-semibold text-white shadow-cta hover:shadow-cta-hover transition-all hover:-translate-y-0.5">
               Get Your Launch Roadmap
             </a>
           </div>

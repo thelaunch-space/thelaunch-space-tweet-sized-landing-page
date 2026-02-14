@@ -38,7 +38,7 @@ app/
 │   └── vyasa/
 └── tools/[tool-slug]/      # Future tool routes (placeholder)
 components/
-├── NavBar.tsx              # "use client" — site-wide nav bar (logo, blog, AI employees, social icons)
+├── NavBar.tsx              # "use client" — site-wide nav bar (logo, blog, AI employees, social icons, scroll-aware CTA on blog pages)
 ├── LandingPage.tsx         # "use client" — main landing page (hero + services)
 ├── AgentCard.tsx           # "use client" — agent showcase card (highlight/standard/compact sizes)
 ├── AgentDetailPage.tsx     # "use client" — full agent detail view (KRAs, rhythm, proof points)
@@ -66,7 +66,7 @@ netlify.toml                # Netlify build config (@netlify/plugin-nextjs)
 ## Component Tree
 ```
 RootLayout (Server)
-├── NavBar ("use client")       — Logo (link to /), Blog link, X + LinkedIn icons
+├── NavBar ("use client")       — Logo (link to /), Blog link, AI Team link, X + LinkedIn icons, scroll CTA on blog pages
 ├── page.tsx (Server)
 │   └── Suspense
 │       └── LandingPage ("use client")
@@ -89,8 +89,9 @@ RootLayout (Server)
 
 ## NavBar
 - Rendered in `app/layout.tsx`, visible on ALL pages
-- Left: Logo linked to `/` — Right: "Blog" link, X icon, LinkedIn icon
+- Left: Logo linked to `/` — Right: "Blog" link, "AI Team" link, X icon, LinkedIn icon
 - Uses `usePathname()` to highlight active nav link
+- Scroll-aware CTA on blog pages: when on `/blogs/*` and scrolled >100px, a "Get Your Launch Roadmap" button appears in the navbar (replaces social icons on mobile, coexists on desktop). Uses `useState` + `useEffect` with `window.scrollY`.
 - The "What We Do" view in LandingPage has its own fixed header (z-40) that overlays the NavBar
 
 ## Data Flow
@@ -113,7 +114,7 @@ RootLayout (Server)
 - Owner reviews locally (`npm run dev`) or on GitHub, then merges to `main`
 - Netlify auto-deploys on merge
 - `lib/blog.ts` provides `discoverBlogPosts()`, `getBlogCategories()`, and `CATEGORY_LABELS` — shared by sitemap, blog index, and category pages
-- Blog index at `/blogs` auto-discovers and lists all posts — horizontal card layout with sticky header/footer
+- Blog index at `/blogs` auto-discovers and lists all posts — inline title row (no container), horizontal card rows per category, CTA in NavBar on scroll (no footer)
 - Category index at `/blogs/[topic]/` filters posts by topic slug, returns 404 for empty/unknown topics
 
 ## AI Employees Section
@@ -144,7 +145,7 @@ RootLayout (Server)
 - Framer Motion for animations
 - CSS keyframes for hero animations (fadeIn, scaleIn, heroAppear)
 - `clamp()` for fluid typography
-- Dark theme: `#101018` base, blue/purple accents
+- "Quiet Luxury" light theme: off-white `#FAFBFC` base, surface tokens (`#FFFFFF` cards, `#F8FAFD` alt), layered shadow system (card/nav/cta), noise grain texture overlay, blue/purple accents preserved
 - Fonts via `next/font/google` (self-hosted, CSS variables)
 
 ## Build & Deploy

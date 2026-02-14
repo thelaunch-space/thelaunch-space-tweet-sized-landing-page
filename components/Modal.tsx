@@ -87,7 +87,7 @@ export default function Modal({ isOpen, onClose }: ModalProps) {
       onClick={onClose}
     >
       <div
-        className="bg-background border border-border-color rounded-2xl shadow-2xl w-full max-w-[640px] p-8 md:p-12 relative animate-scaleIn"
+        className="bg-surface border border-border-color/60 rounded-2xl shadow-card-hover w-full max-w-[640px] p-8 md:p-12 relative animate-scaleIn"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -102,7 +102,7 @@ export default function Modal({ isOpen, onClose }: ModalProps) {
           <div className="text-center py-8">
             <div className="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg
-                className="w-8 h-8 text-green-400"
+                className="w-8 h-8 text-green-600"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -135,7 +135,7 @@ export default function Modal({ isOpen, onClose }: ModalProps) {
             <div className="space-y-3 mb-6 text-sm md:text-base text-text-secondary">
               <div className="flex items-start gap-2">
                 <svg
-                  className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5"
+                  className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
@@ -149,7 +149,7 @@ export default function Modal({ isOpen, onClose }: ModalProps) {
               </div>
               <div className="flex items-start gap-2">
                 <svg
-                  className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5"
+                  className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
@@ -163,7 +163,7 @@ export default function Modal({ isOpen, onClose }: ModalProps) {
               </div>
               <div className="flex items-start gap-2">
                 <svg
-                  className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5"
+                  className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
@@ -223,7 +223,7 @@ export default function Modal({ isOpen, onClose }: ModalProps) {
             </div>
 
             {error && (
-              <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-red-400 text-sm">
+              <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-red-600 text-sm">
                 {error}
               </div>
             )}
@@ -231,7 +231,7 @@ export default function Modal({ isOpen, onClose }: ModalProps) {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-accent-blue text-white font-medium text-base md:text-lg py-4 px-8 rounded-xl hover:bg-blue-700 active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed mb-4"
+              className="w-full bg-accent-blue text-white font-medium text-base md:text-lg py-4 px-8 rounded-full hover:-translate-y-0.5 active:scale-[0.98] transition-all shadow-cta hover:shadow-cta-hover disabled:opacity-50 disabled:cursor-not-allowed mb-4"
             >
               {isSubmitting ? 'Sending...' : 'Send →'}
             </button>

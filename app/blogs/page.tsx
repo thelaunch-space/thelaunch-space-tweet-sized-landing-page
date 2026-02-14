@@ -44,44 +44,40 @@ export default function BlogIndex() {
   const totalPosts = categories.reduce((n, c) => n + c.posts.length, 0);
 
   return (
-    <div className="flex flex-col h-[calc(100dvh-80px)] bg-background text-text-primary">
-      {/* ── Fixed header ── */}
-      <header className="shrink-0 bg-background border-b border-border-color/60">
-        <div className="max-w-6xl mx-auto px-5 md:px-10 py-4 md:py-5">
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 sm:gap-6">
-            <div>
-              <h1 className="text-3xl md:text-4xl font-bold leading-none tracking-tight">
-                Blog
-              </h1>
-              <p className="text-text-secondary text-sm md:text-base mt-1.5">
-                Actionable guides for founders who build.{" "}
-                <span className="text-text-secondary/40">
-                  {totalPosts} {totalPosts === 1 ? "post" : "posts"}
-                </span>
-              </p>
-            </div>
-
-            {/* Category pills */}
-            <nav className="flex flex-wrap gap-1.5 sm:gap-2 shrink-0">
-              {categories.map((category) => (
-                <a
-                  key={category.topic}
-                  href={`/blogs/${category.topic}`}
-                  className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium border border-border-color text-text-secondary hover:border-accent-blue/50 hover:text-text-primary transition-colors"
-                >
-                  {category.label}
-                  <span className="text-text-secondary/40 text-[10px]">
-                    {category.posts.length}
-                  </span>
-                </a>
-              ))}
-            </nav>
+    <div className="min-h-[calc(100dvh-96px)] bg-background text-text-primary">
+      {/* ── Content ── */}
+      <main className="py-6 md:py-8 space-y-8 md:space-y-10">
+        {/* Inline blog header row */}
+        <div className="max-w-6xl mx-auto px-5 md:px-10 flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-3 sm:gap-6">
+          <div className="flex items-baseline gap-3">
+            <h1 className="text-2xl md:text-3xl font-bold leading-none tracking-tight">
+              Blog
+            </h1>
+            <p className="text-text-secondary/50 text-xs md:text-sm">
+              Actionable guides for founders who build.{" "}
+              <span className="text-text-secondary/30">
+                {totalPosts} {totalPosts === 1 ? "post" : "posts"}
+              </span>
+            </p>
           </div>
-        </div>
-      </header>
 
-      {/* ── Scrollable category rows ── */}
-      <main className="flex-1 overflow-y-auto scrollbar-hide py-6 md:py-8 space-y-8 md:space-y-10">
+          {/* Category pills */}
+          <nav className="flex flex-wrap gap-1.5 sm:gap-2 shrink-0">
+            {categories.map((category) => (
+              <a
+                key={category.topic}
+                href={`/blogs/${category.topic}`}
+                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-medium border border-border-color text-text-secondary hover:border-accent-blue/50 hover:text-text-primary transition-colors"
+              >
+                {category.label}
+                <span className="text-text-secondary/40 text-[10px]">
+                  {category.posts.length}
+                </span>
+              </a>
+            ))}
+          </nav>
+        </div>
+
         {categories.map((category) => (
           <section key={category.topic}>
             {/* Section header */}
@@ -123,7 +119,7 @@ export default function BlogIndex() {
                   <a
                     key={post.url}
                     href={post.url}
-                    className="group relative flex-none w-[260px] md:w-[300px] rounded-xl border border-border-color bg-[#14141f] p-4 md:p-5 hover:border-accent-blue/40 transition-all duration-300 hover:-translate-y-0.5"
+                    className="group relative flex-none w-[260px] md:w-[300px] rounded-xl border border-border-color bg-surface p-4 md:p-5 hover:border-accent-blue/40 hover:shadow-card-hover transition-all duration-300 hover:-translate-y-0.5"
                   >
                     {/* Gradient accent line at top */}
                     <div className="absolute top-0 left-4 right-4 h-px bg-gradient-to-r from-accent-blue/0 via-accent-blue/20 to-accent-purple/0 group-hover:via-accent-blue/60 group-hover:to-accent-purple/40 transition-all duration-300" />
@@ -186,23 +182,6 @@ export default function BlogIndex() {
         )}
       </main>
 
-      {/* ── Fixed footer CTA ── */}
-      <footer className="shrink-0 bg-background/90 backdrop-blur-md border-t border-border-color">
-        <div className="max-w-6xl mx-auto px-5 md:px-10 py-3 md:py-3.5 flex items-center justify-between gap-4">
-          <p className="text-text-secondary text-xs md:text-sm hidden sm:block">
-            Ready to build? We ship MVPs in 21 days.
-          </p>
-          <p className="text-text-secondary text-xs sm:hidden">
-            Ready to build?
-          </p>
-          <a
-            href="/?cta=open"
-            className="inline-flex h-9 md:h-10 items-center justify-center rounded-full bg-gradient-to-r from-accent-blue to-accent-purple px-6 md:px-8 text-xs md:text-sm font-semibold text-white shadow-[0_12px_24px_rgba(37,99,235,0.3)] transition-transform hover:-translate-y-0.5 shrink-0"
-          >
-            Get Your Launch Roadmap
-          </a>
-        </div>
-      </footer>
     </div>
   );
 }

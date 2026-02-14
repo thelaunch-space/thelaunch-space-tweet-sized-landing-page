@@ -49,13 +49,13 @@ export default function BlogPost() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="min-h-screen bg-background text-text-primary">
-        <header className="max-w-[720px] mx-auto px-6 md:px-8 pt-8 md:pt-12">
+        <header className="max-w-6xl mx-auto px-6 md:px-8 pt-8 md:pt-12">
           <a href="/" className="inline-flex items-center gap-2 text-text-secondary hover:text-accent-blue text-sm font-medium transition-colors">
             ← thelaunch.space
           </a>
         </header>
 
-        <article className="max-w-[720px] mx-auto px-6 md:px-8 py-12 md:py-16">
+        <article className="max-w-6xl mx-auto px-6 md:px-8 py-12 md:py-16">
           <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">Why You Can&apos;t Find a Technical Cofounder (And What to Do Instead)</h1>
           <div className="flex items-center gap-3 text-sm text-text-secondary mb-10">
             <span>thelaunch.space</span><span>·</span>
@@ -71,7 +71,7 @@ export default function BlogPost() {
             At <a href="/" className="text-accent-blue hover:underline">thelaunch.space</a>, we&apos;ve worked with dozens of non-technical founders who spent 6-12 months searching for a technical partner before realizing they were solving the wrong problem. The question isn&apos;t &quot;how do I find a cofounder?&quot; It&apos;s &quot;do I actually need one, and if so, when?&quot;
           </p>
 
-          <div className="bg-border-color/30 border border-border-color rounded-xl p-8 my-10 text-center">
+          <div className="bg-surface-alt border border-border-color/40 shadow-sm rounded-2xl p-8 my-10 text-center">
             <p className="text-3xl md:text-4xl font-bold text-text-primary mb-2">36.3%</p>
             <p className="text-sm md:text-base text-text-secondary">of all new startups in 2025 are solo-founded, up from 23.7% in 2019. AI tools are changing the game.</p>
           </div>
@@ -85,19 +85,19 @@ export default function BlogPost() {
           </p>
 
           <div className="space-y-4 my-8">
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">1. The equity math is brutal</p>
               <p className="text-text-secondary text-base leading-relaxed">Technical cofounders expect <a href="https://fi.co/insight/startup-equity-demystified-part-1-co-founders-employees-and-advisors" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">30-50% equity</a>. That&apos;s reasonable for a true partner. But if your idea is unvalidated and you have no revenue, you&apos;re asking someone to trade a $150-300K salary for a lottery ticket. Most will pass.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">2. Good developers already have projects</p>
               <p className="text-text-secondary text-base leading-relaxed">The developers skilled enough to be a real cofounder usually have their own ideas they&apos;re excited about. Why would they build your vision when they can build their own?</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">3. Ideas are cheap, execution is expensive</p>
               <p className="text-text-secondary text-base leading-relaxed">Every developer has been pitched by a non-technical founder who &quot;just needs someone to build it.&quot; They&apos;ve heard this pitch a hundred times. Your idea, no matter how good, looks like all the others to them.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">4. The search takes longer than building</p>
               <p className="text-text-secondary text-base leading-relaxed">The typical cofounder search takes 6-12 months. In that same time, you could validate your idea, build an MVP, and get your first paying customers using AI-assisted tools. The opportunity cost is enormous.</p>
             </div>
@@ -133,7 +133,7 @@ export default function BlogPost() {
             That second question plays directly to your advantage as a domain expert. A 45-year-old consultant with 20 years of industry experience understands their customers&apos; problems better than any 25-year-old developer ever could. The knowledge asymmetry that used to favor technical founders has inverted. We cover the specific tools and workflows in our guide on <a href="/blogs/startup-mvps/build-mvp-without-coding-ai-tools" className="text-accent-blue hover:underline">building an MVP without coding</a>.
           </p>
 
-          <div className="bg-border-color/30 border border-border-color rounded-xl p-6 my-8">
+          <div className="bg-surface-alt border border-border-color/40 shadow-sm rounded-2xl p-6 my-8">
             <p className="text-text-primary font-medium">At thelaunch.space, our founder has shipped 65+ projects in 14 months without writing traditional production code. This includes apps handling 40+ field sales reps, AI tools processing thousands of documents, and SaaS products with paying customers. The pattern is consistent: domain expertise plus AI-assisted building beats searching for a technical partner.</p>
           </div>
 
@@ -176,15 +176,15 @@ export default function BlogPost() {
           </p>
 
           <div className="space-y-4 my-8">
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">Path 1: Build It Yourself with AI</p>
               <p className="text-text-secondary text-base leading-relaxed">Use Claude Code, Cursor, or similar tools to build your MVP. This works for most standard applications. Cost: $20-100/month in tools. Time: 2-8 weeks for a basic MVP. Equity: 0% dilution.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">Path 2: Hire a Founding Engineer</p>
               <p className="text-text-secondary text-base leading-relaxed">Instead of a cofounder, hire a senior developer as your first employee. They get salary plus 1-5% equity, not 30-50%. According to <a href="https://hypernestlabs.com/insights/founding-engineer-vs-cto" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">HyperNest Labs</a>, many successful startups like Rupa Health used this model. The founding engineer focuses on building while you focus on customers and growth.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">Path 3: Partner with a Technical Studio</p>
               <p className="text-text-secondary text-base leading-relaxed">Work with a studio that specializes in helping non-technical founders ship quickly. You pay for outcomes, not time. The studio handles execution while you retain full ownership. This is what we do at thelaunch.space, shipping MVPs in 21 days.</p>
             </div>
@@ -208,7 +208,7 @@ export default function BlogPost() {
             When you approach a technical person with an idea, you&apos;re one of hundreds pitching them. When you approach them with $10K in monthly revenue, real customers, and a product that&apos;s hitting scale limits, you&apos;re a rare opportunity. The equity conversation also gets easier: offering 10-15% of a validated business is often more attractive than 50% of an idea.
           </p>
 
-          <div className="bg-border-color/30 border border-border-color rounded-xl p-6 my-8">
+          <div className="bg-surface-alt border border-border-color/40 shadow-sm rounded-2xl p-6 my-8">
             <p className="text-text-primary font-medium">The best time to bring on a technical cofounder or CTO is when you&apos;ve hit a specific ceiling: you have product-market fit, paying customers, and technical challenges that exceed what AI-assisted tools can handle. At that point, you&apos;re not asking someone to take a risk on you. You&apos;re offering them a chance to scale something real.</p>
           </div>
 
@@ -234,7 +234,7 @@ export default function BlogPost() {
             Let&apos;s do the math on what the cofounder search actually costs you.
           </p>
 
-          <div className="bg-border-color/30 border border-border-color rounded-xl p-8 my-10 text-center">
+          <div className="bg-surface-alt border border-border-color/40 shadow-sm rounded-2xl p-8 my-10 text-center">
             <p className="text-3xl md:text-4xl font-bold text-text-primary mb-2">6-12 months</p>
             <p className="text-sm md:text-base text-text-secondary">Average time to find a technical cofounder, according to FirstRound Capital research</p>
           </div>
@@ -280,10 +280,10 @@ export default function BlogPost() {
 
         </article>
 
-        <footer className="max-w-[720px] mx-auto px-6 md:px-8 pb-16">
+        <footer className="max-w-6xl mx-auto px-6 md:px-8 pb-16">
           <div className="border-t border-border-color pt-10">
             <p className="text-text-secondary mb-4">Have an idea? We ship MVPs in 21 days.</p>
-            <a href="/?cta=open" className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-accent-blue to-accent-purple px-10 text-base font-semibold text-white shadow-[0_20px_35px_rgba(37,99,235,0.35)] transition-transform hover:-translate-y-0.5">
+            <a href="/?cta=open" className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-accent-blue to-accent-purple px-10 text-base font-semibold text-white shadow-cta hover:shadow-cta-hover transition-all hover:-translate-y-0.5">
               Get Your Launch Roadmap
             </a>
           </div>

@@ -49,13 +49,13 @@ export default function BlogPost() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="min-h-screen bg-background text-text-primary">
-        <header className="max-w-[720px] mx-auto px-6 md:px-8 pt-8 md:pt-12">
+        <header className="max-w-6xl mx-auto px-6 md:px-8 pt-8 md:pt-12">
           <a href="/" className="inline-flex items-center gap-2 text-text-secondary hover:text-accent-blue text-sm font-medium transition-colors">
             ← thelaunch.space
           </a>
         </header>
 
-        <article className="max-w-[720px] mx-auto px-6 md:px-8 py-12 md:py-16">
+        <article className="max-w-6xl mx-auto px-6 md:px-8 py-12 md:py-16">
           <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">How to Validate a Startup Idea When You&apos;re Already a Domain Expert</h1>
           <div className="flex items-center gap-3 text-sm text-text-secondary mb-10">
             <span>thelaunch.space</span><span>·</span>
@@ -95,7 +95,7 @@ export default function BlogPost() {
             But here is what the standard validation frameworks miss: <span className="text-text-primary font-semibold">they assume you are starting from ignorance</span>.
           </p>
 
-          <div className="bg-border-color/30 border border-border-color rounded-xl p-6 my-8">
+          <div className="bg-surface-alt border border-border-color/40 shadow-sm rounded-2xl p-6 my-8">
             <p className="text-text-primary font-medium">The standard validation question is &quot;Does this problem exist?&quot; When you have lived the problem professionally for a decade, you already know the answer. Asking it again is not diligence. It is procrastination.</p>
           </div>
 
@@ -120,11 +120,11 @@ export default function BlogPost() {
           </p>
 
           <div className="space-y-4 my-8">
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">1. Market Validation</p>
               <p className="text-text-secondary text-base leading-relaxed">Does this problem exist? Is it painful enough that people will pay to solve it? This is what customer interviews and landing page tests answer. If you have worked in the industry for 10+ years, you likely already have this validation through lived experience.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">2. Execution Validation</p>
               <p className="text-text-secondary text-base leading-relaxed">Can you actually build and ship a solution? Can you get it in front of users? Can you iterate based on feedback? This is what domain experts usually need to test. It has nothing to do with whether the problem is real.</p>
             </div>
@@ -134,7 +134,7 @@ export default function BlogPost() {
             The <a href="https://online.hbs.edu/blog/post/market-validation" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Harvard Business School definition of market validation</a> focuses on confirming demand for a product or service. But demand confirmation assumes uncertainty about the market. When you have spent a decade watching the same problem cost companies money, time, and talent, uncertainty about demand is not your actual risk.
           </p>
 
-          <div className="bg-border-color/30 border border-border-color rounded-xl p-8 my-10 text-center">
+          <div className="bg-surface-alt border border-border-color/40 shadow-sm rounded-2xl p-8 my-10 text-center">
             <p className="text-3xl md:text-4xl font-bold text-text-primary mb-2">42%</p>
             <p className="text-sm md:text-base text-text-secondary">of startup failures are attributed to inability to validate product-market fit. But for domain experts, the risk is not market fit. It is execution.</p>
           </div>
@@ -168,15 +168,15 @@ export default function BlogPost() {
           </p>
 
           <div className="space-y-4 my-8">
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">Sign #1: Learning Without Building</p>
               <p className="text-text-secondary text-base leading-relaxed">You have conducted 30 interviews, built extensive spreadsheets, and created detailed competitive analyses, but you have not shipped anything a user can touch.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">Sign #2: Confirmation Seeking</p>
               <p className="text-text-secondary text-base leading-relaxed">You are not looking for reasons your idea might fail. You are looking for permission to build. That is not validation. That is reassurance.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">Sign #3: Perfect Information Fantasy</p>
               <p className="text-text-secondary text-base leading-relaxed">You believe one more round of interviews will give you certainty. It will not. Certainty comes from shipping, not from asking.</p>
             </div>
@@ -265,15 +265,15 @@ export default function BlogPost() {
           </p>
 
           <div className="space-y-4 my-8">
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">New Market Segment</p>
               <p className="text-text-secondary text-base leading-relaxed">You understand the problem in enterprise, but you are building for SMBs. Or you know healthcare, but you are targeting patients rather than providers. The problem might be different than you assume.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">Industry Shift</p>
               <p className="text-text-secondary text-base leading-relaxed">You left the industry five years ago and the landscape has changed significantly. Regulations, technology, or competitive dynamics might have shifted in ways you have not witnessed firsthand.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">Adjacent Problem</p>
               <p className="text-text-secondary text-base leading-relaxed">You observed the problem but were not the person experiencing it. You saw the impact on others but did not live it yourself. Your understanding might have gaps.</p>
             </div>
@@ -295,7 +295,7 @@ export default function BlogPost() {
             Your advantage is that you have lived the problem. Your risk is that you might over-validate instead of shipping. The frameworks designed for ignorant founders can become a trap for experienced ones.
           </p>
 
-          <div className="bg-border-color/30 border border-border-color rounded-xl p-6 my-8">
+          <div className="bg-surface-alt border border-border-color/40 shadow-sm rounded-2xl p-6 my-8">
             <p className="text-text-primary font-medium">Trust your expertise. Build fast. Show it to five peers. Iterate based on real usage. The validation you need comes from shipping, not from asking.</p>
           </div>
 
@@ -305,10 +305,10 @@ export default function BlogPost() {
 
         </article>
 
-        <footer className="max-w-[720px] mx-auto px-6 md:px-8 pb-16">
+        <footer className="max-w-6xl mx-auto px-6 md:px-8 pb-16">
           <div className="border-t border-border-color pt-10">
             <p className="text-text-secondary mb-4">Have a startup idea backed by years of domain expertise? We help experienced founders ship in 21 days.</p>
-            <a href="/?cta=open" className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-accent-blue to-accent-purple px-10 text-base font-semibold text-white shadow-[0_20px_35px_rgba(37,99,235,0.35)] transition-transform hover:-translate-y-0.5">
+            <a href="/?cta=open" className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-accent-blue to-accent-purple px-10 text-base font-semibold text-white shadow-cta hover:shadow-cta-hover transition-all hover:-translate-y-0.5">
               Get Your Launch Roadmap
             </a>
           </div>

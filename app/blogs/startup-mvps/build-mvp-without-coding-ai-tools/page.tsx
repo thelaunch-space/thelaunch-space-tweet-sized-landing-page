@@ -49,13 +49,13 @@ export default function BlogPost() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="min-h-screen bg-background text-text-primary">
-        <header className="max-w-[720px] mx-auto px-6 md:px-8 pt-8 md:pt-12">
+        <header className="max-w-6xl mx-auto px-6 md:px-8 pt-8 md:pt-12">
           <a href="/" className="inline-flex items-center gap-2 text-text-secondary hover:text-accent-blue text-sm font-medium transition-colors">
             ← thelaunch.space
           </a>
         </header>
 
-        <article className="max-w-[720px] mx-auto px-6 md:px-8 py-12 md:py-16">
+        <article className="max-w-6xl mx-auto px-6 md:px-8 py-12 md:py-16">
           <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">How to Build an MVP Without Coding: The AI-First Playbook</h1>
           <div className="flex items-center gap-3 text-sm text-text-secondary mb-10">
             <span>thelaunch.space</span><span>·</span>
@@ -83,7 +83,7 @@ export default function BlogPost() {
             The pitch is compelling. Drag, drop, and ship your product over a weekend without hiring a developer. The market has responded: <a href="https://www.gartner.com/en/documents/7146430" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Gartner projects</a> the low-code/no-code market will exceed $30 billion in 2026 and reach $58.2 billion by 2029.
           </p>
 
-          <div className="bg-border-color/30 border border-border-color rounded-xl p-8 my-10 text-center">
+          <div className="bg-surface-alt border border-border-color/40 shadow-sm rounded-2xl p-8 my-10 text-center">
             <p className="text-3xl md:text-4xl font-bold text-text-primary mb-2">75%</p>
             <p className="text-sm md:text-base text-text-secondary">of all new applications by 2026 will use low-code or no-code technologies, according to Gartner</p>
           </div>
@@ -117,19 +117,19 @@ export default function BlogPost() {
           <h3 className="text-xl md:text-2xl font-bold mt-8 mb-3">The Specific Limits You Will Hit</h3>
 
           <div className="space-y-4 my-8">
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">1. Performance Bottlenecks</p>
               <p className="text-text-secondary text-base leading-relaxed">Bubble processes approximately <a href="https://momen.app/blogs/bubble-io-no-code-platform-limitations/" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">100 rows per second</a>. That sounds fine until your app needs real-time data for hundreds of users. Your sleek prototype becomes a laggy liability the moment you get traction.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">2. Vendor Lock-In</p>
               <p className="text-text-secondary text-base leading-relaxed">You are building on someone else's land. No code export. No migration path. If the platform changes pricing, updates, or shuts down, your entire product is at risk. And you cannot negotiate because you have no leverage.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">3. Customization Ceiling</p>
               <p className="text-text-secondary text-base leading-relaxed">Visual builders work until you need something the builder did not anticipate. Complex pricing logic. Custom analytics. Real-time collaboration. The answer is always "Sorry, that's not supported" or "Use a third-party plugin that costs $49/month and breaks every update."</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">4. Compliance Gaps</p>
               <p className="text-text-secondary text-base leading-relaxed">If you are in healthcare, finance, or anything touching sensitive data, good luck convincing enterprise clients that your no-code backend meets SOC 2 or HIPAA requirements. The audit trail does not exist.</p>
             </div>
@@ -151,22 +151,22 @@ export default function BlogPost() {
             This is not theoretical. At thelaunch.space, we have shipped 65+ projects in 14 months using this method. Field sales apps for 40+ reps. Invoice processing tools that save bookkeepers 5+ hours per week. Customer portals handling thousands of users. All built through prompting, not dragging and dropping.
           </p>
 
-          <div className="bg-border-color/30 border border-border-color rounded-xl p-6 my-8">
+          <div className="bg-surface-alt border border-border-color/40 shadow-sm rounded-2xl p-6 my-8">
             <p className="text-text-primary font-medium">The core insight: prompting is the new programming. You do not need to write code. You need to clearly describe what you want the code to do. That is a strategy skill, not a technical skill. And strategy is exactly what domain-expert founders are good at.</p>
           </div>
 
           <h3 className="text-xl md:text-2xl font-bold mt-8 mb-3">The Tools That Make This Possible</h3>
 
           <div className="space-y-4 my-8">
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">Bolt.new</p>
               <p className="text-text-secondary text-base leading-relaxed">Browser-based, zero setup required. Describe your app in natural language, watch it generate a full-stack application, edit in real-time, and deploy to production. Best for rapid prototyping and MVPs. <a href="https://bolt.new" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Bolt.new</a> went from near-shutdown to $40 million ARR in five months because it actually works for non-developers.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">Claude Code</p>
               <p className="text-text-secondary text-base leading-relaxed">Command-line tool from <a href="https://www.anthropic.com" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Anthropic</a> that understands entire codebases. Excellent for complex reasoning, debugging, and building sophisticated features. Requires some setup but handles problems other tools cannot.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">Cursor</p>
               <p className="text-text-secondary text-base leading-relaxed">AI-powered code editor built on VS Code. Deep codebase understanding, intelligent refactoring, and natural language editing. Better for developers, but non-technical founders can use it with AI guidance for more complex projects.</p>
             </div>
@@ -202,19 +202,19 @@ export default function BlogPost() {
           </p>
 
           <div className="space-y-4 my-8">
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">Template-Based Websites and Portals → <a href="https://www.softr.io" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Softr</a></p>
               <p className="text-text-secondary text-base leading-relaxed">Excellent for building client portals, directories, and internal tools on top of Airtable or Google Sheets. Drag-and-drop blocks, user authentication built in, custom domains. Great for MVPs that are essentially "database with a nice interface."</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">Gorgeous Marketing Sites → <a href="https://www.framer.com" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Framer</a></p>
               <p className="text-text-secondary text-base leading-relaxed">When design matters more than functionality. Framer produces beautiful, responsive websites with smooth animations. Figma-like interface, real-time collaboration, one-click publishing. Perfect for landing pages where visual impact drives conversion.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">Automations and Workflows → <a href="https://make.com" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Make.com</a> or <a href="https://zapier.com" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Zapier</a></p>
               <p className="text-text-secondary text-base leading-relaxed">Connect your apps without code. When a form is submitted, send to Slack, add to spreadsheet, trigger email sequence. Make.com offers more complex logic at lower cost; Zapier is simpler for basic automations.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">For the Tinkerer → <a href="https://n8n.io" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">n8n</a></p>
               <p className="text-text-secondary text-base leading-relaxed">Open-source automation platform you can self-host. More powerful than Zapier, with 400+ integrations and native AI agent support. If you enjoy understanding how things work under the hood, n8n rewards that curiosity. Free tier available, or run it on a $5/month server.</p>
             </div>
@@ -228,7 +228,7 @@ export default function BlogPost() {
             If you want to actually learn to build software with AI tools and get better at it over time, here is the progression we recommend. Think of this as your skill development roadmap.
           </p>
 
-          <div className="bg-border-color/30 border border-border-color rounded-xl p-8 my-10 text-center">
+          <div className="bg-surface-alt border border-border-color/40 shadow-sm rounded-2xl p-8 my-10 text-center">
             <p className="text-2xl md:text-3xl font-bold text-text-primary mb-2">Web → IDE → CLI</p>
             <p className="text-sm md:text-base text-text-secondary">The natural progression as your skills and projects grow in complexity</p>
           </div>
@@ -240,27 +240,27 @@ export default function BlogPost() {
           </p>
 
           <div className="space-y-4 my-8">
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1"><a href="https://bolt.new" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Bolt.new</a></p>
               <p className="text-text-secondary text-base leading-relaxed">Our top recommendation for beginners. Describe your app, watch it build, iterate through conversation. From idea to deployed app in hours. Integrates with Supabase and Netlify for production infrastructure.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1"><a href="https://lovable.dev" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Lovable.dev</a></p>
               <p className="text-text-secondary text-base leading-relaxed">Strong alternative to Bolt. Particularly good at generating clean, well-structured code. Built-in Supabase integration for databases. Good for founders who want to eventually understand and modify their codebase.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1"><a href="https://getmocha.com" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Mocha</a></p>
               <p className="text-text-secondary text-base leading-relaxed">Full-stack apps from natural language. Handles authentication, databases, payments, and hosting in one platform. Their "Discuss Mode" lets you brainstorm and refine before committing to building. Great for complex requirements.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1"><a href="https://replit.com" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Replit</a></p>
               <p className="text-text-secondary text-base leading-relaxed">Browser-based development environment with AI assistance. More developer-oriented than Bolt, but still accessible to beginners. Good for learning because you see the actual code as it is written.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1"><a href="https://base44.com" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Base44</a></p>
               <p className="text-text-secondary text-base leading-relaxed">Text-to-app generation with built-in infrastructure. Acquired by Wix in 2025, now has solid backing. Includes templates for common use cases like CRMs and e-commerce. Good for rapid prototyping when you need to validate quickly.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1"><a href="https://emergent.sh" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Emergent.sh</a></p>
               <p className="text-text-secondary text-base leading-relaxed">Multi-agent system where specialized AI agents handle different parts of your app (planning, frontend, backend, testing, deployment). Hit $25M ARR in 4.5 months. Supports both web and mobile apps with React Native.</p>
             </div>
@@ -273,15 +273,15 @@ export default function BlogPost() {
           </p>
 
           <div className="space-y-4 my-8">
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1"><a href="https://cursor.com" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Cursor</a></p>
               <p className="text-text-secondary text-base leading-relaxed">AI-powered editor built on VS Code. Deep codebase understanding, intelligent suggestions, natural language commands. The most popular choice among developers using AI tools. $20/month for Pro tier.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1"><a href="https://antigravity.google" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Google Antigravity</a></p>
               <p className="text-text-secondary text-base leading-relaxed">Google's agentic IDE, launched November 2025. Features a "Manager View" where you can spawn multiple AI agents to work on different tasks simultaneously. Free during public preview, powered by Gemini 3. Early reviews praise its ability to handle architect-level tasks.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1"><a href="https://kiro.dev" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Kiro</a></p>
               <p className="text-text-secondary text-base leading-relaxed">AWS's spec-driven development IDE, launched July 2025. Unique approach: creates user stories and technical design documents before generating code. Their autonomous agent can work independently for hours on complex tasks. Free tier with 50 monthly interactions.</p>
             </div>
@@ -294,21 +294,21 @@ export default function BlogPost() {
           </p>
 
           <div className="space-y-4 my-8">
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1"><a href="https://www.anthropic.com/claude-code" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Claude Code</a></p>
               <p className="text-text-secondary text-base leading-relaxed">Anthropic's command-line tool. Excellent reasoning capabilities, handles complex debugging, understands large codebases. Our go-to for sophisticated projects at thelaunch.space. Works best for multi-step problem solving and architectural decisions.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1"><a href="https://platform.openai.com/docs/guides/code" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Codex CLI</a></p>
               <p className="text-text-secondary text-base leading-relaxed">OpenAI's command-line coding assistant. Strong at code generation and explanation. Integrates well with existing development workflows. Good alternative if you prefer GPT-style interactions.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1"><a href="https://ai.google.dev/gemini-api/docs/code-assist" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Gemini CLI</a></p>
               <p className="text-text-secondary text-base leading-relaxed">Google's terminal-based coding assistant. Powered by Gemini models with strong multimodal capabilities. Can understand screenshots and diagrams alongside code. Good for projects involving visual design specifications.</p>
             </div>
           </div>
 
-          <div className="bg-border-color/30 border border-border-color rounded-xl p-6 my-8">
+          <div className="bg-surface-alt border border-border-color/40 shadow-sm rounded-2xl p-6 my-8">
             <p className="text-text-primary font-medium"><span className="font-semibold">Our picks at thelaunch.space:</span> Start with Bolt.new to learn the fundamentals. Once you are comfortable, graduate to Cursor + Claude Code for production work. This combination handles everything from simple landing pages to complex enterprise applications.</p>
           </div>
 
@@ -365,15 +365,15 @@ export default function BlogPost() {
           </p>
 
           <div className="space-y-4 my-8">
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">Field Sales App for 40+ Reps</p>
               <p className="text-text-secondary text-base leading-relaxed">A pharmaceutical company needed a mobile-friendly app for their sales team to track client visits, log activities, and sync data. Delivered in 3-4 weeks. Stack: Next.js, Supabase, PWA. Would have hit Bubble's concurrent user limits in month one.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">Invoice Processing Tool</p>
               <p className="text-text-secondary text-base leading-relaxed">A bookkeeping firm needed to extract data from PDF invoices and sync to QuickBooks. Saves 5+ hours per week per bookkeeper. Built with two fine-tuned AI models. No no-code platform could handle the document processing requirements.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">Education Consulting Platform</p>
               <p className="text-text-secondary text-base leading-relaxed">An admissions consultancy needed a client portal for document sharing, progress tracking, and team collaboration. 14+ months in production with zero scaling issues. Handling thousands of documents and hundreds of concurrent users.</p>
             </div>
@@ -395,7 +395,7 @@ export default function BlogPost() {
             This matters for context. For an MVP testing market fit, these issues are acceptable tradeoffs for speed. For a banking application handling millions of dollars, they are not. Know your risk tolerance.
           </p>
 
-          <div className="bg-border-color/30 border border-border-color rounded-xl p-6 my-8">
+          <div className="bg-surface-alt border border-border-color/40 shadow-sm rounded-2xl p-6 my-8">
             <p className="text-text-primary font-medium">Our approach: build fast with AI tools for validation. Once you have paying customers and product-market fit, invest in security review and code quality. The order matters. Do not over-engineer before you know the product works.</p>
           </div>
 
@@ -421,10 +421,10 @@ export default function BlogPost() {
 
         </article>
 
-        <footer className="max-w-[720px] mx-auto px-6 md:px-8 pb-16">
+        <footer className="max-w-6xl mx-auto px-6 md:px-8 pb-16">
           <div className="border-t border-border-color pt-10">
             <p className="text-text-secondary mb-4">Have an MVP idea? We ship production software in 21 days through AI-first building.</p>
-            <a href="/?cta=open" className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-accent-blue to-accent-purple px-10 text-base font-semibold text-white shadow-[0_20px_35px_rgba(37,99,235,0.35)] transition-transform hover:-translate-y-0.5">
+            <a href="/?cta=open" className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-accent-blue to-accent-purple px-10 text-base font-semibold text-white shadow-cta hover:shadow-cta-hover transition-all hover:-translate-y-0.5">
               Get Your Launch Roadmap
             </a>
           </div>

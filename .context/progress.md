@@ -51,6 +51,22 @@ Last updated: 2026-02-14
 - [x] **Sitemap updated to include agent pages**
 - [x] **Tailwind config extended with agent accent colors**
 - [x] **New CSS utilities for agent card animations (scan line, glow pulse)**
+- [x] **Dark → Light mode migration — full site color scheme overhaul**
+- [x] **Design system: "Quiet Luxury" polish pass across all pages**
+- [x] **Off-white base (#FAFBFC) + noise grain texture overlay**
+- [x] **Layered shadow system (shadow-card, shadow-card-hover, shadow-cta, shadow-nav)**
+- [x] **Surface color tokens (surface: #FFFFFF, surface-alt: #F8FAFD) for card elevation**
+- [x] **Typography refinements — letter-spacing on headings (-0.03em h1, -0.02em h2/h3)**
+- [x] **NavBar scroll-aware shadow (strengthens on scroll)**
+- [x] **Hero radial gradient atmosphere + refined CTA glass effect**
+- [x] **Card elevation across all pages (blog cards, agent cards, KRA cards, proof points)**
+- [x] **Logo flash fix — added width/height attributes to prevent FOUC**
+- [x] **`.context/feedback-and-bugs.md` — bug/feedback tracking doc**
+
+- [x] **Blog index redesign v2 — removed repetitive containers, inline header, CTA moved to NavBar on scroll, footer removed**
+- [x] **Blog post width — widened from `max-w-[720px]` to `max-w-6xl` across all posts + category page + style reference**
+- [x] **NavBar scroll-aware CTA — on `/blogs` pages, CTA button appears in navbar after scrolling 100px (rounded-xl, matches navbar radius)**
+- [x] **Agent blog template instruction updated — told agent (via Partha) to use `max-w-6xl` for future posts**
 
 ## In Progress
 - Nothing currently in progress
@@ -59,8 +75,12 @@ Last updated: 2026-02-14
 - Nothing currently blocked
 
 ## Recent Changes (latest first)
-1. Added full "My AI Employees" section with agent index, detail pages, cards, data layer (2026-02-14)
-2. Redesigned `/blogs` page — horizontal card layout with sticky header/footer (2026-02-14)
+1. Blog index v2 redesign — removed header/footer containers, inline title row, NavBar scroll CTA (2026-02-14)
+2. Blog post width widened — `max-w-[720px]` → `max-w-6xl` across all 6 posts + category page + docs (2026-02-14)
+3. "Quiet Luxury" design polish — shadows, grain, typography, card elevation, hero atmosphere (2026-02-14)
+4. Dark → Light mode migration — full site, 15 files, ~75 color edits (2026-02-14)
+5. Added full "My AI Employees" section with agent index, detail pages, cards, data layer (2026-02-14)
+6. Redesigned `/blogs` page — horizontal card layout with sticky header/footer (2026-02-14)
 3. Published blog: "Can't Find a Technical Cofounder? Here's What to Do" (2026-02-14)
 4. Published blog: "When No-Code Tools Stop Working (And What to Do Next)" (2026-02-14)
 5. Added blog category index pages at `/blogs/[topic]/` with SEO metadata (2026-02-11)

@@ -138,7 +138,7 @@ export default function BlogPost() {
       />
       <div className="min-h-screen bg-background text-text-primary">
         {/* Back link */}
-        <header className="max-w-[720px] mx-auto px-6 md:px-8 pt-8 md:pt-12">
+        <header className="max-w-6xl mx-auto px-6 md:px-8 pt-8 md:pt-12">
           <a
             href="/"
             className="inline-flex items-center gap-2 text-text-secondary hover:text-accent-blue text-sm font-medium transition-colors"
@@ -148,7 +148,7 @@ export default function BlogPost() {
         </header>
 
         {/* Article */}
-        <article className="max-w-[720px] mx-auto px-6 md:px-8 py-12 md:py-16">
+        <article className="max-w-6xl mx-auto px-6 md:px-8 py-12 md:py-16">
           <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
             POST_TITLE
           </h1>
@@ -209,7 +209,7 @@ export default function BlogPost() {
         </article>
 
         {/* Footer CTA (always include) */}
-        <footer className="max-w-[720px] mx-auto px-6 md:px-8 pb-16">
+        <footer className="max-w-6xl mx-auto px-6 md:px-8 pb-16">
           <div className="border-t border-border-color pt-10">
             <p className="text-text-secondary mb-4">
               Have an idea? We ship MVPs in 21 days.
@@ -398,7 +398,7 @@ export default function BlogPost() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="min-h-screen bg-background text-text-primary">
-        <header className="max-w-[720px] mx-auto px-6 md:px-8 pt-8 md:pt-12">
+        <header className="max-w-6xl mx-auto px-6 md:px-8 pt-8 md:pt-12">
           <a
             href="/"
             className="inline-flex items-center gap-2 text-text-secondary hover:text-accent-blue text-sm font-medium transition-colors"
@@ -407,7 +407,7 @@ export default function BlogPost() {
           </a>
         </header>
 
-        <article className="max-w-[720px] mx-auto px-6 md:px-8 py-12 md:py-16">
+        <article className="max-w-6xl mx-auto px-6 md:px-8 py-12 md:py-16">
           <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
             Why Founders Fail at MVPs (And How to Fix It)
           </h1>
@@ -505,7 +505,7 @@ export default function BlogPost() {
           </p>
         </article>
 
-        <footer className="max-w-[720px] mx-auto px-6 md:px-8 pb-16">
+        <footer className="max-w-6xl mx-auto px-6 md:px-8 pb-16">
           <div className="border-t border-border-color pt-10">
             <p className="text-text-secondary mb-4">
               Have an idea? We ship MVPs in 21 days.

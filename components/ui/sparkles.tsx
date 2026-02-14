@@ -66,7 +66,7 @@ export const SparklesCore = (props: ParticlesProps) => {
             },
             particles: {
               color: {
-                value: "#ffffff",
+                value: "#94A3B8",
               },
               move: {
                 direction: "none",
@@ -82,10 +82,10 @@ export const SparklesCore = (props: ParticlesProps) => {
                   width: 800,
                   height: 800,
                 },
-                value: 80, // Premium, not crowded
+                value: 40, // Premium, not crowded
               },
               opacity: {
-                value: { min: 0.1, max: 0.5 },
+                value: { min: 0.1, max: 0.25 },
                 animation: {
                   enable: true,
                   speed: 1,
@@ -96,7 +96,7 @@ export const SparklesCore = (props: ParticlesProps) => {
                 type: "circle",
               },
               size: {
-                value: { min: 0.5, max: 1.5 },
+                value: { min: 0.5, max: 1.2 },
               },
             },
             detectRetina: true,

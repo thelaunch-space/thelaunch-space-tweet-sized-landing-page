@@ -42,19 +42,20 @@ Ambitious founders and product leaders who prioritize execution and clarity over
 ### Visual Polish
 - Particle effects background (tsparticles)
 - Framer Motion animations (modal, fadeIn, scaleIn, heroAppear)
-- Dark theme with blue/purple accents
-- Google Fonts: Sora (body), Syne (headings)
+- Light "Quiet Luxury" theme — off-white base, surface elevation, layered shadows, noise grain texture, blue/purple accents
+- Google Fonts: Inter (body), Cormorant Garamond (headings), JetBrains Mono (labels)
 
 ### Site-Wide Navigation (NavBar)
 - Rendered in root layout, visible on ALL pages
-- Left: Logo linked to `/` — Right: "Blog" link, X icon, LinkedIn icon
+- Left: Logo linked to `/` — Right: "Blog" link, "AI Team" link, X icon, LinkedIn icon
 - Active link highlighting via `usePathname()`
+- Scroll-aware CTA on blog pages: "Get Your Launch Roadmap" button appears in navbar after 100px scroll (rounded-xl, matches navbar radius). On mobile, replaces social icons; on desktop, coexists.
 
 ### Blog System
 - AI agent creates SEO-optimized blog posts via GitHub PRs
 - Self-contained static pages at `/blogs/<topic>/<slug>`
-- Blog index at `/blogs` — horizontal card layout with sticky header/footer, auto-discovers all posts grouped by category
-- Dark theme consistent with landing page design
+- Blog index at `/blogs` — inline title row (no container), horizontal card rows per category, CTA in NavBar on scroll (no footer)
+- Light "Quiet Luxury" theme consistent with landing page design
 - Blog CTAs link to `/?cta=open` (directly opens lead capture modal)
 - Human reviews and merges every post before it goes live
 - Category index pages at `/blogs/<topic>/` show filtered post listings per topic

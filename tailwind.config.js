@@ -1,24 +1,41 @@
 const { fontFamily } = require('tailwindcss/defaultTheme');
 
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: ['./app/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}', './lib/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
-        background: '#101018',
-        'text-primary': '#F0F0F0',
-        'text-secondary': '#a1a1aa',
-        'accent-blue': '#2563EB',
-        'accent-purple': '#7C3AED',
-        'accent-emerald': '#10B981',
-        'accent-amber': '#F59E0B',
-        'accent-rose': '#F43F5E',
-        'border-color': '#27272a',
+        background: '#F9F9F9',
+        surface: '#FFFFFF',
+        'surface-alt': '#F5F5F4',
+        'text-primary': '#1A1A1A',
+        'text-secondary': '#6B7280',
+        'accent-blue': '#003DA5',
+        'accent-purple': '#6D28D9',
+        'accent-emerald': '#5A9A80',
+        'accent-amber': '#D97706',
+        'accent-rose': '#E11D48',
+        'border-color': '#E5E5E5',
       },
       fontFamily: {
-        sans: ['var(--font-sora)', ...fontFamily.sans],
-        display: ['var(--font-syne)', ...fontFamily.sans],
+        sans: ['var(--font-sans)', ...fontFamily.sans],
+        display: ['var(--font-display)', ...fontFamily.serif],
+        mono: ['var(--font-mono)', ...fontFamily.mono],
+      },
+      boxShadow: {
+        'card': '0 1px 2px rgba(15,23,42,0.06), 0 4px 12px rgba(50,50,93,0.08)',
+        'card-hover': '0 2px 4px rgba(15,23,42,0.08), 0 8px 24px rgba(50,50,93,0.12)',
+        'slab': '0 1px 2px rgba(15,23,42,0.04), 0 2px 8px rgba(50,50,93,0.06), 0 8px 24px rgba(50,50,93,0.04)',
+        'nav': '0 1px 0 rgba(15,23,42,0.04)',
+        'nav-scroll': '0 1px 2px rgba(15,23,42,0.06), 0 8px 24px rgba(50,50,93,0.06)',
+        'cta': '0 2px 4px rgba(0,61,165,0.25), 0 8px 20px rgba(0,61,165,0.2), 0 20px 48px rgba(0,61,165,0.15)',
+        'cta-hover': '0 4px 8px rgba(0,61,165,0.3), 0 12px 28px rgba(0,61,165,0.25), 0 28px 56px rgba(0,61,165,0.18)',
+      },
+      letterSpacing: {
+        'display': '-0.03em',
+        'heading': '-0.02em',
+        'label': '0.12em',
       },
       keyframes: {
         scroll: {

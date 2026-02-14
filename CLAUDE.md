@@ -34,6 +34,8 @@ Reference `.context/` files when needed:
 | todo.md | Picking up tasks, prioritizing work |
 | integrations.md | Working with webhooks, external services |
 | architecture.md | Understanding component structure, data flow |
+| feedback-and-bugs.md | Logging bugs, design feedback, and issues from Krishna |
+| design-system-v2.md | Brand colors, typography, shadows, AI employee character designs, NBP avatar prompts |
 
 ## Key Patterns
 - **No scrolling:** All primary content must be above the fold on all devices. This is non-negotiable.
@@ -63,3 +65,5 @@ NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
 
 ---
 IMPORTANT: After ANY code change, update relevant .context/ docs to keep this system alive and accurate.
+
+IMPORTANT: When Krishna reports bugs, design feedback, or issues during a session, ALWAYS log them to `.context/feedback-and-bugs.md` — include the date, description, root cause (if known), fix status, and affected files. This is the living record of all feedback.

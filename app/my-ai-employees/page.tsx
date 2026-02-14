@@ -11,6 +11,8 @@ export default function AIEmployeesPage() {
   const sanjaya = agents.find((a) => a.id === "sanjaya")!;
   const valmiki = agents.find((a) => a.id === "valmiki")!;
 
+  const orderedAgents = [partha, vyasa, vibhishana, sanjaya, valmiki];
+
   const pipelineSteps = [
     { agent: sanjaya, text: "Sanjaya finds leads", result: "You close them" },
     {
@@ -45,7 +47,7 @@ export default function AIEmployeesPage() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
             >
-              5 Agents. Zero Humans. Real Output.
+              Your Brain. Your Agents. Real Output.
             </motion.p>
 
             <h1 className="text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold leading-[1.08] mb-6 md:mb-8">
@@ -57,42 +59,37 @@ export default function AIEmployeesPage() {
             </h1>
 
             <p className="text-text-secondary text-base md:text-lg leading-relaxed mb-10 md:mb-12">
-              They find leads, write content, run research, and keep operations
-              tight — every day. This isn&apos;t a demo. It&apos;s my actual
-              team.
+              Scaling tasks is easy. Scaling <strong className="text-text-primary font-semibold">how you think</strong> —
+              your voice, your judgment, your standards — that&apos;s the hard part.
+              I built agents that carry <em>my</em> thinking into everything.{" "}
+              <strong className="text-text-primary font-semibold">I&apos;ll help you build yours.</strong>
             </p>
 
             {/* CTA cluster */}
             <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row gap-3">
               <a
-                href="https://x.com/nkgoutham"
+                href="https://wa.me/919902216155?text=Hey%20Krishna%2C%20I%20saw%20your%20AI%20employees%20page.%20I%E2%80%99d%20love%20to%20chat%20about%20building%20something%20similar%20for%20my%20business."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-accent-emerald text-background font-semibold text-sm hover:brightness-110 transition-all"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-accent-emerald text-background font-semibold text-sm whitespace-nowrap hover:brightness-110 transition-all"
               >
-                Want This for Your Business?
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M7 17L17 7M17 7H7M17 7v10" />
-                </svg>
+                Chat on WhatsApp
               </a>
               <a
                 href="https://www.linkedin.com/in/krishna-goutham/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-border-color text-text-secondary font-medium text-sm hover:text-text-primary hover:border-zinc-600 transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#0A66C2] text-white font-semibold text-sm whitespace-nowrap hover:bg-[#004182] transition-colors"
               >
                 Connect on LinkedIn
               </a>
             </div>
+            <a
+              href="mailto:krishna@thelaunch.space"
+              className="inline-block mt-3 text-xs text-text-secondary/60 hover:text-text-secondary transition-colors"
+            >
+              or email krishna@thelaunch.space
+            </a>
 
             {/* Agent count — visible on desktop as scroll cue */}
             <div className="hidden lg:flex items-center gap-3 mt-16 text-text-secondary/50">
@@ -100,7 +97,7 @@ export default function AIEmployeesPage() {
                 {agents.map((a) => (
                   <div
                     key={a.id}
-                    className="w-7 h-7 rounded-full border-2 border-background flex items-center justify-center text-[10px] font-bold"
+                    className="w-7 h-7 rounded-full border-2 border-white flex items-center justify-center text-[10px] font-bold"
                     style={{
                       background: `${a.accentHex}20`,
                       color: a.accentHex,
@@ -117,49 +114,17 @@ export default function AIEmployeesPage() {
 
         {/* ═══ RIGHT: Agent cards (scrolls on desktop) ═══ */}
         <div className="lg:w-[62%] xl:w-[65%] pb-24 md:pb-32 lg:pt-24 space-y-5 md:space-y-6">
-          {/* Parthasarathi — highlight card, the orchestrator */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.15 }}
-          >
-            <AgentCard agent={partha} size="highlight" />
-          </motion.div>
-
-          {/* Vibhishana + Vyasa — the research → content pair */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.25 }}
-            >
-              <AgentCard agent={vibhishana} size="standard" />
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.35 }}
-            >
-              <AgentCard agent={vyasa} size="standard" />
-            </motion.div>
-          </div>
-
-          {/* Sanjaya + Valmiki — the leads → social pair */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.45 }}
-            >
-              <AgentCard agent={sanjaya} size="standard" />
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.55 }}
-            >
-              <AgentCard agent={valmiki} size="standard" />
-            </motion.div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-6">
+            {orderedAgents.map((agent, i) => (
+              <motion.div
+                key={agent.id}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.15 + i * 0.12 }}
+              >
+                <AgentCard agent={agent} />
+              </motion.div>
+            ))}
           </div>
 
           {/* ─── Pipeline Visualization ─── */}
@@ -246,34 +211,28 @@ export default function AIEmployeesPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <a
-                href="https://x.com/nkgoutham"
+                href="https://wa.me/919902216155?text=Hey%20Krishna%2C%20I%20saw%20your%20AI%20employees%20page.%20I%E2%80%99d%20love%20to%20chat%20about%20building%20something%20similar%20for%20my%20business."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-accent-emerald text-background font-semibold text-sm hover:brightness-110"
               >
-                DM Krishna on X
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M7 17L17 7M17 7H7M17 7v10" />
-                </svg>
+                Chat on WhatsApp
               </a>
               <a
                 href="https://www.linkedin.com/in/krishna-goutham/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg border border-accent-emerald/30 text-accent-emerald font-semibold text-sm hover:bg-accent-emerald/10"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-[#0A66C2] text-white font-semibold text-sm hover:bg-[#004182] transition-colors"
               >
                 Connect on LinkedIn
               </a>
             </div>
+            <a
+              href="mailto:krishna@thelaunch.space"
+              className="inline-block mt-3 text-xs text-text-secondary/60 hover:text-text-secondary transition-colors"
+            >
+              or email krishna@thelaunch.space
+            </a>
           </motion.section>
         </div>
       </div>

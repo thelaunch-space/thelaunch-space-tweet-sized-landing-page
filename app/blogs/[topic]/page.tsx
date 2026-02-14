@@ -59,7 +59,7 @@ export default function TopicIndex({ params }: Props) {
 
   return (
     <div className="min-h-full bg-background text-text-primary">
-      <div className="max-w-[720px] mx-auto px-6 md:px-8 py-12 md:py-16">
+      <div className="max-w-6xl mx-auto px-6 md:px-8 py-12 md:py-16">
         <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-3">
           {label}
         </h1>
@@ -99,7 +99,7 @@ export default function TopicIndex({ params }: Props) {
         </div>
       </div>
 
-      <footer className="max-w-[720px] mx-auto px-6 md:px-8 pb-16">
+      <footer className="max-w-6xl mx-auto px-6 md:px-8 pb-16">
         <div className="border-t border-border-color pt-10">
           <p className="text-text-secondary mb-4">
             Ready to build? We ship MVPs in 21 days.

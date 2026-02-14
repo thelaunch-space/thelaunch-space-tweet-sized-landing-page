@@ -49,13 +49,13 @@ export default function BlogPost() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="min-h-screen bg-background text-text-primary">
-        <header className="max-w-[720px] mx-auto px-6 md:px-8 pt-8 md:pt-12">
+        <header className="max-w-6xl mx-auto px-6 md:px-8 pt-8 md:pt-12">
           <a href="/" className="inline-flex items-center gap-2 text-text-secondary hover:text-accent-blue text-sm font-medium transition-colors">
             ← thelaunch.space
           </a>
         </header>
 
-        <article className="max-w-[720px] mx-auto px-6 md:px-8 py-12 md:py-16">
+        <article className="max-w-6xl mx-auto px-6 md:px-8 py-12 md:py-16">
           <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">When No-Code Tools Stop Working (And What to Do Next)</h1>
           <div className="flex items-center gap-3 text-sm text-text-secondary mb-10">
             <span>thelaunch.space</span><span>·</span>
@@ -102,29 +102,29 @@ export default function BlogPost() {
           </p>
 
           <div className="space-y-4 my-8">
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">1. Page Load Time Exceeds Three Seconds</p>
               <p className="text-text-secondary text-base leading-relaxed">Google research shows that 53% of mobile users abandon sites that take longer than three seconds to load. If your Bubble app is loading in five to ten seconds (common for complex apps), you are losing half your visitors before they see anything. We have seen Bubble apps loading in 15 to 30 seconds before optimization - and even after extensive optimization, many still cannot get below three seconds.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">2. API Rate Limits Are Blocking Workflows</p>
               <p className="text-text-secondary text-base leading-relaxed">When your Zapier or Make.com automations start failing because you have hit rate limits, or your Airtable base is throttling because too many users are accessing it simultaneously, you have outgrown the platform. This typically happens around 500 to 1,000 daily active users, depending on how data-intensive your workflows are.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">3. You Need Custom Authentication or Security</p>
               <p className="text-text-secondary text-base leading-relaxed">Enterprise clients often require specific authentication methods (SAML, SSO, custom OAuth) that no-code platforms do not support or support poorly. If you are losing deals because of security requirements, no amount of no-code creativity will fix it.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">4. Complex Business Logic Is Breaking</p>
               <p className="text-text-secondary text-base leading-relaxed">Bubble workflows and Airtable automations were not designed for complex conditional logic. When your workflows start requiring multiple nested conditions, custom calculations, or state management across sessions, they become brittle and prone to errors. You spend more time debugging than building.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">5. Monthly Platform Costs Exceed $500</p>
               <p className="text-text-secondary text-base leading-relaxed">At scale, no-code platforms get expensive. Bubble Team plans, Airtable Pro with extensions, Zapier premium tiers - these add up. When your monthly stack costs $500 to $2,000, the economics of owning your own infrastructure start making sense.</p>
             </div>
           </div>
 
-          <div className="bg-border-color/30 border border-border-color rounded-xl p-8 my-10 text-center">
+          <div className="bg-surface-alt border border-border-color/40 shadow-sm rounded-2xl p-8 my-10 text-center">
             <p className="text-3xl md:text-4xl font-bold text-text-primary mb-2">$5K - $50K MRR</p>
             <p className="text-sm md:text-base text-text-secondary">The "valley of desperation" - too big for no-code, too early to afford a full engineering team</p>
           </div>
@@ -164,19 +164,19 @@ export default function BlogPost() {
           </p>
 
           <div className="space-y-4 my-8">
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">Pre-Revenue to $5K MRR: Stay on No-Code</p>
               <p className="text-text-secondary text-base leading-relaxed">At this stage, speed matters more than performance. You are still validating your idea and finding product-market fit. Any time spent on custom development is time not spent talking to customers. Optimize your no-code stack, but do not rebuild. If you are pre-revenue and considering a custom rebuild, you are probably procrastinating on harder problems - read our guide on <a href="/blogs/founder-advice/validate-startup-idea-domain-expert" className="text-accent-blue hover:underline">validating your startup idea as a domain expert</a>.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">$5K to $20K MRR: Hybrid Approach</p>
               <p className="text-text-secondary text-base leading-relaxed">This is the transition zone. You have validated demand, but you are likely hitting performance or feature limits. The right move is surgical: identify your biggest bottleneck (usually the customer-facing app or a specific integration) and rebuild only that piece. Keep admin tools, internal dashboards, and non-critical features on no-code.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">$20K to $50K MRR: Planned Migration</p>
               <p className="text-text-secondary text-base leading-relaxed">At this revenue level, you can afford to invest in proper infrastructure. Start planning a phased migration that moves critical systems to custom code while maintaining business continuity. You probably have the revenue to hire or contract developers now.</p>
             </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
+            <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">$50K+ MRR: Full Custom Stack</p>
               <p className="text-text-secondary text-base leading-relaxed">If you are still on no-code at this level, you are likely paying a hidden tax in performance, lost deals, and engineering workarounds. A full custom stack makes economic sense - the cost savings from not paying no-code platform fees alone often justify the development investment.</p>
             </div>
@@ -194,7 +194,7 @@ export default function BlogPost() {
             AI-assisted development tools like <a href="https://cursor.com/pricing" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Cursor</a>, <a href="https://bolt.new" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Bolt.new</a>, and Claude Code have changed this equation. A skilled builder using these tools can produce custom code at a fraction of the traditional cost and timeline.
           </p>
 
-          <div className="bg-border-color/30 border border-border-color rounded-xl p-6 my-8">
+          <div className="bg-surface-alt border border-border-color/40 shadow-sm rounded-2xl p-6 my-8">
             <p className="text-text-primary font-medium mb-4">The new economics of custom development:</p>
             <ul className="list-disc list-inside space-y-2 text-text-secondary text-base md:text-lg">
               <li><span className="text-text-primary font-semibold">AI development tools:</span> $40 to $80 per month (Cursor Pro + Claude Pro)</li>
@@ -220,7 +220,7 @@ export default function BlogPost() {
             The smart approach is not rebuilding everything. Admin panels and internal tools that work fine for a small team can stay on no-code. The customer-facing dashboard that is causing complaints gets rebuilt in Next.js with a proper database layer.
           </p>
 
-          <div className="bg-border-color/30 border border-border-color rounded-xl p-8 my-10 text-center">
+          <div className="bg-surface-alt border border-border-color/40 shadow-sm rounded-2xl p-8 my-10 text-center">
             <p className="text-3xl md:text-4xl font-bold text-text-primary mb-2">5-7s → &lt;1s</p>
             <p className="text-sm md:text-base text-text-secondary">Typical load time improvement after targeted migration - no full rebuild required</p>
           </div>
@@ -280,10 +280,10 @@ export default function BlogPost() {
 
         </article>
 
-        <footer className="max-w-[720px] mx-auto px-6 md:px-8 pb-16">
+        <footer className="max-w-6xl mx-auto px-6 md:px-8 pb-16">
           <div className="border-t border-border-color pt-10">
             <p className="text-text-secondary mb-4">Hitting no-code limits and not sure what to rebuild? We help founders identify exactly what needs to transition - and build it in weeks, not months.</p>
-            <a href="/?cta=open" className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-accent-blue to-accent-purple px-10 text-base font-semibold text-white shadow-[0_20px_35px_rgba(37,99,235,0.35)] transition-transform hover:-translate-y-0.5">
+            <a href="/?cta=open" className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-accent-blue to-accent-purple px-10 text-base font-semibold text-white shadow-cta hover:shadow-cta-hover transition-all hover:-translate-y-0.5">
               Get Your Launch Roadmap
             </a>
           </div>

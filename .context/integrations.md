@@ -20,10 +20,10 @@ Last updated: 2026-02-14
 - **Security:** Webhook URL never reaches the browser (server-side only)
 
 ## Google Fonts (Active — Self-hosted)
-- **Fonts:** Sora (400, 600, 700), Syne (700, 800)
+- **Fonts:** Inter (400, 500, 600, 700), Cormorant Garamond (400, 500, 600, 700), JetBrains Mono (400, 500)
 - **Loaded in:** `app/layout.tsx` via `next/font/google` (self-hosted, no CDN)
-- **CSS variables:** `--font-sora`, `--font-syne`
-- **Mapped in:** `tailwind.config.js` → `fontFamily.sans` (Sora), `fontFamily.display` (Syne)
+- **CSS variables:** `--font-sans` (Inter), `--font-display` (Cormorant Garamond), `--font-mono` (JetBrains Mono)
+- **Mapped in:** `tailwind.config.js` → `fontFamily.sans` (Inter), `fontFamily.display` (Cormorant Garamond), `fontFamily.mono` (JetBrains Mono)
 
 ## Netlify (Active)
 - **Purpose:** Hosting and auto-deployment

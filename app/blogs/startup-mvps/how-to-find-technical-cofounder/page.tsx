@@ -49,7 +49,7 @@ export default function BlogPost() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="min-h-full bg-background text-text-primary">
-        <article className="max-w-[720px] mx-auto px-6 md:px-8 py-12 md:py-16">
+        <article className="max-w-6xl mx-auto px-6 md:px-8 py-12 md:py-16">
           <h1 className="text-3xl md:text-5xl font-bold leading-tight mb-4">How to Find a Technical Cofounder (Without Getting Ghosted)</h1>
           <div className="flex items-center gap-3 text-sm text-text-secondary mb-10">
             <span>thelaunch.space</span><span>·</span>
@@ -75,7 +75,7 @@ export default function BlogPost() {
             The ghosting problem is real. Technical talent evaluates you based on traction, vision clarity, and whether you can execute on the business side. If you have an idea but nothing else, you are competing against founders who already have paying customers, revenue, or at least a working prototype. Most engineers, understandably, bet on the founder who has proven they can execute - not the one asking them to take all the technical risk for an unvalidated idea.
           </p>
 
-          <div className="bg-border-color/30 border border-border-color rounded-xl p-6 my-8">
+          <div className="bg-surface-alt border border-border-color/40 shadow-sm rounded-2xl p-6 my-8">
             <p className="text-text-primary font-medium">The validation paradox: Startup advice says "build an MVP first to show traction." But building the MVP is exactly the problem you are trying to solve by finding a technical cofounder.</p>
           </div>
 
@@ -142,7 +142,7 @@ export default function BlogPost() {
             The freelancer-to-cofounder path typically lands in the 20-35% range because the freelancer joins after significant business risk has been reduced. Always use 4-year vesting with a 1-year cliff to protect both parties.
           </p>
 
-          <div className="bg-border-color/30 border border-border-color rounded-xl p-6 my-8">
+          <div className="bg-surface-alt border border-border-color/40 shadow-sm rounded-2xl p-6 my-8">
             <p className="text-text-primary font-medium">The 2024 Carta data shows 45.9% of two-founder teams now split equity 50-50, up from 31.5% in 2015. But for freelancer conversions, unequal splits reflecting the business founder's earlier risk are standard.</p>
           </div>
 
@@ -236,10 +236,10 @@ export default function BlogPost() {
 
         </article>
 
-        <footer className="max-w-[720px] mx-auto px-6 md:px-8 pb-16">
+        <footer className="max-w-6xl mx-auto px-6 md:px-8 pb-16">
           <div className="border-t border-border-color pt-10">
             <p className="text-text-secondary mb-4">Ready to stop searching and start building? We ship MVPs in 21 days - no technical cofounder required.</p>
-            <a href="/?cta=open" className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-accent-blue to-accent-purple px-10 text-base font-semibold text-white shadow-[0_20px_35px_rgba(37,99,235,0.35)] transition-transform hover:-translate-y-0.5">
+            <a href="/?cta=open" className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-accent-blue to-accent-purple px-10 text-base font-semibold text-white shadow-cta hover:shadow-cta-hover transition-all hover:-translate-y-0.5">
               Get Your Launch Roadmap
             </a>
           </div>

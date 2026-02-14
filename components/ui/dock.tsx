@@ -47,10 +47,10 @@ function Tooltip({
   return ReactDOM.createPortal(
     <div
       style={{ top: `${top}px`, left: `${left}px` }}
-      className="fixed -translate-x-1/2 -translate-y-full rounded-md border border-gray-100 bg-gradient-to-t from-neutral-100 to-white p-2 px-3 text-center shadow-lg z-50 dark:border-zinc-800 dark:from-zinc-900 dark:to-zinc-800"
+      className="fixed -translate-x-1/2 -translate-y-full rounded-lg border border-border-color/60 bg-surface p-2 px-3 text-center shadow-card z-50"
     >
-      <p className="font-bold text-sm text-black dark:text-white">{name}</p>
-      {outcome && <p className="text-xs text-gray-500 dark:text-gray-400">{outcome}</p>}
+      <p className="font-semibold text-sm text-text-primary">{name}</p>
+      {outcome && <p className="text-xs text-text-secondary">{outcome}</p>}
     </div>,
     document.body
   )
@@ -127,13 +127,13 @@ export function DockIcon({
       >
         <a
           href={href}
-          className="group/a relative aspect-square w-full rounded-[10px] border border-gray-100 bg-gradient-to-t from-neutral-100 to-white p-1.5 shadow-[rgba(0,_0,_0,_0.05)_0px_1px_0px_inset] after:absolute after:inset-0 after:rounded-[inherit] after:shadow-md after:shadow-zinc-800/10 dark:border-zinc-900 dark:from-zinc-900 dark:to-zinc-800 dark:shadow-[rgba(255,_255,_255,_0.3)_0px_1px_0px_inset]"
+          className="group/a relative aspect-square w-full rounded-xl border border-border-color/60 bg-surface shadow-card overflow-hidden"
         >
           {src ? (
             <img
               src={src}
               alt={name}
-              className="h-full w-full rounded-[inherit] filter grayscale opacity-60 md:hover:filter-none md:hover:opacity-100 transition-all duration-300"
+              className="h-full w-full object-cover transition-all duration-300"
             />
           ) : (
             children
@@ -181,7 +181,7 @@ export function Dock({
     <nav ref={dockRef} role="navigation" aria-label="Main Dock">
       <ul
         className={cn(
-          "flex items-center rounded-xl border border-white/20 bg-white/10 p-1 backdrop-blur-lg",
+          "flex items-center rounded-xl border border-border-color bg-surface p-1.5 backdrop-blur-lg shadow-card-hover",
           className
         )}
       >
