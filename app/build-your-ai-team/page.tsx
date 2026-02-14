@@ -1,8 +1,28 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import { agents } from "@/lib/agents";
 import AgentCard from "@/components/AgentCard";
+
+/* ── agent node: avatar image with name ── */
+function AgentNode({ name, slug, id }: { name: string; slug: string; id: string }) {
+  return (
+    <Link href={`/build-your-ai-team/${slug}`} className="group/node flex flex-col items-center gap-1.5 shrink-0 w-[56px] md:w-[64px]">
+      <div className="w-12 h-12 md:w-14 md:h-14 rounded-full overflow-hidden transition-transform group-hover/node:scale-110">
+        <img
+          src={`/agent-avatars/${id}.png`}
+          alt={name}
+          className="w-full h-full object-cover"
+          loading="lazy"
+        />
+      </div>
+      <span className="text-[10px] font-semibold text-text-secondary group-hover/node:text-text-primary transition-colors leading-none text-center">
+        {name}
+      </span>
+    </Link>
+  );
+}
 
 export default function AIEmployeesPage() {
   const partha = agents.find((a) => a.id === "parthasarathi")!;
@@ -13,20 +33,21 @@ export default function AIEmployeesPage() {
 
   const orderedAgents = [partha, vyasa, vibhishana, sanjaya, valmiki];
 
-  const pipelineSteps = [
-    { agent: sanjaya, text: "Sanjaya finds leads", result: "You close them" },
+  const lanes = [
     {
-      agent: vibhishana,
-      text: "Vibhishana scans",
-      mid: "Vyasa writes",
-      midAgent: vyasa,
-      result: "Your site ranks",
+      agents: [{ ...sanjaya }],
+      action: "finds leads daily",
+      outcome: "You close them",
     },
-    { agent: valmiki, text: "Valmiki posts daily", result: "Your authority grows" },
     {
-      agent: partha,
-      text: "Parthasarathi coordinates all of it",
-      result: "Nothing falls through",
+      agents: [{ ...vibhishana }, { ...vyasa }],
+      action: "research → SEO blogs",
+      outcome: "Your site ranks",
+    },
+    {
+      agents: [{ ...valmiki }],
+      action: "writes posts in your voice for your ICP",
+      outcome: "Your authority grows",
     },
   ];
 
@@ -112,8 +133,9 @@ export default function AIEmployeesPage() {
           </div>
         </motion.div>
 
-        {/* ═══ RIGHT: Agent cards (scrolls on desktop) ═══ */}
+        {/* ═══ RIGHT: Agent cards + Pipeline (scrolls on desktop) ═══ */}
         <div className="lg:w-[62%] xl:w-[65%] pb-24 md:pb-32 lg:pt-24 space-y-5 md:space-y-6">
+          {/* ─── Agent Cards Grid ─── */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-6">
             {orderedAgents.map((agent, i) => (
               <motion.div
@@ -129,70 +151,89 @@ export default function AIEmployeesPage() {
 
           {/* ─── Pipeline Visualization ─── */}
           <motion.section
-            className="mt-8 md:mt-12 rounded-2xl md:rounded-3xl border border-border-color bg-background/60 backdrop-blur-sm p-6 md:p-8"
+            className="mt-8 md:mt-12 rounded-2xl md:rounded-3xl border border-border-color bg-surface p-6 md:p-8"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-xl md:text-2xl font-bold font-display mb-6">
-              How They Work Together
-            </h2>
+            <div className="flex items-center gap-3 mb-6 md:mb-7">
+              <h2 className="text-xl md:text-2xl font-bold font-display whitespace-nowrap">
+                How They Work Together
+              </h2>
+              <div className="flex-1 h-px bg-border-color/50" />
+            </div>
 
-            <div className="space-y-4">
-              {pipelineSteps.map((step, i) => (
+            <div className="space-y-5 md:space-y-6">
+              {lanes.map((lane, i) => (
                 <motion.div
                   key={i}
-                  className="flex items-center gap-3 flex-wrap"
-                  initial={{ opacity: 0, x: -16 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  className="flex items-center gap-3 md:gap-4"
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
                 >
-                  <span
-                    className="text-sm font-semibold"
-                    style={{ color: step.agent.accentHex }}
-                  >
-                    {step.text}
-                  </span>
-                  {step.mid && step.midAgent && (
-                    <>
-                      <svg
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        className="text-text-secondary/30 shrink-0"
-                      >
-                        <path d="M5 12h14M12 5l7 7-7 7" />
-                      </svg>
-                      <span
-                        className="text-sm font-semibold"
-                        style={{ color: step.midAgent.accentHex }}
-                      >
-                        {step.mid}
-                      </span>
-                    </>
-                  )}
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    className="text-text-secondary/30 shrink-0"
-                  >
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
-                  <span className="text-sm text-text-secondary">
-                    {step.result}
+                  {/* Agent nodes — fixed width so all lanes align */}
+                  <div className="flex items-start gap-1.5 md:gap-2 shrink-0 w-[140px] md:w-[160px]">
+                    {lane.agents.map((agent, j) => (
+                      <div key={agent.id} className="flex items-center gap-1.5 md:gap-2">
+                        {j > 0 && <span className="text-text-secondary/40 text-sm font-medium mt-1">+</span>}
+                        <AgentNode name={agent.name} slug={agent.workPageSlug} id={agent.id} />
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Connecting line + action */}
+                  <div className="flex-1 flex items-center gap-2 md:gap-3 min-w-0">
+                    <div className="flex-1 border-t border-dashed border-border-color/60" />
+                    <span className="text-[11px] md:text-xs text-text-secondary italic whitespace-nowrap shrink-0">
+                      {lane.action}
+                    </span>
+                    <div className="w-4 md:w-6 border-t border-dashed border-border-color/60 shrink-0" />
+                  </div>
+
+                  {/* Outcome */}
+                  <span className="hidden sm:inline-flex items-center gap-2 text-xs md:text-sm font-semibold text-text-primary whitespace-nowrap shrink-0">
+                    <span className="w-1.5 h-1.5 rounded-full bg-accent-emerald shrink-0" />
+                    {lane.outcome}
                   </span>
                 </motion.div>
               ))}
             </div>
+
+            {/* Orchestrator lane — same structure as above */}
+            <motion.div
+              className="mt-6 md:mt-7 pt-5 border-t border-border-color/50 flex items-center gap-1.5 md:gap-2"
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+            >
+              <div className="flex items-start shrink-0 w-[140px] md:w-[160px]">
+                <Link href={`/build-your-ai-team/${partha.workPageSlug}`} className="group/node flex flex-col items-center gap-1.5 shrink-0 w-[56px] md:w-[64px]">
+                  <div className="w-12 h-12 md:w-14 md:h-14 rounded-full overflow-hidden transition-transform group-hover/node:scale-110">
+                    <img src="/agent-avatars/parthasarathi.png" alt="Parthasarathi" className="w-full h-full object-cover" />
+                  </div>
+                  <span className="text-[10px] font-semibold text-text-secondary group-hover/node:text-text-primary transition-colors leading-none text-center">
+                    Parthasarathi
+                  </span>
+                </Link>
+              </div>
+
+              <div className="flex-1 flex items-center gap-2 md:gap-3 min-w-0">
+                <div className="flex-1 border-t border-dashed border-border-color/60" />
+                <span className="text-[11px] md:text-xs text-text-secondary italic whitespace-nowrap shrink-0">
+                  tracks all ops, sends you daily reports
+                </span>
+                <div className="w-4 md:w-6 border-t border-dashed border-border-color/60 shrink-0" />
+              </div>
+
+              <span className="hidden sm:inline-flex items-center gap-2 text-xs md:text-sm font-semibold text-text-primary whitespace-nowrap shrink-0">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent-emerald shrink-0" />
+                Nothing falls through
+              </span>
+            </motion.div>
           </motion.section>
 
           {/* ─── Bottom CTA ─── */}

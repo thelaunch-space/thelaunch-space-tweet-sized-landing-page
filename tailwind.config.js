@@ -50,11 +50,16 @@ module.exports = {
           '0%': { transform: 'translateY(-100%)' },
           '100%': { transform: 'translateY(100%)' },
         },
+        'ribbon-shimmer': {
+          '0%': { backgroundPosition: '-200% 0' },
+          '100%': { backgroundPosition: '200% 0' },
+        },
       },
       animation: {
         scroll: 'scroll 30s linear infinite',
         'glow-pulse': 'glow-pulse 3s ease-in-out infinite',
         'scan-line': 'scan-line 4s linear infinite',
+        'ribbon-shimmer': 'ribbon-shimmer 8s ease-in-out infinite',
       },
     },
   },

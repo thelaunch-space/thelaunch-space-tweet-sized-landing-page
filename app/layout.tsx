@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Cormorant_Garamond, JetBrains_Mono } from "next/font/google";
 import Script from "next/script";
 import NavBar from "@/components/NavBar";
+import AnnouncementRibbon from "@/components/AnnouncementRibbon";
 import "./globals.css";
 
 const inter = Inter({
@@ -85,6 +86,7 @@ export default function RootLayout({
             </Script>
           </>
         )}
+        <AnnouncementRibbon />
         <NavBar />
         <div className="flex-1 flex flex-col">{children}</div>
       </body>

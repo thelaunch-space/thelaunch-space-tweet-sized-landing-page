@@ -36,6 +36,7 @@ export default function AgentCard({ agent }: { agent: Agent }) {
             src={agent.avatarPath}
             alt={agent.name}
             className="w-full h-full object-cover object-top"
+            loading="lazy"
             onError={() => setImgError(true)}
           />
         ) : (

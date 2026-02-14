@@ -38,6 +38,7 @@ function CharacterArt({
           src={agent.avatarPath}
           alt={agent.name}
           className={`relative w-full ${maxH} object-contain object-bottom`}
+          loading="lazy"
           onError={() => setImgError(true)}
         />
       ) : (

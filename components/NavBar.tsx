@@ -48,7 +48,7 @@ export default function NavBar() {
           <img
             src="/logo.png"
             alt="thelaunch.space"
-            className="h-14 md:h-16 w-auto"
+            className="h-11 md:h-13 w-auto"
           />
         </Link>
 
