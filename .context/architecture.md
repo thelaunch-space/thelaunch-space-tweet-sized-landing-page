@@ -38,22 +38,46 @@ app/
 │   ├── valmiki/
 │   ├── vibhishana/
 │   └── vyasa/
+├── launch-control/
+│   └── page.tsx            # Server component — metadata + renders LaunchControlDashboard
 └── tools/[tool-slug]/      # Future tool routes (placeholder)
 middleware.ts               # Clerk middleware (permissive — no route blocking, makes auth available)
 components/
-├── NavBar.tsx              # "use client" — site-wide nav bar (logo, blog, "Build Your AI Team", social icons, hamburger menu on mobile, scroll-aware CTA on blog pages, active link pill indicators)
+├── NavBar.tsx              # "use client" — site-wide nav (hidden on /launch-control). Logo, blog, AI Team, Launch Control, socials, hamburger mobile, scroll CTA on blog pages
 ├── LandingPage.tsx         # "use client" — main landing page (hero + services)
 ├── AgentCard.tsx           # "use client" — agent showcase card (highlight/standard/compact sizes)
 ├── AgentDetailPage.tsx     # "use client" — full agent detail view (KRAs, rhythm, proof points)
 ├── FloatingCTA.tsx         # "use client" — scroll-triggered sticky CTA button
 ├── Modal.tsx               # "use client" — lead capture form
 ├── XIcon.tsx               # Pure SVG component
-└── ui/
-    ├── dock.tsx            # "use client" — macOS-style magnification dock
-    └── sparkles.tsx        # "use client" — tsparticles background
+├── ui/
+│   ├── dock.tsx            # "use client" — macOS-style magnification dock
+│   └── sparkles.tsx        # "use client" — tsparticles background
+└── launch-control/         # 20 components for the Launch Control dashboard
+    ├── LaunchControlDashboard.tsx  # Master orchestrator. CSS Grid 3-col. Top-level useQuery hooks
+    ├── HeaderBar.tsx               # Sticky top bar: "Launch Control" title, stat pills, date, Clerk UserButton
+    ├── AgentSidebar.tsx            # Left column: 5 agents with avatars, status dots, click-to-expand
+    ├── AgentExpandedPanel.tsx      # Slide-out agent detail (portrait with CSS mask-image feathering, stats, schedule)
+    ├── AgentAvatarStrip.tsx        # Mobile-only horizontal avatar scroll strip
+    ├── StatusDot.tsx               # Animated status dot (green pulse / orange static / red blink / gray)
+    ├── CenterTabs.tsx              # Tabbed center: "Overview" (public) + Communities/Questions/Briefs (admin-only)
+    ├── Scoreboard.tsx              # Count-up stat cards (questions/briefs/blogs/hours/cost saved)
+    ├── DailyTimeline.tsx           # Today's pipeline chronological view
+    ├── TimelineItem.tsx            # Timeline entry (completed/active/upcoming states)
+    ├── LiveFeed.tsx                # Right column: real-time activity log with filter tabs (All/Tasks/Milestones)
+    ├── FeedItem.tsx                # Single feed entry with avatar, agent name, message, timestamp
+    ├── CommunitiesPanel.tsx        # Subreddit card grid (admin)
+    ├── QuestionsTable.tsx          # Sortable table with frozen header/column, mobile card view (admin)
+    ├── BriefsPanel.tsx             # Brief card list (admin)
+    ├── BriefCard.tsx               # Single brief card with color-coded status badge
+    ├── BriefReaderModal.tsx        # Near-fullscreen modal: react-markdown content + SEO metadata sidebar
+    ├── WaitlistCTA.tsx             # Email input: krishna@thelaunch.space reveals Clerk auth, others → lead capture
+    └── Skeleton.tsx                # Reusable skeleton loading components (SkeletonLine, SkeletonCard, SkeletonAvatar)
 lib/
 ├── agents.ts              # Agent data layer (5 agents, typed interfaces, structured for future DB migration)
 ├── blog.ts                # Blog discovery utility (shared by sitemap.ts + blogs/page.tsx)
+├── launch-control-types.ts # LC TypeScript interfaces, agent schedule data (IST times), status badge configs
+├── useCountUp.ts          # Custom hook: animated count-up with requestAnimationFrame + easing
 ├── utils.ts               # cn() (clsx+tailwind-merge), scaleValue()
 └── submit-lead.ts          # Client fetch to /api/lead
 docs/
@@ -100,9 +124,21 @@ RootLayout (Server)
 │   └── Static blog post (no "use client", self-contained)
 ├── build-your-ai-team/page.tsx (Server)
 │   └── AgentCard ("use client")   — Card grid for all 5 agents
-└── build-your-ai-team/<agent>/page.tsx (Server)
-    ├── AgentDetailPage ("use client") — Full agent profile (KRAs, rhythm, proof)
-    └── FloatingCTA ("use client")     — Scroll-triggered sticky CTA
+├── build-your-ai-team/<agent>/page.tsx (Server)
+│   ├── AgentDetailPage ("use client") — Full agent profile (KRAs, rhythm, proof)
+│   └── FloatingCTA ("use client")     — Scroll-triggered sticky CTA
+└── launch-control/page.tsx (Server)
+    └── LaunchControlDashboard ("use client")
+        ├── HeaderBar              — Title, stat pills, date, Clerk UserButton
+        ├── AgentSidebar (left)    — 5 agents, StatusDots, click → AgentExpandedPanel
+        │   └── AgentAvatarStrip   — Mobile-only horizontal strip
+        ├── CenterTabs (center)    — Tabbed: Overview (public) + admin tabs (auth-gated)
+        │   ├── Overview tab       — Scoreboard + DailyTimeline (always visible)
+        │   ├── Communities tab    — CommunitiesPanel (admin only)
+        │   ├── Questions tab      — QuestionsTable (admin only)
+        │   └── Briefs tab         — BriefsPanel → BriefCard → BriefReaderModal (admin only)
+        ├── LiveFeed (right)       — Real-time activity feed, FeedItems
+        └── WaitlistCTA (right)    — Email gate (admin auth or lead capture)
 ```
 
 ## NavBar
@@ -176,8 +212,8 @@ Base URL: `https://impartial-pelican-672.convex.site` (dev deployment)
 - `/ingestQuestions` accepts array OR single object (normalizes to array)
 
 ### Query Functions
-- **Public (no auth):** `questions.listRecent`, `briefs.listMetadata`, `blogs.listRecent`, `agentActivity.agentStatuses`, `agentActivity.recentFeed`
-- **Admin (auth required):** `questions.listFullDetails`, `briefs.getFullBrief`, `briefs.listFull`, `agentActivity.fullLog`
+- **Public (no auth):** `questions.listRecent`, `briefs.listMetadata`, `blogs.listRecent`, `agentActivity.agentStatuses`, `agentActivity.recentFeed`, `agentActivity.weeklyStats`, `agentActivity.allTimeStats`, `agentActivity.agentTodayActivity`, `agentActivity.agentWeeklySummary`
+- **Admin (auth required):** `questions.listFullDetails`, `questions.communityBreakdown`, `briefs.getFullBrief`, `briefs.listFull`, `agentActivity.fullLog`
 - Admin queries check `ctx.auth.getUserIdentity()` — throw if not authenticated
 
 ### Auth
@@ -196,6 +232,44 @@ Agent on VPS → curl POST to Convex HTTP Action → validates Bearer token → 
 Terminal 1: npx convex dev    (watches convex/ files, syncs to dev deployment)
 Terminal 2: npm run dev       (Next.js dev server at localhost:3000)
 ```
+
+## Launch Control Frontend Dashboard
+
+### Layout
+- **Desktop (>=1024px):** CSS Grid `grid-cols-[240px_1fr_320px]` — sidebar / center / feed
+- **Tablet (768-1023px):** `grid-cols-[200px_1fr]` — feed drops below center
+- **Mobile (<768px):** Single column, sidebar becomes horizontal avatar strip
+- NavBar hidden on `/launch-control` — self-contained HeaderBar instead
+
+### Auth Flow (Waitlist Hack)
+- No public "Sign In" button anywhere. WaitlistCTA replaces it.
+- WaitlistCTA shows an email input labeled "Join the waitlist"
+- If email === `krishna@thelaunch.space` → reveals Clerk SignInButton + SignUpButton
+- Any other email → POSTs to `/api/lead` (same Make.com webhook as main lead capture) → "You're on the list!"
+- When signed in, WaitlistCTA returns `null` (disappears). Clerk UserButton shows in HeaderBar.
+- Admin tabs (Communities/Questions/Briefs) in CenterTabs only appear when `isSignedIn` is true.
+
+### Center Column Tabs
+- `CenterTabs.tsx` manages a tabbed interface in the center column
+- **Overview tab** (always visible): Scoreboard + DailyTimeline
+- **Communities tab** (admin only): CommunitiesPanel
+- **Questions tab** (admin only): QuestionsTable
+- **Briefs tab** (admin only): BriefsPanel → click card → BriefReaderModal
+
+### Brief Reader Modal
+- Near-fullscreen (~90vh × 1200px max-width)
+- Left (~70%): `react-markdown` + `remark-gfm` renders `brief.contentMarkdown` with custom Tailwind component mapping
+- Right (~30%): SEO metadata sidebar (keywords as pills, ICP problem, competitive gap, angles, source URLs)
+- **Important:** react-markdown v10 requires content as children: `<ReactMarkdown>{content}</ReactMarkdown>` (not self-closing)
+
+### Real-time Updates
+- All dashboard data uses `useQuery()` from `convex/react` — creates WebSocket subscriptions
+- When agents push data via HTTP endpoints, Convex WebSocket pushes to all subscribed frontends instantly
+- LiveFeed shows real-time activity log with animated entry transitions (Framer Motion)
+
+### Packages
+- `react-markdown` — renders brief contentMarkdown in BriefReaderModal
+- `remark-gfm` — GitHub-flavored markdown (tables, strikethrough) in briefs
 
 ## State Management
 - `useState` only — no global state, no context

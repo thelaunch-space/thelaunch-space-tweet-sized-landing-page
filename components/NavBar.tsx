@@ -10,6 +10,8 @@ export default function NavBar() {
   const pathname = usePathname();
   const isBlog = pathname.startsWith("/blogs");
   const isAITeam = pathname.startsWith("/build-your-ai-team");
+  const isLaunchControl = pathname.startsWith("/launch-control");
+
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -38,6 +40,9 @@ export default function NavBar() {
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
   }, [menuOpen]);
+
+  // Launch Control has its own header — hide NavBar entirely
+  if (isLaunchControl) return null;
 
   const showCTA = isBlog && scrolled;
 
@@ -73,6 +78,16 @@ export default function NavBar() {
             }`}
           >
             Build Your AI Team
+          </Link>
+          <Link
+            href="/launch-control"
+            className={`text-sm font-medium transition-all duration-200 rounded-lg px-3 py-1.5 ${
+              isLaunchControl
+                ? "text-text-primary bg-accent-blue/[0.07]"
+                : "text-text-secondary hover:text-text-primary hover:bg-black/[0.03]"
+            }`}
+          >
+            Launch Control
           </Link>
           <div className="w-px h-4 bg-border-color/60" />
           <div className={`flex items-center gap-6 transition-all duration-300 ${showCTA ? "hidden sm:flex" : "flex"}`}>
@@ -132,6 +147,14 @@ export default function NavBar() {
               }`}
             >
               Build Your AI Team
+            </Link>
+            <Link
+              href="/launch-control"
+              className={`text-sm font-medium transition-all duration-200 rounded-lg px-3 py-2 -mx-1 ${
+                isLaunchControl ? "text-text-primary bg-accent-blue/[0.07]" : "text-text-secondary"
+              }`}
+            >
+              Launch Control
             </Link>
             <div className="h-px bg-border-color/40" />
             <div className="flex items-center gap-5">

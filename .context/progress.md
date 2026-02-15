@@ -100,14 +100,43 @@ Last updated: 2026-02-15
 - [x] **Historical data backfill — 13 briefs (with full markdown), 7 blogs, 30 questions pushed to Convex**
 - [x] **Convex schema fully enriched — all 12 scanner fields, all 14 blog-queue columns, matches Partha's audit**
 
+- [x] **Launch Control frontend dashboard (`/launch-control`) — full 3-column dashboard built**
+- [x] **LC: 5 new Convex queries (weeklyStats, allTimeStats, agentTodayActivity, agentWeeklySummary, communityBreakdown)**
+- [x] **LC: Route + Layout — server page, CSS Grid 3-col (sidebar/center/feed), responsive**
+- [x] **LC: HeaderBar — "Launch Control by [logo]", stat pills, Clerk auth, no main NavBar on this page**
+- [x] **LC: Agent Sidebar — 5 agents, status dots, click-to-expand detail panel (inline swap, not overlay)**
+- [x] **LC: Agent Expanded Panel — full-bleed portrait, status badge (Working/Idle/Offline), today+week stats, schedule, click-outside-to-close**
+- [x] **LC: Live Feed — real-time Convex WebSocket, filter tabs (All/Tasks/Milestones), animated entries**
+- [x] **LC: Scoreboard — count-up animation (intersection observer), 5 stat cards, all-time totals**
+- [x] **LC: Daily Timeline — merges live activity + hardcoded IST schedule, 3 states (completed/active/upcoming)**
+- [x] **LC: Admin Tabs (auth-gated) — Communities panel, Questions table (sortable, frozen header/col, mobile cards), Briefs panel**
+- [x] **LC: Brief Reader Modal — near-fullscreen, react-markdown + remark-gfm, SEO metadata sidebar**
+- [x] **LC: Mobile — avatar strip, stacked cards for questions, sheet overlays for panels**
+- [x] **LC: CTA moved inline into live feed column (no separate footer section)**
+- [x] **LC: NavBar hidden on `/launch-control` — self-contained header**
+- [x] **LC: Sitemap updated with `/launch-control` URL**
+- [x] **LC: NavBar updated with "Launch Control" link (desktop + mobile)**
+- [x] **LC: `react-markdown` + `remark-gfm` packages installed**
+- [x] **LC: Portrait edge fix — CSS `mask-image` feathering on agent expanded panel portraits**
+- [x] **LC: Font size bump — body text upgraded one notch across all dashboard components (timeline, feed, sidebar, header, scoreboard)**
+- [x] **LC: Waitlist CTA — replaces "Sign in" button. Email input captures leads via Make.com webhook. Hidden admin gate: `krishna@thelaunch.space` reveals Clerk sign-in/sign-up. Disappears when signed in.**
+- [x] **LC: HeaderBar simplified — "Sign in" removed, only Clerk `UserButton` shown when authenticated**
+- [x] **LC: Center column tabs (`CenterTabs.tsx`) — "Overview" tab (Scoreboard + Timeline) always visible. Communities/Questions/Briefs tabs appear only when signed in. Same space, no scrolling down.**
+- [x] **LC: Brief Reader Modal fix — `react-markdown` v10 requires children prop, was self-closing with no content passed. Fixed.**
+- [x] **LC: Test brief pushed to Convex with full `contentMarkdown` (2523 chars) — renders tables, code blocks, headings, bold, lists**
+
 ## In Progress
-- [ ] Launch Control frontend dashboard (`/launch-control` page)
+- [ ] Launch Control mobile QA + final design polish
+- [ ] Clerk production instance setup (separate from dev)
+- [ ] Convex production deployment
 
 ## Blocked
 - Nothing currently blocked
 
 ## Recent Changes (latest first)
-1. Launch Control VPS deployment — 3 SKILL.md files installed, API key stored, 50 records backfilled (13 briefs, 7 blogs, 30 questions), test push verified (2026-02-15)
+1. Launch Control polish session — portrait masking, font size bump, waitlist CTA with hidden admin gate, tabbed center layout, brief reader markdown fix (2026-02-15)
+2. Launch Control frontend dashboard — 21 new files, 4 modified files, full 3-column dashboard with agent sidebar, scoreboard, timeline, live feed, admin tabs, brief reader. Typecheck + lint + build all pass. (2026-02-15)
+2. Launch Control VPS deployment — 3 SKILL.md files installed, API key stored, 50 records backfilled (13 briefs, 7 blogs, 30 questions), test push verified (2026-02-15)
 2. Launch Control SKILL.md files — 3 separate skills created (convex-push-scanner, convex-push-blog, convex-push-activity), Node.js JSON escaping instead of jq (2026-02-15)
 3. Launch Control Convex backend — schema, HTTP endpoints, auth, provider wiring, tested with curl (2026-02-15)
 2. Announcement ribbon, pipeline redesign, `/my-ai-employees` → `/build-your-ai-team` rename (2026-02-15)

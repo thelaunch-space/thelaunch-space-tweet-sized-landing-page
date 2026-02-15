@@ -1,8 +1,8 @@
 # Launch Control — Frontend Spec
 
-Status: BRAINSTORMING — Not building yet
+Status: READY TO BUILD
 Created: 2026-02-15
-Last updated: 2026-02-15
+Last updated: 2026-02-15 (v2 — full rewrite after UI review)
 
 ---
 
@@ -10,9 +10,11 @@ Last updated: 2026-02-15
 
 Launch Control is a **public storefront window**, not an admin panel. Visitors from LinkedIn press their face against the glass and watch Krishna's AI team work. The design matches thelaunch.space's "Quiet Luxury" aesthetic — off-white base, clean typography, layered shadows, subtle micro-interactions.
 
-**Visual reference:** Nothing Phone style header — minimal, typographic, confident. The dashboard itself is clean and usable, not flashy.
+**Visual reference:** Bhanu Teja's Mission Control HQ (3-column layout with agents sidebar, central content, live feed). We borrow the layout structure but replace the Trello-style kanban with an ICP-focused output + impact view.
 
 **One rule:** Everything on the public view answers one question: **"Is this real?"**
+
+**ICP context:** Domain-expert founders (35-50), running $100K-$2M services businesses. They think in dollars and time. They're skeptical but AI-curious. They need to see: (1) this is real, (2) these agents produce tangible output, (3) this would save them money. See `.context/thelaunch-space-icp.md` for full profile.
 
 ---
 
@@ -22,114 +24,222 @@ Launch Control is a **public storefront window**, not an admin panel. Visitors f
 
 ---
 
-## Page Structure
+## Layout: 3-Column Dashboard
+
+Inspired by Mission Control HQ. Three persistent columns on desktop.
 
 ```
-/launch-control
-│
-├── Header
-│   "Launch Control" — minimal, clean, Nothing-phone inspired
-│   No hero section. Just the title + maybe a subtle live pulse dot.
-│
-├── Agent Status Cards (all 5 agents)
-│   ├── Parthasarathi — Orchestrator
-│   ├── Vibhishana — SEO Scanner + Brief Writer
-│   ├── Vyasa — Blog Writer
-│   ├── Sanjaya — "Coming Soon" badge
-│   └── Valmiki — "Coming Soon" badge
-│   Each card: status dot + current task or countdown + click to expand
-│
-├── Scoreboard (stats row)
-│   Numbers count up on load (animation)
-│   Shows: questions analyzed | briefs written | blogs published | human hours saved | $ saved
-│
-├── Activity Feed (last 7 days)
-│   Clean log style with agent avatars
-│   Scrollable timeline of milestones
-│
-├── [Admin only] Briefs Section
-│   Full list of briefs with status tags
-│   Click to read full markdown content
-│
-└── Footer CTA
-    "Want an AI team like this? Let's talk"
+┌─────────────────────────────────────────────────────────────────────────┐
+│  HEADER                                                                 │
+│  "Launch Control"  |  3 AGENTS ACTIVE  ·  47 QUESTIONS  |  Date  Login │
+├──────────┬──────────────────────────────────────────────┬───────────────┤
+│          │                                              │               │
+│  AGENTS  │           CENTER CONTENT                     │  LIVE FEED    │
+│  SIDEBAR │                                              │               │
+│          │  [Public: Scoreboard + Daily Timeline]        │  Real-time    │
+│  Agent 1 │  [Admin: Tabs — Overview | Communities |     │  activity     │
+│  Agent 2 │           Questions | Briefs]                │  log          │
+│  Agent 3 │                                              │               │
+│  Agent 4 │                                              │               │
+│  Agent 5 │                                              │               │
+│          │                                              │               │
+└──────────┴──────────────────────────────────────────────┴───────────────┘
 ```
+
+### Column Widths (Desktop)
+- **Left (Agents Sidebar):** ~240px fixed
+- **Center (Main Content):** flexible, fills remaining space
+- **Right (Live Feed):** ~320px fixed
 
 ---
 
-## Agent Status Cards
+## Header Bar
+
+Full-width top bar. Clean, information-dense but not cluttered.
+
+### Layout (left → right)
+```
+[Logo/Icon] Launch Control     3 AGENTS ACTIVE  ·  127 QUESTIONS SCANNED     Sat, Feb 15 2026     [Login Icon]
+```
+
+### Content
+- **Left:** "Launch Control" in display font (Cormorant Garamond), bold. Small rocket/diamond icon optional.
+- **Center:** Key stats in mono font (JetBrains Mono, uppercase, small). Examples:
+  - `3 AGENTS ACTIVE` — count of agents with status "working" or "idle" (not paused)
+  - `127 QUESTIONS SCANNED` — total from questions table (all time or rolling 7-day — TBD)
+  - Stats update in real-time via Convex subscriptions
+- **Right:** Current date + time (IST). Clerk login icon — subtle lock/user icon. When logged in: small avatar or checkmark. Clicking opens Clerk sign-in.
+
+### Style
+- Background: `surface` (#FFFFFF) with `shadow-nav` beneath
+- Height: ~56px
+- Sticky top (z-50)
+- Border-bottom: `border-color` at 60% opacity
+
+---
+
+## Left Column: Agents Sidebar
 
 ### Layout
-- 5 cards in a responsive row/grid
-- Active agents (Parthasarathi, Vibhishana, Vyasa): full cards with live data
-- Inactive agents (Sanjaya, Valmiki): same card style but with "Coming Soon" badge overlay
+Vertical list of agent entries, similar to Bhanu's agent sidebar. Each agent is a clickable row.
 
-### Card Content (Public View)
-- **Agent avatar** (character portrait from `/public/agent-avatars/`)
-- **Agent name + role** (one line)
-- **Status indicator dot:**
-  - Green = working (currently executing a task)
-  - Orange = idle (between scheduled runs)
-  - Red = paused/error
-- **If working:** Show task name (e.g., "Scanning Reddit questions")
-- **If idle:** Show countdown timer — "Next run in 47 min" (counts down in real-time)
-- **Last 7 days summary:** e.g., "52 questions scanned, 3 briefs written"
+### Agent Row (Default State)
+```
+[Avatar circle 36px] [Status dot] Agent Name
+                                   Role (one line)
+```
 
-### Card Click Behavior
-- **Expand inline (accordion style)** — card expands in place, no page navigation
-- **Public expanded view:** Last 7 days summary, role description, link to `/build-your-ai-team/[agent]`
-- **Admin expanded view:** Everything above PLUS:
-  - For Vibhishana: recent briefs list (click to read), recent questions scanned
-  - For Vyasa: blog queue, recent published posts
-  - For Parthasarathi: recent activity log, health check status
+- **Avatar:** Small circular crop of agent portrait from `/public/agents/`
+- **Status dot:** Colored pulse indicator next to the name
+  - Green + gentle pulse animation = **working** (currently executing)
+  - Orange + static = **idle** (between scheduled runs)
+  - Red + slow blink = **paused / coming soon / error**
+- **Name:** Agent name in body font (Inter), semi-bold
+- **Role:** One-line role in `text-secondary`, small size (e.g., "SEO Scanner & Brief Writer")
 
-### "Coming Soon" Agents (Sanjaya, Valmiki)
-- Same card shape/size as active agents
-- Muted/slightly faded styling
-- "Coming Soon" badge (subtle, not loud)
-- Avatar still visible (teases the character)
-- No status dot, no countdown, no click-to-expand
+### Agent List (Current)
+| Agent | Status | Dot Color |
+|-------|--------|-----------|
+| Parthasarathi | Active (orchestrator) | Green/Orange |
+| Vibhishana | Active (scanner + briefs) | Green/Orange |
+| Vyasa | Active (blog writer) | Green/Orange |
+| Sanjaya | Coming Soon | Red (muted) |
+| Valmiki | Coming Soon | Red (muted) |
 
-### Status Logic
-- **Working:** Determined by `agentActivity` — if the agent pushed a "started" activity within the last N minutes (configurable per agent based on typical run duration)
-- **Idle:** Default state. Show countdown to next scheduled run.
-- **Paused/Error:** If the agent pushed an "error" activity or hasn't reported in 24+ hours
+"Coming Soon" agents: same row style but muted opacity (~60%). Red dot with no pulse. Still clickable but expanded view just shows "Coming Soon" + avatar + role description.
 
-### Agent Schedules (for countdown timer)
-| Agent | Schedule (IST) | Runs |
-|-------|---------------|------|
-| Vibhishana (scanning) | 9:00 AM | 1x/day |
-| Vibhishana (briefs) | 11:00 AM, 2:00 PM, 5:00 PM | 3x/day |
-| Vyasa (blog writing) | 4:00 PM | 1x/day |
-| Parthasarathi (orchestration) | Continuous/as-needed | Throughout day |
+**Future-proof:** This sidebar will hold more agents as the team grows. The list scrolls vertically if needed.
 
-The countdown timer calculates "next run" based on current time vs. these schedules. For Parthasarathi (no fixed schedule), show "last active X ago" instead of countdown.
+### Agent Row: Click → Expanded Panel
+
+When you click an agent row, a **detail panel slides out** (overlay/modal or expands inline within the sidebar — whichever looks cleaner). This is the "agent profile card."
+
+**Design goal:** Minimal info but maximum WOW factor. This should feel like opening a character profile in a premium game or app.
+
+#### Expanded Panel Content
+
+```
+┌─────────────────────────────────┐
+│  [Full avatar image — large]    │
+│                                 │
+│  Vibhishana                     │
+│  Research Intelligence Analyst  │
+│  ● Working — Scanning Reddit    │
+│                                 │
+│  ─── Today ───                  │
+│  ✓ Scanned 52 questions (9 AM) │
+│  ✓ Created brief: "MVP..." (11)│
+│  ◌ Brief #2 queued (2 PM)      │
+│  ◌ Brief #3 queued (5 PM)      │
+│                                 │
+│  ─── This Week ───              │
+│  127 questions · 9 briefs       │
+│                                 │
+│  [View Full Profile →]          │
+│  (links to /build-your-ai-team) │
+└─────────────────────────────────┘
+```
+
+**Sections:**
+1. **Avatar** — Full agent portrait, large (200-280px). The hero moment. Beautiful rendering against clean background.
+2. **Name + Role** — Display font for name, body font for role
+3. **Current Status** — Status dot + text. "Working — Scanning Reddit" or "Idle — Next run in 47 min" or "Paused — Coming Soon"
+4. **Today's Activity** — What the agent did today + what's queued. Completed items have checkmarks, upcoming items have open circles. Shows scheduled times.
+5. **This Week Summary** — One-line stat rollup (e.g., "127 questions · 9 briefs · 3 blogs")
+6. **Link** — "View Full Profile →" links to `/build-your-ai-team/[agent]`
+
+**For "Coming Soon" agents:** Avatar + name + role + "This agent is in training. Coming soon." No activity sections.
+
+**Animation:** Panel slides in from the left (or expands smoothly). Content fades in with staggered entrance. Framer Motion.
+
+**Close:** Click outside, click X, or click the agent row again.
 
 ---
 
-## Scoreboard
+## Right Column: Live Feed
 
-### What It Shows
-A row of key numbers — the aggregate impact of the AI team.
+Real-time activity log. The "proof" column. Visitors see entries appearing as agents work.
+
+### Style
+- Header: "LIVE FEED" with a small red recording dot (pulsing)
+- Clean log format — factual, concise entries
+- Each entry: small agent avatar circle + agent name + action + relative timestamp
+- Most recent on top
+- Scrollable (vertical), contained within the column
+
+### Filter Tabs (top of feed)
+```
+[All] [Tasks] [Milestones]
+```
+- **All:** Everything
+- **Tasks:** scan_complete, brief_created, blog_published
+- **Milestones:** health_check, agent started/stopped
+
+### Example Entries
+```
+● Vibhishana                              2h ago
+  Scanned 52 questions from 5 subreddits
+
+● Vibhishana                              5h ago
+  Created brief: "Why Your MVP Is Burning Money"
+
+● Vyasa                                   Yesterday
+  Published: "Should You Hire a Developer?"
+
+● Parthasarathi                           Yesterday
+  Health check: all agents operational
+```
+
+### Data Source
+- `agentActivity` table via Convex `useQuery()` subscription
+- Default: last 7 days, sorted by timestamp descending
+- Real-time: new entries slide in from top with fade animation when WebSocket pushes data
+- Admin view: click any entry to see full metadata (which subreddits, how many HIGH relevance, etc.)
+
+---
+
+## Center Column: Main Content
+
+This is the largest area. It changes based on whether the visitor is logged in or not.
+
+### Public View (No Login)
+
+Two sections stacked vertically:
+
+#### Section 1: Scoreboard (Impact Strip)
+
+A horizontal row of key metrics — the aggregate impact of the AI team. This is the "wow" moment for the ICP.
+
+```
+┌──────────────┬──────────────┬──────────────┬──────────────┬──────────────┐
+│     127      │      12      │       3      │    ~108      │   ~$5,600    │
+│  Questions   │    Briefs    │    Blogs     │ Human Hours  │    Saved     │
+│  Analyzed    │   Written    │  Published   │  Replaced    │  This Week   │
+└──────────────┴──────────────┴──────────────┴──────────────┴──────────────┘
+        Rolling 7 Days                              + small "all time" totals below
+```
+
+**Metrics:**
 
 | Metric | Example | Source |
 |--------|---------|--------|
 | Reddit questions analyzed | 127 | `questions` table count (last 7 days) |
 | SEO briefs written | 12 | `briefs` table count (last 7 days) |
 | Blogs published | 3 | `blogs` table count (last 7 days) |
-| Human hours replaced | ~103 hrs | Calculated (see formula below) |
+| Human hours replaced | ~108 hrs | Calculated (see formula below) |
 | Cost savings | ~$5,600 | Calculated (see formula below) |
 
-### Animation
-- Numbers **count up from 0** to real value on page load (Framer Motion or similar)
-- Smooth easing, ~1.5 second duration
-- Staggered start per metric (left to right, slight delay)
+**Below each 7-day number:** A smaller, muted "all time" total. e.g., "421 total" under the 127 weekly number. Gives scale as data accumulates.
 
-### Cost Savings Formula (Hardcoded for MVP)
+**Animation:**
+- Numbers **count up from 0** to real value on page load (Framer Motion)
+- Smooth easing, ~1.5 second duration
+- Staggered start per metric (left to right, 200ms delay each)
+- Easing: ease-out (fast start, gentle land)
+
+**Cost Savings Formula (Hardcoded for MVP):**
 
 Based on research (Upwork, Glassdoor, ZipRecruiter — Feb 2026 rates):
-
-**Per-task human equivalents:**
 
 | Agent Task | Human Time | Hourly Rate | Cost Per Task |
 |-----------|-----------|-------------|--------------|
@@ -138,13 +248,12 @@ Based on research (Upwork, Glassdoor, ZipRecruiter — Feb 2026 rates):
 | Vyasa: Blog post (1 post, ~2000 words from brief) | 4 hrs | $75/hr | $300 |
 | Parthasarathi: Daily orchestration | 3 hrs | $60/hr | $180 |
 
-**Rate sources:**
-- $45/hr (Vibhishana) — blended rate for SEO specialist + content strategist + market researcher. Upwork median SEO specialist: $21/hr (budget), experienced: $35-55/hr. ZipRecruiter content strategist: $35-53/hr.
-- $75/hr (Vyasa) — mid-tier SEO copywriter. Upwork intermediate: $50-75/hr. Per-article: $300-600 for 2000 words.
-- $60/hr (Parthasarathi) — content operations manager. ZipRecruiter: $43-75/hr. Glassdoor SEO manager: $51-90/hr.
+Rate sources:
+- $45/hr (Vibhishana) — blended SEO specialist + content strategist + market researcher. Upwork experienced: $35-55/hr.
+- $75/hr (Vyasa) — mid-tier SEO copywriter. Upwork intermediate: $50-75/hr.
+- $60/hr (Parthasarathi) — content operations manager. ZipRecruiter: $43-75/hr.
 
-**Calculation logic (per week, 5 working days):**
-
+Calculation logic:
 ```
 weeklyHumanHours =
   (questionsScanned / 50) * 2.5     // 2.5 hrs per scan run (~50 questions each)
@@ -153,133 +262,303 @@ weeklyHumanHours =
   + 5 * 3                            // 3 hrs/day orchestration × 5 days
 
 weeklyCostSavings =
-  (questionsScanned / 50) * 112.50   // scan runs × $112.50
-  + briefsWritten * 180              // briefs × $180
-  + blogsPublished * 300             // blogs × $300
-  + 5 * 180                          // orchestration × 5 days × $180
+  (questionsScanned / 50) * 112.50
+  + briefsWritten * 180
+  + blogsPublished * 300
+  + 5 * 180
 ```
 
-For typical week (5 scan runs, 15 briefs, 5 blogs):
-- Human hours: 12.5 + 60 + 20 + 15 = **~107.5 hours**
-- Cost: $562.50 + $2,700 + $1,500 + $900 = **~$5,662.50**
+#### Section 2: Daily Timeline (Today's Pipeline)
 
-Display as rounded numbers: "~108 human hours" and "~$5,600 saved"
+A chronological view of what the AI team is doing **today**. Not a kanban — a timeline showing completed/active/upcoming work.
 
-**Note:** These are conservative estimates using mid-market freelancer rates, not agency rates. Defensible if questioned.
+```
+TODAY — Saturday, Feb 15
+
+  ✓  9:00 AM   Vibhishana    Scanned 52 questions from r/smallbusiness, r/startups...
+  ✓  11:00 AM  Vibhishana    Created brief: "Why Your MVP Is Burning Money"
+  ●  2:00 PM   Vibhishana    Creating brief #2...                              [ACTIVE]
+  ◌  4:00 PM   Vyasa         Blog writing queued
+  ◌  5:00 PM   Vibhishana    Brief #3 scheduled
+  ◌  7:00 PM   Parthasarathi Due diligence review
+```
+
+- **Completed items (✓):** Muted, with green checkmark
+- **Active item (●):** Highlighted row, green pulse dot, slightly elevated card
+- **Upcoming items (◌):** Lighter opacity, shows scheduled time
+- **Empty state:** "No tasks scheduled for today" (or friendly message about next working day)
+
+This gives visitors a real-time sense of the pipeline moving. The ICP sees: "These agents have a daily rhythm. This is a system, not a hack."
+
+#### Section 3: Footer CTA
+
+```
+"Want an AI team like this? Let's talk."
+[Get Your Launch Roadmap →]
+```
+
+Links to `/?cta=open` (opens lead capture modal on homepage).
+
+### Admin View (Krishna Logged In)
+
+When authenticated, the center column switches to a **tabbed interface**. The tabs replace the public sections.
+
+#### Tab Bar
+```
+[Overview]  [Communities]  [Questions]  [Briefs]
+```
+
+Tabs appear at the top of the center column. Clean, minimal tab design. Active tab has accent-blue underline.
 
 ---
 
-## Activity Feed
+### Tab 1: Overview (Default)
 
-### Style
-- **Clean log format** — factual, concise entries
-- Each entry has: agent avatar (small circle) + agent name + action description + timestamp
-- Scrollable, most recent on top
-- Shows last 7 days by default
-
-### Example Entries
-```
-[Vibhishana avatar] Vibhishana — Scanned 52 questions from 5 subreddits          2 hours ago
-[Vibhishana avatar] Vibhishana — Created brief: "Why Your MVP Is Burning Money"   5 hours ago
-[Vyasa avatar]      Vyasa — Published blog: "Should You Hire a Developer?"         Yesterday
-[Parthasarathi avatar] Parthasarathi — Health check: all agents operational        Yesterday
-```
-
-### Data Source
-- `agentActivity` table via Convex `useQuery()` subscription
-- Filter: last 7 days, sorted by timestamp descending
-- Real-time: new entries appear instantly via WebSocket when agents push data
-
-### Public vs. Admin
-- **Public:** See milestone entries (scan complete, brief created, blog published, health check)
-- **Admin:** Same entries but with additional detail — click an entry to see metadata (e.g., which subreddits scanned, how many questions marked as high-relevance)
+Same content as the public view — Scoreboard + Daily Timeline. Krishna sees the same "storefront" his audience sees, so he can verify it looks right. No additional admin data here — that's what the other tabs are for.
 
 ---
 
-## Admin View (Krishna Logged In)
+### Tab 2: Communities
 
-### Authentication
-- Clerk login (already configured)
-- Small lock/user icon in the Launch Control header — clicking it opens Clerk login
-- Icon is visible but understated (doesn't distract public visitors)
-- When logged in, icon changes to show authenticated state (e.g., small avatar or checkmark)
+Shows which subreddits/communities Vibhishana monitors. This is the "reach" view.
 
-### What Unlocks When Logged In
+**Content:**
+- List of subreddits Vibhishana has scanned
+- For each: subreddit name, member count (if available), questions found, last scanned date
+- Derived from `questions` table — group by `subreddit`, count per subreddit
 
-**1. Brief Queue Section**
-- Full list of all briefs from `briefs` table
-- Each brief shows: title, status tag, category, date created
-- Status tags: `pending_review` (yellow), `approved` (green), `needs_revision` (red), `brief_ready` (blue), `writing` (purple), `published` (green)
-- **Click a brief → full markdown content expands inline below the brief card** (keeps context, scroll to read — this is the main reason Launch Control exists for Krishna)
-- Brief detail view shows: all SEO metadata (primary keyword, long-tail keywords, competitive gap, ICP problem, launch space angle, suggested structure, research notes)
+**Layout:** Clean card grid or list. Each community card shows the subreddit name prominently + stats below.
 
-**2. Inside Agent Expanded Cards**
-- Vibhishana's expanded card shows recent briefs (quick access — same briefs as the section above)
-- Vibhishana's expanded card shows recent questions with full scanner analysis (pain point, ICP relevance, content potential, engagement, notes)
-- Vyasa's expanded card shows blog queue with status
+**Note:** This tab may be sparse initially. If data is thin, combine with the Questions tab or show as a filter/sidebar within Questions.
 
-**3. Full Activity Log**
-- Unfiltered activity feed (not just last 7 days)
-- Filter by agent name
-- Shows metadata field for each entry
+---
 
-### Brief Access (Two Paths)
-Per Krishna's preference, briefs are accessible two ways:
-1. **Quick access:** Inside Vibhishana's expanded agent card — see recent briefs, click to read
-2. **Full list:** Dedicated "Briefs" section on the page — browse all briefs, filter by status/category
+### Tab 3: Questions
+
+Vibhishana's full scanner output. The raw intelligence feed.
+
+**Layout: Scrollable data table** with frozen headers and frozen left column.
+
+#### Table Columns
+
+| Column | Frozen? | Width | Content |
+|--------|---------|-------|---------|
+| Title | Yes (frozen left) | ~300px | Reddit post title (clickable → opens Reddit URL) |
+| Subreddit | No | ~140px | e.g., "r/smallbusiness" |
+| ICP Relevance | No | ~100px | HIGH (green) / MEDIUM (amber) / LOW (gray) badge |
+| Content Potential | No | ~140px | "Strong blog candidate" / "Blog candidate" / "Watch" |
+| Pain Point | No | ~250px | Extracted pain point |
+| thelaunch.space Angle | No | ~250px | How we address this |
+| Engagement | No | ~120px | "15 upvotes, 23 comments" |
+| Status | No | ~120px | "new" / "brief_created" / "skipped" badge |
+| Brief Created | No | ~80px | Yes/No indicator |
+| Scanned At | No | ~120px | Date |
+
+#### Table UX
+
+**Frozen header row:** Column headers stick to the top of the table viewport as you scroll vertically. Always visible — you never lose context of which column you're reading.
+
+**Frozen left column (Title):** The first column (Title) sticks to the left edge as you scroll horizontally. When the table is wider than the viewport, you scroll right to see more columns but the Title column stays pinned — so you always know which question you're looking at.
+
+**Visual indicators for frozen areas:**
+- Frozen header: subtle bottom border + slight background tint (`surface-alt`)
+- Frozen left column: subtle right shadow (drop shadow on the right edge of the pinned column) — this gives a "lifted" effect that visually separates the frozen column from the scrollable area
+
+**Scrolling:**
+- Vertical: scrolls within the center column area (header bar + tabs stay fixed above)
+- Horizontal: scrolls to reveal additional columns. Smooth scroll. Optional: horizontal scroll indicator or fade gradient on the right edge to hint "more columns →"
+- Scroll container has a defined max-height (e.g., `calc(100vh - header - tabs)`) so it doesn't make the page infinitely tall
+
+**Row interactions:**
+- Hover: subtle row highlight
+- Click: could expand to show full details inline (optional — table already shows most fields)
+
+**Sorting:** Click column headers to sort (ascending/descending). Default: sorted by `scannedAt` descending (newest first).
+
+**Filtering:** Simple filter bar above table — filter by status, ICP relevance, date range.
+
+**Pagination / infinite scroll:** For 100s of rows, use infinite scroll (load more as you scroll down) or paginated (50 rows per page with next/prev). Infinite scroll preferred for smooth review experience.
+
+---
+
+### Tab 4: Briefs
+
+The main reason Launch Control exists for Krishna. Full list of all briefs with status tracking and click-to-read.
+
+**Layout:** Card list (not table — briefs are richer content that benefits from card layout).
+
+#### Brief Card
+
+```
+┌──────────────────────────────────────────────────────────────────┐
+│  Why Your MVP Is Burning Money                                    │
+│  mvp-burning-money · Founder-Phase · Feb 15, 2026                │
+│                                                                   │
+│  Primary keyword: mvp burning money                               │
+│  ICP Problem: Founders spending $50K+ on MVPs that don't...       │
+│                                                                   │
+│  [PENDING REVIEW]                                    [Read Brief →]│
+└──────────────────────────────────────────────────────────────────┘
+```
+
+**Card content:**
+- **Title** (display font, prominent)
+- **Metadata line:** slug · category · date created
+- **Primary keyword** (mono font, small)
+- **ICP Problem** (truncated to 1-2 lines)
+- **Status tag:** Color-coded badge
+  - `pending_review` → Yellow/amber
+  - `approved` → Green
+  - `needs_revision` → Red
+  - `brief_ready` → Blue
+  - `writing` → Purple
+  - `published` → Green (different shade or with checkmark)
+- **"Read Brief →" button** → Opens full brief modal
+
+**Filtering:** Filter bar at top — filter by status (dropdown or pill toggles), category, date range.
+
+**Sorting:** Newest first by default. Option to sort by status.
+
+#### Brief Reader Modal (Near-Fullscreen)
+
+When "Read Brief →" is clicked, a **near-fullscreen modal** opens with the full brief rendered from markdown to HTML.
+
+**Modal design:**
+- Takes up ~90% of viewport width and ~95% of viewport height
+- Centered overlay with dark backdrop (rgba(0,0,0,0.5))
+- Clean white interior with generous padding
+- Top bar: Brief title (left) + [X] close button (right) + status tag
+- Content area: Full markdown rendered as HTML with proper typography
+  - Headings (h2, h3) in Cormorant Garamond
+  - Body text in Inter, comfortable reading width (~680px max, centered)
+  - Code blocks styled
+  - Lists, tables, blockquotes all properly styled
+- Scroll: Content scrolls within the modal (body scroll locked)
+- Close: Click X, click backdrop, or press Escape
+
+**SEO Metadata sidebar (inside modal):**
+On the right side of the modal (or as a collapsible panel), show brief metadata:
+- Primary keyword
+- Long-tail keywords
+- Competitive gap
+- ICP problem
+- thelaunch.space angle
+- Suggested structure
+- Research notes
+- Final keywords
+- Ranking notes (if any)
+- Source URLs
+
+This lets Krishna read the full brief AND see all the strategic context without switching views.
+
+**Typography for rendered markdown:**
+- Max content width: ~680px (optimal reading width)
+- Line height: 1.7 for body text
+- Heading spacing: generous top margin (2rem+ before h2)
+- Font sizes: h2 at 1.5rem, h3 at 1.25rem, body at 1rem
+
+---
+
+## Agent Status Logic
+
+### Status Determination
+- **Working (green):** Agent pushed a `status: "active"` activity entry within the last N minutes:
+  - Vibhishana scanning: 30 min window
+  - Vibhishana briefs: 20 min window
+  - Vyasa writing: 60 min window
+  - Parthasarathi: 15 min window
+- **Idle (orange):** Default state. Agent has reported recently but not currently active.
+- **Paused/Coming Soon (red):** Agent marked as paused, or hasn't reported in 24+ hours, or is a "coming soon" agent (Sanjaya, Valmiki).
+
+### Agent Schedules (for "Today's Timeline" + expanded panel)
+| Agent | Schedule (IST) | Task |
+|-------|---------------|------|
+| Vibhishana | 9:00 AM | Reddit scan (~50-100 questions) |
+| Vibhishana | 11:00 AM | SEO Brief #1 |
+| Vibhishana | 2:00 PM | SEO Brief #2 |
+| Vibhishana | 5:00 PM | SEO Brief #3 |
+| Vyasa | 4:00 PM | Blog writing |
+| Parthasarathi | 7:00 PM | Due diligence review |
+| Parthasarathi | Continuous | Health checks, orchestration |
+
+For Parthasarathi (no strict fixed schedule beyond 7 PM): show "Last active X ago" instead of countdown.
 
 ---
 
 ## Responsive Design
 
-### Desktop (1024px+)
-- Agent cards in a single row (5 cards)
-- Scoreboard as horizontal stats row
-- Activity feed in a contained column (centered, max-width)
-- Brief section as cards grid or list
+### Desktop (1280px+)
+Full 3-column layout as designed. All columns visible simultaneously.
+
+### Desktop Small (1024px-1279px)
+- Left sidebar collapses to icon-only mode (avatars only, no text)
+- Click avatar → expanded panel still works
+- Center + Right columns fill remaining space
 
 ### Tablet (768px-1023px)
-- Agent cards: 3 + 2 row layout or horizontal scroll
-- Scoreboard wraps to 2 rows if needed
-- Activity feed full width
+- Left sidebar hidden (accessible via hamburger or slide-out drawer)
+- Right column (live feed) moves below center content OR becomes a slide-out drawer from right edge
+- Center column goes full width
+- Scoreboard wraps to 2 rows (3 + 2)
 
 ### Mobile (< 768px)
-- Agent cards: horizontal swipe/scroll (single row, swipeable)
-- Scoreboard: 2x2 grid or vertical stack
-- Activity feed: full width, compact entries
-- Brief list: single column cards
-- **Mobile is the primary design target** — LinkedIn audience clicks from their phone
+- **Single column layout**
+- Header: simplified — "Launch Control" + login icon only. Stats move into scoreboard.
+- Agents: horizontal scroll strip at top (small circular avatars, tap to open expanded panel as bottom sheet)
+- Scoreboard: 2×2 grid or vertical stack with count-up animation
+- Daily timeline: full width, compact entries
+- Live feed: collapsible section below timeline (or separate "Feed" tab)
+- Admin tabs: horizontal scrollable tab bar
+- Tables (Questions): card-based layout instead of table (one card per question, stacked vertically). No frozen columns needed — cards show key info with "Show more" expand.
+- Brief modal: takes full screen on mobile (100vw × 100vh)
+
+**Mobile is the primary design target** — LinkedIn audience clicks from their phone.
 
 ---
 
 ## Micro-Interactions & Polish
 
 ### Status Dot Animations
-- **Green (working):** Gentle pulse animation (like a heartbeat)
-- **Orange (idle):** Static dot, no animation
-- **Red (paused):** Slow blink
-
-### Countdown Timer
-- Updates every minute (or every second for the last 5 minutes)
-- When countdown hits 0: dot transitions from orange to green with a subtle flash
-
-### Card Expand/Collapse
-- Smooth accordion animation (Framer Motion)
-- Content fades in as card expands
-- Other cards stay in place (no layout shift)
+- **Green (working):** Gentle pulse animation — scale 1 → 1.4 → 1, 2s loop, ease-in-out. Like a heartbeat.
+- **Orange (idle):** Static dot, no animation.
+- **Red (paused):** Slow blink — opacity 1 → 0.3 → 1, 3s loop.
 
 ### Scoreboard Count-Up
 - Numbers roll from 0 → real value over ~1.5s
 - Staggered: each metric starts 200ms after the previous
 - Easing: ease-out (fast start, gentle land)
+- Trigger: intersection observer (animate when scrolled into view, not on page load if below fold)
 
-### Activity Feed
+### Agent Expanded Panel
+- Slides in smoothly (from left if sidebar panel, from bottom if mobile sheet)
+- Content fades in with staggered entrance (avatar first, then name, then stats)
+- Backdrop blur on overlay if modal style
+- Close with smooth slide-out
+
+### Live Feed
 - New entries slide in from top with fade
 - Subtle entrance animation when WebSocket pushes new data
+- Green flash on the "LIVE FEED" dot when new entry arrives
+
+### Daily Timeline
+- Active task row has subtle glow/highlight
+- Completed tasks fade slightly
+- Upcoming tasks pulse gently at their scheduled time
+
+### Brief Modal
+- Opens with scale-up animation (0.95 → 1) + fade
+- Backdrop fades in simultaneously
+- Close: scale down + fade out
+- Scroll position resets to top on open
+
+### Table Scrolling
+- Horizontal scroll: smooth, with momentum on trackpad
+- Frozen column shadow appears/disappears based on scroll position (shadow only visible when scrolled right)
+- Fade gradient on right edge when more content exists horizontally
 
 ---
 
-## Data Requirements (Convex Queries Needed)
+## Data Requirements (Convex Queries)
 
 ### Public Queries (already built)
 | Query | Table | Returns |
@@ -302,44 +581,50 @@ Per Krishna's preference, briefs are accessible two ways:
 | Query | Table | Purpose |
 |-------|-------|---------|
 | `weeklyStats()` | questions, briefs, blogs | Counts for last 7 days (for scoreboard) |
-| `agentWeeklySummary(agentName)` | questions, briefs, blogs, agentActivity | Per-agent 7-day stats (for card summaries) |
+| `allTimeStats()` | questions, briefs, blogs | Total counts (for "all time" below scoreboard) |
+| `agentWeeklySummary(agentName)` | questions, briefs, blogs, agentActivity | Per-agent 7-day stats (for expanded panel) |
+| `agentTodayActivity(agentName)` | agentActivity | Today's completed + active items (for expanded panel) |
+| `communityBreakdown()` | questions | Subreddit grouping with counts (for Communities tab) |
 
 ---
 
-## Component Breakdown (Planned)
+## Component Breakdown
 
 ```
 app/launch-control/
-├── page.tsx                    — Server component, route entry
-├── layout.tsx                  — Optional layout wrapper
-└── (client components below, could be in components/launch-control/)
+├── page.tsx                           — Server component, route entry
+└── layout.tsx                         — Optional layout wrapper
 
 components/launch-control/
-├── LaunchControlPage.tsx       — Main client component (orchestrates everything)
-├── AgentStatusCard.tsx         — Individual agent card with expand/collapse
-├── AgentCardExpanded.tsx       — Expanded content (public + admin variants)
-├── Scoreboard.tsx              — Stats row with count-up animation
-├── ActivityFeed.tsx            — Scrollable log of agent milestones
-├── BriefQueue.tsx              — [Admin] Brief list with status filters
-├── BriefReader.tsx             — [Admin] Full markdown brief rendered as HTML
-├── CountdownTimer.tsx          — Live countdown to next agent run
-├── StatusDot.tsx               — Green/orange/red animated dot
-├── ComingSoonBadge.tsx         — Badge overlay for Sanjaya/Valmiki
-└── ScoreboardNumber.tsx        — Single animated number with label
+├── LaunchControlPage.tsx              — Main client component (3-column orchestrator)
+├── HeaderBar.tsx                      — Top bar: title, stats, date, login
+│
+├── AgentSidebar.tsx                   — Left column: agent list
+├── AgentRow.tsx                       — Single agent row in sidebar (avatar, dot, name)
+├── AgentExpandedPanel.tsx             — Click-to-open agent detail (modal/panel)
+│
+├── CenterContent.tsx                  — Center column wrapper (public vs admin routing)
+├── Scoreboard.tsx                     — Impact metrics with count-up animation
+├── ScoreboardNumber.tsx               — Single animated number with label
+├── DailyTimeline.tsx                  — Today's pipeline chronological view
+├── TimelineItem.tsx                   — Single timeline entry (completed/active/upcoming)
+│
+├── AdminTabs.tsx                      — Tab bar (Overview | Communities | Questions | Briefs)
+├── CommunitiesTab.tsx                 — Subreddit breakdown view
+├── QuestionsTable.tsx                 — Scrollable table with frozen header + left column
+├── BriefsTab.tsx                      — Brief cards list with filters
+├── BriefCard.tsx                      — Individual brief card (title, status, metadata)
+├── BriefReaderModal.tsx               — Near-fullscreen markdown reader
+│
+├── LiveFeed.tsx                       — Right column: real-time activity log
+├── LiveFeedEntry.tsx                  — Single feed entry
+├── LiveFeedFilters.tsx                — All/Tasks/Milestones filter tabs
+│
+├── StatusDot.tsx                      — Green/orange/red animated dot
+├── StatusBadge.tsx                    — Status tag badges (pending_review, approved, etc.)
+├── CountdownTimer.tsx                 — Live countdown to next agent run
+└── FooterCTA.tsx                      — "Want an AI team like this?" CTA
 ```
-
----
-
-## What We're NOT Building (MVP Scope)
-
-- No approve/flag/revision actions on briefs (Phase 2)
-- No two-way communication with agents (Phase 2)
-- No internal notes/comments (Phase 2)
-- No brief diff/version comparison (Phase 2)
-- No editable agent schedules (hardcoded for now)
-- No public metrics counters (total all-time) — only rolling 7-day window
-- No notification system (Krishna checks manually)
-- No dark mode toggle (matches site-wide light theme)
 
 ---
 
@@ -347,25 +632,43 @@ components/launch-control/
 
 | Question | Decision |
 |----------|----------|
-| Idle display | Countdown timer ("Next run in 47 min") — feels alive |
-| Feed tone | Clean log style — factual, concise entries |
-| Scoreboard animation | Count-up from 0 on page load |
+| Layout | 3-column: agents sidebar (left), main content (center), live feed (right) |
+| Layout reference | Bhanu Teja's Mission Control HQ structure |
+| Center content (public) | Scoreboard (impact metrics) + daily timeline (not kanban) |
+| Center content (admin) | Tabbed: Overview / Communities / Questions / Briefs |
+| Agent sidebar click | Expanded panel (modal/slide-out) with avatar, status, today's work, weekly stats |
+| Agent sidebar style | Avatar + status dot + name + role. Minimal but premium feel |
+| Brief reader | Near-fullscreen modal with rendered markdown + SEO metadata sidebar |
+| Table scrolling | Frozen header row + frozen left column + horizontal/vertical scroll + shadow indicators |
+| Scoreboard | Rolling 7-day numbers + smaller "all time" totals below |
 | Cost framing | Show both human hours + dollar savings |
-| Feed avatars | Yes, agent character portraits next to each entry |
-| Page header | Minimal "Launch Control", Nothing-phone inspired |
-| Card click | Expand inline (accordion) |
-| Brief access | Both: quick access in agent card + full list section |
-| Agent count | All 5, with "Coming Soon" badge on Sanjaya/Valmiki |
-| Data freshness | WebSocket only (Convex subscriptions) |
-| Admin login | Lock/user icon in header |
-| Brief reader | Inline expansion below brief card |
-| Empty states | Friendly message (e.g., "No blogs yet this week — Vyasa runs at 4 PM IST") |
-| Partha's status | "Last active X ago" instead of countdown (no fixed schedule) |
+| Feed style | Clean log with agent avatars, filter tabs (All/Tasks/Milestones) |
+| Header | Product name + key stats + date + login (similar to Mission Control HQ) |
+| Admin login | Clerk icon in header, subtle |
+| Mobile | Single column, agents as horizontal avatar strip, tables become card layout |
+| Data freshness | WebSocket only (Convex subscriptions, no polling) |
+| Empty states | Friendly messages referencing next scheduled run time |
+| "Coming soon" agents | Same sidebar rows but muted, red dot, no pulse, minimal expanded view |
+| Partha's status | "Last active X ago" (no fixed schedule except 7 PM review) |
 
-## Open Questions
+## Open Questions (Resolved)
 
-1. **Partha's schedule:** He doesn't have fixed cron times like the others. Current plan: show "last active X ago" instead of countdown. Confirm this works.
-2. **Brief teaser for public:** Show first 2 lines or ICP Problem field as a teaser on public view? Or keep briefs completely hidden from public?
+1. ~~Partha's schedule~~ → "Last active X ago" + 7 PM due diligence shown in timeline. **Resolved.**
+2. ~~Brief teaser for public~~ → Briefs completely hidden from public view. Only titles + status visible in admin. **Resolved.**
+
+---
+
+## What We're NOT Building (MVP Scope)
+
+- No approve/flag/revision actions on briefs (Phase 2)
+- No two-way communication with agents (Phase 2)
+- No internal notes/comments on briefs (Phase 2)
+- No brief diff/version comparison (Phase 2)
+- No editable agent schedules (hardcoded for now)
+- No notification system (Krishna checks manually)
+- No dark mode toggle (matches site-wide light theme)
+- No chat/messaging feature (unlike Mission Control HQ)
+- No task assignment/kanban board (agents run on schedules, not task queues)
 
 ---
 
@@ -373,6 +676,8 @@ components/launch-control/
 
 - Backend spec: `live-dashboard-convex.md` (in project root)
 - Design system: `.context/design-system-v2.md`
+- ICP profile: `.context/thelaunch-space-icp.md`
 - Agent data: `lib/agents.ts`
 - Convex schema: `convex/schema.ts`
 - Convex queries: `convex/questions.ts`, `convex/briefs.ts`, `convex/blogs.ts`, `convex/agentActivity.ts`
+- Visual reference: Bhanu Teja's Mission Control HQ (screenshot in conversation, Feb 15 2026)

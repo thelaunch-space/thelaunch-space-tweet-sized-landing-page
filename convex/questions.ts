@@ -47,6 +47,29 @@ export const listRecent = query({
   },
 });
 
+export const communityBreakdown = query({
+  args: {},
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("Not authenticated");
+    const questions = await ctx.db.query("questions").collect();
+    const grouped: Record<string, { count: number; latestScannedAt: string }> = {};
+    for (const q of questions) {
+      if (!grouped[q.subreddit]) {
+        grouped[q.subreddit] = { count: 0, latestScannedAt: q.scannedAt };
+      }
+      grouped[q.subreddit].count++;
+      if (q.scannedAt > grouped[q.subreddit].latestScannedAt) {
+        grouped[q.subreddit].latestScannedAt = q.scannedAt;
+      }
+    }
+    return Object.entries(grouped).map(([subreddit, data]) => ({
+      subreddit,
+      ...data,
+    }));
+  },
+});
+
 export const listFullDetails = query({
   args: { limit: v.optional(v.number()) },
   handler: async (ctx, args) => {

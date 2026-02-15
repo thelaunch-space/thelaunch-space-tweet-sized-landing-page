@@ -3,7 +3,9 @@
 Last updated: 2026-02-15
 
 ## Priority: High
-- [ ] **Launch Control frontend** — build `/launch-control` page (public view + admin view, real-time via Convex subscriptions). 50 real records in Convex (13 briefs, 7 blogs, 30 questions) ready for frontend dev.
+- [ ] **Launch Control mobile QA** — test at 375px (iPhone SE), 768px (iPad), 1280px (desktop). Verify all tabs, modals, panels work.
+- [ ] **Clerk production instance** — create prod instance in Clerk dashboard, get `pk_live_`/`sk_live_` keys, add to Netlify env vars
+- [ ] **Convex production deployment** — `npx convex deploy` for prod, update Netlify env vars, swap VPS skill URLs to prod endpoints
 - [ ] Build out free tools pages (`/tools/[tool-slug]`)
 
 ## Priority: Medium
@@ -11,19 +13,17 @@ Last updated: 2026-02-15
 - [ ] Add basic error boundary component
 - [ ] Clean up Netlify: remove duplicate site (`thelaunch-space-v2` if still present)
 - [ ] Fix branch protection: disable "require status checks" (deploy previews not configured, checks always fail)
+- [ ] Delete test brief from Convex dev (`jd7efw8gxba5hc5c3jqvmkwvs9817nw6`)
 
 ## Priority: Low
 - [ ] Consider next/image for optimized image loading
 - [ ] Add loading skeleton for particle effects init
 - [ ] Consider Netlify deploy previews for PR review (currently using local preview)
-
-## Priority: Low-Medium
 - [ ] Regenerate Valmiki avatar using updated sage prompt (design-system-v2.md)
 
-## Priority: Low-Medium
-- [ ] Set up Convex Production deployment + env vars on Netlify for production deploy (dev works, prod URL swap needed on VPS skill files when going live)
-
 ## Done (moved from above)
+- [x] Launch Control frontend dashboard — full 3-column dashboard, 23 new files, tabbed center, waitlist CTA, brief reader
+- [x] Launch Control polish — portrait masking, font size bump, waitlist CTA with hidden admin gate, center tabs, markdown fix
 - [x] Launch Control Convex backend — schema, HTTP endpoints, Clerk auth, provider wiring, curl-tested
 - [x] Launch Control SKILL.md — 3 separate skill files (scanner, blog, activity) created and deployed on VPS
 - [x] Convex schema enriched — all 12 scanner fields, all 14 blog-queue columns (matches Partha's full audit)

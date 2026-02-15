@@ -68,13 +68,15 @@ Last updated: 2026-02-15
 - **Netlify env vars needed for production:** `NEXT_PUBLIC_CONVEX_URL`, `CONVEX_DEPLOY_KEY`, `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`, `CLERK_SECRET_KEY`
 
 ## Clerk (Active — Authentication)
-- **Purpose:** Authentication for Launch Control admin features (Krishna's login)
-- **Instance:** `famous-krill-26.clerk.accounts.dev`
+- **Purpose:** Authentication for Launch Control admin features (Krishna's login only)
+- **Instance (dev):** `famous-krill-26.clerk.accounts.dev` — separate from production instance (TBD)
 - **Env vars (`.env.local`):** `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`, `CLERK_SECRET_KEY`
 - **Middleware:** `middleware.ts` at project root — permissive `clerkMiddleware()`, does NOT block any route
 - **Integration with Convex:** `ConvexProviderWithClerk` passes Clerk auth tokens to Convex for admin query validation
 - **Admin queries:** Check `ctx.auth.getUserIdentity()` in Convex — throw if not authenticated
 - **No route protection:** All existing pages work without login. Auth is only checked inside admin query functions.
+- **Waitlist gate (UI hack):** No public "Sign in" button. `WaitlistCTA.tsx` shows email input; only `krishna@thelaunch.space` reveals Clerk SignIn/SignUp. Other emails captured as leads via `/api/lead`. This avoids Clerk Pro ($25/mo) allowlist requirement.
+- **Dev vs Prod:** Dev and prod are separate Clerk instances with separate user databases. Dev uses `pk_test_`/`sk_test_` keys, prod needs `pk_live_`/`sk_live_` keys. Must create prod instance and re-register when deploying.
 
 ## GitHub (Active)
 - **Repo:** `thelaunch-space/thelaunch-space-tweet-sized-landing-page`

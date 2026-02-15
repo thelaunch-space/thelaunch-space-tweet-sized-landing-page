@@ -50,6 +50,66 @@ export const recentFeed = query({
   },
 });
 
+export const weeklyStats = query({
+  args: {},
+  handler: async (ctx) => {
+    const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+    const questions = await ctx.db.query("questions").collect();
+    const briefs = await ctx.db.query("briefs").collect();
+    const blogs = await ctx.db.query("blogs").collect();
+    return {
+      questions: questions.filter((q) => q.scannedAt >= sevenDaysAgo).length,
+      briefs: briefs.filter((b) => b.createdAt >= sevenDaysAgo).length,
+      blogs: blogs.filter((b) => b.createdAt >= sevenDaysAgo).length,
+    };
+  },
+});
+
+export const allTimeStats = query({
+  args: {},
+  handler: async (ctx) => {
+    const questions = await ctx.db.query("questions").collect();
+    const briefs = await ctx.db.query("briefs").collect();
+    const blogs = await ctx.db.query("blogs").collect();
+    return {
+      questions: questions.length,
+      briefs: briefs.length,
+      blogs: blogs.length,
+    };
+  },
+});
+
+export const agentTodayActivity = query({
+  args: { agentName: v.string() },
+  handler: async (ctx, args) => {
+    const todayPrefix = new Date().toISOString().slice(0, 10);
+    const activities = await ctx.db
+      .query("agentActivity")
+      .withIndex("by_agentName_timestamp", (q) => q.eq("agentName", args.agentName))
+      .order("desc")
+      .collect();
+    return activities.filter((a) => a.timestamp.startsWith(todayPrefix));
+  },
+});
+
+export const agentWeeklySummary = query({
+  args: { agentName: v.string() },
+  handler: async (ctx, args) => {
+    const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+    const activities = await ctx.db
+      .query("agentActivity")
+      .withIndex("by_agentName_timestamp", (q) => q.eq("agentName", args.agentName))
+      .order("desc")
+      .collect();
+    const weekActivities = activities.filter((a) => a.timestamp >= sevenDaysAgo);
+    const byAction: Record<string, number> = {};
+    for (const a of weekActivities) {
+      byAction[a.action] = (byAction[a.action] ?? 0) + 1;
+    }
+    return { total: weekActivities.length, byAction };
+  },
+});
+
 export const fullLog = query({
   args: { limit: v.optional(v.number()), agentName: v.optional(v.string()) },
   handler: async (ctx, args) => {
