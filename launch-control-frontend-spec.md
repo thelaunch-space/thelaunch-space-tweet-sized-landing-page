@@ -1,8 +1,8 @@
 # Launch Control — Frontend Spec
 
-Status: READY TO BUILD
+Status: LIVE IN PRODUCTION
 Created: 2026-02-15
-Last updated: 2026-02-15 (v2 — full rewrite after UI review)
+Last updated: 2026-02-15 (v3 — public preview tabs, scoreboard toggle, clickable briefs)
 
 ---
 
@@ -204,7 +204,9 @@ This is the largest area. It changes based on whether the visitor is logged in o
 
 ### Public View (No Login)
 
-Two sections stacked vertically:
+All 4 tabs are visible to visitors (Overview, Communities, Questions, Briefs). Non-admin tabs show **preview components** — top rows of real data with progressive blur overlay and waitlist CTA. This replaces the original plan of only showing Scoreboard + Timeline to public visitors.
+
+Three sections stacked vertically in Overview, plus preview components in other tabs:
 
 #### Section 1: Scoreboard (Impact Strip)
 
@@ -229,7 +231,7 @@ A horizontal row of key metrics — the aggregate impact of the AI team. This is
 | Human hours replaced | ~108 hrs | Calculated (see formula below) |
 | Cost savings | ~$5,600 | Calculated (see formula below) |
 
-**Below each 7-day number:** A smaller, muted "all time" total. e.g., "421 total" under the 127 weekly number. Gives scale as data accumulates.
+**Toggle: "This Week" / "All Time":** Two toggle buttons above the stat cards let visitors switch between rolling 7-day numbers and all-time totals. Default: "This Week". Active button gets `bg-surface-alt text-text-primary` styling. The toggle replaces the original design of static "all time" totals below each number.
 
 **Animation:**
 - Numbers **count up from 0** to real value on page load (Framer Motion)
@@ -299,16 +301,19 @@ This gives visitors a real-time sense of the pipeline moving. The ICP sees: "The
 
 Links to `/?cta=open` (opens lead capture modal on homepage).
 
-### Admin View (Krishna Logged In)
+### Tab Bar (Visible to Everyone)
 
-When authenticated, the center column switches to a **tabbed interface**. The tabs replace the public sections.
-
-#### Tab Bar
 ```
 [Overview]  [Communities]  [Questions]  [Briefs]
 ```
 
-Tabs appear at the top of the center column. Clean, minimal tab design. Active tab has accent-blue underline.
+Tabs appear at the top of the center column for ALL visitors. Clean, minimal tab design. Active tab has accent-blue underline. Tab order is fixed: Overview → Communities → Questions → Briefs.
+
+**Public vs Admin:** Each tab renders either a preview component (public) or full component (admin) based on `isSignedIn`. All tab panel components use `next/dynamic` for lazy loading.
+
+### Admin View (Krishna Logged In)
+
+When authenticated, tab panels show full data with scroll, sort, and filter capabilities.
 
 ---
 
@@ -560,14 +565,15 @@ Full 3-column layout as designed. All columns visible simultaneously.
 
 ## Data Requirements (Convex Queries)
 
-### Public Queries (already built)
+### Public Queries (built and deployed)
 | Query | Table | Returns |
 |-------|-------|---------|
 | `agentStatuses()` | agentActivity | Latest status per agent |
 | `recentFeed(limit)` | agentActivity | Recent activity entries |
-| `listRecent(limit)` | questions | Recent questions (titles, subreddits) |
+| `listRecent(limit)` | questions | Recent questions (titles, subreddits, urls) — used by QuestionsPreview |
 | `listRecent(limit)` | blogs | Recent published blogs |
-| `listMetadata(limit)` | briefs | Brief titles + status (no content) |
+| `listMetadata(limit)` | briefs | Brief titles + status (no content) — used by BriefsPreview |
+| `getPublicBrief(briefId)` | briefs | Single brief with limited fields (title, primaryKeyword, category, status, contentMarkdown, createdAt). Strips sensitive SEO fields (competitiveGap, launchSpaceAngle, finalKeywords, longTailKeywords, icpProblem, suggestedStructure, researchNotes, rankingNotes, sourceUrls). Used by public brief reader modal. |
 
 ### Admin Queries (already built)
 | Query | Table | Returns |
@@ -609,12 +615,16 @@ components/launch-control/
 ├── DailyTimeline.tsx                  — Today's pipeline chronological view
 ├── TimelineItem.tsx                   — Single timeline entry (completed/active/upcoming)
 │
-├── AdminTabs.tsx                      — Tab bar (Overview | Communities | Questions | Briefs)
-├── CommunitiesTab.tsx                 — Subreddit breakdown view
-├── QuestionsTable.tsx                 — Scrollable table with frozen header + left column
-├── BriefsTab.tsx                      — Brief cards list with filters
+├── CenterTabs.tsx                     — Tab bar (Overview | Communities | Questions | Briefs) — visible to all visitors
+├── CommunitiesPanel.tsx               — Admin: subreddit breakdown view
+├── CommunitiesPreview.tsx             — Public: placeholder communities with blur overlay
+├── QuestionsTable.tsx                 — Admin: scrollable table with frozen header + left column
+├── QuestionsPreview.tsx               — Public: top rows with clickable Reddit links + blur overlay
+├── BriefsPanel.tsx                    — Admin: brief cards list with filters
+├── BriefsPreview.tsx                  — Public: top 3 clickable briefs + blur overlay + public reader modal
+├── PreviewGate.tsx                    — Blur overlay wrapper with waitlist CTA form (shared by all preview components)
 ├── BriefCard.tsx                      — Individual brief card (title, status, metadata)
-├── BriefReaderModal.tsx               — Near-fullscreen markdown reader
+├── BriefReaderModal.tsx               — Admin: near-fullscreen markdown reader with SEO metadata sidebar
 │
 ├── LiveFeed.tsx                       — Right column: real-time activity log
 ├── LiveFeedEntry.tsx                  — Single feed entry
@@ -650,11 +660,37 @@ components/launch-control/
 | Empty states | Friendly messages referencing next scheduled run time |
 | "Coming soon" agents | Same sidebar rows but muted, red dot, no pulse, minimal expanded view |
 | Partha's status | "Last active X ago" (no fixed schedule except 7 PM review) |
+| Public preview tabs | All 4 tabs visible to non-authenticated visitors. Preview components show top rows of real data with progressive blur + waitlist CTA. Decided Feb 15. |
+| Scoreboard toggle | "This Week" / "All Time" toggle replaces static "all time" text below numbers. Decided Feb 15. |
+| Public brief reading | Top 3 briefs clickable in preview. Opens public reader modal using `getPublicBrief` (strips sensitive SEO fields). Decided Feb 15. |
+| Clickable question titles | Question titles in preview link to original Reddit posts (`target="_blank"`). Proves data is real. Decided Feb 15. |
+| Preview blur security | CSS blur is visual only, but backend queries limit to 6 items max. Full tables require authentication. Acceptable risk. Decided Feb 15. |
+| Communities preview data | Uses placeholder subreddit names (not real monitored communities) to avoid exposing competitive intelligence. Decided Feb 15. |
+| Tab component loading | All tab panel components use `next/dynamic` for lazy loading — prevents webpack compilation hang from static imports. Decided Feb 15. |
+| Waitlist in preview gate | PreviewGate includes inline email form posting to `/api/lead` with source `"launch-control-preview-gate"`. Same webhook as homepage modal. Decided Feb 15. |
 
 ## Open Questions (Resolved)
 
 1. ~~Partha's schedule~~ → "Last active X ago" + 7 PM due diligence shown in timeline. **Resolved.**
-2. ~~Brief teaser for public~~ → Briefs completely hidden from public view. Only titles + status visible in admin. **Resolved.**
+2. ~~Brief teaser for public~~ → Top 3 briefs visible and clickable via `getPublicBrief` (strips SEO metadata). Full brief list + SEO sidebar require admin auth. **Resolved (updated Feb 15).**
+3. ~~Public tab visibility~~ → All 4 tabs visible to everyone. Preview vs full components based on auth state. **Resolved Feb 15.**
+
+---
+
+## What's Public vs Private
+
+| Data | Public? | Notes |
+|------|---------|-------|
+| Questions (titles, subreddits, URLs) | Top 6 rows | Via `listRecent({limit: 6})`. Titles link to Reddit. |
+| Brief metadata (titles, status) | Top 6 rows | Via `listMetadata({limit: 6})`. |
+| Brief content (markdown) | Top 3 only | Via `getPublicBrief`. Strips: competitiveGap, launchSpaceAngle, finalKeywords, longTailKeywords, icpProblem, suggestedStructure, researchNotes, rankingNotes, sourceUrls. |
+| Communities (subreddits monitored) | Placeholder only | CommunitiesPreview uses hardcoded fake subreddit names. Real monitored subreddits are admin-only. |
+| Agent statuses | Yes | Public query. |
+| Activity feed | Yes | Public query. |
+| Scoreboard stats | Yes | Public query (weekly + all-time counts). |
+| Full question details (pain points, angles, ICP relevance) | Admin only | Requires Clerk auth. |
+| Full brief list + SEO metadata sidebar | Admin only | Requires Clerk auth. |
+| Sort/filter/scroll on tables | Admin only | Preview components have no scroll, max 320px height. |
 
 ---
 

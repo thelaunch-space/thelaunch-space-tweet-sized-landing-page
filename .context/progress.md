@@ -131,18 +131,27 @@ Last updated: 2026-02-15
 - [x] **Netlify env vars updated** — 4 vars swapped to prod values (NEXT_PUBLIC_CONVEX_URL, CONVEX_DEPLOY_KEY, NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY, CLERK_SECRET_KEY)
 - [x] **Deployed to production** — committed all LC frontend + mobile QA, merged PR #19 to main, Netlify auto-deployed
 - [x] **VPS agent skills updated** — Partha changed 3 skill URLs from dev (`impartial-pelican-672`) to prod (`curious-iguana-738`), test push confirmed
+- [x] **Partha historical data backfill** — 554 questions, 14 briefs (with full markdown), 7 blogs, 30 activity entries pushed to prod Convex. 605 total records.
+- [x] **LC: Public preview tabs** — All 4 tabs (Overview, Communities, Questions, Briefs) now visible to non-authenticated visitors. Top 3 rows of real data shown, rest blurred with gradient overlay + "Want your own AI team? Join Waitlist" CTA (same `/api/lead` webhook). Questions titles clickable to Reddit. Briefs clickable to open public reader modal (new `getPublicBrief` Convex query — returns content without SEO metadata).
+- [x] **LC: Scoreboard toggle** — "This Week" / "All Time" toggle replaces static layout. Click to swap which dataset powers the big numbers. Removed old "All Time" text line.
+- [x] **LC: Dynamic imports** — Tab panel components lazy-loaded via `next/dynamic` to prevent webpack compilation hang on initial page load.
+- [x] **LC: New Convex query `briefs.getPublicBrief`** — Public read-only query returning brief content without sensitive SEO fields (keywords, competitive gaps, angles). Deployed to both dev and prod.
+- [x] **LC: New components** — `PreviewGate.tsx` (blur overlay + waitlist CTA), `QuestionsPreview.tsx` (3-row public table), `BriefsPreview.tsx` (clickable cards + public reader modal), `CommunitiesPreview.tsx` (placeholder cards with blur).
 
 ## In Progress
-- [ ] Partha historical data backfill — message sent to push ALL Google Sheets data to prod Convex DB (pending completion)
+- Nothing currently in progress
 
 ## Blocked
 - Nothing currently blocked
 
 ## Known Issues
 - Scoreboard shows 15h / $900 with empty DB due to hardcoded baseline formula (`5*3` hours, `5*180` cost for agent overhead). Fix later by zeroing baseline or making it data-dependent.
+- Daily Timeline times are hardcoded in `lib/launch-control-types.ts` — need Partha to verify they match actual VPS cron jobs.
 
 ## Recent Changes (latest first)
-1. Production deployment — Clerk prod instance (5 CNAMEs), Convex prod (`curious-iguana-738`), Netlify env vars, VPS skills updated, deployed to main (2026-02-15)
+1. Public preview tabs + scoreboard toggle — all 4 tabs visible to visitors with blur gate, briefs clickable, dynamic imports fix, new `getPublicBrief` Convex query (2026-02-15)
+2. Partha historical data backfill complete — 605 records in production Convex (554 questions, 14 briefs, 7 blogs, 30 activity) (2026-02-15)
+3. Production deployment — Clerk prod instance (5 CNAMEs), Convex prod (`curious-iguana-738`), Netlify env vars, VPS skills updated, deployed to main (2026-02-15)
 2. Mobile QA — 12 files fixed for responsive layout (stacked sidebar, scrollable tabs, bottom-sheet modals, card views, capped heights) (2026-02-15)
 3. Launch Control polish session — portrait masking, font size bump, waitlist CTA with hidden admin gate, tabbed center layout, brief reader markdown fix (2026-02-15)
 2. Launch Control frontend dashboard — 21 new files, 4 modified files, full 3-column dashboard with agent sidebar, scoreboard, timeline, live feed, admin tabs, brief reader. Typecheck + lint + build all pass. (2026-02-15)

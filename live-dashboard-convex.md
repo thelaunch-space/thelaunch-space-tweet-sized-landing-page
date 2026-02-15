@@ -700,19 +700,24 @@ Indexes: `by_agentName`, `by_timestamp`, `by_agentName_timestamp`
 - [ ] Agents start dual-writing on scheduled runs (Vibhishana 9 AM scan, briefs 11/2/5 PM, Vyasa 4 PM blog)
 - [ ] Verify live agent data flowing into Convex
 
-### Step 5: Frontend (Workstream 3) — UNBLOCKED (can start now)
+### Step 5: Frontend (Workstream 3) — DONE (Feb 15, 2026)
 **Where:** `thelaunch-space-tweet-sized-landing-page/`
-- [ ] New route: `/launch-control`
-- [ ] Public view: agent status, questions, brief titles + status, blogs, live feed
-- [ ] Admin view: full brief content (markdown → HTML), SEO data, scanner analysis, activity log
-- [ ] Real-time updates via Convex `useQuery()` subscriptions
-- [ ] Design matching "Quiet Luxury" aesthetic
-- [ ] Can build with test data before agents are pushing live
+- [x] New route: `/launch-control`
+- [x] Public view: agent status, questions, brief titles + status, blogs, live feed
+- [x] Admin view: full brief content (markdown → HTML), SEO data, scanner analysis, activity log
+- [x] Real-time updates via Convex `useQuery()` subscriptions
+- [x] Design matching "Quiet Luxury" aesthetic
+- [x] Mobile QA — 12 files fixed for responsive layout
+- [x] Public preview tabs — all 4 tabs visible to visitors, top 3 rows + blur + waitlist CTA
+- [x] Briefs clickable for public (new `getPublicBrief` query — strips SEO metadata)
+- [x] Scoreboard toggle — "This Week" / "All Time" switch
+- [x] Dynamic imports to prevent webpack compilation hang
 
-### Step 6: Test, Review, Ship
-- [ ] End-to-end test with live agent data
-- [ ] Krishna reviews dashboard, gives feedback
-- [ ] Iterate and ship
+### Step 6: Test, Review, Ship — DONE (Feb 15, 2026)
+- [x] End-to-end test with live agent data (605 records backfilled)
+- [x] Krishna reviews dashboard, gives feedback
+- [x] Iterated: public preview tabs, clickable briefs, scoreboard toggle
+- [x] Deployed to production (Netlify + Convex prod)
 
 ---
 
