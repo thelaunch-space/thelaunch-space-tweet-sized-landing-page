@@ -51,7 +51,7 @@ export default function CenterTabs({ weeklyStats, allTimeStats, blogPosts }: Cen
   return (
     <div>
       {/* Tab bar */}
-      <div className="flex items-center gap-1 mb-4 overflow-x-auto scrollbar-hide -mx-1 px-1">
+      <div data-tour="tab-bar" className="flex items-center gap-1 mb-4 overflow-x-auto scrollbar-hide -mx-1 px-1">
         {TABS.filter((t) => t.value !== "meetings" || isSignedIn).map((tab) => (
           <button
             key={tab.value}

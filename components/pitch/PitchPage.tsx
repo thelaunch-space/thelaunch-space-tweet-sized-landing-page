@@ -53,14 +53,13 @@ export default function PitchPage() {
     setCtaVisible(latest > 600);
   });
 
-  // Suppress unused-var lint for allTimeStats (fetched for potential future use)
-  void allTimeStats;
+  // allTimeStats passed to HookSection for potential future "this week / all time" toggle
 
   return (
     <div className="min-h-[calc(100dvh-96px)] bg-background text-text-primary">
       <main className="py-6 md:py-8 space-y-16 md:space-y-24">
         <div className="max-w-6xl mx-auto px-5 md:px-10">
-          <HookSection weeklyStats={weeklyStats} />
+          <HookSection weeklyStats={weeklyStats} allTimeStats={allTimeStats} />
         </div>
         <div className="max-w-6xl mx-auto px-5 md:px-10">
           <HowItWorksSection />

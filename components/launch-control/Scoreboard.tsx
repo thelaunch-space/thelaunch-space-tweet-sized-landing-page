@@ -75,7 +75,7 @@ export default function Scoreboard({ weeklyStats, allTimeStats }: ScoreboardProp
   const loaded = active !== undefined;
 
   return (
-    <div ref={ref}>
+    <div ref={ref} data-tour="scoreboard">
       {/* Toggle header */}
       <div className="flex items-center gap-1 mb-3">
         <button

@@ -31,7 +31,7 @@ export default function AgentSidebar({ agentStatuses }: AgentSidebarProps) {
   const selectedAgent = agents.find((a) => a.id === selectedAgentId);
 
   return (
-    <div className="min-h-0">
+    <div data-tour="agent-sidebar" className="min-h-0">
       <AnimatePresence mode="wait">
         {selectedAgent ? (
           /* Expanded detail — replaces the list */

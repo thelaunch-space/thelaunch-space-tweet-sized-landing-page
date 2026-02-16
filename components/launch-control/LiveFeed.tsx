@@ -54,7 +54,7 @@ export default function LiveFeed({ feed }: LiveFeedProps) {
   });
 
   return (
-    <div className="rounded-2xl border border-border-color/40 bg-surface overflow-hidden">
+    <div data-tour="live-feed" className="rounded-2xl border border-border-color/40 bg-surface overflow-hidden">
       {/* Header */}
       <div className="px-4 py-3 border-b border-border-color/40 flex items-center justify-between">
         <div className="flex items-center gap-2">

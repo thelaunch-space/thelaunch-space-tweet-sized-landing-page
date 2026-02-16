@@ -8,6 +8,7 @@ import AgentAvatarStrip from "./AgentAvatarStrip";
 import LiveFeed from "./LiveFeed";
 import CenterTabs from "./CenterTabs";
 import WaitlistCTA from "./WaitlistCTA";
+import GuidedTour from "./GuidedTour";
 import type { BlogPost } from "@/lib/blog";
 
 interface LaunchControlDashboardProps {
@@ -22,6 +23,7 @@ export default function LaunchControlDashboard({ blogPosts }: LaunchControlDashb
 
   return (
     <div className="min-h-screen bg-background">
+      <GuidedTour />
       <HeaderBar />
 
       {/* Mobile agent strip */}

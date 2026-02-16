@@ -50,7 +50,7 @@ export default function DailyTimeline() {
   const currentISTHour = getCurrentISTHour();
 
   return (
-    <div className="rounded-2xl border border-border-color/40 bg-surface p-3 sm:p-5">
+    <div data-tour="pipeline" className="rounded-2xl border border-border-color/40 bg-surface p-3 sm:p-5">
       <div className="mb-4">
         <div className="flex items-center justify-between">
           <p className="meta-label text-text-secondary">Today&apos;s Pipeline</p>

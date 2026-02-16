@@ -1,11 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import Image from "next/image";
+import { useRef } from "react";
 import { useCountUp } from "@/lib/useCountUp";
 
 interface HookSectionProps {
   weeklyStats: { questions: number; briefs: number; blogs: number } | undefined;
+  allTimeStats?: { questions: number; briefs: number; blogs: number } | undefined;
 }
 
 export default function HookSection({ weeklyStats }: HookSectionProps) {
@@ -13,12 +15,18 @@ export default function HookSection({ weeklyStats }: HookSectionProps) {
   const b = weeklyStats?.briefs ?? 0;
   const bl = weeklyStats?.blogs ?? 0;
   const hoursSaved = Math.round((q / 50) * 2.5 + b * 4 + bl * 4 + 5 * 3);
+  const costSaved = Math.round((q / 50) * 112.5 + b * 180 + bl * 300 + 5 * 180);
 
   const ready = weeklyStats !== undefined;
 
-  const blogsCount = useCountUp(bl, 1800, 200, ready);
-  const questionsCount = useCountUp(q, 1800, 400, ready);
-  const hoursCount = useCountUp(hoursSaved, 1800, 600, ready);
+  const statsRef = useRef<HTMLDivElement>(null);
+  const statsInView = useInView(statsRef, { once: true, margin: "-60px" });
+  const enabled = ready && statsInView;
+
+  const blogsCount = useCountUp(bl, 1800, 200, enabled);
+  const questionsCount = useCountUp(q, 1800, 400, enabled);
+  const hoursCount = useCountUp(hoursSaved, 1800, 600, enabled);
+  const costCount = useCountUp(costSaved, 1800, 800, enabled);
 
   return (
     <section className="pt-4 md:pt-8">
@@ -63,24 +71,66 @@ export default function HookSection({ weeklyStats }: HookSectionProps) {
             <HeroImage />
           </div>
 
-          {/* Stats */}
+          {/* ── LIVE Stats Strip ── */}
           <motion.div
+            ref={statsRef}
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5, delay: 0.24 }}
             className="mt-6"
           >
+            {/* LIVE indicator */}
+            <div className="flex items-center gap-2 mb-3">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+              </span>
+              <span className="text-[10px] font-mono tracking-[0.12em] uppercase text-emerald-500 font-semibold">
+                LIVE
+              </span>
+              <span className="text-xs text-text-secondary">
+                For thelaunch.space this week:
+              </span>
+            </div>
+
+            {/* Stat cards grid */}
             {ready ? (
-              <p className="text-sm text-text-secondary">
-                This week:{" "}
-                <span className="font-semibold text-text-primary">{blogsCount}</span> blogs published,{" "}
-                <span className="font-semibold text-text-primary">{questionsCount}</span> questions found,{" "}
-                <span className="font-semibold text-text-primary">{hoursCount}</span> hours saved.{" "}
-                <span className="text-accent-blue font-medium">Zero human hours.</span>
-              </p>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                <div className="rounded-xl border border-border-color/40 bg-surface p-3 text-center shadow-card">
+                  <div className="font-display text-2xl sm:text-3xl font-semibold text-text-primary tracking-tight">
+                    {blogsCount}
+                  </div>
+                  <p className="meta-label mt-1 text-text-secondary">blogs published</p>
+                </div>
+                <div className="rounded-xl border border-border-color/40 bg-surface p-3 text-center shadow-card">
+                  <div className="font-display text-2xl sm:text-3xl font-semibold text-text-primary tracking-tight">
+                    {questionsCount}
+                  </div>
+                  <p className="meta-label mt-1 text-text-secondary">questions researched</p>
+                </div>
+                <div className="rounded-xl border border-border-color/40 bg-surface p-3 text-center shadow-card">
+                  <div className="font-display text-2xl sm:text-3xl font-semibold text-accent-emerald tracking-tight">
+                    {hoursCount}<span className="text-lg">h</span>
+                  </div>
+                  <p className="meta-label mt-1 text-text-secondary">hours saved</p>
+                </div>
+                <div className="rounded-xl border border-border-color/40 bg-surface p-3 text-center shadow-card">
+                  <div className="font-display text-2xl sm:text-3xl font-semibold text-accent-blue tracking-tight">
+                    ${costCount.toLocaleString()}
+                  </div>
+                  <p className="meta-label mt-1 text-text-secondary">$ saved</p>
+                </div>
+              </div>
             ) : (
-              <div className="h-5 w-80 max-w-full bg-surface-alt rounded animate-pulse" />
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                {[...Array(4)].map((_, i) => (
+                  <div key={i} className="rounded-xl border border-border-color/40 bg-surface p-3">
+                    <div className="h-8 w-16 mx-auto bg-surface-alt rounded animate-pulse" />
+                    <div className="h-3 w-20 mx-auto mt-2 bg-surface-alt rounded animate-pulse" />
+                  </div>
+                ))}
+              </div>
             )}
           </motion.div>
 
@@ -90,7 +140,7 @@ export default function HookSection({ weeklyStats }: HookSectionProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5, delay: 0.32 }}
-            className="mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-3"
+            className="mt-4 flex flex-col sm:flex-row items-start sm:items-center gap-3"
           >
             <a
               href="#lead-capture"
@@ -110,7 +160,7 @@ export default function HookSection({ weeklyStats }: HookSectionProps) {
             </a>
           </motion.div>
 
-          {/* Nudge */}
+          {/* Proof nudge — points to the "Watch them work live" CTA */}
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -118,7 +168,7 @@ export default function HookSection({ weeklyStats }: HookSectionProps) {
             transition={{ delay: 0.7 }}
             className="mt-3 text-xs text-text-secondary/60 italic"
           >
-            I use this for my own business &mdash; every number above is real.
+            Real numbers, updated live &mdash; check the agents&apos; progress live &uarr;
           </motion.p>
         </div>
 

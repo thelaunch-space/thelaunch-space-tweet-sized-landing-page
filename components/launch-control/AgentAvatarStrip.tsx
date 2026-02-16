@@ -25,7 +25,7 @@ function getStatusColor(agentId: string, statuses: AgentStatus[] | undefined): "
 
 export default function AgentAvatarStrip({ agentStatuses }: AgentAvatarStripProps) {
   return (
-    <div className="flex items-center gap-3 overflow-x-auto scrollbar-hide py-1">
+    <div data-tour="agent-strip" className="flex items-center gap-3 overflow-x-auto scrollbar-hide py-1">
       <span className="meta-label text-text-secondary shrink-0">Agents</span>
       {agents.map((agent) => (
         <div key={agent.id} className="relative shrink-0">
