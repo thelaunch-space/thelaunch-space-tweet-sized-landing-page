@@ -85,7 +85,7 @@ export default function AgentCard({ agent }: { agent: Agent }) {
 
         {/* Name */}
         <h3 className="text-xl md:text-2xl font-bold leading-tight mb-2">
-          {agent.name}
+          {agent.name} — {agent.plainTitle}
         </h3>
 
         {/* Outcome bullets */}

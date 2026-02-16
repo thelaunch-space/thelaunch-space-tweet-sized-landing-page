@@ -2,13 +2,7 @@
 
 import Link from "next/link";
 import { SignedIn, UserButton } from "@clerk/nextjs";
-import type { WeeklyStats } from "@/lib/launch-control-types";
-
-interface HeaderBarProps {
-  weeklyStats: WeeklyStats | undefined;
-}
-
-export default function HeaderBar({ weeklyStats }: HeaderBarProps) {
+export default function HeaderBar() {
   const today = new Date().toLocaleDateString("en-US", {
     weekday: "short",
     month: "short",
@@ -40,17 +34,6 @@ export default function HeaderBar({ weeklyStats }: HeaderBarProps) {
         {/* Right: Date + Stats + Auth */}
         <div className="flex items-center gap-3 shrink-0">
           <span className="hidden sm:block text-xs text-text-secondary font-mono">{today}</span>
-
-          {weeklyStats && (
-            <div className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-surface-alt/60">
-              <span className="meta-label text-text-secondary">7d</span>
-              <span className="font-mono text-xs text-text-primary">{weeklyStats.questions}q</span>
-              <span className="text-border-color/60 text-[9px]">&bull;</span>
-              <span className="font-mono text-xs text-text-primary">{weeklyStats.briefs}b</span>
-              <span className="text-border-color/60 text-[9px]">&bull;</span>
-              <span className="font-mono text-xs text-text-primary">{weeklyStats.blogs}p</span>
-            </div>
-          )}
 
           <div className="hidden sm:block w-px h-5 bg-border-color/40" />
 

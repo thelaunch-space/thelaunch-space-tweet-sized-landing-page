@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { discoverBlogPosts } from "@/lib/blog";
 import LaunchControlDashboard from "@/components/launch-control/LaunchControlDashboard";
 
 export const metadata: Metadata = {
@@ -22,5 +23,7 @@ export const metadata: Metadata = {
 };
 
 export default function LaunchControlPage() {
-  return <LaunchControlDashboard />;
+  const blogPosts = discoverBlogPosts();
+
+  return <LaunchControlDashboard blogPosts={blogPosts} />;
 }

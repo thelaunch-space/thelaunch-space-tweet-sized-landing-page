@@ -6,19 +6,19 @@ import { agents } from "@/lib/agents";
 import AgentCard from "@/components/AgentCard";
 
 /* ── agent node: avatar image with name ── */
-function AgentNode({ name, slug, id }: { name: string; slug: string; id: string }) {
+function AgentNode({ name, plainTitle, slug, id }: { name: string; plainTitle: string; slug: string; id: string }) {
   return (
     <Link href={`/build-your-ai-team/${slug}`} className="group/node flex flex-col items-center gap-1.5 shrink-0 w-[56px] md:w-[64px]">
       <div className="w-12 h-12 md:w-14 md:h-14 rounded-full overflow-hidden transition-transform group-hover/node:scale-110">
         <img
           src={`/agent-avatars/${id}.png`}
-          alt={name}
+          alt={`${name} — ${plainTitle}`}
           className="w-full h-full object-cover"
           loading="lazy"
         />
       </div>
       <span className="text-[10px] font-semibold text-text-secondary group-hover/node:text-text-primary transition-colors leading-none text-center">
-        {name}
+        {plainTitle}
       </span>
     </Link>
   );
@@ -179,7 +179,7 @@ export default function AIEmployeesPage() {
                       {lane.agents.map((agent, j) => (
                         <div key={agent.id} className="flex items-center gap-1.5">
                           {j > 0 && <span className="text-text-secondary/40 text-sm font-medium mt-1">+</span>}
-                          <AgentNode name={agent.name} slug={agent.workPageSlug} id={agent.id} />
+                          <AgentNode name={agent.name} plainTitle={agent.plainTitle} slug={agent.workPageSlug} id={agent.id} />
                         </div>
                       ))}
                     </div>
@@ -200,7 +200,7 @@ export default function AIEmployeesPage() {
                       {lane.agents.map((agent, j) => (
                         <div key={agent.id} className="flex items-center gap-2">
                           {j > 0 && <span className="text-text-secondary/40 text-sm font-medium mt-1">+</span>}
-                          <AgentNode name={agent.name} slug={agent.workPageSlug} id={agent.id} />
+                          <AgentNode name={agent.name} plainTitle={agent.plainTitle} slug={agent.workPageSlug} id={agent.id} />
                         </div>
                       ))}
                     </div>
@@ -231,7 +231,7 @@ export default function AIEmployeesPage() {
               {/* ── Mobile orchestrator ── */}
               <div className="flex items-start gap-3 sm:hidden">
                 <div className="shrink-0 pt-0.5">
-                  <AgentNode name={partha.name} slug={partha.workPageSlug} id={partha.id} />
+                  <AgentNode name={partha.name} plainTitle={partha.plainTitle} slug={partha.workPageSlug} id={partha.id} />
                 </div>
                 <div className="flex flex-col gap-1.5 min-w-0 pt-1">
                   <span className="text-[11px] text-text-secondary italic leading-snug">
@@ -247,14 +247,7 @@ export default function AIEmployeesPage() {
               {/* ── Desktop orchestrator (unchanged) ── */}
               <div className="hidden sm:flex items-center gap-2">
                 <div className="flex items-start shrink-0 w-[160px]">
-                  <Link href={`/build-your-ai-team/${partha.workPageSlug}`} className="group/node flex flex-col items-center gap-1.5 shrink-0 w-[64px]">
-                    <div className="w-14 h-14 rounded-full overflow-hidden transition-transform group-hover/node:scale-110">
-                      <img src="/agent-avatars/parthasarathi.png" alt="Parthasarathi" className="w-full h-full object-cover" />
-                    </div>
-                    <span className="text-[10px] font-semibold text-text-secondary group-hover/node:text-text-primary transition-colors leading-none text-center">
-                      Parthasarathi
-                    </span>
-                  </Link>
+                  <AgentNode name={partha.name} plainTitle={partha.plainTitle} slug={partha.workPageSlug} id={partha.id} />
                 </div>
                 <div className="flex-1 flex items-center gap-3 min-w-0">
                   <div className="flex-1 border-t border-dashed border-border-color/60" />

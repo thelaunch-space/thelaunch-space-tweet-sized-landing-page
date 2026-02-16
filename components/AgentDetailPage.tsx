@@ -133,7 +133,7 @@ export default function AgentDetailPage({ agentId }: { agentId: string }) {
               </div>
 
               <h1 className="text-2xl md:text-3xl font-bold font-display mb-6">
-                {agent.name}
+                {agent.name} — {agent.plainTitle}
               </h1>
 
               {/* roleForICP headline */}

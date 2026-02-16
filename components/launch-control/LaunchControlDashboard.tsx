@@ -8,8 +8,13 @@ import AgentAvatarStrip from "./AgentAvatarStrip";
 import LiveFeed from "./LiveFeed";
 import CenterTabs from "./CenterTabs";
 import WaitlistCTA from "./WaitlistCTA";
+import type { BlogPost } from "@/lib/blog";
 
-export default function LaunchControlDashboard() {
+interface LaunchControlDashboardProps {
+  blogPosts: BlogPost[];
+}
+
+export default function LaunchControlDashboard({ blogPosts }: LaunchControlDashboardProps) {
   const agentStatuses = useQuery(api.agentActivity.agentStatuses);
   const weeklyStats = useQuery(api.agentActivity.weeklyStats);
   const allTimeStats = useQuery(api.agentActivity.allTimeStats);
@@ -17,7 +22,7 @@ export default function LaunchControlDashboard() {
 
   return (
     <div className="min-h-screen bg-background">
-      <HeaderBar weeklyStats={weeklyStats} />
+      <HeaderBar />
 
       {/* Mobile agent strip */}
       <div className="lg:hidden px-4 py-3">
@@ -36,10 +41,10 @@ export default function LaunchControlDashboard() {
 
           {/* Center — Tabbed content */}
           <main className="min-w-0 pt-4">
-            <p className="text-xs text-text-secondary mb-2">Your AI team runs this schedule every day, automatically.</p>
             <CenterTabs
               weeklyStats={weeklyStats}
               allTimeStats={allTimeStats}
+              blogPosts={blogPosts}
             />
           </main>
 

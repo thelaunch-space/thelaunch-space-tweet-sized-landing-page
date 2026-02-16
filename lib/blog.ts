@@ -16,14 +16,9 @@ export interface BlogCategory {
   posts: BlogPost[];
 }
 
-export const CATEGORY_LABELS: Record<string, string> = {
-  "startup-mvps": "Startup MVPs",
-  "landing-pages": "Landing Pages",
-  "ai-tools": "AI Tools",
-  "founder-advice": "Founder Advice",
-  "growth-strategy": "Growth Strategy",
-  "technical-guides": "Technical Guides",
-};
+// Re-export from shared file so existing server-side imports still work
+import { CATEGORY_LABELS } from "./blog-labels";
+export { CATEGORY_LABELS } from "./blog-labels";
 
 export function discoverBlogPosts(): BlogPost[] {
   const blogsDir = join(process.cwd(), "app", "blogs");

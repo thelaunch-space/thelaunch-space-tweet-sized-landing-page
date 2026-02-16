@@ -31,7 +31,7 @@ export default function AgentAvatarStrip({ agentStatuses }: AgentAvatarStripProp
         <div key={agent.id} className="relative shrink-0">
           <img
             src={`/agent-avatars/${agent.id}.png`}
-            alt={agent.name}
+            alt={`${agent.name} — ${agent.plainTitle}`}
             className={`w-10 h-10 rounded-full object-cover border-2 ${
               agent.status === "coming-soon" ? "opacity-40 border-border-color/40" : "border-border-color/60"
             }`}

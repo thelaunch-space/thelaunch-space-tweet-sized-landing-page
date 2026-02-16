@@ -36,10 +36,12 @@ function StatCard({
         {enabled ? display.toLocaleString() : "—"}
         {suffix && <span className="text-lg text-text-secondary">{suffix}</span>}
       </div>
-      <p className={`meta-label mt-1 ${accent ? accent : "text-text-secondary"}`}>{label}</p>
-      {subtitle && (
-        <p className="text-[10px] text-text-secondary/70 mt-0.5 leading-tight">{subtitle}</p>
-      )}
+      <div className="min-h-[2.5rem]">
+        <p className={`meta-label mt-2 ${accent ? accent : "text-text-secondary"}`}>{label}</p>
+        {subtitle && (
+          <p className="text-[10px] text-text-secondary/70 mt-0.5 leading-tight">{subtitle}</p>
+        )}
+      </div>
     </div>
   );
 }

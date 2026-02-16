@@ -74,7 +74,7 @@ export default function AgentSidebar({ agentStatuses }: AgentSidebarProps) {
                     </div>
                     <div className="min-w-0">
                       <p className="text-sm font-medium text-text-primary truncate">{agent.name}</p>
-                      <p className="text-xs text-text-secondary truncate">{agent.role}</p>
+                      <p className="text-xs text-text-secondary truncate">{agent.plainTitle}</p>
                     </div>
                   </button>
                 );

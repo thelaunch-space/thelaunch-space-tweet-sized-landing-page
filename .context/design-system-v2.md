@@ -259,3 +259,53 @@ Composition: Full body visible from head to feet. Character centered in frame. H
 ## 7. Logo Reference
 
 The thelaunch.space logo is a **diamond/rhombus shape** with a **cyan-to-royal-blue gradient** (light blue at top → deep blue at bottom). It represents speed, precision, and launch trajectory. The brand colors (accent-blue #003DA5, accent-purple #6D28D9) are derived from this gradient range.
+
+---
+
+## 8. Team Hero Image — Avatar Group Shot
+
+### Usage
+- Hero image for `/hire-your-24x7-team` pitch page
+- File: `public/agents/team-hero.png`
+- Should sit on the page's `#F9F9F9` background with no visible edge — pure white blends in
+
+### How to Generate
+1. Upload all 5 individual agent avatar PNGs as reference images
+2. Tell the model: "Use these exact characters — preserve their faces, clothing, colors, accessories, and art style exactly as shown. Generate a new group image with all five together."
+3. Then paste the prompt below
+
+### Prompt 6 of 6: Team Hero (Group Shot)
+
+```
+Using the five uploaded character reference images exactly as they are — same faces, same clothing, same colors, same accessories, same art style — create a new group illustration of all five standing together as a team.
+
+They are standing on a minimal pure white circular disc platform — like a subtle elevated stage. The disc has a very faint blue-gray gradient edge to give it depth. Below the disc, soft diffused drop shadows from each character fall on the white ground — natural and grounded, not harsh.
+
+Character placement from left to right:
+
+1. SANJAYA (gold eyes, gold circlet visor, amber vest, scout pose with hand at forehead) — far left, alert forward lean
+
+2. VIBHISHANA (green eyes, emerald shirt, dark vest, gold crown headband, holding clipboard tablet) — left of center, upright dignified stance
+
+3. PARTHASARATHI (blue eyes, navy blazer, white kurta, peacock feather, blue lanyard) — CENTER, standing slightly forward of the group as the leader, arms crossed, confident knowing smile
+
+4. VYASA (purple eyes, silver-white beard, tripundra forehead marks, white kurta, saffron shawl) — right of center, arms crossed, serene calm presence
+
+5. VALMIKI (crimson eyes, silver-streaked beard, burgundy-rose kurta, cream shawl, thumbs up, holding rose quill) — far right, relaxed wise stance
+
+Group composition: Parthasarathi is center and slightly forward as the leader. The other four flank him in a loose confident V-formation. They are spaced naturally — not shoulder-to-shoulder cramped, but close enough to feel like a tight team. Each character has their distinct pose and energy but they all face forward toward the viewer.
+
+Platform: Minimal pure white circular disc. Very faint blue-gray gradient edge for depth. Soft diffused shadows falling below — like real people standing under soft overhead lighting.
+
+Art style: Match the exact art style of the uploaded reference images. High-quality adult animated series style. Warm vibrant saturated colors. Detailed clothing textures. Clean bold linework. All characters look mature, capable, professional — NOT cute, NOT chibi, NOT cartoon for children.
+
+Background: Solid pure white. No environment, no scene, no gradient, no decorative elements. Only the five characters, the white disc platform, and their soft shadows.
+
+Composition: Wide horizontal format (roughly 16:9 or 2:1 aspect ratio). All five characters fully visible from head to feet. Group centered in frame. High detail, 4K resolution.
+```
+
+### Troubleshooting
+- If the model changes character faces or clothing, re-upload the individual avatars and emphasize "preserve these exact characters, do not change any details"
+- If it drifts toward photorealism, add "NOT photorealistic, NOT realistic rendering — match the uploaded art style exactly"
+- If proportions go chibi/cute, add "Adult proportions only, mature faces, NOT exaggerated heads"
+- If the white disc doesn't appear, try "standing on a circular white pedestal platform with a soft shadow beneath"

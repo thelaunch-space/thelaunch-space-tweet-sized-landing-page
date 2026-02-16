@@ -51,8 +51,11 @@ export default function RecentWorkSection({
         transition={{ duration: 0.5 }}
         className="font-display tracking-[-0.02em] text-2xl md:text-3xl text-text-primary"
       >
-        Real Work From This Week
+        Real Work From This Week — by AI Agents
       </motion.h2>
+      <p className="text-text-secondary text-sm mt-2">
+        Not samples. Not demos. This is what the agents actually produced this week on thelaunch.space.
+      </p>
 
       {/* Tab bar */}
       <div className="mt-6 flex gap-1 overflow-x-auto border-b border-border-color">

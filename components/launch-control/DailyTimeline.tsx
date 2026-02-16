@@ -51,9 +51,12 @@ export default function DailyTimeline() {
 
   return (
     <div className="rounded-2xl border border-border-color/40 bg-surface p-3 sm:p-5">
-      <div className="flex items-center justify-between mb-4">
-        <p className="meta-label text-text-secondary">Today&apos;s Pipeline</p>
-        <span className="text-sm text-text-secondary font-mono">{today}</span>
+      <div className="mb-4">
+        <div className="flex items-center justify-between">
+          <p className="meta-label text-text-secondary">Today&apos;s Pipeline</p>
+          <span className="text-sm text-text-secondary font-mono">{today}</span>
+        </div>
+        <p className="text-xs text-text-secondary mt-1">Your AI team runs this schedule every day, automatically.</p>
       </div>
 
       <div className="relative pl-6">

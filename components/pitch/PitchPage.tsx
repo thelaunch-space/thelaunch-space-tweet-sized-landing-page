@@ -110,22 +110,38 @@ export default function PitchPage() {
         </div>
       </main>
 
-      {/* Floating CTA */}
-      <motion.a
-        href="#lead-capture"
-        className="fixed bottom-6 right-6 z-40 inline-flex items-center gap-2 px-5 py-3 rounded-xl font-semibold text-sm bg-gradient-to-r from-accent-blue to-accent-purple text-white shadow-cta hover:shadow-cta-hover"
+      {/* Floating CTA pair */}
+      <motion.div
+        className="fixed bottom-6 right-6 z-40 flex items-center gap-2"
         initial={{ opacity: 0, y: 20, scale: 0.9 }}
         animate={
           ctaVisible
             ? { opacity: 1, y: 0, scale: 1 }
             : { opacity: 0, y: 20, scale: 0.9, pointerEvents: "none" as const }
         }
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.97 }}
         transition={{ type: "spring", stiffness: 300, damping: 24 }}
       >
-        Get your AI team
-      </motion.a>
+        <motion.a
+          href="/launch-control"
+          className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl font-semibold text-xs border-2 border-white/80 bg-white/90 backdrop-blur-md text-accent-blue shadow-card hover:bg-white"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.97 }}
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none" />
+          </svg>
+          Watch live
+        </motion.a>
+        <motion.a
+          href="#lead-capture"
+          className="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-semibold text-sm bg-gradient-to-r from-accent-blue to-accent-purple text-white shadow-cta hover:shadow-cta-hover"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.97 }}
+        >
+          Get your AI team
+        </motion.a>
+      </motion.div>
     </div>
   );
 }

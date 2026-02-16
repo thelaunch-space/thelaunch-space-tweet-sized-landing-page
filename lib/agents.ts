@@ -18,6 +18,7 @@ export interface ProofPoint {
 export interface Agent {
   id: string;
   name: string;
+  plainTitle: string;
   role: string;
   description: string;
   status: "active" | "coming-soon";
@@ -39,6 +40,7 @@ export const agents: Agent[] = [
   {
     id: "parthasarathi",
     name: "Parthasarathi",
+    plainTitle: "The Manager",
     role: "Operations Orchestrator",
     description:
       "The conductor. Partha coordinates all agents, manages workflows across Slack and Make.com, and makes sure nothing falls through the cracks. If something needs to happen, Partha makes it happen.",
@@ -100,6 +102,7 @@ export const agents: Agent[] = [
   {
     id: "sanjaya",
     name: "Sanjaya",
+    plainTitle: "The Hunter",
     role: "Lead Intelligence Scout",
     description:
       "The scout who never sleeps. Sanjaya scans LinkedIn, X, Reddit, and job boards daily to find prospects who need what you sell — before they even start looking for you.",
@@ -161,6 +164,7 @@ export const agents: Agent[] = [
   {
     id: "valmiki",
     name: "Valmiki",
+    plainTitle: "The Voice",
     role: "Social Content Strategist",
     description:
       "The voice. Valmiki writes your LinkedIn and X posts in your actual voice — not generic AI slop. Every post is strategy-backed, quality-gated, and ready for your review.",
@@ -223,6 +227,7 @@ export const agents: Agent[] = [
   {
     id: "vibhishana",
     name: "Vibhishana",
+    plainTitle: "The Scout",
     role: "Research Intelligence Analyst",
     description:
       "The scout. Vibhishana monitors 12+ founder communities daily, identifies pain-point patterns, and turns raw Reddit/Slack/Discord chatter into actionable research clusters that drive your content strategy.",
@@ -285,6 +290,7 @@ export const agents: Agent[] = [
   {
     id: "vyasa",
     name: "Vyasa",
+    plainTitle: "The Writer",
     role: "SEO Blog Writer",
     description:
       "The storyteller. Vyasa takes Vibhishana's research and turns it into SEO-optimized blog posts that rank. Real founder pain, real solutions, zero fluff. Published daily to thelaunch.space.",

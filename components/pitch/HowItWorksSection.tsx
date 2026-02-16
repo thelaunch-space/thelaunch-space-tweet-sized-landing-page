@@ -23,8 +23,8 @@ export default function HowItWorksSection() {
       </motion.h2>
 
       {/* Mobile: vertical with connector line */}
-      <div className="mt-8 md:hidden relative pl-8">
-        <div className="absolute left-3 top-1 bottom-1 w-px bg-accent-blue/20" />
+      <div className="mt-8 md:hidden relative pl-10">
+        <div className="absolute left-[13px] top-1 bottom-1 w-px bg-accent-blue/20" />
         {STEPS.map((step, i) => (
           <motion.div
             key={i}
@@ -32,10 +32,10 @@ export default function HowItWorksSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.5, delay: i * 0.12 }}
-            className="relative pb-6 last:pb-0"
+            className="relative pb-7 last:pb-0"
           >
-            <div className="absolute -left-5 top-0.5 w-6 h-6 rounded-full bg-surface border-2 border-accent-blue/30 flex items-center justify-center">
-              <span className="text-[10px] font-mono font-bold text-accent-blue">{i + 1}</span>
+            <div className="absolute -left-10 top-0 w-7 h-7 rounded-full bg-surface border-2 border-accent-blue/30 flex items-center justify-center">
+              <span className="text-[11px] font-mono font-bold text-accent-blue">{i + 1}</span>
             </div>
             <p className="text-text-primary text-sm leading-relaxed">{step}</p>
           </motion.div>

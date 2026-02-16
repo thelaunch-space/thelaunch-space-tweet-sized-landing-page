@@ -5,7 +5,9 @@ import dynamic from "next/dynamic";
 import { useAuth } from "@clerk/nextjs";
 import Scoreboard from "./Scoreboard";
 import DailyTimeline from "./DailyTimeline";
+import BlogsPanel from "./BlogsPanel";
 import type { WeeklyStats } from "@/lib/launch-control-types";
+import type { BlogPost } from "@/lib/blog";
 
 // Lazy-load tab panels to avoid heavy initial bundle
 const CommunitiesPanel = dynamic(() => import("./CommunitiesPanel"));
@@ -16,10 +18,20 @@ const BriefsPanel = dynamic(() => import("./BriefsPanel"));
 const BriefsPreview = dynamic(() => import("./BriefsPreview"));
 const MeetingsPanel = dynamic(() => import("./MeetingsPanel"));
 
-type Tab = "overview" | "communities" | "questions" | "briefs" | "meetings";
+type Tab = "overview" | "blogs" | "communities" | "questions" | "briefs" | "meetings";
+
+const TAB_DESCRIPTIONS: Record<Tab, string> = {
+  overview: "A summary of what your AI team produced",
+  blogs: "SEO blogs Vyasa, The Writer published from Vibhishana\u2019s research briefs",
+  communities: "The communities Vibhishana, The Scout is monitoring",
+  questions: "Customer questions Vibhishana, The Scout found across Reddit and forums",
+  briefs: "Research docs Vibhishana, The Scout creates for Vyasa, The Writer to turn into blogs",
+  meetings: "",
+};
 
 const TABS: { label: string; value: Tab }[] = [
   { label: "Overview", value: "overview" },
+  { label: "Blogs", value: "blogs" },
   { label: "Communities", value: "communities" },
   { label: "Questions", value: "questions" },
   { label: "Briefs", value: "briefs" },
@@ -29,9 +41,10 @@ const TABS: { label: string; value: Tab }[] = [
 interface CenterTabsProps {
   weeklyStats: WeeklyStats | undefined;
   allTimeStats: WeeklyStats | undefined;
+  blogPosts: BlogPost[];
 }
 
-export default function CenterTabs({ weeklyStats, allTimeStats }: CenterTabsProps) {
+export default function CenterTabs({ weeklyStats, allTimeStats, blogPosts }: CenterTabsProps) {
   const { isSignedIn } = useAuth();
   const [activeTab, setActiveTab] = useState<Tab>("overview");
 
@@ -54,11 +67,21 @@ export default function CenterTabs({ weeklyStats, allTimeStats }: CenterTabsProp
         ))}
       </div>
 
+      {/* Tab description */}
+      {TAB_DESCRIPTIONS[activeTab] && (
+        <p className="text-xs text-text-secondary mb-3">{TAB_DESCRIPTIONS[activeTab]}</p>
+      )}
+
       {/* Tab content */}
       {activeTab === "overview" && (
         <div className="space-y-5">
           <Scoreboard weeklyStats={weeklyStats} allTimeStats={allTimeStats} />
           <DailyTimeline />
+        </div>
+      )}
+      {activeTab === "blogs" && (
+        <div className="rounded-2xl border border-border-color/40 bg-surface overflow-hidden">
+          <BlogsPanel blogPosts={blogPosts} />
         </div>
       )}
       {activeTab === "questions" && (

@@ -72,3 +72,5 @@ IMPORTANT: After ANY code change, update relevant .context/ docs to keep this sy
 IMPORTANT: When Krishna reports bugs, design feedback, or issues during a session, ALWAYS log them to `.context/feedback-and-bugs.md` — include the date, description, root cause (if known), fix status, and affected files. This is the living record of all feedback.
 
 IMPORTANT: When brainstorming or making decisions with Krishna, do NOT leave open questions in docs for "next session." Use the AskUserQuestion tool to ask Krishna immediately. Only mark something as an open question if Krishna explicitly says he doesn't know the answer yet and needs to think about it.
+
+IMPORTANT: ALWAYS use the AskUserQuestion tool to ask Krishna questions — never ask questions in plain text output. Questions in prompt output waste time because Krishna has to type a response. AskUserQuestion gives him selectable options and is faster. Provide context behind the question in your text output, then use the tool for the actual question.

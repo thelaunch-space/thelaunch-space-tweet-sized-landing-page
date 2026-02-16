@@ -86,7 +86,7 @@ export default function AgentExpandedPanel({ agent, onClose }: AgentExpandedPane
       <div className="px-4 pb-5 -mt-4 relative">
         {/* Name + Role */}
         <h2 className="font-display text-xl font-semibold text-text-primary leading-tight">
-          {agent.name}
+          {agent.name} — {agent.plainTitle}
         </h2>
         <div className="flex items-center gap-2 mt-1">
           <div
