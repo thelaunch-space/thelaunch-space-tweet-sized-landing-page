@@ -325,8 +325,8 @@ export default function BlogPost() {
 
           <div className="space-y-4 my-8">
             <div className="bg-border-color/20 rounded-xl p-5">
-              <p className="text-text-primary font-semibold mb-1">Native mobile apps</p>
-              <p className="text-text-secondary text-base leading-relaxed">AI tools can build web apps and progressive web apps. True native iOS/Android apps with platform-specific features still need mobile developers. If your product requires deep hardware integration, camera access, or offline-first functionality, plan to hire.</p>
+              <p className="text-text-primary font-semibold mb-1">Native mobile apps (updated: now possible)</p>
+              <p className="text-text-secondary text-base leading-relaxed">This has changed rapidly. Bolt.new partnered with Expo in early 2025 to enable native iOS and Android app development from prompts. Apps like BetAI Pro have shipped to the App Store using this workflow. Tools like <a href="https://www.vibecodeapp.com" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Vibecode</a> let you build and test native apps directly on your iPhone. <a href="https://natively.dev" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Natively</a> offers AI prompt-to-app with React Native and Expo at $5/month. For most mobile MVPs, AI tools now work. The exception: apps requiring very deep hardware integration, complex real-time features, or heavy offline-first architectures may still benefit from specialist developers.</p>
             </div>
             <div className="bg-border-color/20 rounded-xl p-5">
               <p className="text-text-primary font-semibold mb-1">Complex algorithms and data science</p>
