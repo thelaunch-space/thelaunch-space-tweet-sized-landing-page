@@ -20,18 +20,18 @@ interface HookSectionProps {
   allTimeStats?: { questions: number; briefs: number; blogs: number } | undefined;
 }
 
-export default function HookSection({ weeklyStats }: HookSectionProps) {
+export default function HookSection({ allTimeStats }: HookSectionProps) {
   const region = useGeo();
   const config = getGeoConfig(region);
 
-  const q = weeklyStats?.questions ?? 0;
-  const b = weeklyStats?.briefs ?? 0;
-  const bl = weeklyStats?.blogs ?? 0;
+  const q = allTimeStats?.questions ?? 0;
+  const b = allTimeStats?.briefs ?? 0;
+  const bl = allTimeStats?.blogs ?? 0;
   const stats = { questions: q, briefs: b, blogs: bl };
   const hoursSaved = calculateHoursSaved(stats);
   const costSaved = calculateCostSaved(stats, region);
 
-  const ready = weeklyStats !== undefined;
+  const ready = allTimeStats !== undefined;
 
   const statsRef = useRef<HTMLDivElement>(null);
   const statsInView = useInView(statsRef, { once: true, margin: "-60px" });
@@ -104,7 +104,7 @@ export default function HookSection({ weeklyStats }: HookSectionProps) {
                 LIVE
               </span>
               <span className="text-xs text-text-secondary">
-                For thelaunch.space this week:
+                What our agents have produced for thelaunch.space:
               </span>
             </div>
 

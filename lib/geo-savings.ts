@@ -126,15 +126,30 @@ export function getGeoConfig(region: GeoRegion): GeoSavingsConfig {
   return region === "IN" ? IN_CONFIG : INTL_CONFIG;
 }
 
+// Region-specific freelancer rates for cost-saved calculation
+const COST_RATES = {
+  INTL: {
+    questionBatch: 112.5, // per 50 questions scanned — $45/hr × 2.5h
+    brief: 180, // per brief — $45/hr × 4h
+    blog: 300, // per blog — $75/hr × 4h
+    mgmt: 180, // per week of management — $60/hr × 3h
+  },
+  IN: {
+    questionBatch: 1250, // per 50 questions — ₹500/hr × 2.5h
+    brief: 2400, // per brief — ₹600/hr × 4h
+    blog: 5000, // per blog — freelancer rate per post
+    mgmt: 1200, // per week of management — ₹400/hr × 3h
+  },
+};
+
 export function calculateCostSaved(
   stats: { questions: number; briefs: number; blogs: number },
   region: GeoRegion
 ): number {
   const { questions: q, briefs: b, blogs: bl } = stats;
-  // Scale factor: IN costs are roughly 0.2x of US costs
-  const scale = region === "IN" ? 0.2 : 1;
+  const r = COST_RATES[region];
   return Math.round(
-    ((q / 50) * 112.5 + b * 180 + bl * 300 + 5 * 180) * scale
+    (q / 50) * r.questionBatch + b * r.brief + bl * r.blog + 5 * r.mgmt
   );
 }
 
