@@ -6,6 +6,8 @@ import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { CHALLENGE_OPTIONS, COUNTRY_CODES } from "@/lib/pitch-data";
 import TimeSlotPicker from "./TimeSlotPicker";
+import { useGeo } from "@/lib/useGeo";
+import { getGeoConfig, getPriceDisplay } from "@/lib/geo-savings";
 
 type Step = "contact" | "time" | "success";
 
@@ -41,6 +43,8 @@ function formatISTDisplay(dateISO: string, timeIST: string): string {
 
 export default function LeadCaptureSection() {
   const createBooking = useMutation(api.pitchBookings.create);
+  const region = useGeo();
+  const config = getGeoConfig(region);
 
   const [step, setStep] = useState<Step>("contact");
 
@@ -121,7 +125,7 @@ export default function LeadCaptureSection() {
         <div className="mt-3 mb-2 flex flex-col items-center gap-1.5 text-xs text-text-secondary/70 text-center">
           <span>No contracts. Cancel anytime.</span>
           <span>Your agents start producing within 48 hours.</span>
-          <span>$99/month &mdash; less than one freelance blog post.</span>
+          <span>{getPriceDisplay(config)} &mdash; less than one freelance blog post.</span>
         </div>
 
         <AnimatePresence mode="wait">

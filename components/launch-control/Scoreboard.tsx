@@ -3,6 +3,14 @@
 import { useRef, useState, useEffect } from "react";
 import { useCountUp } from "@/lib/useCountUp";
 import type { WeeklyStats } from "@/lib/launch-control-types";
+import { useGeo } from "@/lib/useGeo";
+import {
+  calculateCostSaved,
+  calculateHoursSaved,
+  formatCurrency,
+  getGeoConfig,
+} from "@/lib/geo-savings";
+import SavingsTooltip from "@/components/ui/SavingsTooltip";
 
 type TimeRange = "week" | "allTime";
 
@@ -19,6 +27,7 @@ function StatCard({
   delay,
   enabled,
   accent,
+  formatFn,
 }: {
   label: string;
   subtitle?: string;
@@ -27,13 +36,18 @@ function StatCard({
   delay: number;
   enabled: boolean;
   accent?: string;
+  formatFn?: (n: number) => string;
 }) {
   const display = useCountUp(value, 2000, delay, enabled);
 
   return (
     <div className="rounded-xl border border-border-color/40 bg-surface p-2.5 sm:p-4 text-center">
       <div className="font-display text-2xl sm:text-3xl lg:text-4xl font-semibold text-text-primary tracking-tight">
-        {enabled ? display.toLocaleString() : "—"}
+        {enabled
+          ? formatFn
+            ? formatFn(display)
+            : display.toLocaleString()
+          : "—"}
         {suffix && <span className="text-lg text-text-secondary">{suffix}</span>}
       </div>
       <div className="min-h-[2.5rem]">
@@ -50,6 +64,8 @@ export default function Scoreboard({ weeklyStats, allTimeStats }: ScoreboardProp
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   const [range, setRange] = useState<TimeRange>("week");
+  const region = useGeo();
+  const config = getGeoConfig(region);
 
   useEffect(() => {
     if (!ref.current) return;
@@ -70,9 +86,15 @@ export default function Scoreboard({ weeklyStats, allTimeStats }: ScoreboardProp
   const q = active?.questions ?? 0;
   const b = active?.briefs ?? 0;
   const bl = active?.blogs ?? 0;
-  const humanHours = Math.round((q / 50) * 2.5 + b * 4 + bl * 4 + 5 * 3);
-  const costSaved = Math.round((q / 50) * 112.5 + b * 180 + bl * 300 + 5 * 180);
+  const stats = { questions: q, briefs: b, blogs: bl };
+  const humanHours = calculateHoursSaved(stats);
+  const costSaved = calculateCostSaved(stats, region);
   const loaded = active !== undefined;
+
+  const costSubtitle =
+    region === "IN"
+      ? "based on Indian market rates"
+      : "based on US freelancer rates";
 
   return (
     <div ref={ref} data-tour="scoreboard">
@@ -114,16 +136,31 @@ export default function Scoreboard({ weeklyStats, allTimeStats }: ScoreboardProp
           enabled={visible && loaded}
           accent="text-accent-emerald"
         />
-        <StatCard
-          label="Cost Saved"
-          subtitle="based on freelancer rates"
-          value={costSaved}
-          suffix=""
-          delay={600}
-          enabled={visible && loaded}
-          accent="text-accent-blue"
-        />
+        <div className="rounded-xl border border-border-color/40 bg-surface p-2.5 sm:p-4 text-center">
+          <SavingsTooltip rationale={config.rationale}>
+            <div className="font-display text-2xl sm:text-3xl lg:text-4xl font-semibold text-text-primary tracking-tight">
+              <CostDisplay value={costSaved} enabled={visible && loaded} region={region} />
+            </div>
+          </SavingsTooltip>
+          <div className="min-h-[2.5rem]">
+            <p className="meta-label mt-2 text-accent-blue">Cost Saved</p>
+            <p className="text-[10px] text-text-secondary/70 mt-0.5 leading-tight">{costSubtitle}</p>
+          </div>
+        </div>
       </div>
     </div>
   );
+}
+
+function CostDisplay({
+  value,
+  enabled,
+  region,
+}: {
+  value: number;
+  enabled: boolean;
+  region: "IN" | "INTL";
+}) {
+  const display = useCountUp(value, 2000, 600, enabled);
+  return <>{enabled ? formatCurrency(display, region) : "—"}</>;
 }

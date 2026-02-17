@@ -8,6 +8,8 @@ import type { PitchAgent } from "@/lib/pitch-data";
 import StatusDot from "@/components/launch-control/StatusDot";
 import type { StatusDotColor } from "@/lib/launch-control-types";
 import StatBar from "./StatBar";
+import { useGeo } from "@/lib/useGeo";
+import { getGeoConfig } from "@/lib/geo-savings";
 
 interface AgentStatCardProps {
   pitchAgent: PitchAgent;
@@ -33,6 +35,10 @@ function ComingSoonCard({
   pitchAgent: PitchAgent;
   agent: Agent;
 }) {
+  const region = useGeo();
+  const config = getGeoConfig(region);
+  const agentSavings = config.agents[pitchAgent.agentId];
+
   return (
     <div className="h-full flex flex-col rounded-2xl border border-border-color bg-surface shadow-card overflow-hidden relative">
       {/* Greyed-out accent top line */}
@@ -81,7 +87,9 @@ function ComingSoonCard({
           <span className="text-[10px] font-mono tracking-[0.12em] uppercase text-text-secondary">
             MONTHLY SAVINGS
           </span>
-          <span className="text-sm font-semibold text-text-secondary">{pitchAgent.monthlySavings}</span>
+          <span className="text-sm font-semibold text-text-secondary">
+            {agentSavings?.monthlySavings ?? "—"}
+          </span>
         </div>
 
         {/* Skill tags — greyed */}
@@ -97,7 +105,9 @@ function ComingSoonCard({
         </div>
 
         {/* Cost equivalent — greyed, pushed to bottom */}
-        <p className="mt-auto pt-3 text-text-secondary/40 text-xs">{pitchAgent.costEquivalent}</p>
+        <p className="mt-auto pt-3 text-text-secondary/40 text-xs">
+          {agentSavings?.costEquivalent ?? "—"}
+        </p>
       </div>
 
       {/* Joining Soon overlay badge */}
@@ -132,6 +142,10 @@ function CardFront({
   agent: Agent;
   agentStatus: AgentStatCardProps["agentStatus"];
 }) {
+  const region = useGeo();
+  const config = getGeoConfig(region);
+  const agentSavings = config.agents[pitchAgent.agentId];
+
   return (
     <div className="h-full flex flex-col rounded-2xl border border-border-color bg-surface shadow-card overflow-hidden">
       {/* Accent top line */}
@@ -178,7 +192,9 @@ function CardFront({
           <span className="text-[10px] font-mono tracking-[0.12em] uppercase text-text-secondary">
             MONTHLY SAVINGS
           </span>
-          <span className="text-sm font-semibold text-text-primary">{pitchAgent.monthlySavings}</span>
+          <span className="text-sm font-semibold text-text-primary">
+            {agentSavings?.monthlySavings ?? "—"}
+          </span>
         </div>
 
         {/* Skill tags */}
@@ -194,7 +210,9 @@ function CardFront({
         </div>
 
         {/* Cost equivalent — pushed to bottom */}
-        <p className="mt-auto pt-3 text-text-secondary text-xs">{pitchAgent.costEquivalent}</p>
+        <p className="mt-auto pt-3 text-text-secondary text-xs">
+          {agentSavings?.costEquivalent ?? "—"}
+        </p>
       </div>
     </div>
   );

@@ -4,9 +4,7 @@ export interface PitchAgent {
   tagline: string;
   paceScore: number; // out of 10
   intelScore: number; // out of 10
-  monthlySavings: string;
   skillTags: string[];
-  costEquivalent: string;
   comingSoon?: boolean;
 }
 
@@ -17,9 +15,7 @@ export const PITCH_AGENTS: PitchAgent[] = [
     tagline: "Runs the show. Schedules, delegates, keeps everything on track.",
     paceScore: 8,
     intelScore: 10,
-    monthlySavings: "$2.1K",
     skillTags: ["Orchestration", "Scheduling", "Quality Control"],
-    costEquivalent: "Replaces a $2K/month project manager",
   },
   {
     agentId: "vibhishana",
@@ -27,9 +23,7 @@ export const PITCH_AGENTS: PitchAgent[] = [
     tagline: "Finds what your customers are asking, before your competitors do.",
     paceScore: 9,
     intelScore: 9,
-    monthlySavings: "$3.2K",
     skillTags: ["Community Scanning", "Pain Point Extraction", "Research Briefs"],
-    costEquivalent: "Replaces a $3K/month research analyst",
   },
   {
     agentId: "vyasa",
@@ -37,9 +31,7 @@ export const PITCH_AGENTS: PitchAgent[] = [
     tagline: "Turns research into published blog posts. Every single day.",
     paceScore: 7,
     intelScore: 10,
-    monthlySavings: "$5K",
     skillTags: ["SEO Writing", "Content Strategy", "Publishing"],
-    costEquivalent: "Replaces a $5K/month content marketer",
   },
   {
     agentId: "valmiki",
@@ -47,9 +39,7 @@ export const PITCH_AGENTS: PitchAgent[] = [
     tagline: "Writes your LinkedIn and X posts in your voice. Not AI slop.",
     paceScore: 8,
     intelScore: 9,
-    monthlySavings: "$3.5K",
     skillTags: ["Social Writing", "Voice Matching", "Content Strategy"],
-    costEquivalent: "Replaces a $3.5K/month social media manager",
     comingSoon: true,
   },
   {
@@ -58,9 +48,7 @@ export const PITCH_AGENTS: PitchAgent[] = [
     tagline: "Finds your next client before they start looking for you.",
     paceScore: 9,
     intelScore: 8,
-    monthlySavings: "$4K",
     skillTags: ["Lead Intelligence", "Signal Detection", "Prospect Briefs"],
-    costEquivalent: "Replaces a $4K/month lead researcher",
     comingSoon: true,
   },
 ];

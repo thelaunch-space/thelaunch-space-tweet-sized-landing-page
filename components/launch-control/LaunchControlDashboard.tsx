@@ -22,7 +22,7 @@ export default function LaunchControlDashboard({ blogPosts }: LaunchControlDashb
   const recentFeed = useQuery(api.agentActivity.recentFeed, { limit: 50 });
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen lg:h-screen lg:overflow-hidden bg-background">
       <GuidedTour />
       <HeaderBar />
 

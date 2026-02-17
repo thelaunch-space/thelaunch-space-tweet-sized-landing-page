@@ -4,6 +4,16 @@ import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import { useRef } from "react";
 import { useCountUp } from "@/lib/useCountUp";
+import { useGeo } from "@/lib/useGeo";
+import {
+  calculateCostSaved,
+  calculateHoursSaved,
+  formatCurrency,
+  getGeoConfig,
+  getMultiplier,
+  getPriceDisplay,
+} from "@/lib/geo-savings";
+import SavingsTooltip from "@/components/ui/SavingsTooltip";
 
 interface HookSectionProps {
   weeklyStats: { questions: number; briefs: number; blogs: number } | undefined;
@@ -11,11 +21,15 @@ interface HookSectionProps {
 }
 
 export default function HookSection({ weeklyStats }: HookSectionProps) {
+  const region = useGeo();
+  const config = getGeoConfig(region);
+
   const q = weeklyStats?.questions ?? 0;
   const b = weeklyStats?.briefs ?? 0;
   const bl = weeklyStats?.blogs ?? 0;
-  const hoursSaved = Math.round((q / 50) * 2.5 + b * 4 + bl * 4 + 5 * 3);
-  const costSaved = Math.round((q / 50) * 112.5 + b * 180 + bl * 300 + 5 * 180);
+  const stats = { questions: q, briefs: b, blogs: bl };
+  const hoursSaved = calculateHoursSaved(stats);
+  const costSaved = calculateCostSaved(stats, region);
 
   const ready = weeklyStats !== undefined;
 
@@ -116,10 +130,12 @@ export default function HookSection({ weeklyStats }: HookSectionProps) {
                   <p className="meta-label mt-1 text-text-secondary">hours saved</p>
                 </div>
                 <div className="rounded-xl border border-border-color/40 bg-surface p-3 text-center shadow-card">
-                  <div className="font-display text-2xl sm:text-3xl font-semibold text-accent-blue tracking-tight">
-                    ${costCount.toLocaleString()}
-                  </div>
-                  <p className="meta-label mt-1 text-text-secondary">$ saved</p>
+                  <SavingsTooltip rationale={config.rationale}>
+                    <div className="font-display text-2xl sm:text-3xl font-semibold text-accent-blue tracking-tight">
+                      {formatCurrency(costCount, region)}
+                    </div>
+                  </SavingsTooltip>
+                  <p className="meta-label mt-1 text-text-secondary">saved</p>
                 </div>
               </div>
             ) : (
@@ -131,6 +147,14 @@ export default function HookSection({ weeklyStats }: HookSectionProps) {
                   </div>
                 ))}
               </div>
+            )}
+
+            {/* Hybrid framing line */}
+            {ready && (
+              <p className="mt-3 text-xs text-text-secondary/80">
+                This AI team does the work of a {config.totalDisplay} content operation &mdash; that&apos;s{" "}
+                <span className="font-semibold text-accent-blue">{getMultiplier(config)}</span> your {getPriceDisplay(config)} investment
+              </p>
             )}
           </motion.div>
 
