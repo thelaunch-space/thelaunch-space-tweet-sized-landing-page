@@ -48,7 +48,6 @@ export const PITCH_AGENTS: PitchAgent[] = [
     paceScore: 8,
     intelScore: 9,
     skillTags: ["Social Writing", "Voice Matching", "Content Strategy"],
-    comingSoon: true,
   },
   {
     agentId: "sanjaya",
