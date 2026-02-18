@@ -1,6 +1,6 @@
 # Progress — thelaunch.space Landing Page + Blog
 
-Last updated: 2026-02-16 (v2 — pitch page, FTUE tour, blogs panel, new blog)
+Last updated: 2026-02-17 (geo-detected cost savings, INR/USD pricing)
 
 ## Completed
 - [x] Project scaffolding (originally Vite + React 18, later migrated to Next.js 14)

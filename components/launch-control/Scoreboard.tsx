@@ -86,6 +86,8 @@ export default function Scoreboard({ weeklyStats, allTimeStats }: ScoreboardProp
   const q = active?.questions ?? 0;
   const b = active?.briefs ?? 0;
   const bl = active?.blogs ?? 0;
+  const cl = active?.clusters ?? 0;
+  const tl = active?.tools ?? 0;
   const stats = { questions: q, briefs: b, blogs: bl };
   const humanHours = calculateHoursSaved(stats);
   const costSaved = calculateCostSaved(stats, region);
@@ -123,10 +125,26 @@ export default function Scoreboard({ weeklyStats, allTimeStats }: ScoreboardProp
       </div>
 
       {/* Primary stats */}
-      <div className="grid grid-cols-3 sm:grid-cols-5 gap-2 sm:gap-3">
+      <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-7 gap-2 sm:gap-3">
         <StatCard label="Questions" subtitle="Customer questions found on Reddit" value={q} delay={0} enabled={visible && loaded} />
         <StatCard label="Briefs" subtitle="Research docs → blog topics" value={b} delay={150} enabled={visible && loaded} />
         <StatCard label="Blogs" subtitle="Published SEO posts" value={bl} delay={300} enabled={visible && loaded} />
+        <StatCard
+          label="Clusters"
+          subtitle="Strategic topic pillars mapped"
+          value={cl}
+          delay={375}
+          enabled={visible && loaded}
+          accent="text-cyan-500"
+        />
+        <StatCard
+          label="Tools"
+          subtitle="Interactive tool ideas identified"
+          value={tl}
+          delay={425}
+          enabled={visible && loaded}
+          accent="text-cyan-500"
+        />
         <StatCard
           label="Hours Saved"
           subtitle="vs doing this manually"

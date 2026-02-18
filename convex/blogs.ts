@@ -20,6 +20,28 @@ export const ingest = internalMutation({
   },
 });
 
+export const updateEnrichment = internalMutation({
+  args: {
+    slug: v.string(),
+    enrichmentCount: v.number(),
+    lastEnrichmentDate: v.string(),
+    enrichmentLog: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const blog = await ctx.db
+      .query("blogs")
+      .filter((q) => q.eq(q.field("slug"), args.slug))
+      .first();
+    if (!blog) throw new Error(`Blog not found with slug: ${args.slug}`);
+    await ctx.db.patch(blog._id, {
+      enrichmentCount: args.enrichmentCount,
+      lastEnrichmentDate: args.lastEnrichmentDate,
+      enrichmentLog: args.enrichmentLog,
+    });
+    return { success: true };
+  },
+});
+
 export const listRecent = query({
   args: { limit: v.optional(v.number()) },
   handler: async (ctx, args) => {

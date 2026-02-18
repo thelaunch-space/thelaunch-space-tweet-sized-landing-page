@@ -107,7 +107,7 @@ Based on research from [Imagine.art NBP Guide](https://www.imagine.art/blogs/nan
 
 ---
 
-### Prompt 1 of 5: Parthasarathi (Operations Orchestrator)
+### Prompt 1 of 7: Parthasarathi (Operations Orchestrator)
 
 ```
 A digital illustration of an Indian man in his mid-30s, drawn in the style of a high-quality adult animated series or modern comic book. This character is inspired by the mythological Parthasarathi (Lord Krishna as Arjuna's charioteer) reimagined as a modern digital operations manager who coordinates a team of AI agents.
@@ -127,7 +127,7 @@ Composition: Full body visible from head to feet. Character centered in frame. H
 
 ---
 
-### Prompt 2 of 5: Sanjaya (Lead Intelligence Scout)
+### Prompt 2 of 7: Sanjaya (Lead Intelligence Scout)
 
 ```
 A digital illustration of an Indian man in his late 20s, drawn in the style of a high-quality adult animated series or modern comic book. This character is inspired by the mythological Sanjaya (the narrator in the Mahabharata who was blessed with divine sight — divya drishti — and could see the entire Kurukshetra battlefield from a palace room) reimagined as a modern digital intelligence scout who finds sales leads and prospects before anyone else.
@@ -147,7 +147,7 @@ Composition: Full body visible from head to feet. Character centered in frame. H
 
 ---
 
-### Prompt 3 of 5: Valmiki (Social Content Strategist)
+### Prompt 3 of 7: Valmiki (Social Content Strategist)
 
 ```
 A digital illustration of an Indian sage-figure in his late 50s, drawn in the style of a high-quality adult animated series or modern comic book. This character is inspired by the mythological Valmiki (the Adi Kavi — the first poet — the sage who authored the Ramayana, invented the shloka verse form, and transformed from a bandit into the greatest storyteller in history) reimagined as a modern digital social media content strategist who writes posts in his client's authentic voice.
@@ -167,7 +167,7 @@ Composition: Full body visible from head to feet. Character centered in frame. H
 
 ---
 
-### Prompt 4 of 5: Vibhishana (Research Intelligence Analyst)
+### Prompt 4 of 7: Vibhishana (Research Intelligence Analyst)
 
 ```
 A digital illustration of an Indian man in his mid-30s, drawn in the style of a high-quality adult animated series or modern comic book. This character is inspired by the mythological Vibhishana (the righteous brother of Ravana in the Ramayana who saw the truth others refused to see, left Lanka, and chose integrity over blind loyalty) reimagined as a modern digital research intelligence analyst who monitors online communities and extracts real pain points hidden beneath surface chatter.
@@ -187,7 +187,7 @@ Composition: Full body visible from head to feet. Character centered in frame. H
 
 ---
 
-### Prompt 5 of 5: Vyasa (SEO Blog Writer)
+### Prompt 5 of 7: Vyasa (SEO Blog Writer)
 
 ```
 A digital illustration of an Indian sage-figure in his 50s, drawn in the style of a high-quality adult animated series or modern comic book. This character is inspired by the mythological Vyasa (the legendary compiler of the Mahabharata — the longest epic ever written — who also compiled the Vedas and authored the Puranas, the ultimate long-form content creator) reimagined as a modern digital SEO blog writer who turns raw research into authoritative content that ranks in search engines.
@@ -199,6 +199,26 @@ Clothing: A white Indian kurta with subtle purple circuit-board line patterns on
 Pose: Standing in a wise serene pose with arms crossed and a knowing calm half-smile. Grounded and solid. A few faint floating Sanskrit-like glyphs and ancient script symbols hover near him, some visually transforming into modern HTML code tags — ancient knowledge transcribed across ages.
 
 Art style: High-quality digital illustration in the style of an adult animated series like Arcane or a premium Indian comic book. Warm vibrant saturated colors. Detailed clothing textures and fabric folds. Clean bold linework. Rich warm color palette with purples, saffron-oranges, and warm whites. The character should look wise, powerful, and venerable — NOT cute, NOT chibi, NOT like a children's cartoon. This is an ancient sage who now writes for the internet.
+
+Background: Solid pure white background with no environment or scene. A soft subtle drop shadow beneath his feet so he appears to be standing on the white surface.
+
+Composition: Full body visible from head to feet. Character centered in frame. High detail, 4K resolution.
+```
+
+---
+
+### Prompt 6 of 7: Vidura (SEO Intelligence Strategist)
+
+```
+A digital illustration of an Indian man in his mid-30s, drawn in the style of a high-quality adult animated series or modern comic book. This character is inspired by the mythological Vidura (the wise counselor of the Kuru court in the Mahabharata — the man who saw the truth when kings were blinded by ego, who gave strategic counsel that could have prevented the entire war, the sharpest political mind in the epic) reimagined as a modern digital SEO intelligence strategist who analyzes data, spots patterns others miss, and tells the content pipeline exactly where to aim for maximum impact.
+
+Face and body: Adult male with medium-dark brown skin, clean-shaven with a sharp jawline, high intelligent forehead, calm calculating expression — the face of a man who has already thought three moves ahead. His eyes are solid glowing deep teal-cyan with no visible pupils — just pure luminous teal glow, like a data visualization rendered in light. Neatly styled dark black hair cropped short on the sides and slightly longer on top — clean, precise, no-nonsense. Adult proportions — lean, composed, upright build. Mature face with sharp observant features. A thin teal-glowing line traces from his temple down his jawline on one side — a subtle neural interface mark, like strategy flows directly through him.
+
+Clothing: A fitted charcoal-gray Nehru jacket (bandhgala) with faint teal data-grid line patterns woven into the fabric — structured, sharp, authoritative. Underneath, a dark navy mandarin-collar shirt, buttoned to the top — precise and deliberate. A thin teal pocket square folded into a crisp triangle in the jacket breast pocket. No lanyard, no shawl, no loose accessories — everything on this man is tight, intentional, and controlled.
+
+Pose: Standing in a deliberate strategist's stance — one hand raised to his chin, thumb along the jawline, index finger resting against his temple in a classic evaluating gesture. His other arm is folded behind his back, resting at the small of his waist — composed, patient, unhurried. Weight shifted slightly to one leg, subtle head tilt as if studying something only he can see. A faint holographic chess-board grid floats at waist level beside him, with a few glowing teal data nodes connected by thin lines — a strategy map being assembled in real time.
+
+Art style: High-quality digital illustration in the style of an adult animated series like Arcane or a premium Indian comic book. Warm vibrant saturated colors. Detailed clothing textures and fabric folds. Clean bold linework. Rich warm color palette with deep teals, charcoal grays, and dark navies accented by warm skin tones. The character should look sharp, calculated, and quietly commanding — NOT cute, NOT chibi, NOT like a children's cartoon. This is a grown man who sees the entire board while everyone else is staring at one piece.
 
 Background: Solid pure white background with no environment or scene. A soft subtle drop shadow beneath his feet so he appears to be standing on the white surface.
 
@@ -274,7 +294,7 @@ The thelaunch.space logo is a **diamond/rhombus shape** with a **cyan-to-royal-b
 2. Tell the model: "Use these exact characters — preserve their faces, clothing, colors, accessories, and art style exactly as shown. Generate a new group image with all five together."
 3. Then paste the prompt below
 
-### Prompt 6 of 6: Team Hero (Group Shot)
+### Prompt 7 of 7: Team Hero (Group Shot)
 
 ```
 Using the five uploaded character reference images exactly as they are — same faces, same clothing, same colors, same accessories, same art style — create a new group illustration of all five standing together as a team.

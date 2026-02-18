@@ -19,7 +19,7 @@ export const ingest = internalMutation({
 export const agentStatuses = query({
   args: {},
   handler: async (ctx) => {
-    const agents = ["Parthasarathi", "Vibhishana", "Vyasa"];
+    const agents = ["Parthasarathi", "Vibhishana", "Vyasa", "Vidura"];
     const statuses = [];
     for (const agentName of agents) {
       const latest = await ctx.db
@@ -57,10 +57,14 @@ export const weeklyStats = query({
     const questions = await ctx.db.query("questions").collect();
     const briefs = await ctx.db.query("briefs").collect();
     const blogs = await ctx.db.query("blogs").collect();
+    const clusters = await ctx.db.query("topicClusters").collect();
+    const tools = await ctx.db.query("toolOpportunities").collect();
     return {
       questions: questions.filter((q) => q.scannedAt >= sevenDaysAgo).length,
       briefs: briefs.filter((b) => b.createdAt >= sevenDaysAgo).length,
       blogs: blogs.filter((b) => b.createdAt >= sevenDaysAgo).length,
+      clusters: clusters.filter((c) => c.createdAt >= sevenDaysAgo).length,
+      tools: tools.filter((t) => t.createdAt >= sevenDaysAgo).length,
     };
   },
 });
@@ -71,10 +75,14 @@ export const allTimeStats = query({
     const questions = await ctx.db.query("questions").collect();
     const briefs = await ctx.db.query("briefs").collect();
     const blogs = await ctx.db.query("blogs").collect();
+    const clusters = await ctx.db.query("topicClusters").collect();
+    const tools = await ctx.db.query("toolOpportunities").collect();
     return {
       questions: questions.length,
       briefs: briefs.length,
       blogs: blogs.length,
+      clusters: clusters.length,
+      tools: tools.length,
     };
   },
 });

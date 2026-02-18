@@ -96,8 +96,65 @@ http.route({
   }),
 });
 
+http.route({
+  path: "/ingestTopicCluster",
+  method: "POST",
+  handler: httpAction(async (ctx, request) => {
+    if (!validateAuth(request)) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 401,
+        headers: { "Content-Type": "application/json", ...corsHeaders() },
+      });
+    }
+    const body = await request.json();
+    const result = await ctx.runMutation(internal.topicClusters.ingest, body);
+    return new Response(JSON.stringify({ success: true, ...result }), {
+      status: 200,
+      headers: { "Content-Type": "application/json", ...corsHeaders() },
+    });
+  }),
+});
+
+http.route({
+  path: "/ingestToolOpportunity",
+  method: "POST",
+  handler: httpAction(async (ctx, request) => {
+    if (!validateAuth(request)) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 401,
+        headers: { "Content-Type": "application/json", ...corsHeaders() },
+      });
+    }
+    const body = await request.json();
+    const result = await ctx.runMutation(internal.toolOpportunities.ingest, body);
+    return new Response(JSON.stringify({ success: true, ...result }), {
+      status: 200,
+      headers: { "Content-Type": "application/json", ...corsHeaders() },
+    });
+  }),
+});
+
+http.route({
+  path: "/updateBlogEnrichment",
+  method: "POST",
+  handler: httpAction(async (ctx, request) => {
+    if (!validateAuth(request)) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 401,
+        headers: { "Content-Type": "application/json", ...corsHeaders() },
+      });
+    }
+    const body = await request.json();
+    await ctx.runMutation(internal.blogs.updateEnrichment, body);
+    return new Response(JSON.stringify({ success: true }), {
+      status: 200,
+      headers: { "Content-Type": "application/json", ...corsHeaders() },
+    });
+  }),
+});
+
 // Handle CORS preflight for all ingestion routes
-for (const path of ["/ingestQuestions", "/ingestBrief", "/ingestBlog", "/ingestActivity"]) {
+for (const path of ["/ingestQuestions", "/ingestBrief", "/ingestBlog", "/ingestActivity", "/ingestTopicCluster", "/ingestToolOpportunity", "/updateBlogEnrichment"]) {
   http.route({
     path,
     method: "OPTIONS",

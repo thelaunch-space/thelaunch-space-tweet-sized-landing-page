@@ -23,6 +23,22 @@ Next.js 14 (App Router) + React 18 + TypeScript + Tailwind CSS 3 + Framer Motion
 - `npm start` — Start production server
 - `npm run lint` — ESLint (flat config, React Hooks rules)
 - `npm run typecheck` — Strict `tsc --noEmit`
+- `npx convex dev --once` — Push Convex functions to dev instance (generates types + deploys)
+
+## Stale Cache Fix — CRITICAL
+If the dev server renders broken (no styling, raw images, unstyled text), the `.next` cache is stale. This happens after component changes, especially new/deleted files. Fix:
+```bash
+# 1. Kill the dev server
+lsof -ti:3000 | xargs kill -9
+# 2. Delete the stale cache
+rm -rf .next
+# 3. Restart fresh
+npm run dev
+```
+**Do this proactively** after creating, deleting, or renaming component files — don't wait for Krishna to report broken styling.
+
+## Convex — CRITICAL
+After ANY change to files in `convex/` (schema, mutations, queries, http routes), you MUST run `npx convex dev --once` to deploy the changes to the dev instance. Without this step, the app will crash at runtime with "Could not find public function" errors. `npx convex codegen` only generates TypeScript types — it does NOT deploy functions. Always use `npx convex dev --once` instead.
 
 ## Context Docs
 Reference `.context/` files when needed:

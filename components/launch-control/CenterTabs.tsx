@@ -5,7 +5,6 @@ import dynamic from "next/dynamic";
 import { useAuth } from "@clerk/nextjs";
 import Scoreboard from "./Scoreboard";
 import DailyTimeline from "./DailyTimeline";
-import BlogsPanel from "./BlogsPanel";
 import type { WeeklyStats } from "@/lib/launch-control-types";
 import type { BlogPost } from "@/lib/blog";
 
@@ -16,9 +15,13 @@ const QuestionsTable = dynamic(() => import("./QuestionsTable"));
 const QuestionsPreview = dynamic(() => import("./QuestionsPreview"));
 const BriefsPanel = dynamic(() => import("./BriefsPanel"));
 const BriefsPreview = dynamic(() => import("./BriefsPreview"));
+const StrategyPanel = dynamic(() => import("./StrategyPanel"));
+const StrategyPreview = dynamic(() => import("./StrategyPreview"));
+const BlogsTable = dynamic(() => import("./BlogsTable"));
+const BlogsPreview = dynamic(() => import("./BlogsPreview"));
 const MeetingsPanel = dynamic(() => import("./MeetingsPanel"));
 
-type Tab = "overview" | "blogs" | "communities" | "questions" | "briefs" | "meetings";
+type Tab = "overview" | "blogs" | "communities" | "questions" | "briefs" | "strategy" | "meetings";
 
 const TAB_DESCRIPTIONS: Record<Tab, string> = {
   overview: "A summary of what the AI team produced this week",
@@ -26,6 +29,7 @@ const TAB_DESCRIPTIONS: Record<Tab, string> = {
   communities: "The communities Vibhishana, The Scout is monitoring",
   questions: "Customer questions Vibhishana, The Scout found across Reddit and forums",
   briefs: "Research docs Vibhishana, The Scout creates for Vyasa, The Writer to turn into blogs",
+  strategy: "Topic clusters and tool opportunities mapped by Vidura, The Strategist",
   meetings: "",
 };
 
@@ -35,6 +39,7 @@ const TABS: { label: string; value: Tab }[] = [
   { label: "Communities", value: "communities" },
   { label: "Questions", value: "questions" },
   { label: "Briefs", value: "briefs" },
+  { label: "Strategy", value: "strategy" },
   { label: "Meetings", value: "meetings" },
 ];
 
@@ -82,10 +87,8 @@ export default function CenterTabs({ weeklyStats, allTimeStats, blogPosts }: Cen
         </div>
       )}
       {activeTab === "blogs" && (
-        <div className="lg:flex-1 lg:min-h-0 lg:overflow-y-auto lg:scrollbar-hide">
-          <div className="rounded-2xl border border-border-color/40 bg-surface overflow-hidden">
-            <BlogsPanel blogPosts={blogPosts} />
-          </div>
+        <div className="rounded-2xl border border-border-color/40 bg-surface overflow-hidden lg:flex lg:flex-col lg:flex-1 lg:min-h-0">
+          {isSignedIn ? <BlogsTable blogPosts={blogPosts} /> : <BlogsPreview blogPosts={blogPosts} />}
         </div>
       )}
       {activeTab === "questions" && (
@@ -103,6 +106,13 @@ export default function CenterTabs({ weeklyStats, allTimeStats, blogPosts }: Cen
       {activeTab === "communities" && (
         <div className="rounded-2xl border border-border-color/40 bg-surface overflow-hidden lg:flex lg:flex-col lg:flex-1 lg:min-h-0">
           {isSignedIn ? <CommunitiesPanel /> : <CommunitiesPreview />}
+        </div>
+      )}
+      {activeTab === "strategy" && (
+        <div className="lg:flex-1 lg:min-h-0 lg:overflow-y-auto lg:scrollbar-hide">
+          <div className="rounded-2xl border border-border-color/40 bg-surface overflow-hidden">
+            {isSignedIn ? <StrategyPanel /> : <StrategyPreview />}
+          </div>
         </div>
       )}
       {activeTab === "meetings" && isSignedIn && (

@@ -355,6 +355,68 @@ export const agents: Agent[] = [
     ],
     pipelineRole: "Writes from research → Your site ranks",
   },
+  {
+    id: "vidura",
+    name: "Vidura",
+    plainTitle: "The Strategist",
+    role: "SEO Intelligence Advisor",
+    description:
+      "The strategic brain. Vidura sits above the content pipeline — mapping topic clusters, identifying tool opportunities, monitoring LLM citations, and making sure every piece of content serves a larger strategic purpose.",
+    status: "active",
+    accentColor: "accent-cyan",
+    accentHex: "#06B6D4",
+    avatarPath: "/agents/vidura.png",
+    workPageSlug: "vidura",
+    roleForICP: "Makes sure your content strategy builds authority, not just volume",
+    outcomes: [
+      "Every published blog belongs to a strategic cluster",
+      "Tool opportunities identified from real community questions",
+      "LLM citation coverage tracked and growing",
+      "Content pipeline aligned with business goals, not just volume",
+    ],
+    kras: [
+      {
+        title: "Topic Cluster Mapping",
+        what: "Maps content pillars to keyword clusters so every blog strengthens a pillar, not exists in isolation",
+        outcome: "Your content builds compounding authority in strategic topic areas",
+        frequency: "Weekly",
+      },
+      {
+        title: "Tool Opportunity Identification",
+        what: "Finds questions that deserve interactive tools, not just blog posts — tools capture traffic that content alone can't",
+        outcome: "You build assets that attract and retain visitors, not just rank",
+        frequency: "Weekly",
+      },
+      {
+        title: "LLM Citation Monitoring",
+        what: "Tracks which thelaunch.space pages get cited by AI models and optimizes content for LLM visibility",
+        outcome: "You get found whether prospects search Google or ask AI",
+        frequency: "Daily",
+      },
+      {
+        title: "Content Strategy Alignment",
+        what: "Reviews pipeline output against strategic goals, flags content that doesn't serve a cluster or misses a keyword opportunity",
+        outcome: "Every piece of content serves a business purpose",
+        frequency: "Daily",
+      },
+    ],
+    dailyRhythm: [
+      "9:30 AM — Morning strategy review and analysis",
+      "10:30 AM — Cluster mapping (Mon) / Topic generation (Wed) / Tool scan (Fri)",
+      "2:30 PM — Midday strategy check and pipeline alignment",
+      "7:30 PM — Evening review and citation analysis",
+    ],
+    proofPoints: [
+      { type: "stat", label: "Topic clusters mapped", value: "0" },
+      { type: "stat", label: "Tool opportunities found", value: "0" },
+      {
+        type: "stat",
+        label: "Citation coverage",
+        value: "Tracking",
+      },
+    ],
+    pipelineRole: "Strategizes → Pipeline executes with purpose",
+  },
 ];
 
 export function getAgent(id: string): Agent | undefined {

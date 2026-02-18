@@ -47,6 +47,32 @@ Field notes:
 
 Expected response: `{"success":true,"id":"..."}`
 
+## Pushing Enrichment Data
+
+After Vyasa's enrichment cycle (citation enrichment), push enrichment metadata for the blog that was just enriched.
+
+Run this with `exec`:
+
+```bash
+API_KEY=$(cat /home/node/openclaw/credentials/convex-api-key.txt)
+
+curl -s -X POST https://impartial-pelican-672.convex.site/updateBlogEnrichment \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $API_KEY" \
+  -d '{
+    "slug": "blog-post-slug",
+    "enrichmentCount": 2,
+    "lastEnrichmentDate": "YYYY-MM-DDTHH:MM:SSZ",
+    "enrichmentLog": "Added 3 expert citations, updated stats section, added FAQ schema"
+  }'
+```
+
+- When: After each enrichment PR is created (3 runs/day: 3 PM, 5 PM, 8 PM IST)
+- Expected response: `{"success":true}`
+- `enrichmentCount`: Cumulative — if this is the 2nd enrichment pass, use 2
+- `enrichmentLog`: One-line summary of what was enriched in this pass
+- Same error handling as below: log to #vyasa-blogs, move on, never retry
+
 ## When Things Fail
 
 If curl returns an error or non-200 response:

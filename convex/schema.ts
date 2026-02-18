@@ -90,6 +90,43 @@ export default defineSchema({
     publishedAt: v.optional(v.string()),
     createdAt: v.string(),
     briefId: v.optional(v.string()),
+    enrichmentCount: v.optional(v.number()),
+    lastEnrichmentDate: v.optional(v.string()),
+    enrichmentLog: v.optional(v.string()),
+  })
+    .index("by_status", ["status"])
+    .index("by_agentName", ["agentName"])
+    .index("by_createdAt", ["createdAt"]),
+
+  // Vidura's topic clusters — SEO content planning
+  topicClusters: defineTable({
+    pillarName: v.string(),
+    clusterTopic: v.string(),
+    status: v.string(),             // "planned" | "brief-ready" | "published"
+    blogUrl: v.optional(v.string()),
+    targetKeyword: v.string(),
+    intentType: v.string(),         // "informational" | "comparison" | "decision"
+    agentName: v.string(),          // always "Vidura"
+    createdAt: v.string(),
+    updatedAt: v.optional(v.string()),
+  })
+    .index("by_pillarName", ["pillarName"])
+    .index("by_status", ["status"])
+    .index("by_agentName", ["agentName"])
+    .index("by_createdAt", ["createdAt"]),
+
+  // Vidura's tool opportunities — interactive tool proposals
+  toolOpportunities: defineTable({
+    sourceQuestion: v.string(),
+    whyTool: v.string(),
+    toolName: v.string(),
+    toolSolution: v.string(),
+    targetKeyword: v.string(),
+    complexity: v.string(),         // "simple" | "medium"
+    status: v.string(),             // "proposed" | "approved" | "rejected" | "built" | "live"
+    krishnaNotes: v.optional(v.string()),
+    agentName: v.string(),          // always "Vidura"
+    createdAt: v.string(),
   })
     .index("by_status", ["status"])
     .index("by_agentName", ["agentName"])

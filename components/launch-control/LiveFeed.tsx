@@ -6,8 +6,8 @@ import { agents } from "@/lib/agents";
 import type { FeedFilter } from "@/lib/launch-control-types";
 import type { Doc } from "@/convex/_generated/dataModel";
 
-const MILESTONE_ACTIONS = ["blog_published", "brief_created", "scan_complete", "report"];
-const TASK_ACTIONS = ["health_check", "blog_writing", "scan_started"];
+const MILESTONE_ACTIONS = ["blog_published", "brief_created", "scan_complete", "report", "cluster_mapping", "topic_generation", "tool_scan", "blog_enriched", "citation_check"];
+const TASK_ACTIONS = ["health_check", "blog_writing", "scan_started", "morning_analysis", "midday_strategy", "evening_review"];
 
 const FILTER_TABS: { label: string; value: FeedFilter }[] = [
   { label: "All", value: "all" },

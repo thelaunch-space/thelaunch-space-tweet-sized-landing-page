@@ -40,11 +40,13 @@ export default function DailyTimeline() {
   const parthaToday = useQuery(api.agentActivity.agentTodayActivity, { agentName: "Parthasarathi" });
   const vibhishanaToday = useQuery(api.agentActivity.agentTodayActivity, { agentName: "Vibhishana" });
   const vyasaToday = useQuery(api.agentActivity.agentTodayActivity, { agentName: "Vyasa" });
+  const viduraToday = useQuery(api.agentActivity.agentTodayActivity, { agentName: "Vidura" });
 
   const allTodayActions = [
     ...(parthaToday ?? []),
     ...(vibhishanaToday ?? []),
     ...(vyasaToday ?? []),
+    ...(viduraToday ?? []),
   ].map((a) => a.action);
 
   const currentISTHour = getCurrentISTHour();

@@ -14,6 +14,8 @@ import type * as briefs from "../briefs.js";
 import type * as http from "../http.js";
 import type * as pitchBookings from "../pitchBookings.js";
 import type * as questions from "../questions.js";
+import type * as toolOpportunities from "../toolOpportunities.js";
+import type * as topicClusters from "../topicClusters.js";
 
 import type {
   ApiFromModules,
@@ -28,6 +30,8 @@ declare const fullApi: ApiFromModules<{
   http: typeof http;
   pitchBookings: typeof pitchBookings;
   questions: typeof questions;
+  toolOpportunities: typeof toolOpportunities;
+  topicClusters: typeof topicClusters;
 }>;
 
 /**

@@ -43,6 +43,16 @@ Push activity at these moments — not after every small step, only at milestone
 
 **Vyasa:**
 - After blog PR created: `{"action": "blog_pr_created", "message": "PR created: TITLE (WORD_COUNT words)", "agentName": "Vyasa"}`
+- After enrichment: `{"action": "blog_enriched", "message": "Enriched: BLOG_TITLE (added X citations, updated Y sections)", "agentName": "Vyasa"}`
+
+**Vidura:**
+- After morning analysis: `{"action": "morning_analysis", "message": "Morning strategy review complete. X clusters active, Y tool opportunities tracked", "agentName": "Vidura"}`
+- After cluster mapping: `{"action": "cluster_mapping", "message": "Mapped X new topic clusters for PILLAR_NAME", "agentName": "Vidura"}`
+- After topic generation: `{"action": "topic_generation", "message": "Generated X new topic ideas across Y pillars", "agentName": "Vidura"}`
+- After tool scan: `{"action": "tool_scan", "message": "Identified X tool opportunities from community questions", "agentName": "Vidura"}`
+- After midday check: `{"action": "midday_strategy", "message": "Midday strategy check: X briefs aligned with clusters", "agentName": "Vidura"}`
+- After evening review: `{"action": "evening_review", "message": "Evening review: X content pieces published today, Y in pipeline", "agentName": "Vidura"}`
+- After citation check: `{"action": "citation_check", "message": "Citation analysis complete: X blogs checked, Y need enrichment", "agentName": "Vidura"}`
 
 **Parthasarathi:**
 - After 7 PM due diligence: `{"action": "due_diligence", "message": "Daily review complete. X briefs pending, Y blogs in pipeline", "agentName": "Parthasarathi"}`
@@ -51,7 +61,7 @@ Push activity at these moments — not after every small step, only at milestone
 
 ## Field Rules
 
-- `agentName`: Exactly `"Parthasarathi"`, `"Vibhishana"`, or `"Vyasa"` (capitalized)
+- `agentName`: Exactly `"Parthasarathi"`, `"Vibhishana"`, `"Vyasa"`, or `"Vidura"` (capitalized)
 - `action`: Use the exact strings above (lowercase with underscores)
 - `status`: Usually `"completed"`. Use `"error"` only if something failed.
 - `message`: One sentence. Be specific — include counts, titles, or names.

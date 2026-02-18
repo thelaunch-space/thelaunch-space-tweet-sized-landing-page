@@ -19,6 +19,8 @@ export interface WeeklyStats {
   questions: number;
   briefs: number;
   blogs: number;
+  clusters: number;
+  tools: number;
 }
 
 export interface CommunityBreakdownItem {
@@ -29,23 +31,37 @@ export interface CommunityBreakdownItem {
 
 export type StatusDotColor = "green" | "orange" | "red" | "gray";
 
-export type AdminTab = "overview" | "communities" | "questions" | "briefs";
+export type AdminTab = "overview" | "communities" | "questions" | "briefs" | "strategy";
 
 export type FeedFilter = "all" | "tasks" | "milestones";
 
 // Hardcoded daily schedule (IST times)
 export const DAILY_SCHEDULE: AgentScheduleItem[] = [
-  { time: "8:00 AM", label: "Morning health check", agentId: "parthasarathi", action: "health_check" },
-  { time: "9:00 AM", label: "Reddit community scan", agentId: "vibhishana", action: "scan_complete" },
-  { time: "11:00 AM", label: "First research brief", agentId: "vibhishana", action: "brief_created" },
-  { time: "1:00 PM", label: "Midday check & task routing", agentId: "parthasarathi", action: "health_check" },
-  { time: "2:00 PM", label: "Second research brief", agentId: "vibhishana", action: "brief_created" },
-  { time: "3:00 PM", label: "Pre-delivery check", agentId: "parthasarathi", action: "health_check" },
-  { time: "3:30 PM", label: "Blog writing begins", agentId: "vyasa", action: "blog_writing" },
-  { time: "5:00 PM", label: "Third research brief", agentId: "vibhishana", action: "brief_created" },
-  { time: "5:30 PM", label: "Blog published via PR", agentId: "vyasa", action: "blog_published" },
-  { time: "6:00 PM", label: "Evening pattern report", agentId: "vibhishana", action: "report" },
-  { time: "7:00 PM", label: "Due diligence report", agentId: "parthasarathi", action: "report" },
+  // Morning block
+  { time: "8:00 AM", label: "Health check & pipeline review", agentId: "parthasarathi", action: "health_check" },
+  { time: "9:00 AM", label: "Reddit & community scan", agentId: "vibhishana", action: "scan_complete" },
+  { time: "9:30 AM", label: "Morning strategy review", agentId: "vidura", action: "morning_analysis" },
+  { time: "10:30 AM", label: "Pre-blog quality check", agentId: "parthasarathi", action: "due_diligence" },
+  { time: "10:30 AM", label: "Cluster mapping / Topic gen / Tool scan", agentId: "vidura", action: "cluster_mapping" },
+  { time: "11:00 AM", label: "Daily blog writing", agentId: "vyasa", action: "blog_pr_created" },
+
+  // Midday block
+  { time: "12:00 PM", label: "Research brief #1", agentId: "vibhishana", action: "brief_created" },
+  { time: "1:00 PM", label: "Midday due diligence", agentId: "parthasarathi", action: "due_diligence" },
+  { time: "2:30 PM", label: "Midday strategy check", agentId: "vidura", action: "midday_strategy" },
+  { time: "3:00 PM", label: "Enrichment run #1", agentId: "vyasa", action: "blog_enriched" },
+  { time: "3:00 PM", label: "Research brief #2", agentId: "vibhishana", action: "brief_created" },
+
+  // Afternoon block
+  { time: "4:30 PM", label: "Research brief #3", agentId: "vibhishana", action: "brief_created" },
+  { time: "5:00 PM", label: "Enrichment run #2", agentId: "vyasa", action: "blog_enriched" },
+  { time: "5:30 PM", label: "Evening due diligence", agentId: "parthasarathi", action: "due_diligence" },
+
+  // Evening block
+  { time: "6:00 PM", label: "Evening scan & daily report", agentId: "vibhishana", action: "daily_report" },
+  { time: "7:00 PM", label: "End-of-day review", agentId: "parthasarathi", action: "health_check" },
+  { time: "7:30 PM", label: "Evening review & citation analysis", agentId: "vidura", action: "evening_review" },
+  { time: "8:00 PM", label: "Enrichment run #3", agentId: "vyasa", action: "blog_enriched" },
 ];
 
 // Brief status → display config
@@ -64,3 +80,24 @@ export const ICP_RELEVANCE_CONFIG: Record<string, { color: string; bg: string }>
   MEDIUM: { color: "text-amber-700", bg: "bg-amber-500/10" },
   LOW: { color: "text-text-secondary", bg: "bg-surface-alt" },
 };
+
+// Strategy types for Vidura
+export interface TopicCluster {
+  pillarName: string;
+  clusterTopic: string;
+  status: string;
+  blogUrl?: string;
+  targetKeyword: string;
+  intentType: string;
+}
+
+export interface ToolOpportunity {
+  sourceQuestion: string;
+  whyTool: string;
+  toolName: string;
+  toolSolution: string;
+  targetKeyword: string;
+  complexity: string;
+  status: string;
+  krishnaNotes?: string;
+}
