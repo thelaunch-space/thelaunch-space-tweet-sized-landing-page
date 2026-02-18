@@ -1,6 +1,6 @@
 # Progress — thelaunch.space Landing Page + Blog
 
-Last updated: 2026-02-17 (geo-detected cost savings, INR/USD pricing)
+Last updated: 2026-02-18 (Vidura agent, strategy pipeline, Blogs table, geo savings, new blogs, pricing update)
 
 ## Completed
 - [x] Project scaffolding (originally Vite + React 18, later migrated to Next.js 14)
@@ -158,6 +158,24 @@ Last updated: 2026-02-17 (geo-detected cost savings, INR/USD pricing)
 - [x] **LC: Communities tab → table with reasoning** — Replaced card grid with sortable table: Community | Why It Was Picked | Relevant Qs | Last Scanned. New `lib/community-data.ts` with strategic reasons per subreddit. CommunitiesPreview also rebuilt as table. Mobile shows card view with reasons. (2026-02-16)
 - [x] **LC: Voice/addressing fix** — Dashboard copy changed from "your AI team" to "the AI team" / "the agents" across 6 files (CenterTabs, DailyTimeline, GuidedTour, HeaderBar). New center tagline in header: "This runs on my business daily. Yours will be trained on yours." (desktop only). PreviewGate/WaitlistCTA "your" language preserved (correctly addresses visitor). (2026-02-16)
 
+- [x] **Vidura agent (6th agent) — BUILT** — New agent "Vidura, The Strategist" (SEO Intelligence Advisor). Added to `lib/agents.ts` (full agent data with KRAs, daily rhythm, proof points), `lib/pitch-data.ts` (pitch card with stat bars + skills tags). Agent detail page at `/build-your-ai-team/vidura/`. Avatars at `public/agents/vidura.png` + `public/agent-avatars/vidura.png`. Accent color: cyan (#06B6D4). (2026-02-17)
+- [x] **Vidura Convex tables + HTTP endpoints** — Two new tables in `convex/schema.ts`: `topicClusters` (SEO content planning — pillar name, cluster topic, target keyword, intent type, status) and `toolOpportunities` (interactive tool proposals — tool name, source question, why-tool rationale, complexity, status). New files: `convex/topicClusters.ts`, `convex/toolOpportunities.ts` with ingest + query functions. HTTP ingestion at `/ingestTopicCluster` and `/ingestToolOpportunity`. (2026-02-17)
+- [x] **LC: Strategy tab** — New "Strategy" tab in CenterTabs showing Vidura's topic clusters + tool opportunities. New components: `StrategyPanel.tsx` (admin — full data tables), `StrategyPreview.tsx` (public preview). Tab description: "Topic clusters and tool opportunities mapped by Vidura, The Strategist". (2026-02-17)
+- [x] **LC: Blogs tab upgraded to sortable table** — Old `BlogsPanel.tsx` replaced by `BlogsTable.tsx` (sortable table with columns: Title, Category, Keyword, Words, Enrichment, Status, Published) + `BlogsPreview.tsx` (public preview). Merges local blog file data with Convex blog data (enrichment count, status). (2026-02-17)
+- [x] **Blog enrichment fields** — `blogs` Convex table now has `enrichmentCount`, `lastEnrichmentDate`, `enrichmentLog` fields for tracking Vidura's enrichment passes. (2026-02-17)
+- [x] **New skill: `convex-push-strategy.SKILL.md`** — Vidura pushes topic clusters (Mon/Wed) and tool opportunities (Fri) to Convex. (2026-02-17)
+- [x] **LC: Meetings tab** — New `MeetingsPanel.tsx` component for viewing pitch page bookings. New `pitchBookings` Convex table. (2026-02-17)
+- [x] **LC: CenterTabs expanded to 7 tabs** — Overview, Blogs, Communities, Questions, Briefs, Strategy, Meetings. Was 4 tabs. Tab descriptions added for each. (2026-02-17)
+- [x] **Pitch page agents expanded** — Now shows 4 active agents (Parthasarathi, Vibhishana, Vyasa, Vidura) + 2 coming soon (Valmiki, Sanjaya). Was 3 active + 2 coming soon. (2026-02-17)
+- [x] **Geo-detected cost savings** — New `lib/geo-savings.ts` (pricing + savings config for IN vs INTL), `lib/useGeo.ts` (cookie-based geo hook), `components/ui/SavingsTooltip.tsx` (tooltip explaining rate sources). Middleware updated to set `geo_region` cookie from `x-country` header. INR pricing for India visitors, USD for international. Used in Scoreboard + pitch page. (2026-02-17)
+- [x] **Cost formula overhauled** — Replaced activity-based formula (scanRuns × 2.5 + briefs × 4 + blogs × 4 + orchestration) with per-blog agency rate model. Switched to all-time stats. INR rates use real Indian freelancer rates (₹500-600/hr). (2026-02-17)
+- [x] **Scoreboard hero pair layout** — "Hours Saved" and "Cost Saved" displayed as hero-sized pair cards. Uses geo-detected currency (₹ or $). SavingsTooltip explains calculation rationale. (2026-02-18)
+- [x] **Cost Saved tooltip legibility** — Improved contrast and readability of SavingsTooltip component. (2026-02-18)
+- [x] **Pricing updated** — POC: $200 → $99/mo (launch price, was $199). Growth: $1,000 → $699/mo (launch price, was $1,000). "Launch price — first 10 founders" framing. Pricing framing line removed from hero section. (2026-02-17)
+- [x] **`.context/cost-savings-research.md` created** — Research doc with Upwork/Glassdoor/Indian freelancer rate data backing the cost savings numbers. (2026-02-17)
+- [x] **New blog: "Post-MVP Doubt: Should You Keep Going or Quit?"** — `app/blogs/founder-advice/post-mvp-doubt-should-you-keep-going/`. 2nd post in founder-advice category. (2026-02-17)
+- [x] **New blog: "Why Your MVP Costs Too Much (And How to Fix It)"** — `app/blogs/startup-mvps/why-mvp-costs-too-much-validation-first/`. 7th post in startup-mvps category. (2026-02-17)
+
 ## In Progress
 - Nothing currently in progress
 
@@ -165,11 +183,18 @@ Last updated: 2026-02-17 (geo-detected cost savings, INR/USD pricing)
 - Nothing currently blocked
 
 ## Known Issues
-- Scoreboard shows 15h / $900 with empty DB due to hardcoded baseline formula (`5*3` hours, `5*180` cost for agent overhead). Fix later by zeroing baseline or making it data-dependent.
 - Daily Timeline times are hardcoded in `lib/launch-control-types.ts` — need Partha to verify they match actual VPS cron jobs.
+- Vidura skill file (`convex-push-strategy.SKILL.md`) points to dev URL (`impartial-pelican-672`), not prod (`curious-iguana-738`). Needs update before Partha deploys on VPS.
 
 ## Recent Changes (latest first)
-1. LC dashboard improvements — sticky tabs + frozen headers, communities table with reasoning, voice fix ("the AI team" not "your AI team") (2026-02-16)
+1. Scoreboard hero pair layout + Cost Saved tooltip legibility (2026-02-18)
+2. Vidura agent + strategy pipeline + Blogs table upgrade + Meetings tab — 6th agent, 2 new Convex tables, 3 new LC components, BlogsPanel→BlogsTable (2026-02-17)
+3. Geo-detected cost savings — INR/USD pricing, middleware geo cookie, SavingsTooltip (2026-02-17)
+4. Cost formula overhaul — per-blog agency rate, all-time stats, removed hardcoded baseline (2026-02-17)
+5. Pricing update — $99 POC / $699 Growth (launch pricing) (2026-02-17)
+6. New blogs: "Post-MVP Doubt" + "Why Your MVP Costs Too Much" (2026-02-17)
+7. Cost savings research doc created (2026-02-17)
+8. LC dashboard improvements — sticky tabs + frozen headers, communities table with reasoning, voice fix ("the AI team" not "your AI team") (2026-02-16)
 2. FTUE spotlight tour for Launch Control + live stats on pitch page (2026-02-16)
 2. Team hero image + pitch page mobile layout + timeline card fixes (2026-02-16)
 3. `/hire-your-24x7-team` pitch page built — 14 components, live Convex data, Pokemon stat cards, lead capture, pricing, timeline (2026-02-16)

@@ -1,9 +1,9 @@
 # Architecture — thelaunch.space Landing Page + Blog
 
-Last updated: 2026-02-16 (v2 — pitch page, FTUE tour, BlogsPanel, blog-labels)
+Last updated: 2026-02-18 (Vidura agent, strategy pipeline, Blogs table, geo savings, 7 LC tabs, pricing update)
 
 ## Overview
-Next.js 14 App Router application. Server-side rendered for SEO/crawlability. Landing page content rendered as a client component for interactivity. Blog posts are static Server Components created by an AI agent via GitHub PRs. "Build Your AI Team" section showcases 5 AI agents with index + detail pages. Webhook proxy via API route (server-side, no secrets exposed to browser). Hosted on Netlify. Google Analytics (GA4) tracking via `next/script`. **Convex** real-time database for Launch Control dashboard (agent activity, questions, briefs, blogs). **Clerk** authentication for admin access. Entire app wrapped in ConvexProviderWithClerk + ClerkProvider.
+Next.js 14 App Router application. Server-side rendered for SEO/crawlability. Landing page content rendered as a client component for interactivity. Blog posts are static Server Components created by an AI agent via GitHub PRs. "Build Your AI Team" section showcases 6 AI agents with index + detail pages. Webhook proxy via API route (server-side, no secrets exposed to browser). Hosted on Netlify. Google Analytics (GA4) tracking via `next/script`. **Convex** real-time database for Launch Control dashboard (agent activity, questions, briefs, blogs, topic clusters, tool opportunities, pitch bookings). **Clerk** authentication for admin access. Entire app wrapped in ConvexProviderWithClerk + ClerkProvider. **Geo-detected pricing** — middleware sets `geo_region` cookie (IN/INTL) for localized cost savings display.
 
 ## File Structure
 ```
@@ -19,15 +19,18 @@ app/
 ├── blogs/[topic]/page.tsx  # Category index page (server component, filtered by topic)
 ├── blogs/[topic]/[title]/  # Dynamic blog route (fallback)
 │   └── page.tsx
-├── blogs/startup-mvps/     # Blog topic folder (6 posts)
+├── blogs/startup-mvps/     # Blog topic folder (8 posts)
 │   ├── how-to-find-technical-cofounder/
 │   ├── why-agency-mvp-failed/
 │   ├── when-no-code-tools-stop-working/
 │   ├── find-technical-cofounder-alternative/
 │   ├── build-mvp-without-coding-ai-tools/
-│   └── hire-developer-vs-build-with-ai/
-├── blogs/founder-advice/   # Blog topic folder (1 post)
-│   └── validate-startup-idea-domain-expert/
+│   ├── hire-developer-vs-build-with-ai/
+│   ├── agency-vs-in-house-development/
+│   └── why-mvp-costs-too-much-validation-first/
+├── blogs/founder-advice/   # Blog topic folder (2 posts)
+│   ├── validate-startup-idea-domain-expert/
+│   └── post-mvp-doubt-should-you-keep-going/
 ├── blogs/ai-tools/         # Blog topic folder (1 post)
 │   └── ai-tools-non-technical-founders-mvp/
 ├── build-your-ai-team/     # AI team showcase section (legacy, redirects planned to /hire-your-24x7-team)
@@ -39,13 +42,14 @@ app/
 │   ├── sanjaya/
 │   ├── valmiki/
 │   ├── vibhishana/
+│   ├── vidura/             # NEW — Vidura detail page
 │   └── vyasa/
 ├── hire-your-24x7-team/
 │   └── page.tsx            # Server component → <PitchPage /> (service pitch page with live Convex data)
 ├── launch-control/
 │   └── page.tsx            # Server component — metadata + renders LaunchControlDashboard
 └── tools/[tool-slug]/      # Future tool routes (placeholder)
-middleware.ts               # Clerk middleware (permissive — no route blocking, makes auth available)
+middleware.ts               # Clerk middleware (permissive — no route blocking, makes auth available) + geo cookie (sets geo_region=IN/INTL from x-country header)
 components/
 ├── NavBar.tsx              # "use client" — site-wide nav (hidden on /launch-control). Logo, Blog, "Hire Your 24/7 Team", socials, hamburger mobile, scroll CTA on blog pages. NO Launch Control link.
 ├── LandingPage.tsx         # "use client" — main landing page (hero + services)
@@ -56,7 +60,8 @@ components/
 ├── XIcon.tsx               # Pure SVG component
 ├── ui/
 │   ├── dock.tsx            # "use client" — macOS-style magnification dock
-│   └── sparkles.tsx        # "use client" — tsparticles background
+│   ├── sparkles.tsx        # "use client" — tsparticles background
+│   └── SavingsTooltip.tsx  # "use client" — tooltip explaining cost savings calculation rationale
 ├── pitch/                  # 14 components for the /hire-your-24x7-team service pitch page
 │   ├── PitchPage.tsx              # Master orchestrator. Live Convex data (weeklyStats, allTimeStats, agent summaries, questions, briefs, blogs). Floating dual CTA.
 │   ├── HookSection.tsx            # Above-fold hook — headline, subhead, live weekly stats from Convex, CTA
@@ -72,16 +77,16 @@ components/
 │   ├── TimeSlotPicker.tsx         # Inline time slot selector for booking calls
 │   ├── SecondaryCtaSection.tsx    # "See the proof" → /launch-control secondary CTA
 │   └── FooterTease.tsx            # "More workstreams coming" footer text
-└── launch-control/         # 23 components for the Launch Control dashboard
+└── launch-control/         # 28 components for the Launch Control dashboard
     ├── LaunchControlDashboard.tsx  # Master orchestrator. CSS Grid 3-col. Top-level useQuery hooks
     ├── HeaderBar.tsx               # Sticky top bar: "Launch Control" title, stat pills, date, Clerk UserButton
     ├── AgentSidebar.tsx            # Left column: 5 agents with avatars, status dots, click-to-expand
     ├── AgentExpandedPanel.tsx      # Slide-out agent detail (portrait with CSS mask-image feathering, stats, schedule)
     ├── AgentAvatarStrip.tsx        # Mobile-only horizontal avatar scroll strip
     ├── StatusDot.tsx               # Animated status dot (green pulse / orange static / red blink / gray)
-    ├── AdminTabs.tsx               # Admin-only tab management for Communities/Questions/Briefs (when signed in)
-    ├── CenterTabs.tsx              # Tabbed center: "Overview" + Communities/Questions/Briefs (all visible; preview vs full based on auth)
-    ├── Scoreboard.tsx              # Count-up stat cards with "This Week"/"All Time" toggle
+    ├── AdminTabs.tsx               # Admin-only tab management (when signed in)
+    ├── CenterTabs.tsx              # Tabbed center: 7 tabs (Overview/Blogs/Communities/Questions/Briefs/Strategy/Meetings). Preview vs full based on auth. Tab descriptions for each.
+    ├── Scoreboard.tsx              # Count-up stat cards with "This Week"/"All Time" toggle. Hero pair layout for Hours Saved + Cost Saved. Geo-detected currency (INR/USD) via useGeo + SavingsTooltip.
     ├── DailyTimeline.tsx           # Today's pipeline chronological view (11 scheduled items)
     ├── TimelineItem.tsx            # Timeline entry (completed/active/upcoming states)
     ├── LiveFeed.tsx                # Right column: real-time activity log with filter tabs (All/Tasks/Milestones) + inline feed items
@@ -94,13 +99,20 @@ components/
     ├── PreviewGate.tsx             # Blur overlay wrapper with waitlist CTA form (shared by all preview components)
     ├── BriefCard.tsx               # Single brief card with color-coded status badge
     ├── BriefReaderModal.tsx        # Near-fullscreen modal: react-markdown content + SEO metadata sidebar
-    ├── BlogsPanel.tsx              # Blog posts list tab (admin) — uses BlogPost type + CATEGORY_LABELS from blog-labels.ts
+    ├── BlogsTable.tsx              # Sortable blog table (admin) — merges local BlogPost data + Convex enrichment data. Columns: Title, Category, Keyword, Words, Enrichment, Status, Published.
+    ├── BlogsPreview.tsx            # Blog posts preview (public) — top rows with blur overlay
+    ├── StrategyPanel.tsx           # Vidura's strategy data (admin) — topic clusters table + tool opportunities table with status/intent badges
+    ├── StrategyPreview.tsx         # Strategy preview (public) — top rows with blur overlay
+    ├── MeetingsPanel.tsx           # Pitch page bookings table (admin) — from pitchBookings Convex table
     ├── GuidedTour.tsx              # FTUE spotlight tour for first-time visitors (5 desktop / 4 mobile steps, localStorage tracking)
     └── WaitlistCTA.tsx             # Email input: krishna@thelaunch.space reveals Clerk auth, others → lead capture
 lib/
-├── agents.ts              # Agent data layer (5 agents, typed interfaces, structured for future DB migration)
+├── agents.ts              # Agent data layer (6 agents, typed interfaces, structured for future DB migration). Includes Vidura.
 ├── blog.ts                # Blog discovery utility (shared by sitemap.ts + blogs/page.tsx). Server-only (uses fs).
-├── blog-labels.ts         # CATEGORY_LABELS extracted for client components (no fs import). Used by BlogsPanel, blog index.
+├── blog-labels.ts         # CATEGORY_LABELS extracted for client components (no fs import). Used by BlogsTable, blog index.
+├── geo-savings.ts         # Geo-detected pricing/savings config. GeoRegion (IN/INTL), calculateCostSaved, calculateHoursSaved, formatCurrency, getGeoConfig. INR rates for India, USD for international.
+├── useGeo.ts              # Client hook: reads geo_region cookie set by middleware, returns GeoRegion.
+├── pitch-data.ts          # Pitch page data: PITCH_AGENTS (6 agents with stat scores, skill tags), TIMELINE_STEPS, PRICING_TIERS ($99 POC/$699 Growth), CHALLENGE_OPTIONS, COUNTRY_CODES.
 ├── launch-control-types.ts # LC TypeScript interfaces, agent schedule data (IST times), status badge configs
 ├── useCountUp.ts          # Custom hook: animated count-up with requestAnimationFrame + easing
 ├── utils.ts               # cn() (clsx+tailwind-merge), scaleValue()
@@ -115,17 +127,20 @@ public/
 └── ...                     # Static assets (logos, OG image, favicon)
 convex/
 ├── _generated/             # Auto-generated types + API references (do not edit)
-├── schema.ts               # 4 tables: questions, briefs, blogs, agentActivity (with indexes)
+├── schema.ts               # 7 tables: questions, briefs, blogs, agentActivity, topicClusters, toolOpportunities, pitchBookings (with indexes)
 ├── auth.config.ts          # Clerk identity provider config for Convex
-├── http.ts                 # HTTP Action router — 4 ingestion endpoints with Bearer token auth
+├── http.ts                 # HTTP Action router — 6+ ingestion endpoints with Bearer token auth
 ├── questions.ts            # ingestBatch (internal) + listRecent (public) + listFullDetails (admin)
 ├── briefs.ts               # ingest (internal) + listMetadata (public) + getFullBrief/listFull (admin)
-├── blogs.ts                # ingest (internal) + listRecent (public)
-└── agentActivity.ts        # ingest (internal) + agentStatuses/recentFeed (public) + fullLog (admin)
+├── blogs.ts                # ingest (internal) + listRecent (public) + enrichment fields (enrichmentCount, lastEnrichmentDate, enrichmentLog)
+├── agentActivity.ts        # ingest (internal) + agentStatuses/recentFeed (public) + fullLog (admin)
+├── topicClusters.ts        # ingest (internal) + listRecent (public) — Vidura's SEO topic clusters
+└── toolOpportunities.ts    # ingest (internal) + listRecent (public) — Vidura's interactive tool proposals
 skills/
-├── convex-push-scanner.SKILL.md  # Vibhishana: push questions (batch) + briefs (with markdown) to Convex
-├── convex-push-blog.SKILL.md     # Vyasa: push blog metadata to Convex after PR creation
-└── convex-push-activity.SKILL.md # All agents: push milestone activity to Convex
+├── convex-push-scanner.SKILL.md   # Vibhishana: push questions (batch) + briefs (with markdown) to Convex
+├── convex-push-blog.SKILL.md      # Vyasa: push blog metadata to Convex after PR creation
+├── convex-push-activity.SKILL.md  # All agents: push milestone activity to Convex
+└── convex-push-strategy.SKILL.md  # Vidura: push topic clusters (Mon/Wed) + tool opportunities (Fri) to Convex
 netlify.toml                # Netlify build config (npx convex deploy --cmd 'npm run build')
 ```
 
@@ -171,11 +186,14 @@ RootLayout (Server)
         ├── HeaderBar              — Title, stat pills, date, Clerk UserButton
         ├── AgentSidebar (left)    — 5 agents, StatusDots, click → AgentExpandedPanel
         │   └── AgentAvatarStrip   — Mobile-only horizontal strip
-        ├── CenterTabs (center)    — Tabbed: all 4 tabs visible to everyone (preview vs full based on auth)
-        │   ├── Overview tab       — Scoreboard ("This Week"/"All Time" toggle) + DailyTimeline
+        ├── CenterTabs (center)    — Tabbed: all 7 tabs visible to everyone (preview vs full based on auth)
+        │   ├── Overview tab       — Scoreboard ("This Week"/"All Time" toggle, hero pair for Hours/Cost Saved with geo currency) + DailyTimeline
+        │   ├── Blogs tab          — BlogsPreview (public) / BlogsTable (admin — sortable, merges local + Convex data)
         │   ├── Communities tab    — CommunitiesPreview (public, placeholder data) / CommunitiesPanel (admin)
         │   ├── Questions tab      — QuestionsPreview (public, top 3 rows + blur) / QuestionsTable (admin)
-        │   └── Briefs tab         — BriefsPreview (public, top 3 clickable + blur) / BriefsPanel → BriefCard → BriefReaderModal (admin)
+        │   ├── Briefs tab         — BriefsPreview (public, top 3 clickable + blur) / BriefsPanel → BriefCard → BriefReaderModal (admin)
+        │   ├── Strategy tab       — StrategyPreview (public) / StrategyPanel (admin — Vidura's topic clusters + tool opportunities)
+        │   └── Meetings tab       — MeetingsPanel (admin — pitch page bookings)
         ├── LiveFeed (right)       — Real-time activity feed (feed items rendered inline)
         ├── WaitlistCTA (right)    — Email gate (admin auth or lead capture)
         └── GuidedTour             — FTUE spotlight tour (non-admin first visit, 5 desktop / 4 mobile steps)
@@ -221,7 +239,7 @@ RootLayout (Server)
 - **Sections (in order):** HookSection (headline + live stats + CTA) → HowItWorksSection (4-step daily workflow) → TeamSection (3 Pokemon-style AgentStatCards with StatBars, portraits, skills tags, weekly summaries) → TrustNudge ("I'm my own first customer") → RecentWorkSection (tabbed Questions/Briefs/Blogs) → TrustNudge ("Not a demo") → TimelineSection (4-week engagement) → PricingSection ($200 POC + $1K Growth) → LeadCaptureSection (form + TimeSlotPicker) → SecondaryCtaSection (→ Launch Control) → FooterTease
 - **Floating dual CTA:** Appears after 600px scroll — "Watch live" (→ /launch-control) + "Get your AI team" (→ #lead-capture anchor)
 - **Lead capture:** Company name + website + challenge dropdown → POSTs to `/api/lead` (same Make.com webhook). TimeSlotPicker for booking.
-- **Agent cards:** 3 active agents (Parthasarathi "The Manager", Vibhishana "The Scout", Vyasa "The Writer") with stat bars (pace, intelligence, monthly savings), skills tags, and "This Week" live feed from Convex
+- **Agent cards:** 4 active agents (Parthasarathi "The Manager", Vibhishana "The Scout", Vyasa "The Writer", Vidura "The Strategist") + 2 coming soon (Valmiki "The Voice", Sanjaya "The Hunter") with stat bars (pace, intelligence, monthly savings), skills tags, and "This Week" live feed from Convex
 - **Data note:** Same Convex backend as Launch Control — one-time setup, always live
 - Full brainstorm: `.context/hire-your-24x7-team.md`
 
@@ -233,7 +251,7 @@ RootLayout (Server)
 - Pipeline visualization + bottom CTA (WhatsApp/LinkedIn/email) below card grid
 - Detail pages at `/build-your-ai-team/<agent>` show full profile: KRAs, daily rhythm, proof points
 - Agent data in `lib/agents.ts` — static TypeScript objects, structured for future Convex DB migration
-- 5 agents: Parthasarathi (ops), Sanjaya (lead intel), Valmiki (social content), Vibhishana (research), Vyasa (SEO blog)
+- 6 agents: Parthasarathi (ops), Sanjaya (lead intel), Valmiki (social content), Vibhishana (research), Vyasa (SEO blog), Vidura (SEO strategy)
 - Each agent has: accent color, avatar, KRAs with outcomes/frequency, daily rhythm, proof points
 - `AgentCard.tsx` — highlight/standard/compact sizes, fixed image heights, accent-colored gradients, image fallback to initials
 - `AgentDetailPage.tsx` — full detail view with breadcrumb, sections for KRAs/rhythm/proof
@@ -253,8 +271,11 @@ RootLayout (Server)
 |-------|---------|-----------|
 | `questions` | Vibhishana's Reddit scans | Batch via `/ingestQuestions` |
 | `briefs` | Vibhishana's research briefs | Single via `/ingestBrief` |
-| `blogs` | Vyasa's published blog metadata | Single via `/ingestBlog` |
+| `blogs` | Vyasa's published blog metadata (+enrichment tracking) | Single via `/ingestBlog` |
 | `agentActivity` | All agent milestones | Single via `/ingestActivity` |
+| `topicClusters` | Vidura's SEO topic clusters (pillar→cluster mapping) | Single via `/ingestTopicCluster` |
+| `toolOpportunities` | Vidura's interactive tool proposals | Single via `/ingestToolOpportunity` |
+| `pitchBookings` | Lead capture from pitch page meeting form | Direct mutation |
 
 ### HTTP Ingestion Endpoints
 Base URL: `https://curious-iguana-738.convex.site` (production deployment)

@@ -2,7 +2,7 @@
 
 Status: LIVE IN PRODUCTION
 Created: 2026-02-15
-Last updated: 2026-02-16 (v5 — GuidedTour FTUE, BlogsPanel, nav changes)
+Last updated: 2026-02-18 (v6 — Vidura Strategy tab, BlogsTable, Meetings tab, 7 tabs, geo savings in Scoreboard)
 
 ---
 
@@ -299,12 +299,12 @@ CTA moved inline into the live feed column (not a separate footer section). Wait
 ### Tab Bar (Visible to Everyone)
 
 ```
-[Overview]  [Communities]  [Questions]  [Briefs]
+[Overview]  [Blogs]  [Communities]  [Questions]  [Briefs]  [Strategy]  [Meetings]
 ```
 
-Tabs appear at the top of the center column for ALL visitors. Clean, minimal tab design. Active tab has accent-blue underline. Tab order is fixed: Overview → Communities → Questions → Briefs.
+Tabs appear at the top of the center column for ALL visitors. Clean, minimal tab design. Active tab has accent-blue underline. Tab order is fixed: Overview → Blogs → Communities → Questions → Briefs → Strategy → Meetings. Each tab has a description subtitle shown below the tab bar.
 
-**Public vs Admin:** Each tab renders either a preview component (public) or full component (admin) based on `isSignedIn`. All tab panel components use `next/dynamic` for lazy loading.
+**Public vs Admin:** Each tab renders either a preview component (public) or full component (admin) based on `isSignedIn`. All tab panel components use `next/dynamic` for lazy loading. Meetings tab only visible to admin.
 
 ### Admin View (Krishna Logged In)
 
@@ -600,7 +600,7 @@ Full 3-column layout as designed. All columns visible simultaneously.
 app/launch-control/
 ├── page.tsx                           — Server component, route entry + metadata
 
-components/launch-control/             — 22 components total
+components/launch-control/             — 28 components total
 ├── LaunchControlDashboard.tsx         — Main client component (3-column CSS Grid orchestrator, top-level useQuery hooks)
 ├── HeaderBar.tsx                      — Top bar: title, stat pills, date, Clerk UserButton
 │
@@ -608,12 +608,12 @@ components/launch-control/             — 22 components total
 ├── AgentExpandedPanel.tsx             — Slide-out agent detail (portrait with CSS mask-image, stats, schedule)
 ├── AgentAvatarStrip.tsx               — Mobile-only horizontal avatar scroll strip
 │
-├── Scoreboard.tsx                     — Impact metrics with count-up animation + "This Week"/"All Time" toggle
+├── Scoreboard.tsx                     — Impact metrics with count-up animation + "This Week"/"All Time" toggle. Hero pair layout for Hours Saved + Cost Saved. Geo-detected currency (INR/USD via useGeo + geo-savings.ts). SavingsTooltip for rate rationale.
 ├── DailyTimeline.tsx                  — Today's pipeline chronological view (11 scheduled items from lib/launch-control-types.ts)
 ├── TimelineItem.tsx                   — Single timeline entry (completed/active/upcoming)
 │
 ├── AdminTabs.tsx                      — Admin-only tab management
-├── CenterTabs.tsx                     — Tab bar (Overview | Communities | Questions | Briefs) — visible to all visitors, preview vs full based on auth
+├── CenterTabs.tsx                     — Tab bar (Overview | Blogs | Communities | Questions | Briefs | Strategy | Meetings) — 7 tabs, visible to all visitors, preview vs full based on auth. Tab descriptions for each.
 ├── CommunitiesPanel.tsx               — Admin: subreddit breakdown view (communityBreakdown query)
 ├── CommunitiesPreview.tsx             — Public: placeholder communities with blur overlay
 ├── QuestionsTable.tsx                 — Admin: scrollable table with frozen header + left column, mobile card view
@@ -626,7 +626,11 @@ components/launch-control/             — 22 components total
 │
 ├── LiveFeed.tsx                       — Right column: real-time activity log with filter tabs (All/Tasks/Milestones) + inline feed entries
 │
-├── BlogsPanel.tsx                     — Blog posts list tab (admin) — uses BlogPost type + CATEGORY_LABELS from blog-labels.ts
+├── BlogsTable.tsx                     — Sortable blog table (admin) — merges local BlogPost data + Convex blog enrichment data. Columns: Title, Category, Keyword, Words, Enrichment, Status, Published. Replaces old BlogsPanel.
+├── BlogsPreview.tsx                   — Blog posts preview (public) — top rows with blur overlay
+├── StrategyPanel.tsx                  — Vidura's strategy data (admin) — topic clusters table (pillar, topic, keyword, intent, status) + tool opportunities table (tool name, source question, keyword, complexity, status). Color-coded badges.
+├── StrategyPreview.tsx                — Strategy preview (public) — top rows with blur overlay
+├── MeetingsPanel.tsx                  — Pitch page meeting bookings (admin) — from pitchBookings Convex table
 ├── GuidedTour.tsx                     — FTUE spotlight tour for first-time non-admin visitors. 5 desktop steps (scoreboard, tab-bar, pipeline, agent-sidebar, live-feed) + 4 mobile steps (scoreboard, tab-bar, pipeline, agent-strip). Spotlight overlay via CSS box-shadow cutout, tooltip placement with viewport clamping, localStorage `lc_tour_completed` flag. Auto-starts 800ms after page load for non-admin visitors.
 ├── StatusDot.tsx                      — Green/orange/red animated dot
 └── WaitlistCTA.tsx                    — Email gate: krishna@thelaunch.space reveals Clerk auth, others → lead capture
@@ -669,6 +673,13 @@ components/launch-control/             — 22 components total
 | FTUE guided tour | Spotlight tour for first-time non-admin visitors. 5 desktop steps / 4 mobile steps targeting `data-tour` attributes. localStorage tracking. Auto-starts 800ms after load. Scroll lock during tour. Decided Feb 16. |
 | Launch Control removed from navbar | LC now discoverable only via pitch page secondary CTA or direct URL. Part of the pitch → proof funnel redesign. Decided Feb 16. |
 | BlogsPanel added | New admin tab showing published blog posts with category badges and links. Uses `lib/blog-labels.ts` for category names. Decided Feb 16. |
+| Vidura Strategy tab | New "Strategy" tab showing Vidura's topic clusters + tool opportunities. StrategyPanel (admin) + StrategyPreview (public). Decided Feb 17. |
+| BlogsPanel → BlogsTable | Old card list replaced with sortable table merging local blog file data + Convex enrichment data. New BlogsPreview for public view. Decided Feb 17. |
+| Meetings tab | New admin-only tab showing pitch page meeting bookings from pitchBookings Convex table. Decided Feb 17. |
+| 7 tabs total | Expanded from 4 tabs to 7: Overview, Blogs, Communities, Questions, Briefs, Strategy, Meetings. Each has a description subtitle. Decided Feb 17. |
+| Geo-detected cost savings | Scoreboard shows INR (₹) for India visitors, USD ($) for international. Uses middleware geo cookie + useGeo hook + SavingsTooltip. Decided Feb 17. |
+| Scoreboard hero pair | Hours Saved + Cost Saved displayed as larger hero-sized pair cards, distinct from the 3 smaller count cards above. Decided Feb 18. |
+| Cost formula change | Replaced activity-based formula with per-blog agency rate model. Switched to all-time stats. Decided Feb 17. |
 
 ## Open Questions (Resolved)
 

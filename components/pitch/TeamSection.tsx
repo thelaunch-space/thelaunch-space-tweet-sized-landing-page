@@ -11,9 +11,6 @@ interface TeamSectionProps {
 }
 
 export default function TeamSection({ agentStatuses, weeklySummaries }: TeamSectionProps) {
-  const activeAgents = PITCH_AGENTS.filter((pa) => !pa.comingSoon);
-  const comingSoonAgents = PITCH_AGENTS.filter((pa) => pa.comingSoon);
-
   return (
     <section id="team" className="scroll-mt-24">
       <motion.h2
@@ -26,16 +23,18 @@ export default function TeamSection({ agentStatuses, weeklySummaries }: TeamSect
         Meet Your Team
       </motion.h2>
 
-      {/* Active agents — 2x2 grid on desktop */}
-      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
-        {activeAgents.map((pa, i) => {
+      {/* All agents — 3x2 grid on desktop, 2-col tablet, 1-col mobile */}
+      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {PITCH_AGENTS.map((pa, i) => {
           const agent = getAgent(pa.agentId);
           if (!agent) return null;
 
-          const status = agentStatuses?.find(
-            (s) => s.agentName.toLowerCase() === agent.name.toLowerCase()
-          );
-          const summary = weeklySummaries[agent.name];
+          const status = pa.comingSoon
+            ? undefined
+            : agentStatuses?.find(
+                (s) => s.agentName.toLowerCase() === agent.name.toLowerCase()
+              );
+          const summary = pa.comingSoon ? undefined : weeklySummaries[agent.name];
 
           return (
             <motion.div
@@ -44,39 +43,13 @@ export default function TeamSection({ agentStatuses, weeklySummaries }: TeamSect
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: i * 0.12 }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
             >
               <AgentStatCard
                 pitchAgent={pa}
                 agent={agent}
                 agentStatus={status}
                 weeklySummary={summary}
-              />
-            </motion.div>
-          );
-        })}
-      </div>
-
-      {/* Coming soon agents — centered row */}
-      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
-        {comingSoonAgents.map((pa, i) => {
-          const agent = getAgent(pa.agentId);
-          if (!agent) return null;
-
-          return (
-            <motion.div
-              key={pa.agentId}
-              className="h-full"
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: (activeAgents.length + i) * 0.12 }}
-            >
-              <AgentStatCard
-                pitchAgent={pa}
-                agent={agent}
-                agentStatus={undefined}
-                weeklySummary={undefined}
               />
             </motion.div>
           );

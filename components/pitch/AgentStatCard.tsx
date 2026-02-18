@@ -50,7 +50,7 @@ function ComingSoonCard({
       />
 
       {/* Character portrait — greyed out, same height as active cards */}
-      <div className="relative w-full h-48 flex-shrink-0 overflow-hidden bg-surface-alt">
+      <div className="relative w-full h-56 flex-shrink-0 overflow-hidden bg-surface-alt">
         <Image
           src={agent.avatarPath}
           alt={agent.name}
@@ -152,7 +152,7 @@ function CardFront({
       <div className="h-1 flex-shrink-0" style={{ background: `linear-gradient(to right, ${agent.accentHex}, transparent)` }} />
 
       {/* Character portrait — full, centered, with gradient fade */}
-      <div className="relative w-full h-48 flex-shrink-0 overflow-hidden bg-surface-alt">
+      <div className="relative w-full h-56 flex-shrink-0 overflow-hidden bg-surface-alt">
         <Image
           src={agent.avatarPath}
           alt={agent.name}

@@ -1,13 +1,14 @@
 # Todo — thelaunch.space Landing Page + Blog
 
-Last updated: 2026-02-16 (v2 — pitch page + FTUE done, ICP doc done)
+Last updated: 2026-02-18 (Vidura agent + strategy pipeline, geo savings, pricing update, blogs table)
 
 ## Priority: High
 - [ ] **Verify Daily Timeline times** — hardcoded in `lib/launch-control-types.ts`. Ask Partha to confirm they match actual VPS cron jobs.
-- [ ] **Fix Scoreboard baseline** — remove hardcoded `5*3` hours / `5*180` cost, zero out or make data-dependent
+- [ ] **Update Vidura skill URL to production** — `skills/convex-push-strategy.SKILL.md` currently points to dev (`impartial-pelican-672`). Must change to prod (`curious-iguana-738`) before Partha deploys on VPS.
+- [ ] **Deploy Vidura Convex changes to production** — `topicClusters` + `toolOpportunities` tables, HTTP endpoints, and queries need `npx convex deploy` to prod (`curious-iguana-738`). Currently only on dev.
 - [ ] **Set up 301 redirects** — `/build-your-ai-team` → `/hire-your-24x7-team`, `/build-your-ai-team/[agent]` → `/hire-your-24x7-team#team`. Old agent detail pages still exist as routes but navbar no longer links to them.
 - [ ] **Launch Control public view updates** — Per `hire-your-24x7-team.md` spec: show all questions openly (not just top 3), show 5 briefs in full (blur rest), show all blogs freely.
-- [ ] Build out free tools pages (`/tools/[tool-slug]`)
+- [ ] Build out free tools pages (`/tools/[tool-slug]`) — Vidura's tool opportunities data now feeds tool ideas via Convex
 
 ## Priority: Medium
 - [ ] Add Vitest + React Testing Library for lead capture flow
@@ -23,6 +24,16 @@ Last updated: 2026-02-16 (v2 — pitch page + FTUE done, ICP doc done)
 - [ ] Regenerate Valmiki avatar using updated sage prompt (design-system-v2.md)
 
 ## Done (moved from above)
+- [x] Vidura agent (6th agent) — full agent data, pitch card, detail page, avatars, Convex tables, strategy pipeline, skill file
+- [x] LC: Strategy tab — StrategyPanel + StrategyPreview for Vidura's topic clusters + tool opportunities
+- [x] LC: Blogs tab → sortable table (BlogsTable.tsx) with enrichment data from Convex
+- [x] LC: Meetings tab — MeetingsPanel for pitch bookings
+- [x] Geo-detected cost savings — INR/USD pricing, middleware geo cookie, SavingsTooltip
+- [x] Cost formula overhaul — per-blog agency rate, all-time stats, removed hardcoded baseline
+- [x] Pricing: $99 POC / $699 Growth (launch pricing, first 10 founders)
+- [x] Scoreboard hero pair layout — Hours Saved + Cost Saved as hero cards
+- [x] New blogs: "Post-MVP Doubt" + "Why Your MVP Costs Too Much"
+- [x] Scoreboard baseline fixed — removed hardcoded `5*3` hours / `5*180` cost
 - [x] LC: Sticky tabs + frozen headers/columns (Google Sheets-style scrolling)
 - [x] LC: Communities tab rebuilt as sortable table with "Why It Was Picked" reasoning column
 - [x] LC: Voice fix — "your AI team" → "the AI team" + header tagline

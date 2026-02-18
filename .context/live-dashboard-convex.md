@@ -2,7 +2,7 @@
 
 Status: LIVE IN PRODUCTION — Backend, skills, and frontend all deployed
 Created: 2026-02-14
-Updated: 2026-02-16
+Updated: 2026-02-18
 Reviewed by: Partha (confirmed technically sound, no blockers + schema audit on Feb 15)
 Source: Krishna + Partha Slack brainstorm + Claude Code research
 
@@ -186,6 +186,8 @@ Step 4 can start as soon as Step 1 is done (with test data).
 
 **Update from Partha audit (Feb 15):** Original schema was missing 8 of 14 blog-queue sheet columns and 6 of 12 scanner output fields. Updated below to capture all fields from both sources.
 
+**Update (Feb 17):** 3 new tables added: `topicClusters` (Vidura's SEO content planning), `toolOpportunities` (Vidura's interactive tool proposals), `pitchBookings` (lead capture from pitch page meeting form). `blogs` table gained enrichment tracking fields. Total: 7 tables.
+
 ### Table 1: `questions` (Vibhishana's Reddit scans)
 
 All 12 fields from Vibhishana's scanner output. Previously only had 6.
@@ -282,7 +284,7 @@ Combines all 14 blog-queue sheet columns + the full markdown brief content. Prev
 ### Table 4: `agentActivity` (All agents — milestones only)
 ```
 {
-  agent: string,             // "parthasarathi" | "vibhishana" | "vyasa"
+  agent: string,             // "parthasarathi" | "vibhishana" | "vyasa" | "vidura"
   action: string,            // "health_check" | "scan_complete" | "brief_created" | "blog_published"
   timestamp: number,         // Used for date-based filtering + "last active" display
   summary: string,           // One-line description, e.g., "Scanned 47 questions from 5 subreddits"
@@ -290,6 +292,56 @@ Combines all 14 blog-queue sheet columns + the full markdown brief content. Prev
 ```
 
 **Activity granularity:** Milestones only — scan complete, brief created, blog published, health check done. ~10-15 entries per day. Keeps the feed meaningful, not noisy.
+
+### Table 5: `topicClusters` (Vidura's SEO content planning — added Feb 17)
+```
+{
+  pillarName: string,        // e.g., "AI Employees for Small Business"
+  clusterTopic: string,      // e.g., "How to hire AI agents for customer support"
+  status: string,            // "planned" | "brief-ready" | "published"
+  blogUrl: string?,          // Published blog URL (filled after publishing)
+  targetKeyword: string,     // Target SEO keyword
+  intentType: string,        // "informational" | "comparison" | "decision"
+  agentName: string,         // always "Vidura"
+  createdAt: string,
+  updatedAt: string?,
+}
+```
+
+### Table 6: `toolOpportunities` (Vidura's interactive tool proposals — added Feb 17)
+```
+{
+  sourceQuestion: string,    // Reddit question that inspired this tool idea
+  whyTool: string,           // Why a tool is better than a blog for this
+  toolName: string,          // e.g., "MVP Cost Calculator"
+  toolSolution: string,      // What the tool does
+  targetKeyword: string,
+  complexity: string,        // "simple" | "medium"
+  status: string,            // "proposed" | "approved" | "rejected" | "built" | "live"
+  krishnaNotes: string?,     // Krishna's feedback
+  agentName: string,         // always "Vidura"
+  createdAt: string,
+}
+```
+
+### Table 7: `pitchBookings` (Pitch page meeting form — added Feb 17)
+```
+{
+  companyName: string,
+  websiteUrl: string,
+  email: string,
+  contentChallenge: string?, // Dropdown selection
+  whatsappNumber: string?,
+  whatsappCountryCode: string?,
+  whatsappConsent: boolean,
+  selectedDate: string,      // ISO date e.g. "2026-02-17"
+  selectedTimeIST: string,   // e.g. "11:00", "15:00"
+  isCustomTime: boolean,
+  source: string,            // "pitch-page"
+  createdAt: string,
+  status: string,            // "new" | "contacted" | "scheduled" | "completed"
+}
+```
 
 ### Schema Gaps Closed (Feb 15 Audit)
 
@@ -684,6 +736,7 @@ Indexes: `by_agentName`, `by_timestamp`, `by_agentName_timestamp`
 | `skills/convex-push-scanner.SKILL.md` | Vibhishana | ~75 | `/ingestQuestions` (batch) + `/ingestBrief` |
 | `skills/convex-push-blog.SKILL.md` | Vyasa | ~50 | `/ingestBlog` |
 | `skills/convex-push-activity.SKILL.md` | All 3 | ~65 | `/ingestActivity` |
+| `skills/convex-push-strategy.SKILL.md` | Vidura | ~89 | `/ingestTopicCluster` + `/ingestToolOpportunity` |
 
 **Key details in skills:**
 - API key read from `/home/node/openclaw/credentials/convex-api-key.txt`

@@ -2,7 +2,7 @@
 
 Status: BUILT AND LIVE — 14 components under `components/pitch/`, live Convex data, deployed to production
 Created: 2026-02-16
-Last updated: 2026-02-16 (v2 — page built, FTUE tour built, nav updated)
+Last updated: 2026-02-18 (v3 — Vidura added, pricing updated to $99/$699, geo savings, 4 active agents)
 URL: `/hire-your-24x7-team`
 
 ---
@@ -122,13 +122,16 @@ Frame it as: "You wake up, there's a new blog post on your site targeting keywor
   - Cost equivalent: "Replaces a $5K/month content marketer"
 - **"Last 7 days" mini-feed**: 3-5 recent outputs (blog titles published, questions found, briefs written)
 
-**The three cards:**
+**The cards (4 active + 2 coming soon):**
 
-| Card | Plain-English Title | Real Name | Key Stat |
-|------|-------------------|-----------|----------|
-| The Manager | "Runs the show. Schedules, delegates, keeps everything on track." | Parthasarathi | Pace: orchestrates entire pipeline daily |
-| The Scout | "Finds what your customers are asking, before your competitors do." | Vibhishana | Intelligence: scans communities + builds research briefs |
-| The Writer | "Turns research into published blog posts. Every single day." | Vyasa | Output: X blogs/week, Y words published |
+| Card | Plain-English Title | Real Name | Key Stat | Status |
+|------|-------------------|-----------|----------|--------|
+| The Manager | "Runs the show. Schedules, delegates, keeps everything on track." | Parthasarathi | Pace: orchestrates entire pipeline daily | Active |
+| The Scout | "Finds what your customers are asking, before your competitors do." | Vibhishana | Intelligence: scans communities + builds research briefs | Active |
+| The Writer | "Turns research into published blog posts. Every single day." | Vyasa | Output: X blogs/week, Y words published | Active |
+| The Strategist | "Makes sure every blog serves a bigger strategic purpose — not just volume." | Vidura | Intelligence: topic clustering, tool discovery, LLM citations | Active |
+| The Voice | "Writes your LinkedIn and X posts in your voice. Not AI slop." | Valmiki | Social writing, voice matching, content strategy | Coming Soon |
+| The Hunter | "Finds your next client before they start looking for you." | Sanjaya | Lead intelligence, signal detection, prospect briefs | Coming Soon |
 
 **Why trading cards work:**
 - Scannable in 3 seconds
@@ -153,22 +156,24 @@ Visual timeline (think: progress bar or numbered steps).
 
 **Keep it dead simple.**
 
-**The POC: $200/month**
+**The POC: $99/month (launch price, was $199)**
+- "Launch price — first 10 founders"
 - Full agent team setup and training
 - 4-week structured engagement (the timeline above)
 - Daily output visible to you
 - Your agents learn your brand, ICP, and voice
-- "If it doesn't work, you've risked the cost of one nice dinner."
+- CTA: "Start my team — $99/mo"
 
-**Optional: Growth Partnership — $1,000/month**
+**Optional: Growth Partnership — $699/month (launch price, was $1,000)**
+- "Launch price"
 - After the POC, for founders who want ongoing strategic support
 - Monthly strategy calls
 - Agent optimization and scaling
 - New workstream buildout (operations, research, etc.)
 - "Like having a fractional AI operations lead"
-- Frame against alternatives: "vs hiring a content marketer at $5K/month or an agency at $10K/month"
+- CTA: "Talk to us"
 
-**Pricing psychology:** The $200 is the foot-in-the-door. Low enough to be an impulse decision for the ICP ($100K-$2M services business). The $1,000 is the real revenue, but it only converts after they've seen the POC work.
+**Pricing psychology:** The $99 is the foot-in-the-door. Lower than the original $200 — makes it an impulse decision for the ICP ($100K-$2M services business). Crossed-out original prices create urgency. The $699 is the real revenue, but it only converts after they've seen the POC work.
 
 ### Section 6: Primary CTA (conversion)
 
@@ -340,11 +345,13 @@ Separate from the pitch page — these are changes to what public (non-admin) vi
 - [x] Route at `app/hire-your-24x7-team/page.tsx` → renders `PitchPage`
 - [x] 14 components under `components/pitch/`: PitchPage, HookSection, HowItWorksSection, TeamSection, AgentStatCard, StatBar, TrustNudge, RecentWorkSection, TimelineSection, PricingSection, LeadCaptureSection, TimeSlotPicker, SecondaryCtaSection, FooterTease
 - [x] Pokemon/WWE stat cards with StatBars (pace/intel/saving), skills tags, weekly summaries from Convex
+- [x] 4 active agent cards (Partha, Vibhishana, Vyasa, Vidura) + 2 coming soon (Valmiki, Sanjaya)
 - [x] Tabbed "real work" section (Questions/Briefs/Blogs) — live from Convex
 - [x] 4-week timeline visual (Setup → Trial → Iteration → Handoff)
-- [x] Pricing section ($200 POC + $1K Growth Partnership)
+- [x] Pricing section ($99 POC launch price / $699 Growth launch price, crossed-out originals)
 - [x] Lead capture form (company, website, challenge dropdown) → Make.com + TimeSlotPicker
 - [x] Floating dual CTA (Watch live + Get your AI team)
+- [x] Geo-detected cost savings — INR for India visitors, USD for international (middleware geo cookie)
 
 ### Phase 2: Navigation & Redirects — PARTIAL
 - [x] Navbar updated: "Hire Your 24/7 Team" → `/hire-your-24x7-team`
