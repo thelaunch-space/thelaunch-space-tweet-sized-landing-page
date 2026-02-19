@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Cormorant_Garamond, JetBrains_Mono } from "next/font/google";
 import Script from "next/script";
 import NavBar from "@/components/NavBar";
+import Footer from "@/components/Footer";
 import AnnouncementRibbon from "@/components/AnnouncementRibbon";
 import ConvexClientProvider from "./ConvexClientProvider";
 import "./globals.css";
@@ -91,6 +92,7 @@ export default function RootLayout({
           <AnnouncementRibbon />
           <NavBar />
           <div className="flex-1 flex flex-col">{children}</div>
+          <Footer />
         </ConvexClientProvider>
       </body>
     </html>
