@@ -29,7 +29,7 @@ const jsonLd = {
   description: "Agencies aren't incompetent - the model is structurally misaligned for MVPs. Learn why agencies fail at startup validation and what to do instead.",
   url: "https://thelaunch.space/blogs/startup-mvps/why-agency-mvp-failed",
   datePublished: "2026-02-11T00:00:00.000Z",
-  dateModified: "2026-02-11T00:00:00.000Z",
+  dateModified: "2026-02-20T00:00:00.000Z",
   author: { "@type": "Organization", name: "thelaunch.space", url: "https://thelaunch.space" },
   publisher: {
     "@type": "Organization",
@@ -92,6 +92,11 @@ export default function BlogPost() {
             This isn't an isolated incident. Reddit's r/Entrepreneur and r/startups are filled with nearly identical stories. $17K spent on an Indian agency that took 6 months to deliver something "shitty." $80K on a US agency that built a "beautiful" app with zero traction. The numbers vary. The outcome doesn't.
           </p>
 
+          <div className="bg-surface-alt border border-border-color/40 shadow-sm rounded-2xl p-8 my-10 text-center">
+            <p className="text-3xl md:text-4xl font-bold text-text-primary mb-2">68%</p>
+            <p className="text-sm md:text-base text-text-secondary">of 125 analyzed MVP projects stalled or collapsed within 6-9 months post-launch - according to <a href="https://www.issuewire.com/analysis-of-125-mvp-projects-reveals-why-68-fail-after-launch-1852746672654394" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">2025 MVP failure analysis</a></p>
+          </div>
+
           <hr className="border-border-color my-12" />
 
           <h2 className="text-2xl md:text-3xl font-bold mt-16 mb-4">Why Agencies Are Structurally Misaligned for MVPs</h2>
@@ -111,11 +116,11 @@ export default function BlogPost() {
           <div className="space-y-4 my-8">
             <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">1. They Bill Hours, Not Outcomes</p>
-              <p className="text-text-secondary text-base leading-relaxed">Agencies make money by delivering what you ask for, not by validating whether you should ask for it. More features, more hours, more revenue. Their incentive is to build what's in the spec, not to challenge whether the spec makes sense. US agencies charge $100-250/hour. At 200-400 hours for a basic MVP, you're looking at $20-100K before you've learned whether anyone wants what you're building.</p>
+              <p className="text-text-secondary text-base leading-relaxed">Agencies make money by delivering what you ask for, not by validating whether you should ask for it. More features, more hours, more revenue. Their incentive is to build what's in the spec, not to challenge whether the spec makes sense. As of 2026, <a href="https://www.miquido.com/blog/mvp-development-cost/" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">agency MVP costs range from $25,000 to $150,000</a>, with most projects falling in the $50,000-$100,000 range. Regional rates vary widely: US/Canada agencies charge $78-$200/hour, while Eastern Europe and Asia charge $25-$75/hour. At 200-400 hours for a basic MVP, you're committing significant capital before you've learned whether anyone wants what you're building.</p>
             </div>
             <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">2. They Execute Specifications, Not Strategy</p>
-              <p className="text-text-secondary text-base leading-relaxed">When you hand an agency a detailed spec, they optimize for delivery. Their project manager tracks whether features are complete, not whether those features solve a real problem. <a href="https://steveblank.com/category/customer-development/" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Steve Blank's customer development methodology</a> emphasizes that startups exist to search for a business model. Agencies exist to execute on a known business model. That's a fundamental mismatch.</p>
+              <p className="text-text-secondary text-base leading-relaxed">When you hand an agency a detailed spec, they optimize for delivery. Their project manager tracks whether features are complete, not whether those features solve a real problem. <a href="https://steveblank.com/category/customer-development/" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Steve Blank's customer development methodology</a> emphasizes that startups exist to search for a business model, not execute on a known one. As Blank puts it, <a href="https://steveblank.com/2013/07/22/an-mvp-is-not-a-cheaper-product-its-about-smart-learning/" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">"An MVP is not a cheaper product, it's about smart learning."</a> Agencies exist to execute on a known business model. That's a fundamental mismatch.</p>
             </div>
             <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">3. They Deliver Code, Then Walk Away</p>
@@ -216,7 +221,7 @@ export default function BlogPost() {
             </div>
             <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-5">
               <p className="text-text-primary font-semibold mb-1">AI-Assisted Solo Building</p>
-              <p className="text-text-secondary text-base leading-relaxed">Tools like <a href="/blogs/startup-mvps/build-mvp-without-coding-ai-tools" className="text-accent-blue hover:underline">Claude Code, Cursor, and Bolt.new</a> have made it possible for non-developers to build production software. The 65+ projects we've shipped at thelaunch.space were built by someone who's never written a line of production code. Prompting is the new programming.</p>
+              <p className="text-text-secondary text-base leading-relaxed">Tools like <a href="/blogs/startup-mvps/build-mvp-without-coding-ai-tools" className="text-accent-blue hover:underline">Claude Code, Cursor, and Bolt.new</a> have made it possible for non-developers to build production software. Research shows <a href="https://www.startupbricks.in/blog/agency-vs-freelancer-vs-in-house" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">AI tools boost developer productivity by 30-70%</a>, cutting development time and costs dramatically. The 65+ projects we've shipped at thelaunch.space were built by someone who's never written a line of production code. Prompting is the new programming.</p>
             </div>
           </div>
 
@@ -227,6 +232,65 @@ export default function BlogPost() {
           <div className="bg-surface-alt border border-border-color/40 shadow-sm rounded-2xl p-8 my-10 text-center">
             <p className="text-3xl md:text-4xl font-bold text-text-primary mb-2">21 days vs. 6 months</p>
             <p className="text-sm md:text-base text-text-secondary">Time to first real user feedback: execution studio vs. traditional agency</p>
+          </div>
+
+          <h3 className="text-xl md:text-2xl font-bold mt-8 mb-4">Comparison: Agency vs. Execution Studio vs. AI-Assisted Solo</h3>
+
+          <div className="overflow-x-auto my-8">
+            <table className="w-full border border-border-color/40 rounded-2xl overflow-hidden">
+              <thead className="bg-surface-alt">
+                <tr>
+                  <th className="px-4 py-3 text-left text-sm font-semibold text-text-primary border-b border-border-color/40">Factor</th>
+                  <th className="px-4 py-3 text-left text-sm font-semibold text-text-primary border-b border-border-color/40">Traditional Agency</th>
+                  <th className="px-4 py-3 text-left text-sm font-semibold text-text-primary border-b border-border-color/40">Execution Studio</th>
+                  <th className="px-4 py-3 text-left text-sm font-semibold text-text-primary border-b border-border-color/40">AI-Assisted Solo</th>
+                </tr>
+              </thead>
+              <tbody className="bg-surface">
+                <tr>
+                  <td className="px-4 py-3 text-sm text-text-primary font-medium border-b border-border-color/40">Cost Range</td>
+                  <td className="px-4 py-3 text-sm text-text-secondary border-b border-border-color/40">$50,000-$150,000</td>
+                  <td className="px-4 py-3 text-sm text-text-secondary border-b border-border-color/40">$1,500-$5,000</td>
+                  <td className="px-4 py-3 text-sm text-text-secondary border-b border-border-color/40">$500-$2,000 (tools + learning)</td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3 text-sm text-text-primary font-medium border-b border-border-color/40">Timeline to Launch</td>
+                  <td className="px-4 py-3 text-sm text-text-secondary border-b border-border-color/40">3-6 months</td>
+                  <td className="px-4 py-3 text-sm text-text-secondary border-b border-border-color/40">2-4 weeks</td>
+                  <td className="px-4 py-3 text-sm text-text-secondary border-b border-border-color/40">1-4 weeks (with learning curve)</td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3 text-sm text-text-primary font-medium border-b border-border-color/40">Challenges Your Assumptions?</td>
+                  <td className="px-4 py-3 text-sm text-text-secondary border-b border-border-color/40">Rarely - optimized for delivery</td>
+                  <td className="px-4 py-3 text-sm text-text-secondary border-b border-border-color/40">Yes - part of the engagement</td>
+                  <td className="px-4 py-3 text-sm text-text-secondary border-b border-border-color/40">N/A - you validate yourself</td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3 text-sm text-text-primary font-medium border-b border-border-color/40">Post-Launch Iteration</td>
+                  <td className="px-4 py-3 text-sm text-text-secondary border-b border-border-color/40">Expensive, slow (new contract)</td>
+                  <td className="px-4 py-3 text-sm text-text-secondary border-b border-border-color/40">Fast, included in sprint cycle</td>
+                  <td className="px-4 py-3 text-sm text-text-secondary border-b border-border-color/40">Immediate - you own the code</td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3 text-sm text-text-primary font-medium border-b border-border-color/40">Success Metric</td>
+                  <td className="px-4 py-3 text-sm text-text-secondary border-b border-border-color/40">Features delivered on time</td>
+                  <td className="px-4 py-3 text-sm text-text-secondary border-b border-border-color/40">Learning achieved + validation</td>
+                  <td className="px-4 py-3 text-sm text-text-secondary border-b border-border-color/40">Problem solved + skill gained</td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3 text-sm text-text-primary font-medium border-b border-border-color/40">Best For</td>
+                  <td className="px-4 py-3 text-sm text-text-secondary border-b border-border-color/40">Post-PMF scaling, compliance work</td>
+                  <td className="px-4 py-3 text-sm text-text-secondary border-b border-border-color/40">Domain experts, first MVPs</td>
+                  <td className="px-4 py-3 text-sm text-text-secondary border-b border-border-color/40">Technical founders, tight budgets</td>
+                </tr>
+                <tr>
+                  <td className="px-4 py-3 text-sm text-text-primary font-medium">Risk Level</td>
+                  <td className="px-4 py-3 text-sm text-text-secondary">High - expensive validation</td>
+                  <td className="px-4 py-3 text-sm text-text-secondary">Low - fast, cheap iterations</td>
+                  <td className="px-4 py-3 text-sm text-text-secondary">Medium - learning curve exists</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
 
           <hr className="border-border-color my-12" />
@@ -282,6 +346,52 @@ export default function BlogPost() {
 
           <div className="border-l-4 border-accent-blue pl-6 my-8">
             <p className="text-base md:text-lg text-text-primary font-medium leading-relaxed">The $30K you spent isn't coming back. But it bought you an education in what not to do. That's worth something, if you apply the lesson.</p>
+          </div>
+
+          <hr className="border-border-color my-12" />
+
+          <h2 className="text-2xl md:text-3xl font-bold mt-16 mb-4">Frequently Asked Questions</h2>
+
+          <div className="space-y-6 my-8">
+            <div className="border border-border-color/40 rounded-2xl p-6 bg-surface">
+              <h3 className="text-lg font-semibold text-text-primary mb-2">How do I know if an agency is right for my MVP?</h3>
+              <p className="text-base text-text-secondary leading-relaxed">Ask yourself: Do I know exactly what to build, or am I still testing assumptions? If you're still validating your core hypothesis, an agency is premature. Agencies excel when requirements are clear and the risk is execution, not discovery. For early-stage validation, consider execution studios or AI-assisted building instead.</p>
+            </div>
+
+            <div className="border border-border-color/40 rounded-2xl p-6 bg-surface">
+              <h3 className="text-lg font-semibold text-text-primary mb-2">What should I look for when vetting an agency?</h3>
+              <p className="text-base text-text-secondary leading-relaxed">Beyond portfolio and pricing, look for: Do they challenge your spec or accept it blindly? Do they ask about your validation plan? Can they show you examples of MVPs that led to pivots (not just polished launches)? Do they offer post-launch iteration cycles? The best agencies think like product partners, not order-takers. If they don't push back on at least one thing in your requirements, that's a red flag.</p>
+            </div>
+
+            <div className="border border-border-color/40 rounded-2xl p-6 bg-surface">
+              <h3 className="text-lg font-semibold text-text-primary mb-2">Can I recover if my agency MVP already failed?</h3>
+              <p className="text-base text-text-secondary leading-relaxed">Yes. According to a <a href="https://www.issuewire.com/analysis-of-125-mvp-projects-reveals-why-68-fail-after-launch-1852746672654394" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">2025 analysis of 125 MVP projects</a>, 68% stalled within 6-9 months - but many recovered through strategic pivots. Start by diagnosing the root cause: wrong problem, poor UX, or misaligned positioning. Use the existing build as a research tool - show it to users, collect feedback, identify what resonated. Often a repositioning or customer segment pivot salvages the work without a full rebuild.</p>
+            </div>
+
+            <div className="border border-border-color/40 rounded-2xl p-6 bg-surface">
+              <h3 className="text-lg font-semibold text-text-primary mb-2">How much should I budget for an agency MVP in 2026?</h3>
+              <p className="text-base text-text-secondary leading-relaxed">Industry data shows <a href="https://www.miquido.com/blog/mvp-development-cost/" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">agency MVP costs range from $25,000 to $150,000</a>, with most falling in the $50,000-$100,000 range. US/Canada agencies charge $78-$200/hour, while Eastern Europe and Asia charge $25-$75/hour. But before committing that capital, ask: Is this for validation or execution? If you're still testing assumptions, explore execution studios ($1,500-$5,000) or AI-assisted tools that cut costs 50-70%.</p>
+            </div>
+
+            <div className="border border-border-color/40 rounded-2xl p-6 bg-surface">
+              <h3 className="text-lg font-semibold text-text-primary mb-2">What's the difference between an agency, freelancer, and in-house team for MVPs?</h3>
+              <p className="text-base text-text-secondary leading-relaxed">Agencies offer complete teams but optimize for billable hours. Freelancers cost less but require you to coordinate roles. In-house teams give you control but take 2-6 months to hire and ramp up. For MVPs, speed to learning matters most. Agencies start fast (1-4 weeks) but lock you into 3-6 month timelines. Execution studios or AI-assisted solo building often deliver learning faster at 5-10x lower cost.</p>
+            </div>
+
+            <div className="border border-border-color/40 rounded-2xl p-6 bg-surface">
+              <h3 className="text-lg font-semibold text-text-primary mb-2">Should I stay with the agency after MVP launch?</h3>
+              <p className="text-base text-text-secondary leading-relaxed">It depends on what you learned. If you've validated product-market fit and need to scale features fast, agencies can help. But if you're still iterating based on user feedback, the agency model becomes expensive. Many successful startups work with agencies for initial builds, then transition to fractional CTOs or small in-house teams once they've proven the core hypothesis. The key question: Are you in execution mode or discovery mode?</p>
+            </div>
+
+            <div className="border border-border-color/40 rounded-2xl p-6 bg-surface">
+              <h3 className="text-lg font-semibold text-text-primary mb-2">How do I prevent scope creep with an agency?</h3>
+              <p className="text-base text-text-secondary leading-relaxed">Define success by learning, not features. Instead of "build features X, Y, Z," say "validate assumption A within budget B." Use fixed-price, time-boxed engagements (e.g., "2-week sprint, $5K, test one hypothesis"). Insist on weekly demos with real user feedback loops. The best protection: choose partners who profit from your success (outcome-based pricing), not from extended timelines (hourly billing).</p>
+            </div>
+
+            <div className="border border-border-color/40 rounded-2xl p-6 bg-surface">
+              <h3 className="text-lg font-semibold text-text-primary mb-2">What if I can't afford to rebuild after a failed MVP?</h3>
+              <p className="text-base text-text-secondary leading-relaxed">You don't always need a full rebuild. First, salvage what works: audit the codebase for reusable components, extract user data for insights, test micro-iterations on the existing product. Second, consider AI-assisted tools that cost $500-$2,000 instead of $50,000. Claude Code, Cursor, and Bolt.new have enabled non-technical founders to rebuild MVPs in 1-4 weeks. The barrier isn't capital anymore - it's knowing what to build differently this time.</p>
+            </div>
           </div>
 
           <hr className="border-border-color my-12" />
