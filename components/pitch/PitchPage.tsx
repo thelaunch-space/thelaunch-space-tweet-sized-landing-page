@@ -22,33 +22,9 @@ export default function PitchPage() {
   const allTimeStats = useQuery(api.agentActivity.allTimeStats);
   const agentStatuses = useQuery(api.agentActivity.agentStatuses);
 
-  const parthaSummary = useQuery(api.agentActivity.agentWeeklySummary, {
-    agentName: "Parthasarathi",
-  });
-  const vibhishanaSummary = useQuery(api.agentActivity.agentWeeklySummary, {
-    agentName: "Vibhishana",
-  });
-  const vyasaSummary = useQuery(api.agentActivity.agentWeeklySummary, {
-    agentName: "Vyasa",
-  });
-  const viduraSummary = useQuery(api.agentActivity.agentWeeklySummary, {
-    agentName: "Vidura",
-  });
-
   const questions = useQuery(api.questions.listRecent, { limit: 20 });
   const briefs = useQuery(api.briefs.listMetadata, { limit: 20 });
   const blogs = useQuery(api.blogs.listRecent, { limit: 20 });
-
-  // Bundle weekly summaries for TeamSection
-  const weeklySummaries: Record<
-    string,
-    { total: number; byAction: Record<string, number> } | undefined
-  > = {
-    Parthasarathi: parthaSummary,
-    Vibhishana: vibhishanaSummary,
-    Vyasa: vyasaSummary,
-    Vidura: viduraSummary,
-  };
 
   // ── Floating CTA visibility ──────────────────────────────────────────
   const { scrollY } = useScroll();
@@ -69,7 +45,7 @@ export default function PitchPage() {
           <HowItWorksSection />
         </div>
         <div className="max-w-6xl mx-auto px-5 md:px-10">
-          <TeamSection agentStatuses={agentStatuses} weeklySummaries={weeklySummaries} />
+          <TeamSection agentStatuses={agentStatuses} />
         </div>
 
         {/* Trust nudge: after meeting the team */}

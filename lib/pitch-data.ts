@@ -6,6 +6,8 @@ export interface PitchAgent {
   intelScore: number; // out of 10
   skillTags: string[];
   comingSoon?: boolean;
+  jdSubtitle: string;
+  jdBullets: string[];
 }
 
 export const PITCH_AGENTS: PitchAgent[] = [
@@ -16,6 +18,13 @@ export const PITCH_AGENTS: PitchAgent[] = [
     paceScore: 8,
     intelScore: 10,
     skillTags: ["Orchestration", "Scheduling", "Quality Control"],
+    jdSubtitle: "Your AI operations lead. Runs the team so you don't have to.",
+    jdBullets: [
+      "Assigns daily work to every agent based on your content calendar",
+      "Catches errors before they go live — quality gate on all output",
+      "Sends you a daily briefing: what got done, what's next",
+      "Coordinates handoffs between research, writing, and publishing",
+    ],
   },
   {
     agentId: "vibhishana",
@@ -24,6 +33,13 @@ export const PITCH_AGENTS: PitchAgent[] = [
     paceScore: 9,
     intelScore: 9,
     skillTags: ["Community Scanning", "Pain Point Extraction", "Research Briefs"],
+    jdSubtitle: "Finds what your customers are asking — before your competitors answer.",
+    jdBullets: [
+      "Scans Reddit, forums, and communities for buyer-intent questions daily",
+      "Extracts real pain points your ICP is talking about right now",
+      "Delivers research briefs your writer can turn into blog posts same-day",
+      "Tracks trending topics in your niche so you're never behind",
+    ],
   },
   {
     agentId: "vyasa",
@@ -32,6 +48,13 @@ export const PITCH_AGENTS: PitchAgent[] = [
     paceScore: 7,
     intelScore: 10,
     skillTags: ["SEO Writing", "Content Strategy", "Publishing"],
+    jdSubtitle: "Publishes SEO blog posts daily. You wake up to new content.",
+    jdBullets: [
+      "Writes long-form, optimized blog posts from research briefs",
+      "Handles meta titles, descriptions, internal linking, and schema markup",
+      "Publishes directly to your site — no manual upload needed",
+      "Matches your brand voice, not generic AI slop",
+    ],
   },
   {
     agentId: "vidura",
@@ -40,6 +63,13 @@ export const PITCH_AGENTS: PitchAgent[] = [
     paceScore: 7,
     intelScore: 10,
     skillTags: ["Topic Clustering", "Tool Discovery", "LLM Citations"],
+    jdSubtitle: "Makes sure every post ranks — not just exists.",
+    jdBullets: [
+      "Builds topic clusters so your blog targets the right keywords together",
+      "Enriches existing posts with stats, FAQs, and comparison tables for LLM citations",
+      "Identifies content gaps competitors haven't covered yet",
+      "Turns a blog into a search moat, not a content graveyard",
+    ],
   },
   {
     agentId: "valmiki",
@@ -48,6 +78,13 @@ export const PITCH_AGENTS: PitchAgent[] = [
     paceScore: 8,
     intelScore: 9,
     skillTags: ["Social Writing", "Voice Matching", "Content Strategy"],
+    jdSubtitle: "Writes your LinkedIn and X posts. Sounds like you, not a bot.",
+    jdBullets: [
+      "Drafts daily social posts in your actual writing voice",
+      "Repurposes blog content into platform-native formats",
+      "Handles hooks, threads, and engagement-first framing",
+      "Builds your personal brand while you focus on your business",
+    ],
   },
   {
     agentId: "sanjaya",
@@ -57,6 +94,13 @@ export const PITCH_AGENTS: PitchAgent[] = [
     intelScore: 8,
     skillTags: ["Lead Intelligence", "Signal Detection", "Prospect Briefs"],
     comingSoon: true,
+    jdSubtitle: "Finds your next client before they start looking.",
+    jdBullets: [
+      "Monitors buying signals across LinkedIn, communities, and job boards",
+      "Builds prospect briefs with context — not cold spam lists",
+      "Surfaces warm leads who already need what you sell",
+      "Scores leads by intent so you reach out at the right moment",
+    ],
   },
 ];
 

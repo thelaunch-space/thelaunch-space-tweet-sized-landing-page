@@ -15,7 +15,6 @@ interface AgentStatCardProps {
   pitchAgent: PitchAgent;
   agent: Agent;
   agentStatus: { agentName: string; lastStatus: string } | undefined;
-  weeklySummary: { total: number; byAction: Record<string, number> } | undefined;
 }
 
 function statusToColor(status: string | undefined): StatusDotColor {
@@ -222,43 +221,34 @@ function CardFront({
 
 function CardBack({
   agent,
-  weeklySummary,
+  pitchAgent,
 }: {
   agent: Agent;
-  weeklySummary: AgentStatCardProps["weeklySummary"];
+  pitchAgent: PitchAgent;
 }) {
   return (
-    <div className="rounded-2xl border border-border-color bg-surface shadow-card overflow-hidden h-full">
-      <div className="h-1" style={{ background: `linear-gradient(to right, ${agent.accentHex}, transparent)` }} />
-      <div className="p-5">
+    <div className="rounded-2xl border border-border-color bg-surface shadow-card overflow-hidden h-full flex flex-col">
+      <div className="h-1 flex-shrink-0" style={{ background: `linear-gradient(to right, ${agent.accentHex}, transparent)` }} />
+      <div className="p-5 flex flex-col flex-1">
         <h4 className="text-[10px] font-mono tracking-[0.12em] uppercase text-text-secondary">
-          LAST 7 DAYS
+          WHAT THEY DO
         </h4>
 
-        {weeklySummary ? (
-          <>
-            <p className="mt-3 text-2xl font-display tracking-[-0.03em] text-text-primary">
-              {weeklySummary.total}
-              <span className="text-sm font-sans text-text-secondary ml-1.5">actions</span>
-            </p>
-            <div className="mt-4 flex flex-wrap gap-1.5">
-              {Object.entries(weeklySummary.byAction).map(([action, count]) => (
-                <span
-                  key={action}
-                  className="bg-surface-alt rounded-full px-3 py-1 text-xs font-mono text-text-secondary"
-                >
-                  {action.replace(/_/g, " ")}{" "}
-                  <span className="text-text-primary font-semibold">{count}</span>
-                </span>
-              ))}
-            </div>
-          </>
-        ) : (
-          <div className="mt-4 space-y-2">
-            <div className="h-4 w-24 bg-surface-alt rounded animate-pulse" />
-            <div className="h-4 w-32 bg-surface-alt rounded animate-pulse" />
-          </div>
-        )}
+        <p className="mt-3 text-sm font-semibold text-text-primary leading-snug">
+          {pitchAgent.jdSubtitle}
+        </p>
+
+        <ul className="mt-4 space-y-2.5 flex-1">
+          {pitchAgent.jdBullets.map((bullet) => (
+            <li key={bullet} className="flex gap-2 text-xs text-text-secondary leading-relaxed">
+              <span
+                className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0"
+                style={{ backgroundColor: agent.accentHex }}
+              />
+              {bullet}
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
@@ -270,7 +260,6 @@ export default function AgentStatCard({
   pitchAgent,
   agent,
   agentStatus,
-  weeklySummary,
 }: AgentStatCardProps) {
   const [flipped, setFlipped] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -304,7 +293,7 @@ export default function AgentStatCard({
             style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
             className="absolute inset-0"
           >
-            <CardBack agent={agent} weeklySummary={weeklySummary} />
+            <CardBack agent={agent} pitchAgent={pitchAgent} />
           </div>
         </motion.div>
       </div>
@@ -318,7 +307,7 @@ export default function AgentStatCard({
           onClick={() => setMobileOpen(!mobileOpen)}
           className="w-full mt-2 flex items-center justify-between px-5 py-3 rounded-xl border border-border-color bg-surface text-sm text-text-secondary hover:text-text-primary transition-colors"
         >
-          <span className="font-mono text-[10px] tracking-[0.12em] uppercase">Last 7 days</span>
+          <span className="font-mono text-[10px] tracking-[0.12em] uppercase">What they do</span>
           <svg
             className={`w-4 h-4 transition-transform duration-200 ${mobileOpen ? "rotate-180" : ""}`}
             fill="none"
@@ -340,30 +329,20 @@ export default function AgentStatCard({
             className="overflow-hidden"
           >
             <div className="mt-2 rounded-xl border border-border-color bg-surface p-4">
-              {weeklySummary ? (
-                <>
-                  <p className="text-lg font-display tracking-[-0.02em] text-text-primary">
-                    {weeklySummary.total}
-                    <span className="text-sm font-sans text-text-secondary ml-1.5">actions</span>
-                  </p>
-                  <div className="mt-3 flex flex-wrap gap-1.5">
-                    {Object.entries(weeklySummary.byAction).map(([action, count]) => (
-                      <span
-                        key={action}
-                        className="bg-surface-alt rounded-full px-3 py-1 text-xs font-mono text-text-secondary"
-                      >
-                        {action.replace(/_/g, " ")}{" "}
-                        <span className="text-text-primary font-semibold">{count}</span>
-                      </span>
-                    ))}
-                  </div>
-                </>
-              ) : (
-                <div className="space-y-2">
-                  <div className="h-4 w-24 bg-surface-alt rounded animate-pulse" />
-                  <div className="h-4 w-32 bg-surface-alt rounded animate-pulse" />
-                </div>
-              )}
+              <p className="text-sm font-semibold text-text-primary leading-snug">
+                {pitchAgent.jdSubtitle}
+              </p>
+              <ul className="mt-3 space-y-2">
+                {pitchAgent.jdBullets.map((bullet) => (
+                  <li key={bullet} className="flex gap-2 text-xs text-text-secondary leading-relaxed">
+                    <span
+                      className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0"
+                      style={{ backgroundColor: agent.accentHex }}
+                    />
+                    {bullet}
+                  </li>
+                ))}
+              </ul>
             </div>
           </motion.div>
         )}

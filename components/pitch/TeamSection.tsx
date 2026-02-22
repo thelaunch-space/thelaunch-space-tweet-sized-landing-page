@@ -7,10 +7,9 @@ import AgentStatCard from "./AgentStatCard";
 
 interface TeamSectionProps {
   agentStatuses: Array<{ agentName: string; lastStatus: string; lastTimestamp: string | null }> | undefined;
-  weeklySummaries: Record<string, { total: number; byAction: Record<string, number> } | undefined>;
 }
 
-export default function TeamSection({ agentStatuses, weeklySummaries }: TeamSectionProps) {
+export default function TeamSection({ agentStatuses }: TeamSectionProps) {
   return (
     <section id="team" className="scroll-mt-24">
       <motion.h2
@@ -34,8 +33,6 @@ export default function TeamSection({ agentStatuses, weeklySummaries }: TeamSect
             : agentStatuses?.find(
                 (s) => s.agentName.toLowerCase() === agent.name.toLowerCase()
               );
-          const summary = pa.comingSoon ? undefined : weeklySummaries[agent.name];
-
           return (
             <motion.div
               key={pa.agentId}
@@ -49,7 +46,6 @@ export default function TeamSection({ agentStatuses, weeklySummaries }: TeamSect
                 pitchAgent={pa}
                 agent={agent}
                 agentStatus={status}
-                weeklySummary={summary}
               />
             </motion.div>
           );

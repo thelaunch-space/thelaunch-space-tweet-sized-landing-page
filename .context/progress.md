@@ -1,6 +1,6 @@
 # Progress — thelaunch.space Landing Page + Blog
 
-Last updated: 2026-02-18 (Vidura agent, strategy pipeline, Blogs table, geo savings, new blogs, pricing update)
+Last updated: 2026-02-22 (question dedup fix, Convex 1.32.0 update)
 
 ## Completed
 - [x] Project scaffolding (originally Vite + React 18, later migrated to Next.js 14)
@@ -176,6 +176,9 @@ Last updated: 2026-02-18 (Vidura agent, strategy pipeline, Blogs table, geo savi
 - [x] **New blog: "Post-MVP Doubt: Should You Keep Going or Quit?"** — `app/blogs/founder-advice/post-mvp-doubt-should-you-keep-going/`. 2nd post in founder-advice category. (2026-02-17)
 - [x] **New blog: "Why Your MVP Costs Too Much (And How to Fix It)"** — `app/blogs/startup-mvps/why-mvp-costs-too-much-validation-first/`. 7th post in startup-mvps category. (2026-02-17)
 
+- [x] **Question dedup fix** — `ingestBatch` now upserts by URL (query `by_url` index, patch if exists, insert if new). Prevents duplicate rows from Vibhishana's daily Reddit scans. `by_url` index added to `questions` table in schema. 249 duplicates cleaned from prod (1020 → 771). (2026-02-22)
+- [x] **Convex updated to 1.32.0** — Minor version bump from 1.31.7. (2026-02-22)
+
 ## In Progress
 - Nothing currently in progress
 
@@ -184,10 +187,12 @@ Last updated: 2026-02-18 (Vidura agent, strategy pipeline, Blogs table, geo savi
 
 ## Known Issues
 - Daily Timeline times are hardcoded in `lib/launch-control-types.ts` — need Partha to verify they match actual VPS cron jobs.
-- Vidura skill file (`convex-push-strategy.SKILL.md`) points to dev URL (`impartial-pelican-672`), not prod (`curious-iguana-738`). Needs update before Partha deploys on VPS.
+- **Question count mismatch** — Prod Convex has 771 unique questions, Google Sheet has 891. ~120 questions may not have been pushed to Convex, or have slightly different URLs. Needs investigation.
 
 ## Recent Changes (latest first)
-1. Scoreboard hero pair layout + Cost Saved tooltip legibility (2026-02-18)
+1. Question dedup fix — `ingestBatch` upserts by URL, `by_url` index, 249 prod duplicates cleaned (2026-02-22)
+2. Convex updated 1.31.7 → 1.32.0 (2026-02-22)
+3. Scoreboard hero pair layout + Cost Saved tooltip legibility (2026-02-18)
 2. Vidura agent + strategy pipeline + Blogs table upgrade + Meetings tab — 6th agent, 2 new Convex tables, 3 new LC components, BlogsPanel→BlogsTable (2026-02-17)
 3. Geo-detected cost savings — INR/USD pricing, middleware geo cookie, SavingsTooltip (2026-02-17)
 4. Cost formula overhaul — per-blog agency rate, all-time stats, removed hardcoded baseline (2026-02-17)

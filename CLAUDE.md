@@ -8,10 +8,9 @@ This is Krishna's storefront — where blogs land, leads convert, and eventually
 
 **Sibling projects** (see root [CLAUDE.md](../CLAUDE.md) for full map):
 - `social-media-content-openclaw/` — Daily LinkedIn/X posts (main priority now). Drives awareness to this site.
-- `agent-config-openclaw/` — Where agent behavior is designed. Agent changes affect blog quality/topics.
+- `openclaw-config-global/` — Agent management hub (VPS mirror + brainstorming + planning). Agent changes affect blog quality/topics.
 - `seo-mastery-openclaw/` — SEO strategy (activating soon). Will shape what keywords blogs target.
 - `content-creation-openclaw/` — OpenClaw setup knowledge base. Mostly done. Future lead magnet.
-- `_openclaw-business-archive/` — Old archive. Ignore, getting deleted.
 
 ## Stack
 Next.js 14 (App Router) + React 18 + TypeScript + Tailwind CSS 3 + Framer Motion + tsparticles
@@ -75,6 +74,19 @@ NEXT_PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
 ```
 `WEBHOOK_URL` is server-only (no `NEXT_PUBLIC_` prefix). Never commit real webhook URLs.
 `NEXT_PUBLIC_GA_MEASUREMENT_ID` is client-side (GA4 gtag loaded via `next/script` in layout).
+
+## Convex — Dev vs Prod Deployments (CRITICAL)
+There are TWO separate Convex deployments with DIFFERENT data:
+- **Dev instance:** `https://impartial-pelican-672.convex.cloud` — configured in local `.env.local`. Used by `npm run dev` and `npx convex dev --once`.
+- **Prod instance:** `https://curious-iguana-738.convex.cloud` — configured in **Netlify environment variables** (NOT in any local file). This is what the live site (thelaunch.space) uses. Deployed to via `npx convex deploy`.
+
+**When querying/running functions on prod:**
+```bash
+npx convex run <function> '<args>' --url https://curious-iguana-738.convex.cloud
+```
+The local `--prod` flag does NOT work because `.env.local` only has the dev deploy key. Always use `--url` with the prod URL above.
+
+**NEVER assume dev and prod have the same data.** Agents push data to prod via HTTP endpoints. Always query the RIGHT instance when debugging data issues on the live site.
 
 ## Git
 - `main` — production
