@@ -10,6 +10,7 @@ export const metadata: Metadata = {
     siteName: "thelaunch.space",
     type: "article",
     publishedTime: "2026-02-17T00:00:00.000Z",
+    modifiedTime: "2026-02-22T00:00:00.000Z",
     authors: ["thelaunch.space"],
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Post-MVP Doubt: Should You Keep Going or Quit?" }],
   },
@@ -29,7 +30,7 @@ const jsonLd = {
   description: "The post-MVP crisis isn't burnout—it's validation anxiety. Here's how to tell the difference and a 2-week framework for deciding what to do next.",
   url: "https://thelaunch.space/blogs/founder-advice/post-mvp-doubt-should-you-keep-going",
   datePublished: "2026-02-17T00:00:00.000Z",
-  dateModified: "2026-02-17T00:00:00.000Z",
+  dateModified: "2026-02-22T00:00:00.000Z",
   author: { "@type": "Organization", name: "thelaunch.space", url: "https://thelaunch.space" },
   publisher: {
     "@type": "Organization",
@@ -60,6 +61,7 @@ export default function BlogPost() {
           <div className="flex items-center gap-3 text-sm text-text-secondary mb-10">
             <span>thelaunch.space</span><span>·</span>
             <time dateTime="2026-02-17">Feb 17, 2026</time><span>·</span>
+            <span>Updated Feb 22, 2026</span><span>·</span>
             <span>9 min read</span>
           </div>
 
@@ -75,9 +77,16 @@ export default function BlogPost() {
             The emotional weight of &quot;I built something but I don&apos;t know if it matters&quot; is fundamentally different from &quot;I worked too hard and need a break.&quot; Treating validation anxiety like burnout is like taking aspirin for a broken leg. The symptom gets masked. The problem stays.
           </p>
 
-          <div className="bg-border-color/30 border border-border-color rounded-xl p-8 my-10 text-center">
-            <p className="text-3xl md:text-4xl font-bold text-text-primary mb-2">54%</p>
-            <p className="text-sm md:text-base text-text-secondary">of founders experienced burnout in the past 12 months, according to a <a href="https://sifted.eu/articles/founders-mental-health-2025" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">2025 Sifted survey</a>. But burnout and validation doubt require different interventions.</p>
+          <div className="bg-border-color/30 border border-border-color rounded-xl p-8 my-10">
+            <div className="text-center mb-6">
+              <p className="text-3xl md:text-4xl font-bold text-text-primary mb-2">54%</p>
+              <p className="text-sm md:text-base text-text-secondary">of founders experienced burnout in the past 12 months, according to a <a href="https://sifted.eu/articles/founders-mental-health-2025" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">2025 Sifted survey</a>.</p>
+            </div>
+            <div className="text-center mb-6">
+              <p className="text-3xl md:text-4xl font-bold text-text-primary mb-2">75%</p>
+              <p className="text-sm md:text-base text-text-secondary">experienced anxiety in the past 12 months, with <a href="https://founderreports.com/entrepreneur-mental-health-statistics/" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">87.7% reporting at least one mental health issue</a>.</p>
+            </div>
+            <p className="text-sm md:text-base text-text-secondary text-center">But burnout and validation doubt require different interventions.</p>
           </div>
 
           <hr className="border-border-color my-12" />
@@ -106,6 +115,10 @@ export default function BlogPost() {
             You&apos;re stuck in what we call the validation gap: you&apos;ve shipped something real, but you don&apos;t yet have proof it matters. Your product exists, but product-market fit doesn&apos;t. And that gap is where most founders either push through to clarity or quietly give up.
           </p>
 
+          <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
+            The timeline to product-market fit varies by model: <a href="https://maccelerator.la/en/blog/entrepreneurship/product-market-fit-timeline-startup-validation-phases/" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">B2B startups average 14-24 months</a>, while B2C can achieve it in 4-8 months. If you&apos;re at month three post-launch and feeling uncertain, you&apos;re not behind. You&apos;re on schedule.
+          </p>
+
           <hr className="border-border-color my-12" />
 
           <h2 className="text-2xl md:text-3xl font-bold mt-16 mb-4">Burnout vs. Doubt: Different Problems, Different Solutions</h2>
@@ -127,6 +140,45 @@ export default function BlogPost() {
                 You have energy but don&apos;t know where to direct it. You could work, but you&apos;re not sure it would matter. The question &quot;is this worth it?&quot; keeps looping. The solution isn&apos;t rest. It&apos;s information. You need data to make a decision.
               </p>
             </div>
+          </div>
+
+          <div className="overflow-x-auto my-8">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="bg-border-color/20">
+                  <th className="border border-border-color px-4 py-3 text-left text-text-primary font-semibold">Symptom</th>
+                  <th className="border border-border-color px-4 py-3 text-left text-text-primary font-semibold">Burnout</th>
+                  <th className="border border-border-color px-4 py-3 text-left text-text-primary font-semibold">Validation Doubt</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="border border-border-color px-4 py-3 text-text-secondary">Energy Level</td>
+                  <td className="border border-border-color px-4 py-3 text-text-secondary">Physically depleted, even after rest</td>
+                  <td className="border border-border-color px-4 py-3 text-text-secondary">Have energy, unsure where to direct it</td>
+                </tr>
+                <tr className="bg-border-color/10">
+                  <td className="border border-border-color px-4 py-3 text-text-secondary">Emotional State</td>
+                  <td className="border border-border-color px-4 py-3 text-text-secondary">Dread, exhaustion, cynicism</td>
+                  <td className="border border-border-color px-4 py-3 text-text-secondary">Anxiety, uncertainty, paralysis</td>
+                </tr>
+                <tr>
+                  <td className="border border-border-color px-4 py-3 text-text-secondary">Core Question</td>
+                  <td className="border border-border-color px-4 py-3 text-text-secondary">&quot;Can I keep going?&quot;</td>
+                  <td className="border border-border-color px-4 py-3 text-text-secondary">&quot;Should I keep going?&quot;</td>
+                </tr>
+                <tr className="bg-border-color/10">
+                  <td className="border border-border-color px-4 py-3 text-text-secondary">Solution</td>
+                  <td className="border border-border-color px-4 py-3 text-text-secondary">Rest, boundaries, recovery time</td>
+                  <td className="border border-border-color px-4 py-3 text-text-secondary">Data, validation experiments, clarity</td>
+                </tr>
+                <tr>
+                  <td className="border border-border-color px-4 py-3 text-text-secondary">What Helps</td>
+                  <td className="border border-border-color px-4 py-3 text-text-secondary">Time off, delegation, therapy</td>
+                  <td className="border border-border-color px-4 py-3 text-text-secondary">User interviews, retention metrics, testing</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
 
           <h3 className="text-xl md:text-2xl font-bold mt-8 mb-3">Self-Diagnosis: Which One Are You Experiencing?</h3>
@@ -161,6 +213,10 @@ export default function BlogPost() {
 
           <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
             Check your retention numbers. Not signups. Not page views. How many people came back after their first use? Retention is the clearest signal of value. If people try your product and disappear, the problem isn&apos;t distribution. It&apos;s the product itself.
+          </p>
+
+          <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
+            Context matters here: <a href="https://sendbird.com/blog/app-retention-benchmarks-broken-down-by-industry" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Week 1 retention for SaaS products averages 12-17%</a>, with marketplace apps reaching 16%. Top-performing products hit 40% retention by Month 1. Use these benchmarks to calibrate your expectations.
           </p>
 
           <ul className="list-disc list-inside space-y-2 text-text-secondary text-base md:text-lg mb-6">
@@ -254,6 +310,10 @@ export default function BlogPost() {
             Quitting gets framed as failure. It isn&apos;t. Quitting when the data says quit is a sign of clear thinking. Wasting another year on something that won&apos;t work is the actual failure.
           </p>
 
+          <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
+            According to <a href="https://deliberatedirections.com/when-to-launch-mvp/" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">startup failure analysis</a>, 35% of failures stem from no market need. If your validation experiments consistently show weak signals, that&apos;s data worth respecting.
+          </p>
+
           <ul className="list-disc list-inside space-y-2 text-text-secondary text-base md:text-lg mb-6">
             <li><span className="text-text-primary font-semibold">No users stick.</span> High churn, near-zero retention, and no clear feedback about why. If you can&apos;t find even 10 people who love it, the problem might be the core idea.</li>
             <li><span className="text-text-primary font-semibold">No willingness to pay.</span> Everyone likes it in surveys, but nobody will spend money. &quot;Interesting&quot; products don&apos;t become businesses.</li>
@@ -323,6 +383,68 @@ export default function BlogPost() {
           <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
             But at <a href="/" className="text-accent-blue hover:underline">thelaunch.space</a>, we&apos;ve shipped over 65 projects and been through this phase repeatedly. The doubt is real. It&apos;s also temporary. Run the experiments. Get the data. Make the call. That&apos;s the job.
           </p>
+
+          <hr className="border-border-color my-12" />
+
+          <h2 className="text-2xl md:text-3xl font-bold mt-16 mb-4">Frequently Asked Questions</h2>
+
+          <div className="space-y-6 my-8">
+            <div>
+              <h3 className="text-lg md:text-xl font-bold text-text-primary mb-2">How long should I wait before giving up on my MVP?</h3>
+              <p className="text-base text-text-secondary leading-relaxed">
+                There&apos;s no universal timeline, but context helps: B2B products typically take 14-24 months to reach product-market fit, while B2C can achieve it in 4-8 months. Focus on metrics, not calendar time. If you&apos;re not seeing any improvement in retention, engagement, or willingness to pay after 3-4 months of iteration, that&apos;s a signal to pivot or reassess. The key question isn&apos;t &quot;how long have I been doing this?&quot; but &quot;am I seeing any positive trends in the data?&quot;
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-lg md:text-xl font-bold text-text-primary mb-2">What&apos;s the difference between a pivot and giving up?</h3>
+              <p className="text-base text-text-secondary leading-relaxed">
+                A pivot reuses your existing assets (technology, team, customer insights, distribution channels) to test a new hypothesis based on what you&apos;ve learned. Giving up means walking away entirely. If your research dashboard isn&apos;t working but users love one specific data export feature, pivoting to focus solely on that export tool uses what you&apos;ve built. Giving up is shutting down the entire project. Pivots are evidence-based adjustments. Quitting is a strategic decision that the opportunity doesn&apos;t exist.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-lg md:text-xl font-bold text-text-primary mb-2">Should I add more features to improve retention?</h3>
+              <p className="text-base text-text-secondary leading-relaxed">
+                Almost never. Low retention usually signals that your core value proposition isn&apos;t resonating, not that you&apos;re missing features. Adding more features when the core doesn&apos;t work creates more surface area for confusion. Instead, talk to the users who churned. Ask what prevented them from returning. The answer is usually about the core experience (too complex, too slow, didn&apos;t solve their problem) rather than missing functionality. Simplify and strengthen the core before expanding.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-lg md:text-xl font-bold text-text-primary mb-2">How do I know if low retention means bad product or bad marketing?</h3>
+              <p className="text-base text-text-secondary leading-relaxed">
+                Look at behavior, not acquisition. If people sign up and never use the product, that&apos;s often a marketing/positioning problem (you&apos;re attracting the wrong users). If people use it once and don&apos;t return, that&apos;s typically a product problem (it didn&apos;t deliver expected value). Survey churned users and ask: &quot;What were you hoping this product would do for you?&quot; If their expectations match what you promised, it&apos;s a product issue. If they misunderstood what you offer, it&apos;s a messaging issue.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-lg md:text-xl font-bold text-text-primary mb-2">Is it normal to feel worse after launching than before?</h3>
+              <p className="text-base text-text-secondary leading-relaxed">
+                Absolutely. Pre-launch, the pressure is hypothetical. Post-launch, it&apos;s concrete. You have real users, real expectations, and real feedback (not all of it positive). This shift from &quot;will this work?&quot; to &quot;is this working?&quot; is where most founders experience the emotional low point. Dr. Emily Anhalt calls it the &quot;oh shit&quot; moment when achieving a milestone reveals ten new problems instead of providing relief. This is validation anxiety, and it&apos;s distinct from burnout. The solution is clarity through data, not rest.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-lg md:text-xl font-bold text-text-primary mb-2">What if I can&apos;t afford to run the 2-week validation sprint?</h3>
+              <p className="text-base text-text-secondary leading-relaxed">
+                The validation sprint doesn&apos;t require money—it requires time and focus. You&apos;re not running paid ads or building new features. You&apos;re analyzing existing retention data, surveying current users (free via email or Google Forms), and testing willingness to pay (which can be as simple as asking). If you truly can&apos;t dedicate two focused weeks, compress it: run all three experiments in parallel over 3-5 days. The point is intentional signal-gathering, not a perfect process. Even a weekend of structured user interviews beats months of guessing.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-lg md:text-xl font-bold text-text-primary mb-2">How many pivots is too many before I should quit?</h3>
+              <p className="text-base text-text-secondary leading-relaxed">
+                There&apos;s no magic number, but the pattern matters more than the count. If each pivot is based on clear user feedback and you&apos;re testing specific hypotheses, three or four pivots can be productive learning. If you&apos;re pivoting reactively without data (switching direction every time someone suggests an idea), even two pivots might be too many. The warning sign isn&apos;t the number of pivots—it&apos;s pivoting without getting closer to product-market fit. If your third pivot shows no better signal than your first, the opportunity might not exist in this space.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-lg md:text-xl font-bold text-text-primary mb-2">Should I quit my full-time job to focus on improving the MVP?</h3>
+              <p className="text-base text-text-secondary leading-relaxed">
+                Not until you have clear validation signals. If you&apos;re still in the doubt phase (uncertain if the product has traction), quitting your job adds financial pressure that makes decision-making harder. Run the validation sprint while employed. If the signals are strong (good retention, willingness to pay, organic referrals), then consider going full-time. If the signals are weak or mixed, keep your job and either pivot or shut down the MVP without risking your financial stability. The job provides runway to make better decisions.
+              </p>
+            </div>
+          </div>
 
         </article>
 
