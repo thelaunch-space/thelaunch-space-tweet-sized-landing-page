@@ -63,6 +63,30 @@ export const updateStatus = internalMutation({
   },
 });
 
+// Internal mutation — for Shakti to update task details via HTTP endpoint
+export const internalUpdate = internalMutation({
+  args: {
+    id: v.string(),
+    title: v.optional(v.string()),
+    description: v.optional(v.string()),
+    paceNotes: v.optional(v.string()),
+  },
+  handler: async (ctx, { id, ...patches }) => {
+    const defined = Object.fromEntries(
+      Object.entries(patches).filter(([, v]) => v !== undefined)
+    );
+    await ctx.db.patch(id as Id<"tasks">, { ...defined, updatedAt: new Date().toISOString() });
+  },
+});
+
+// Internal mutation — for Shakti to delete a task via HTTP endpoint
+export const internalRemove = internalMutation({
+  args: { id: v.string() },
+  handler: async (ctx, { id }) => {
+    await ctx.db.delete(id as Id<"tasks">);
+  },
+});
+
 // Public mutation — for Krishna to edit task details in the Kanban modal
 export const update = mutation({
   args: {

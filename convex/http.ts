@@ -722,6 +722,40 @@ http.route({
   }),
 });
 
+http.route({
+  path: "/update/task",
+  method: "POST",
+  handler: httpAction(async (ctx, request) => {
+    if (!validateAuth(request)) {
+      return jsonResponse({ error: "Unauthorized" }, 401);
+    }
+    try {
+      const body = await request.json();
+      await ctx.runMutation(internal.shaktiTasks.internalUpdate, body);
+      return jsonResponse({ success: true });
+    } catch (error: unknown) {
+      return errorResponse(error);
+    }
+  }),
+});
+
+http.route({
+  path: "/delete/task",
+  method: "POST",
+  handler: httpAction(async (ctx, request) => {
+    if (!validateAuth(request)) {
+      return jsonResponse({ error: "Unauthorized" }, 401);
+    }
+    try {
+      const body = await request.json();
+      await ctx.runMutation(internal.shaktiTasks.internalRemove, body);
+      return jsonResponse({ success: true });
+    } catch (error: unknown) {
+      return errorResponse(error);
+    }
+  }),
+});
+
 // Handle CORS preflight for all routes (legacy aliases + canonical)
 for (const path of [
   // Legacy aliases — kept for backward compatibility
@@ -739,7 +773,7 @@ for (const path of [
   // Shakti PA endpoints
   "/query/clients", "/query/projects", "/query/tasks",
   "/push/clients", "/push/projects", "/push/tasks",
-  "/update/task-status",
+  "/update/task-status", "/update/task", "/delete/task",
 ]) {
   http.route({
     path,
