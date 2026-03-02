@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     siteName: "thelaunch.space",
     type: "article",
     publishedTime: "2026-02-20T00:00:00.000Z",
-    modifiedTime: "2026-02-23T00:00:00.000Z",
+    modifiedTime: "2026-03-02T00:00:00.000Z",
     authors: ["thelaunch.space"],
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "I Built My App With AI. Now What?" }],
   },
@@ -30,7 +30,7 @@ const jsonLd = {
   description: "You deployed AI-generated code to your laptop. Now it needs to reach real users. Here's the deployment reality no one talks about—and three paths forward.",
   url: "https://thelaunch.space/blogs/ai-tools/ai-generated-code-deployment-reality",
   datePublished: "2026-02-20T00:00:00.000Z",
-  dateModified: "2026-02-23T00:00:00.000Z",
+  dateModified: "2026-03-02T00:00:00.000Z",
   author: { "@type": "Organization", name: "thelaunch.space", url: "https://thelaunch.space" },
   publisher: {
     "@type": "Organization",
@@ -62,7 +62,7 @@ export default function BlogPost() {
           <div className="flex items-center gap-3 text-sm text-text-secondary mb-10">
             <span>thelaunch.space</span><span>·</span>
             <time dateTime="2026-02-20">Feb 20, 2026</time><span>·</span>
-            <span className="text-text-primary">Updated Feb 23, 2026</span><span>·</span>
+            <span className="text-text-primary">Updated Mar 2, 2026</span><span>·</span>
             <span>9 min read</span>
           </div>
 
@@ -112,6 +112,57 @@ export default function BlogPost() {
           <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
             This isn't a tutorial problem. It's a decision problem disguised as a technical one. The question isn't "how do I deploy?" The question is "should I deploy THIS, or validate my idea differently?"
           </p>
+
+          <hr className="border-border-color my-12" />
+
+          <h2 className="text-2xl md:text-3xl font-bold mt-16 mb-4">The Hidden Cost: Security and Review Bottlenecks</h2>
+
+          <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
+            Deployment isn't just about getting code onto a server. It's about ensuring that code is safe, maintainable, and won't break when real users touch it. This is where AI-generated code creates a second, less-discussed bottleneck.
+          </p>
+
+          <div className="bg-border-color/30 border border-border-color rounded-xl p-8 my-10 text-center">
+            <p className="text-3xl md:text-4xl font-bold text-text-primary mb-2">2.74x</p>
+            <p className="text-sm md:text-base text-text-secondary">more vulnerabilities in AI-generated code compared to human-written code (Veracode 2025)</p>
+          </div>
+
+          <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
+            According to <a href="https://www.softwareseni.com/ai-generated-code-security-risks-why-vulnerabilities-increase-2-74x-and-how-to-prevent-them/" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Veracode's 2025 GenAI Code Security Report</a> analyzing over 100 LLMs, AI-generated code consistently produces more security issues than human-written code. The data is sobering:
+          </p>
+
+          <div className="space-y-4 my-8">
+            <div className="bg-border-color/20 rounded-xl p-5">
+              <p className="text-text-primary font-semibold mb-1">25.1% of AI-generated samples contain confirmed vulnerabilities</p>
+              <p className="text-text-secondary text-base leading-relaxed">A 2026 study by AppSecsanta analyzing 534 code samples from 6 major LLMs found 175 confirmed vulnerabilities, with Server-Side Request Forgery (SSRF) and injection flaws topping the list.</p>
+            </div>
+            <div className="bg-border-color/20 rounded-xl p-5">
+              <p className="text-text-primary font-semibold mb-1">AI code caused 1 in 5 security breaches in 2026</p>
+              <p className="text-text-secondary text-base leading-relaxed">Aikido Security's 2026 report surveying 450 organizations found that 69% discovered AI-introduced vulnerabilities, with 20% reporting actual business impact from breaches.</p>
+            </div>
+            <div className="bg-border-color/20 rounded-xl p-5">
+              <p className="text-text-primary font-semibold mb-1">322% more privilege escalation paths in Fortune 50 codebases</p>
+              <p className="text-text-secondary text-base leading-relaxed">Apiiro's research through June 2025 identified design flaws like authentication bypass and insecure references at rates 153% higher than human-written code, with over 10,000 new findings monthly.</p>
+            </div>
+          </div>
+
+          <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
+            The review bottleneck compounds the problem. <a href="https://opsera.ai/resources/report/ai-coding-impact-2026-benchmark-report/" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Opsera's 2026 AI Coding Impact Benchmark</a>, analyzing 250,000+ developers, found that <strong>AI-generated pull requests wait 4.6x longer in review queues</strong> than traditional code. Developers don't trust the output—and for good reason.
+          </p>
+
+          <div className="bg-border-color/30 border border-border-color rounded-xl p-8 my-10 text-center">
+            <p className="text-3xl md:text-4xl font-bold text-text-primary mb-2">38%</p>
+            <p className="text-sm md:text-base text-text-secondary">of developers find reviewing AI-generated code more effort-intensive than human-written code (Sonar 2026)</p>
+          </div>
+
+          <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
+            According to <a href="https://www.sonarsource.com/state-of-code-developer-survey-report.pdf" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Sonar's State of Code Developer Survey</a>, only 27% find AI code easier to review—the rest find it either harder or equivalent in effort. With <strong>96% of developers struggling to fully trust AI-generated code</strong>, every line becomes a verification exercise rather than a quick scan.
+          </p>
+
+          <div className="border-l-4 border-accent-blue pl-6 my-8">
+            <p className="text-base md:text-lg text-text-primary font-medium leading-relaxed">
+              Here's what this means for deployment: even if you figure out how to push code to a server, you're deploying code that statistically has more security holes and takes longer to verify. The deployment wall isn't just technical—it's also a quality and safety checkpoint that AI-generated code struggles to pass.
+            </p>
+          </div>
 
           <hr className="border-border-color my-12" />
 
@@ -180,6 +231,11 @@ export default function BlogPost() {
           <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
             <span className="text-text-primary font-semibold">Best starting path:</span> If you generated code with Cursor, push it to GitHub, then connect that repository to <a href="https://www.netlify.com/blog/create-deploy-run-ai-across-your-development-workflow/" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Netlify</a> or Vercel. For database-backed apps, add Supabase. Start with their free tiers—you won't hit limits during validation.
           </p>
+
+          <div className="bg-border-color/30 border border-border-color rounded-xl p-8 my-10 text-center">
+            <p className="text-3xl md:text-4xl font-bold text-text-primary mb-2">90%</p>
+            <p className="text-sm md:text-base text-text-secondary">of enterprises use AI in development, but deployment remains the bottleneck between generation and production (Opsera 2026)</p>
+          </div>
 
           <h3 className="text-xl md:text-2xl font-bold mt-8 mb-3">Path 2: Pay Someone to Deploy It</h3>
 
@@ -319,6 +375,10 @@ export default function BlogPost() {
           </p>
 
           <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
+            <span className="text-text-primary font-semibold">AI productivity is finally improving—but it took time.</span> A <a href="https://metr.org/blog/2025-07-10-early-2025-ai-experienced-os-dev-study/" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">METR study in July 2025</a> found developers using AI took 19% longer to complete tasks than working without AI. But by <a href="https://metr.org/blog/2026-02-24-uplift-update/" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">February 2026, METR's updated findings</a> show potential speedups of 4-18% for developers using the latest tools—a significant reversal. The tools are getting better, but the early adopters paid the productivity tax while the kinks got worked out.
+          </p>
+
+          <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
             <span className="text-text-primary font-semibold">Trust in AI tools has declined as usage increased.</span> According to <a href="https://stackoverflow.blog/2026/02/18/closing-the-developer-ai-trust-gap/" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Stack Overflow's 2025 survey</a>, only 29% of developers trust AI-generated code accuracy, down from 40% in 2023. This isn't fear—it's experience. As developers use AI tools more, they discover the limitations firsthand.
           </p>
 
@@ -400,6 +460,21 @@ export default function BlogPost() {
             <div>
               <h3 className="text-lg md:text-xl font-bold text-text-primary mb-2">Can I use free hosting forever or will I need to upgrade?</h3>
               <p className="text-base text-text-secondary leading-relaxed">Free tiers work for validation and early users (typically up to 100-500 active users). Once you're generating revenue and seeing consistent traffic, you'll likely need to upgrade to paid tiers ($20-$100/month initially). Budget $200-$500/month for hosting and infrastructure once you have product-market fit.</p>
+            </div>
+
+            <div>
+              <h3 className="text-lg md:text-xl font-bold text-text-primary mb-2">Why do AI-generated pull requests take longer to review?</h3>
+              <p className="text-base text-text-secondary leading-relaxed">AI-generated PRs wait 4.6x longer in review queues because developers don't trust the code without thorough verification. 38% of developers find reviewing AI code more effort-intensive than human code, and with 96% struggling to fully trust AI outputs, every line requires careful scrutiny. The code might work, but reviewers need to verify it's secure, maintainable, and won't introduce subtle bugs—which AI code often does at higher rates than human-written code.</p>
+            </div>
+
+            <div>
+              <h3 className="text-lg md:text-xl font-bold text-text-primary mb-2">What percentage of production code is AI-generated in 2026?</h3>
+              <p className="text-base text-text-secondary leading-relaxed">As of 2026, approximately 24% of production code is AI-written globally (29% in the US), according to Aikido Security's survey of 450 organizations. Gartner forecasts this will reach 60% by the end of 2026. However, 90% of enterprises now use AI in development—the gap between usage and production deployment reflects the quality and security challenges that prevent much AI code from shipping without significant human review and modification.</p>
+            </div>
+
+            <div>
+              <h3 className="text-lg md:text-xl font-bold text-text-primary mb-2">How bad are security vulnerabilities in AI-generated code really?</h3>
+              <p className="text-base text-text-secondary leading-relaxed">The data is concerning: AI code has 2.74x more vulnerabilities than human-written code, 25.1% of AI samples contain at least one confirmed vulnerability, and AI code caused 1 in 5 security breaches in 2026. Common issues include SQL injection, Server-Side Request Forgery (SSRF), hardcoded secrets, and missing authentication checks. This doesn't mean AI code can't be made secure—but it requires expert security review before production deployment, especially for apps handling user data or payments.</p>
             </div>
           </div>
 
