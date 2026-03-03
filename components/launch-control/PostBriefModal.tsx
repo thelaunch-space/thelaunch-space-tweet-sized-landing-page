@@ -77,6 +77,14 @@ export default function PostBriefModal({ task, open, onClose }: PostBriefModalPr
       className="fixed inset-0 z-50 flex items-end sm:items-center sm:justify-center bg-black/60 backdrop-blur-sm animate-fadeIn"
       onClick={onClose}
     >
+      {/* Mobile-only sticky dismiss — always visible even if sheet overflows */}
+      <button
+        className="fixed bottom-3 left-1/2 -translate-x-1/2 z-[60] sm:hidden px-5 py-1.5 rounded-full bg-black/30 text-white/50 text-[11px] backdrop-blur-sm border border-white/10 hover:bg-black/50 hover:text-white/80 transition-colors"
+        onClick={onClose}
+      >
+        dismiss
+      </button>
+
       <div
         className="bg-surface border border-border-color/60 rounded-t-2xl sm:rounded-2xl shadow-card-hover w-full sm:max-w-[1100px] max-h-[80dvh] sm:max-h-[90dvh] relative animate-scaleIn overflow-hidden flex flex-col sm:mx-4"
         onClick={(e) => e.stopPropagation()}
