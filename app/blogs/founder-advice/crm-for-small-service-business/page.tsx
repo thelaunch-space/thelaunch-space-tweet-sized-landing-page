@@ -29,7 +29,7 @@ const jsonLd = {
   description: "50-70% of CRMs fail because teams won't use them. Here's how to pick the right CRM for your 5-person agency based on adoption, not features.",
   url: "https://thelaunch.space/blogs/founder-advice/crm-for-small-service-business",
   datePublished: "2026-02-21T00:00:00.000Z",
-  dateModified: "2026-02-23T00:00:00.000Z",
+  dateModified: "2026-03-02T00:00:00.000Z",
   author: { "@type": "Organization", name: "thelaunch.space", url: "https://thelaunch.space" },
   publisher: {
     "@type": "Organization",
@@ -60,8 +60,8 @@ export default function BlogPost() {
           <div className="flex items-center gap-3 text-sm text-text-secondary mb-10">
             <span>thelaunch.space</span><span>·</span>
             <time dateTime="2026-02-21">Feb 21, 2026</time><span>·</span>
-            <span>Updated Feb 23, 2026</span><span>·</span>
-            <span>10 min read</span>
+            <span>Updated Mar 2, 2026</span><span>·</span>
+            <span>11 min read</span>
           </div>
 
           <p className="text-lg md:text-xl text-text-primary leading-relaxed mb-8">
@@ -108,6 +108,20 @@ export default function BlogPost() {
           <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
             The data backs this up. According to <a href="https://www.kixie.com/sales-blog/crm-statistics-and-market-insights-for-2025/" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Kixie&apos;s 2025 CRM research</a>, while 71% of small businesses overall use CRM systems, only 50% of companies with fewer than 10 employees have adopted one. That gap tells you everything: <span className="text-text-primary font-semibold">the smallest businesses struggle most with CRM adoption because they can&apos;t afford complexity.</span>
           </p>
+
+          <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
+            Recent 2025 data shows <a href="https://www.sellerscommerce.com/blog/crm-statistics/" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">72% of small businesses</a> now use some form of CRM, with cloud-based solutions accounting for 80-87% of adoption. The shift to no-code tools is significant: <span className="text-text-primary font-semibold">70% of startups and freelancers adopted no-code tools in 2025</span> to organize projects, with many using Notion or Airtable as their first &quot;CRM.&quot; For teams at the 5-person inflection point, this means simpler tools are not just viable—they&apos;re often the better choice.
+          </p>
+
+          <div className="bg-border-color/30 border border-border-color rounded-xl p-8 my-10">
+            <p className="text-text-primary font-semibold text-lg mb-3">Professional Services CRM ROI (2025)</p>
+            <p className="text-text-secondary text-base leading-relaxed mb-4">
+              Professional services businesses that achieve high CRM adoption typically see <span className="text-text-primary font-semibold">200-400% ROI</span>, according to <a href="https://www.leadsquared.com/learn/marketing/how-to-calculate-the-roi-of-your-crm-investment/" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">2025 industry benchmarks</a>. The average across B2B companies is 280%—meaning $2.80 return for every $1 spent.
+            </p>
+            <p className="text-text-secondary text-base leading-relaxed">
+              Financial services advisors using AI-enhanced CRM tools reclaim <span className="text-text-primary font-semibold">5-8 hours per week</span> from administrative tasks, according to <a href="https://vantagepoint.io/blog/sf/state-of-crm-financial-services-2026-trends" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Vantage Point&apos;s 2026 trends report</a>. For a 50-advisor firm, that&apos;s over 15,000 hours annually redirected to client activities. Scale that down to a 5-person team: you&apos;re looking at 1,500+ hours reclaimed per year when adoption works.
+            </p>
+          </div>
 
           <hr className="border-border-color my-12" />
 
@@ -299,6 +313,13 @@ export default function BlogPost() {
                   <td className="py-3 pr-4">Low</td>
                   <td className="py-3 pr-4">Moderate-High</td>
                   <td className="py-3">Tailored to team</td>
+                </tr>
+                <tr className="border-b border-border-color/50">
+                  <td className="py-3 pr-4 font-medium">Expected ROI</td>
+                  <td className="py-3 pr-4">High (if adopted)</td>
+                  <td className="py-3 pr-4">200-400% (service businesses)</td>
+                  <td className="py-3 pr-4">280% avg (if 90%+ adoption)</td>
+                  <td className="py-3">300%+ (perfect fit)</td>
                 </tr>
                 <tr>
                   <td className="py-3 pr-4 font-medium">Best For</td>
@@ -520,6 +541,26 @@ export default function BlogPost() {
           <h3 className="text-lg md:text-xl font-bold mt-8 mb-3">What if my team refuses to log into the CRM?</h3>
           <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
             This is a signal, not a problem. Your team is telling you the tool doesn&apos;t fit their workflow. Don&apos;t fight adoption with mandates—fix the tool. Either pick something simpler (Notion if they already use it) or build custom around their actual workflow. A CRM nobody uses is worse than no CRM at all.
+          </p>
+
+          <h3 className="text-lg md:text-xl font-bold mt-8 mb-3">Do I need AI features in my CRM in 2025?</h3>
+          <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
+            Not for a 5-person team, at least not at first. According to <a href="https://dogmagroup.co.uk/top-crm-trends-2025/" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">2025 CRM trends</a>, 65% of businesses are using generative AI in CRM, and over 70% of platforms are expected to be AI-integrated by end of 2025. But AI features help most with data entry automation and smart scheduling—benefits that matter more at scale. For small teams, a simple CRM your team actually uses beats an AI-powered one they ignore. Add AI later when you&apos;re confident on the basics.
+          </p>
+
+          <h3 className="text-lg md:text-xl font-bold mt-8 mb-3">Is a no-code CRM (like Notion or Airtable) enough for professional services?</h3>
+          <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
+            Yes, especially at the beginning. <span className="text-text-primary font-semibold">70% of startups and freelancers adopted no-code tools in 2025</span> to organize operations, and many professional services firms run successfully on Notion or Airtable CRMs. The limitation is automation—you won&apos;t get email tracking, workflow triggers, or advanced reporting out of the box. But if your team is 5 people or fewer and you&apos;re focused on lead tracking (not complex automation), no-code tools offer the best adoption-to-value ratio. Upgrade to a dedicated CRM when you outgrow manual processes.
+          </p>
+
+          <h3 className="text-lg md:text-xl font-bold mt-8 mb-3">What's the typical ROI timeline for a CRM in service businesses?</h3>
+          <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
+            If adopted well, ROI shows up within 1-3 months. <a href="https://www.sltcreative.com/crm-statistics" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Research shows</a> that CRM systems save 5-8 hours per professional per week through reduced admin work and faster follow-ups. For a 5-person team, that&apos;s 25-40 hours weekly—roughly one FTE worth of capacity. Professional services firms see <span className="text-text-primary font-semibold">200-400% ROI</span> when adoption is high, meaning the time and cost investment pays back quickly. The catch: if adoption is low (&lt;50%), ROI can take 6-12 months or never materialize.
+          </p>
+
+          <h3 className="text-lg md:text-xl font-bold mt-8 mb-3">Should I move from spreadsheets to a CRM if I'm planning to scale past 10 people?</h3>
+          <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
+            Yes, but do it before you hit 7-8 people. The data is clear: <span className="text-text-primary font-semibold">91% of companies with 10+ employees use CRM</span>, compared to 50% of teams under 10. The reason? At 10+ people, spreadsheet chaos becomes unmanageable. If you wait until you&apos;re at 10 people to adopt a CRM, you&apos;ll be migrating data and training a larger team under pressure. Start the transition at 5-6 people when you have time to build the habit before scaling accelerates. Choose something simple that can grow with you—Pipedrive or a well-structured Airtable setup both work.
           </p>
 
           <hr className="border-border-color my-12" />
