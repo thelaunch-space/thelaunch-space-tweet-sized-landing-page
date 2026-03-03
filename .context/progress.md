@@ -1,6 +1,6 @@
 # Progress — thelaunch.space Landing Page + Blog
 
-Last updated: 2026-03-01 (Kanban improvements: task detail modal, backlog creation, blog PR preview link)
+Last updated: 2026-03-03
 
 ## Completed
 - [x] Project scaffolding (originally Vite + React 18, later migrated to Next.js 14)
@@ -212,6 +212,11 @@ Last updated: 2026-03-01 (Kanban improvements: task detail modal, backlog creati
 - [x] **Kanban: Task Detail Modal** — New `TaskDetailModal.tsx` component. Clicking a Shakti task (`type: "task"`) or manual task (`type: "manual"`) card title opens a modal. Shows client/project/type/priority/deadline read-only for task type; editable title + description for manual. Editable notes/description textarea saves via `manualTasks.update` (existing) or new `shaktiTasks.update` public mutation. (2026-03-01)
 - [x] **Kanban: Backlog "+" creation button** — `WorkBoardColumn.tsx` now shows "+" on both `todo` and `backlog` columns. `AddTaskForm.tsx` accepts `targetColumn?: "backlog" | "todo"` prop and uses it as the `status` when creating via `manualTasks.create` or `shaktiTasks.create`. `manualTasks.create` now accepts optional `status` param (defaults to `"todo"`). `workboard.ts` `mapManualStatus` now maps `"backlog"` → backlog column. (2026-03-01)
 
+- [x] **Kanban: Hook/CTA selection on LinkedIn approve** — `WorkBoardCard.tsx` shows pill pickers for `hookOptions` + `ctaOptions` when approving a linkedin post-brief. Confirm button disabled until both are selected. `workboard.updateArtifactStatus` accepts `selectedHook` + `selectedCta` params, stores them on the `linkedinPosts` record. (2026-03-03)
+- [x] **Blog category pages pre-rendered at build time** — `app/blogs/[topic]/page.tsx` now exports `generateStaticParams()` using `getBlogCategories()`. Added loading skeletons (`app/blogs/loading.tsx`, `app/blogs/[topic]/loading.tsx`, `app/your-ai-team/loading.tsx`). `lib/blog.ts` discovery results cached to avoid redundant fs scans. Fix for broken Netlify builds where dynamic routes weren't being pre-built. (2026-03-03)
+- [x] **New blogs: "dev-disappeared" + "feature-request-overwhelm"** — `app/blogs/founder-advice/dev-disappeared/page.tsx` + `app/blogs/founder-advice/feature-request-overwhelm/page.tsx`. Blog total: **24 published posts** (8 startup-mvps, 12 founder-advice, 4 ai-tools). (2026-03-03)
+- [x] **Kanban mobile: sticky dismiss button** — All 3 card modals (`BriefReaderModal`, `PostBriefModal`, `TaskDetailModal`) now render a `fixed bottom-3` "dismiss" pill (`sm:hidden`) at `z-60`. Always reachable on mobile even when modal sheet overflows the viewport. (2026-03-03)
+
 ## In Progress
 - End-to-end brief→blog flow verification (Vyasa picking up brief from Convex, pushing pr_created status back)
 
@@ -223,7 +228,8 @@ Last updated: 2026-03-01 (Kanban improvements: task detail modal, backlog creati
 - **Question count mismatch** — Prod Convex has 771 unique questions, Google Sheet has 891. ~120 questions may not have been pushed to Convex, or have slightly different URLs. Needs investigation.
 
 ## Recent Changes (latest first)
-1. **Shakti Phase 0 + 1 — COMPLETE** — `clients`, `projects`, `tasks` tables added to Convex schema (13 tables total). `convex/clients.ts`, `convex/projects.ts`, `convex/shaktiTasks.ts` created. 9 new HTTP endpoints: `/push/clients`, `/push/projects`, `/push/tasks`, `/update/task-status`, `/query/clients`, `/query/projects`, `/query/tasks`. WorkBoard `task` card type wired in `workboard.ts` (`getBoard` + `updateArtifactStatus`) and `WorkBoardCard.tsx` (client/project badges, task type badge, estimated hours, action buttons). (2026-02-28)
+1. **Kanban mobile dismiss + blog pre-render + hook/CTA selection** — (2026-03-03) Mobile: sticky dismiss pill on all 3 card modals. Blog category pages now pre-rendered at build time (generateStaticParams). LinkedIn approve flow requires hook + CTA selection. 2 new blogs (dev-disappeared, feature-request-overwhelm). Blog total: 24 posts.
+2. **Shakti Phase 0 + 1 — COMPLETE** — `clients`, `projects`, `tasks` tables added to Convex schema (13 tables total). `convex/clients.ts`, `convex/projects.ts`, `convex/shaktiTasks.ts` created. 9 new HTTP endpoints: `/push/clients`, `/push/projects`, `/push/tasks`, `/update/task-status`, `/query/clients`, `/query/projects`, `/query/tasks`. WorkBoard `task` card type wired in `workboard.ts` (`getBoard` + `updateArtifactStatus`) and `WorkBoardCard.tsx` (client/project badges, task type badge, estimated hours, action buttons). (2026-02-28)
 2. **7th agent: Shakti** — "The Chief of Staff" added to `lib/agents.ts` (indigo accent #4F46E5, 6 task types, daily planning KRAs), `lib/pitch-data.ts` (Pace: 9, Intel: 8, active — Sanjaya remains only coming-soon), `lib/geo-savings.ts` ($800/mo INTL, ₹15K/mo IN for Task management). (2026-02-28)
 3. **Design system: Shakti avatar prompt** — `.context/design-system-v2.md` updated: Shakti Prompt 7 of 8 added (deep magenta glowing eyes, charcoal blazer over magenta silk kurta, 4 orbiting holographic task panels). All individual agent prompts renumbered 1 of 8 through 7 of 8. Team hero updated to Prompt 8 of 8 — now includes all 7 characters, full camera spec (24–35mm, 2.5:1 panoramic, chest-height, studio lighting), 14-item DO NOT list, and troubleshooting table. (2026-02-28)
 4. **New blog + 6 enrichments** — New blog: "Why Your Landing Page Gets Zero Signups" (founder-advice). Enriched: `why-agency-mvp-failed`, `how-to-find-technical-cofounder`, `hire-developer-vs-build-with-ai`, `when-no-code-tools-stop-working`, `find-technical-cofounder-alternative`, `solo-lawyer-case-management-decision`. Blog total: **22 published posts** (8 startup-mvps, 10 founder-advice, 4 ai-tools). (2026-02-28)

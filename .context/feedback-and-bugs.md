@@ -1,8 +1,15 @@
 # Feedback & Bugs — thelaunch.space
 
-Last updated: 2026-02-27
+Last updated: 2026-03-03
 
 ## Active Bugs
+
+### BUG-007: Kanban card modals cut off dismiss/close on mobile (2026-03-03)
+**Status:** Fixed (2026-03-03)
+**Reported:** On mobile, tapping a Kanban card title opens a bottom-sheet modal. The sheet was taking up the full viewport height, pushing the header (with X button) and footer (with Close/Save) off-screen. Multiple height-reduction attempts (`max-h-[75dvh]`, `max-h-[70dvh]`) didn't reliably fix across all phones.
+**Root cause:** Bottom-sheet modal content (especially PostBriefModal with long draft text + hook/CTA pickers) can exceed `80dvh` on small-screen devices. The `overflow-y-auto` on the body scrolls content, but header/footer are inside the sheet so they scroll too on short devices.
+**Fix:** Added a `fixed bottom-3 left-1/2 -translate-x-1/2 z-[60] sm:hidden` "dismiss" pill button to all 3 modals (`BriefReaderModal`, `PostBriefModal`, `TaskDetailModal`). It sits outside the modal sheet div, always pinned to the viewport bottom, unreachable by the sheet's overflow.
+**Affected files:** `components/launch-control/BriefReaderModal.tsx`, `components/launch-control/PostBriefModal.tsx`, `components/launch-control/TaskDetailModal.tsx`
 
 ### BUG-006: Netlify Durable Cache serving stale HTML after deploys (2026-02-26)
 **Status:** Fixed (2026-02-27)
