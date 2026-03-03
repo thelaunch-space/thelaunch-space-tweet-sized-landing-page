@@ -39,8 +39,8 @@ function formatDate(iso: string): string {
   });
 }
 
-export default function BlogIndex() {
-  const categories = getBlogCategories();
+export default async function BlogIndex() {
+  const categories = await getBlogCategories();
   const totalPosts = categories.reduce((n, c) => n + c.posts.length, 0);
 
   return (

@@ -1,5 +1,6 @@
 import { readdirSync, readFileSync, existsSync } from "fs";
 import { join } from "path";
+import { unstable_cache } from "next/cache";
 
 export interface BlogPost {
   topic: string;
@@ -20,7 +21,7 @@ export interface BlogCategory {
 import { CATEGORY_LABELS } from "./blog-labels";
 export { CATEGORY_LABELS } from "./blog-labels";
 
-export function discoverBlogPosts(): BlogPost[] {
+async function _discoverBlogPosts(): Promise<BlogPost[]> {
   const blogsDir = join(process.cwd(), "app", "blogs");
   const posts: BlogPost[] = [];
 
@@ -73,8 +74,14 @@ export function discoverBlogPosts(): BlogPost[] {
   return posts;
 }
 
-export function getBlogCategories(): BlogCategory[] {
-  const posts = discoverBlogPosts();
+export const discoverBlogPosts = unstable_cache(
+  _discoverBlogPosts,
+  ["blog-posts"],
+  { revalidate: false }
+);
+
+export async function getBlogCategories(): Promise<BlogCategory[]> {
+  const posts = await discoverBlogPosts();
   const grouped = new Map<string, BlogPost[]>();
 
   for (const post of posts) {

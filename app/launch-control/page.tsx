@@ -22,8 +22,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function LaunchControlPage() {
-  const blogPosts = discoverBlogPosts();
+export default async function LaunchControlPage() {
+  const blogPosts = await discoverBlogPosts();
 
   return <LaunchControlDashboard blogPosts={blogPosts} />;
 }

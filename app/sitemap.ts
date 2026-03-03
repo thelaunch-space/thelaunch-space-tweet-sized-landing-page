@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { discoverBlogPosts } from "@/lib/blog";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://thelaunch.space";
 
   const staticPages: MetadataRoute.Sitemap = [
@@ -43,7 +43,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  const blogPages: MetadataRoute.Sitemap = discoverBlogPosts().map(
+  const blogPages: MetadataRoute.Sitemap = (await discoverBlogPosts()).map(
     (post) => ({
       url: `${baseUrl}${post.url}`,
       lastModified: new Date(post.publishedTime),

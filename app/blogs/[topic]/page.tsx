@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { discoverBlogPosts, CATEGORY_LABELS } from "@/lib/blog";
+import { discoverBlogPosts, getBlogCategories, CATEGORY_LABELS } from "@/lib/blog";
+
+export async function generateStaticParams() {
+  const categories = await getBlogCategories();
+  return categories.map((cat) => ({ topic: cat.topic }));
+}
 
 interface Props {
   params: { topic: string };
@@ -49,8 +54,9 @@ function formatDate(iso: string): string {
   });
 }
 
-export default function TopicIndex({ params }: Props) {
-  const posts = discoverBlogPosts().filter((p) => p.topic === params.topic);
+export default async function TopicIndex({ params }: Props) {
+  const allPosts = await discoverBlogPosts();
+  const posts = allPosts.filter((p) => p.topic === params.topic);
 
   if (posts.length === 0) notFound();
 
