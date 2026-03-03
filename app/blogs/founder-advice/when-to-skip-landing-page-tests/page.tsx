@@ -29,7 +29,7 @@ const jsonLd = {
   description: "Landing page validation often fails for B2B and service businesses. Learn when to skip the landing page and validate through direct customer conversations.",
   url: "https://thelaunch.space/blogs/founder-advice/when-to-skip-landing-page-tests",
   datePublished: "2026-02-23T00:00:00.000Z",
-  dateModified: "2026-02-24T00:00:00.000Z",
+  dateModified: "2026-03-03T00:00:00.000Z",
   author: { "@type": "Organization", name: "thelaunch.space", url: "https://thelaunch.space" },
   publisher: {
     "@type": "Organization",
@@ -86,7 +86,7 @@ export default function BlogPost() {
           </div>
 
           <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
-            This is not an isolated experience. <a href="https://www.fraudlogix.com/stats/ad-fraud-statistics-2026" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Fraudlogix&apos;s 2026 report</a> found a global invalid traffic rate of 20.64% across 105.7 billion ad impressions. Desktop traffic is worse at 27%. That translates to roughly $37 billion in US ad spend associated with invalid traffic annually.
+            This is not an isolated experience. <a href="https://www.fraudlogix.com/stats/ad-fraud-statistics-2026" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Fraudlogix&apos;s 2026 report</a> found a global invalid traffic rate of 20.64% across 105.7 billion ad impressions. Desktop traffic is worse at 27%. That translates to roughly $37 billion in US ad spend associated with invalid traffic annually. A separate analysis by Lunio of 2.7 billion paid ad clicks from August 2024 to August 2025 found 8.51% invalid traffic—still enough to waste $63 billion globally.
           </p>
 
           <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
@@ -156,6 +156,15 @@ export default function BlogPost() {
             <a href="https://firstpagesage.com/seo-blog/b2b-landing-page-conversion-rates/" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">First Page Sage&apos;s 2026 report</a> found B2B SaaS landing pages convert at just 1.1%. Business consulting at 1.7%. Even the best-performing B2B categories (legal services at 3.4%) pale compared to what a focused conversation can achieve.
           </p>
 
+          <div className="bg-border-color/30 border border-border-color rounded-xl p-8 my-10 text-center">
+            <p className="text-3xl md:text-4xl font-bold text-text-primary mb-2">60-120 days</p>
+            <p className="text-sm md:text-base text-text-secondary">Average B2B sales cycle length in 2025-2026, with 57-58% of professionals reporting lengthening cycles due to multiple decision-makers and procurement processes</p>
+          </div>
+
+          <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
+            B2B buying decisions take time. The average B2B sales cycle runs 60-120 days, and more than half of sales professionals report cycles lengthening due to additional stakeholders and approval processes. A landing page signup in minute one does not predict a contract signature in month three. You need relationship-building conversations, not click-through metrics.
+          </p>
+
           <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
             The stakes are high for getting this right. Research from Bain & Company shows that only 8% of B2B product launches achieve their initial goals. Meanwhile, Deloitte found that customer-centric companies are 60% more profitable than companies that aren&apos;t. The validation method you choose directly impacts whether you build something people want—or waste months on something nobody needs.
           </p>
@@ -200,6 +209,15 @@ export default function BlogPost() {
 
           <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
             This is why landing page tests can be dangerous for B2B founders: they let you avoid customer contact while convincing yourself you&apos;re doing validation. Real validation requires real conversations.
+          </p>
+
+          <div className="bg-border-color/30 border border-border-color rounded-xl p-8 my-10 text-center">
+            <p className="text-3xl md:text-4xl font-bold text-text-primary mb-2">100+</p>
+            <p className="text-sm md:text-base text-text-secondary">Number of customer discovery interviews required by the NSF&apos;s Innovation Corps (I-Corps) program over 7 weeks—institutional validation that talking to customers works</p>
+          </div>
+
+          <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
+            The customer interview approach is not just startup folklore. The National Science Foundation&apos;s Innovation Corps (I-Corps) program—one of the most rigorous startup validation programs in the world—requires founder teams to conduct more than 100 customer discovery interviews over seven weeks. Carnegie Mellon University&apos;s Customer Discovery Kickstart program has helped 166 startups participate since 2022, resulting in $1.39 million in follow-on funding and 22 companies formed. These programs prove that systematic customer conversations produce fundable, viable businesses.
           </p>
 
           <hr className="border-border-color my-12" />
