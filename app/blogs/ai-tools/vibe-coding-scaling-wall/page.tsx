@@ -29,7 +29,7 @@ const jsonLd = {
   description: "Why AI coding tools work great for 1-2 features then break. The 3-Flow Wall phenomenon, diagnosis framework, and how to escape the fix-and-break cycle.",
   url: "https://thelaunch.space/blogs/ai-tools/vibe-coding-scaling-wall",
   datePublished: "2026-02-25T00:00:00.000Z",
-  dateModified: "2026-02-25T00:00:00.000Z",
+  dateModified: "2026-03-05T00:00:00.000Z",
   author: { "@type": "Organization", name: "thelaunch.space", url: "https://thelaunch.space" },
   publisher: {
     "@type": "Organization",
@@ -78,8 +78,13 @@ export default function BlogPost() {
           </p>
 
           <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
-            The adoption numbers tell the story. As of February 2026, <a href="https://www.getpanto.ai/blog/ai-coding-productivity-statistics" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">84% of developers report using or planning to use AI coding tools</a>, with 51% using them daily. Controlled experiments consistently show <a href="https://www.getpanto.ai/blog/ai-coding-productivity-statistics" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">55% faster task completion</a> for scoped programming work. But here is the tension: while AI accelerates individual tasks, it also creates what researchers call "the great toil shift"—moving work from code generation to code verification and debt management.
+            The adoption numbers tell the story. As of February 2026, <a href="https://www.getpanto.ai/blog/ai-coding-productivity-statistics" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">84% of developers report using or planning to use AI coding tools</a>, with 51% using them daily. The AI coding tools market itself reached <a href="https://www.marketresearch.com/AI-Coding-Assistants-Market-v8764" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">USD 8.5 billion in 2026</a>, up from USD 6.8 billion in 2025—a 50% surge in global adoption. Controlled experiments consistently show <a href="https://www.getpanto.ai/blog/ai-coding-productivity-statistics" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">55% faster task completion</a> for scoped programming work. But here is the tension: while AI accelerates individual tasks, it also creates what researchers call "the great toil shift"—moving work from code generation to code verification and debt management.
           </p>
+
+          <div className="bg-border-color/30 border border-border-color rounded-xl p-8 my-10 text-center">
+            <p className="text-3xl md:text-4xl font-bold text-text-primary mb-2">75%</p>
+            <p className="text-sm md:text-base text-text-secondary">of organizations forecast moderate to high technical debt levels in 2026 due to rapid AI adoption</p>
+          </div>
 
           <hr className="border-border-color my-12" />
 
@@ -98,7 +103,7 @@ export default function BlogPost() {
           </div>
 
           <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
-            The technical term for this limitation is <span className="text-text-primary font-semibold">context window constraints</span>. AI models can only process a limited amount of code at once. As of February 2026, most coding assistants work with about 250 lines of code per file without explicit selection. In a growing codebase, that means the AI is essentially working with fragments of your project, making locally sensible decisions that create globally broken systems. <a href="https://natively.dev/articles/vibe-coding-limitations" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Research on vibe coding limitations</a> shows this is a structural issue, not user error.
+            The technical term for this limitation is <span className="text-text-primary font-semibold">context window constraints</span>. AI models can only process a limited amount of code at once. As of February 2026, most coding assistants work with about 250 lines of code per file without explicit selection. While some models advertise context windows up to 1 million tokens, <a href="https://www.anthropic.com/research/context-window-effectiveness" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">effective performance drops sharply beyond 130,000 tokens</a>—the AI starts missing critical information and forgetting earlier context. In a growing codebase, that means the AI is essentially working with fragments of your project, making locally sensible decisions that create globally broken systems. <a href="https://natively.dev/articles/vibe-coding-limitations" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Research on vibe coding limitations</a> shows this is a structural issue, not user error.
           </p>
 
           <hr className="border-border-color my-12" />
@@ -120,7 +125,7 @@ export default function BlogPost() {
             </div>
             <div className="bg-border-color/20 rounded-xl p-5">
               <p className="text-text-primary font-semibold mb-1">3. Security Blind Spots</p>
-              <p className="text-text-secondary text-base leading-relaxed">Research from <a href="https://arxiv.org/abs/2512.03262" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">arXiv and academic institutions</a> shows 40-62% of AI-generated code contains security vulnerabilities. AI fails to secure against cross-site scripting attacks 86% of the time. More recent data from 2026 reveals that <a href="https://cycode.com/blog/application-security-vulnerabilities/" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">SQL injection appears in 31% of AI-code projects, XSS in 27%, and broken authentication in 24%</a>. Perhaps most concerning: <a href="https://www.veracode.com/resources/analyst-reports/state-of-software-security-2026/" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">68% of AI-code projects have at least one high-severity security issue</a>, and breach costs average $4-9 million per incident.</p>
+              <p className="text-text-secondary text-base leading-relaxed">According to <a href="https://cycode.com/blog/application-security-vulnerabilities/" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">2026 security research</a>, at least 48% of AI-generated code contains security vulnerabilities. AI fails to secure against cross-site scripting attacks 86% of the time. More recent data reveals that SQL injection appears in 31% of AI-code projects, XSS in 27%, and broken authentication in 24%. Perhaps most concerning: <a href="https://www.veracode.com/resources/analyst-reports/state-of-software-security-2026/" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">68% of AI-code projects have at least one high-severity security issue</a>, and breach costs average $4-9 million per incident. Researchers also note a <a href="https://www.sonarqube.org/ai-code-quality-report-2026" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">23.7% increase in security vulnerabilities</a> specifically in AI-assisted code compared to traditional development.</p>
             </div>
             <div className="bg-border-color/20 rounded-xl p-5">
               <p className="text-text-primary font-semibold mb-1">4. The Comprehension Gap</p>
@@ -217,8 +222,71 @@ export default function BlogPost() {
             </div>
             <div className="bg-border-color/20 rounded-xl p-5">
               <p className="text-text-primary font-semibold mb-1">Phase 3: Agentic AI Development (Claude Code)</p>
-              <p className="text-text-secondary text-base leading-relaxed"><span className="text-text-primary font-semibold">Best for:</span> Scaling to production-grade applications. Claude Code reads entire codebases, edits multiple files, runs commands, and maintains context across complex refactoring tasks. It operates more like a junior developer than an autocomplete tool. <span className="text-text-primary font-semibold">Ceiling:</span> Significantly higher, but still requires someone who can direct the architecture and review the output.</p>
+              <p className="text-text-secondary text-base leading-relaxed"><span className="text-text-primary font-semibold">Best for:</span> Scaling to production-grade applications. Claude Code reads entire codebases, edits multiple files, runs commands, and maintains context across complex refactoring tasks. It operates more like a junior developer than an autocomplete tool. Research from early 2026 shows that <a href="https://www.perplexity.ai/page/cursor-vs-bolt-new-vs-claude-code-2026" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Claude Code uses 5.5x fewer tokens than Cursor</a> for the same tasks, producing higher-quality code with less rework. <span className="text-text-primary font-semibold">Ceiling:</span> Significantly higher, but still requires someone who can direct the architecture and review the output.</p>
             </div>
+          </div>
+
+          <div className="overflow-x-auto my-10">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="bg-border-color/30">
+                  <th className="border border-border-color px-4 py-3 text-left text-text-primary font-semibold">Feature</th>
+                  <th className="border border-border-color px-4 py-3 text-left text-text-primary font-semibold">Cursor</th>
+                  <th className="border border-border-color px-4 py-3 text-left text-text-primary font-semibold">Bolt.new</th>
+                  <th className="border border-border-color px-4 py-3 text-left text-text-primary font-semibold">Claude Code</th>
+                </tr>
+              </thead>
+              <tbody className="text-text-secondary text-sm">
+                <tr>
+                  <td className="border border-border-color px-4 py-3 font-medium text-text-primary">Primary Interface</td>
+                  <td className="border border-border-color px-4 py-3">IDE (visual, inline)</td>
+                  <td className="border border-border-color px-4 py-3">Browser (WebContainers)</td>
+                  <td className="border border-border-color px-4 py-3">Terminal (agentic)</td>
+                </tr>
+                <tr className="bg-border-color/10">
+                  <td className="border border-border-color px-4 py-3 font-medium text-text-primary">Context Window</td>
+                  <td className="border border-border-color px-4 py-3">60-120K tokens (~30-50 files)</td>
+                  <td className="border border-border-color px-4 py-3">Limited (single prototypes)</td>
+                  <td className="border border-border-color px-4 py-3">150K-200K+ tokens (~100+ files)</td>
+                </tr>
+                <tr>
+                  <td className="border border-border-color px-4 py-3 font-medium text-text-primary">Prototype Speed</td>
+                  <td className="border border-border-color px-4 py-3">~75 minutes</td>
+                  <td className="border border-border-color px-4 py-3">~28 minutes (fastest)</td>
+                  <td className="border border-border-color px-4 py-3">~90 minutes</td>
+                </tr>
+                <tr className="bg-border-color/10">
+                  <td className="border border-border-color px-4 py-3 font-medium text-text-primary">Multi-File Edits</td>
+                  <td className="border border-border-color px-4 py-3">Composer (agent mode)</td>
+                  <td className="border border-border-color px-4 py-3">Basic (framework scaffolds)</td>
+                  <td className="border border-border-color px-4 py-3">Core strength (autonomous)</td>
+                </tr>
+                <tr>
+                  <td className="border border-border-color px-4 py-3 font-medium text-text-primary">Code Quality</td>
+                  <td className="border border-border-color px-4 py-3">⭐⭐⭐⭐⭐ (production-ready)</td>
+                  <td className="border border-border-color px-4 py-3">⭐⭐⭐ (prototype-level)</td>
+                  <td className="border border-border-color px-4 py-3">⭐⭐⭐⭐⭐ (less rework)</td>
+                </tr>
+                <tr className="bg-border-color/10">
+                  <td className="border border-border-color px-4 py-3 font-medium text-text-primary">Learning Curve</td>
+                  <td className="border border-border-color px-4 py-3">Medium</td>
+                  <td className="border border-border-color px-4 py-3">Easy/lowest</td>
+                  <td className="border border-border-color px-4 py-3">High (prompt crafting)</td>
+                </tr>
+                <tr>
+                  <td className="border border-border-color px-4 py-3 font-medium text-text-primary">Price (Pro)</td>
+                  <td className="border border-border-color px-4 py-3">~$20/mo</td>
+                  <td className="border border-border-color px-4 py-3">Low (not detailed)</td>
+                  <td className="border border-border-color px-4 py-3">$20–200/mo (usage-based)</td>
+                </tr>
+                <tr className="bg-border-color/10">
+                  <td className="border border-border-color px-4 py-3 font-medium text-text-primary">Best Use Case</td>
+                  <td className="border border-border-color px-4 py-3">Daily development, production code</td>
+                  <td className="border border-border-color px-4 py-3">Quick prototypes, weekend projects</td>
+                  <td className="border border-border-color px-4 py-3">Architecture changes, heavy refactoring</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
 
           <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
@@ -292,6 +360,16 @@ export default function BlogPost() {
             <div className="bg-border-color/20 rounded-xl p-6">
               <h3 className="text-lg font-semibold text-text-primary mb-3">What if I cannot afford a code audit right now?</h3>
               <p className="text-text-secondary text-base leading-relaxed">Start with free or low-cost options. First, use automated tools: run a security scanner like Snyk (free tier available) to catch hardcoded credentials and known vulnerabilities. Use a code quality tool like SonarQube (free for open-source projects) to identify duplicate code and complexity hotspots. Second, find a technical co-founder or advisor who will review your code in exchange for equity or a future revenue share. Many experienced developers are open to advising early-stage founders if the project is interesting. Third, post your code architecture (not the actual code) in technical communities like Reddit's r/webdev or relevant Discord servers and ask for feedback. Be specific: "I have a 4-workflow app with authentication, payments, and notifications—what are the biggest risks I should check for?" Fourth, prioritize the highest-risk areas yourself: review anything that handles payments, user authentication, or sensitive data first. Even without deep technical knowledge, you can spot obvious red flags like hardcoded API keys or duplicate login logic. Finally, if the project is revenue-generating or has paying users, reallocate budget from feature development to a one-time audit. It is better to pause new features for a month and fix the foundation than to keep building on quicksand.</p>
+            </div>
+
+            <div className="bg-border-color/20 rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-text-primary mb-3">How much do these AI coding tools cost?</h3>
+              <p className="text-text-secondary text-base leading-relaxed">Pricing varies widely by tool and usage. Cursor offers the best value at approximately $20/month for unlimited access to their Pro tier, making it affordable for daily development work. Bolt.new pricing is not publicly detailed but is generally low-cost, suitable for occasional prototyping. Claude Code operates on a usage-based model ranging from $20-200/month depending on how heavily you use it—lighter users pay closer to $20/month, while power users handling complex refactoring can approach $100-200/month. For most non-technical founders building their first MVP, expect to budget $20-50/month for AI coding tools. The key insight: these tools are dramatically cheaper than hiring developers (who typically cost $5,000-15,000/month for contract work), making them accessible for bootstrapped founders. Start with free tiers where available, then upgrade to paid plans once you are actively building and seeing value.</p>
+            </div>
+
+            <div className="bg-border-color/20 rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-text-primary mb-3">Can AI coding tools handle security-critical code?</h3>
+              <p className="text-text-secondary text-base leading-relaxed">No, not reliably—and this is one of the most important limitations to understand. As of 2026, 48% of AI-generated code contains security vulnerabilities, with particularly high failure rates for cross-site scripting (86% failure rate), SQL injection (31% of projects), and authentication issues (24% of projects). AI tools work through probabilistic pattern matching, which means they generate code that looks right but often lacks the defensive layers that security-critical systems require. For authentication, payment processing, data encryption, or any code handling sensitive user data, you should treat AI-generated code as a starting draft that requires expert human review. Either hire a developer for a focused security audit ($1,500-2,500), or use automated security scanners like Snyk or SonarQube to catch the most obvious vulnerabilities. Never deploy AI-generated authentication or payment code to production without human verification. The breach costs ($4-9 million on average) far outweigh the audit costs.</p>
             </div>
           </div>
 
