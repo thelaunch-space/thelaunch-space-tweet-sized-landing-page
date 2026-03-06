@@ -921,6 +921,44 @@ http.route({
 });
 
 // ---------------------------------------------------------------------------
+// Blog status update + delete
+// ---------------------------------------------------------------------------
+
+http.route({
+  path: "/update/blog-status",
+  method: "POST",
+  handler: httpAction(async (ctx, request) => {
+    if (!validateAuth(request)) {
+      return jsonResponse({ error: "Unauthorized" }, 401);
+    }
+    try {
+      const body = await request.json();
+      const result = await ctx.runMutation(internal.blogs.updateStatus, body);
+      return jsonResponse(result);
+    } catch (error: unknown) {
+      return errorResponse(error);
+    }
+  }),
+});
+
+http.route({
+  path: "/delete/blog",
+  method: "POST",
+  handler: httpAction(async (ctx, request) => {
+    if (!validateAuth(request)) {
+      return jsonResponse({ error: "Unauthorized" }, 401);
+    }
+    try {
+      const body = await request.json();
+      const result = await ctx.runMutation(internal.blogs.remove, body);
+      return jsonResponse(result);
+    } catch (error: unknown) {
+      return errorResponse(error);
+    }
+  }),
+});
+
+// ---------------------------------------------------------------------------
 // Agent Chat — fire-and-forget delivery from VPS proxy
 // ---------------------------------------------------------------------------
 
@@ -960,7 +998,8 @@ for (const path of [
   "/push/questions", "/push/briefs", "/push/blogs", "/push/activity",
   "/push/topic-clusters", "/push/tool-opportunities", "/push/documents",
   "/push/linkedin-posts",
-  "/update/brief-status", "/update/blog-enrichment", "/update/linkedin-post-status",
+  "/update/brief-status", "/update/blog-status", "/update/blog-enrichment", "/update/linkedin-post-status",
+  "/delete/blog",
   // GET query endpoints
   "/query/blogs", "/query/questions",
   "/query/briefs", "/query/topic-clusters", "/query/tool-opportunities", "/query/linkedin-posts",

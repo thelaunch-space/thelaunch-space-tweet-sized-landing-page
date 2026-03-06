@@ -80,6 +80,38 @@ export const updateEnrichment = internalMutation({
   },
 });
 
+export const updateStatus = internalMutation({
+  args: {
+    slug: v.string(),
+    status: v.string(),
+    publishedAt: v.optional(v.string()),
+  },
+  handler: async (ctx, args) => {
+    const blog = await ctx.db
+      .query("blogs")
+      .withIndex("by_slug", (q) => q.eq("slug", args.slug))
+      .first();
+    if (!blog) throw new Error(`Blog not found with slug: ${args.slug}`);
+    const patch: Record<string, string> = { status: args.status };
+    if (args.publishedAt) patch.publishedAt = args.publishedAt;
+    await ctx.db.patch(blog._id, patch);
+    return { success: true, slug: args.slug, status: args.status };
+  },
+});
+
+export const remove = internalMutation({
+  args: { slug: v.string() },
+  handler: async (ctx, args) => {
+    const blog = await ctx.db
+      .query("blogs")
+      .withIndex("by_slug", (q) => q.eq("slug", args.slug))
+      .first();
+    if (!blog) throw new Error(`Blog not found with slug: ${args.slug}`);
+    await ctx.db.delete(blog._id);
+    return { success: true, slug: args.slug };
+  },
+});
+
 export const listRecent = query({
   args: { limit: v.optional(v.number()) },
   handler: async (ctx, args) => {
