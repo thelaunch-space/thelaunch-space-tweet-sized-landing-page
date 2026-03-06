@@ -415,9 +415,127 @@ http.route({
   }),
 });
 
+http.route({
+  path: "/update/linkedin-post-status",
+  method: "POST",
+  handler: httpAction(async (ctx, request) => {
+    if (!validateAuth(request)) {
+      return jsonResponse({ error: "Unauthorized" }, 401);
+    }
+    try {
+      const body = await request.json();
+      const result = await ctx.runMutation(internal.linkedinPosts.updateStatus, body);
+      return jsonResponse(result);
+    } catch (error: unknown) {
+      return errorResponse(error);
+    }
+  }),
+});
+
 // ---------------------------------------------------------------------------
 // GET query endpoints — agent read access (authenticated with AGENT_API_KEY)
 // ---------------------------------------------------------------------------
+
+http.route({
+  path: "/query/blogs",
+  method: "GET",
+  handler: httpAction(async (ctx, request) => {
+    if (!validateAuth(request)) {
+      return jsonResponse({ error: "Unauthorized" }, 401);
+    }
+    try {
+      const url = new URL(request.url);
+      const needsEnrichment = url.searchParams.get("needs_enrichment");
+      const status = url.searchParams.get("status");
+
+      if (needsEnrichment === "true") {
+        const blog = await ctx.runQuery(internal.agentQueries.getNextBlogForEnrichment, {});
+        if (!blog) return jsonResponse(null);
+        return jsonResponse({
+          _id: blog._id,
+          title: blog.title,
+          slug: blog.slug,
+          url: blog.url ?? null,
+          prUrl: blog.prUrl ?? null,
+          keyword: blog.keyword,
+          status: blog.status,
+          wordCount: blog.wordCount,
+          publishedAt: blog.publishedAt ?? null,
+          createdAt: blog.createdAt,
+          briefId: blog.briefId ?? null,
+          enrichmentCount: blog.enrichmentCount ?? 0,
+          lastEnrichmentDate: blog.lastEnrichmentDate ?? null,
+          enrichmentLog: blog.enrichmentLog ?? null,
+        });
+      }
+
+      const blogs = await ctx.runQuery(internal.agentQueries.getAllBlogs, {
+        status: status ?? undefined,
+      });
+      return jsonResponse(blogs.map((b) => ({
+        _id: b._id,
+        title: b.title,
+        slug: b.slug,
+        url: b.url ?? null,
+        prUrl: b.prUrl ?? null,
+        keyword: b.keyword,
+        status: b.status,
+        wordCount: b.wordCount,
+        publishedAt: b.publishedAt ?? null,
+        createdAt: b.createdAt,
+        briefId: b.briefId ?? null,
+        enrichmentCount: b.enrichmentCount ?? 0,
+        lastEnrichmentDate: b.lastEnrichmentDate ?? null,
+        enrichmentLog: b.enrichmentLog ?? null,
+      })));
+    } catch (error: unknown) {
+      return errorResponse(error);
+    }
+  }),
+});
+
+http.route({
+  path: "/query/questions",
+  method: "GET",
+  handler: httpAction(async (ctx, request) => {
+    if (!validateAuth(request)) {
+      return jsonResponse({ error: "Unauthorized" }, 401);
+    }
+    try {
+      const url = new URL(request.url);
+      const summary = url.searchParams.get("summary");
+
+      if (summary === "true") {
+        const result = await ctx.runQuery(internal.agentQueries.getQuestionsSummary, {});
+        return jsonResponse(result);
+      }
+
+      const limitParam = url.searchParams.get("limit");
+      const limit = limitParam ? parseInt(limitParam, 10) : undefined;
+      const questions = await ctx.runQuery(internal.agentQueries.getRecentQuestions, {
+        limit: limit && !isNaN(limit) ? limit : undefined,
+      });
+      return jsonResponse(questions.map((q) => ({
+        _id: q._id,
+        title: q.title,
+        subreddit: q.subreddit,
+        url: q.url,
+        questionPain: q.questionPain,
+        icpRelevance: q.icpRelevance,
+        launchSpaceAngle: q.launchSpaceAngle,
+        contentPotential: q.contentPotential,
+        engagement: q.engagement,
+        notes: q.notes ?? null,
+        postDate: q.postDate ?? null,
+        scannedAt: q.scannedAt,
+        status: q.status,
+        agentName: q.agentName,
+      })));
+    } catch (error: unknown) {
+      return errorResponse(error);
+    }
+  }),
+});
 
 http.route({
   path: "/query/briefs",
@@ -429,12 +547,45 @@ http.route({
     try {
       const url = new URL(request.url);
       const status = url.searchParams.get("status");
+      const summary = url.searchParams.get("summary");
 
-      if (!status) {
-        return jsonResponse({ error: "Missing ?status query param" }, 400);
+      // Summary mode — counts by status, no filter needed
+      if (summary === "true") {
+        const result = await ctx.runQuery(internal.agentQueries.getBriefsSummary, {});
+        return jsonResponse(result);
       }
 
-      const allowedStatuses = ["brief_ready", "pending_review", "needs_revision"];
+      // All briefs (no status filter)
+      if (status === "all") {
+        const briefs = await ctx.runQuery(internal.agentQueries.getAllBriefs, {});
+        return jsonResponse(briefs.map((b) => ({
+          _id: b._id,
+          title: b.title,
+          slug: b.slug,
+          primaryKeyword: b.primaryKeyword,
+          longTailKeywords: b.longTailKeywords ?? [],
+          sourceUrls: b.sourceUrls ?? [],
+          icpProblem: b.icpProblem ?? null,
+          competitiveGap: b.competitiveGap ?? null,
+          launchSpaceAngle: b.launchSpaceAngle ?? null,
+          suggestedStructure: b.suggestedStructure ?? null,
+          researchNotes: b.researchNotes ?? null,
+          contentMarkdown: b.contentMarkdown ?? null,
+          category: b.category ?? null,
+          status: b.status,
+          krishnaFeedback: b.krishnaFeedback ?? null,
+          createdAt: b.createdAt,
+        })));
+      }
+
+      if (!status) {
+        return jsonResponse({ error: "Missing ?status or ?summary=true query param" }, 400);
+      }
+
+      const allowedStatuses = [
+        "brief_ready", "pending_review", "needs_revision",
+        "writing", "published", "approved", "dropped",
+      ];
       if (!allowedStatuses.includes(status)) {
         return jsonResponse({ error: `Unknown status: ${status}` }, 400);
       }
@@ -449,7 +600,7 @@ http.route({
         });
       }
 
-      // brief_ready + needs_revision — return full brief objects including krishnaFeedback
+      // All other statuses — return full brief objects including krishnaFeedback
       return jsonResponse(briefs.map((b) => ({
         _id: b._id,
         title: b.title,
@@ -527,7 +678,13 @@ http.route({
       return jsonResponse({ error: "Unauthorized" }, 401);
     }
     try {
-      const posts = await ctx.runQuery(internal.agentQueries.getAllLinkedinPosts, {});
+      const url = new URL(request.url);
+      const status = url.searchParams.get("status");
+
+      const posts = status
+        ? await ctx.runQuery(internal.agentQueries.getLinkedinPostsByStatus, { status })
+        : await ctx.runQuery(internal.agentQueries.getAllLinkedinPosts, {});
+
       return jsonResponse(posts.map((p) => ({
         _id: p._id,
         insightName: p.insightName,
@@ -542,6 +699,11 @@ http.route({
         selectedHook: p.selectedHook ?? null,
         selectedCta: p.selectedCta ?? null,
         krishnaFeedback: p.krishnaFeedback ?? null,
+        impressions: p.impressions ?? null,
+        comments: p.comments ?? null,
+        likes: p.likes ?? null,
+        goLiveDate: p.goLiveDate ?? null,
+        goLiveTime: p.goLiveTime ?? null,
         createdAt: p.createdAt,
       })));
     } catch (error: unknown) {
@@ -769,8 +931,9 @@ for (const path of [
   "/push/questions", "/push/briefs", "/push/blogs", "/push/activity",
   "/push/topic-clusters", "/push/tool-opportunities", "/push/documents",
   "/push/linkedin-posts",
-  "/update/brief-status", "/update/blog-enrichment",
+  "/update/brief-status", "/update/blog-enrichment", "/update/linkedin-post-status",
   // GET query endpoints
+  "/query/blogs", "/query/questions",
   "/query/briefs", "/query/topic-clusters", "/query/tool-opportunities", "/query/linkedin-posts",
   // Shakti PA endpoints
   "/query/clients", "/query/projects", "/query/tasks",

@@ -18,6 +18,12 @@ export const upsert = internalMutation({
     krishnaFeedback: v.optional(v.string()),
     postedDate: v.optional(v.string()),
     linkedinUrl: v.optional(v.string()),
+    // Performance metrics
+    impressions: v.optional(v.number()),
+    comments: v.optional(v.number()),
+    likes: v.optional(v.number()),
+    goLiveDate: v.optional(v.string()),
+    goLiveTime: v.optional(v.string()),
     status: v.string(),
     agentName: v.string(),
     createdAt: v.string(),
@@ -45,6 +51,11 @@ export const upsert = internalMutation({
         ...(args.krishnaFeedback !== undefined && { krishnaFeedback: args.krishnaFeedback }),
         ...(args.postedDate !== undefined && { postedDate: args.postedDate }),
         ...(args.linkedinUrl !== undefined && { linkedinUrl: args.linkedinUrl }),
+        ...(args.impressions !== undefined && { impressions: args.impressions }),
+        ...(args.comments !== undefined && { comments: args.comments }),
+        ...(args.likes !== undefined && { likes: args.likes }),
+        ...(args.goLiveDate !== undefined && { goLiveDate: args.goLiveDate }),
+        ...(args.goLiveTime !== undefined && { goLiveTime: args.goLiveTime }),
       });
       return { action: "updated", id: existing._id };
     } else {

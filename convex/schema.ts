@@ -216,6 +216,12 @@ export default defineSchema({
     agentName: v.string(),             // "Valmiki"
     createdAt: v.string(),
     updatedAt: v.optional(v.string()),
+    // Performance metrics (populated by Valmiki after posting)
+    impressions: v.optional(v.number()),
+    comments: v.optional(v.number()),
+    likes: v.optional(v.number()),
+    goLiveDate: v.optional(v.string()),
+    goLiveTime: v.optional(v.string()),
   })
     .index("by_status", ["status"])
     .index("by_sourceBlogSlug", ["sourceBlogSlug"])

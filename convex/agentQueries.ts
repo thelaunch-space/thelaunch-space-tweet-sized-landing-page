@@ -60,6 +60,107 @@ export const getAllProjects = internalQuery({
   },
 });
 
+// ---------------------------------------------------------------------------
+// SSOT migration queries — agent read endpoints replacing Google Sheets reads
+// ---------------------------------------------------------------------------
+
+export const getAllBlogs = internalQuery({
+  args: { status: v.optional(v.string()) },
+  handler: async (ctx, { status }) => {
+    let results;
+    if (status) {
+      results = await ctx.db
+        .query("blogs")
+        .withIndex("by_status", (q) => q.eq("status", status))
+        .collect();
+    } else {
+      results = await ctx.db.query("blogs").collect();
+    }
+    return results.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+  },
+});
+
+export const getNextBlogForEnrichment = internalQuery({
+  args: {},
+  handler: async (ctx) => {
+    const published = await ctx.db
+      .query("blogs")
+      .withIndex("by_status", (q) => q.eq("status", "published"))
+      .collect();
+
+    if (published.length === 0) return null;
+
+    // Sort: never-enriched first, then oldest lastEnrichmentDate
+    published.sort((a, b) => {
+      const aDate = a.lastEnrichmentDate ?? "";
+      const bDate = b.lastEnrichmentDate ?? "";
+      if (!aDate && bDate) return -1;
+      if (aDate && !bDate) return 1;
+      return aDate.localeCompare(bDate);
+    });
+
+    return published[0];
+  },
+});
+
+export const getQuestionsSummary = internalQuery({
+  args: {},
+  handler: async (ctx) => {
+    const all = await ctx.db.query("questions").collect();
+    const byStatus: Record<string, number> = {};
+    for (const q of all) {
+      byStatus[q.status] = (byStatus[q.status] ?? 0) + 1;
+    }
+    return { total: all.length, byStatus };
+  },
+});
+
+export const getBriefsSummary = internalQuery({
+  args: {},
+  handler: async (ctx) => {
+    const all = await ctx.db.query("briefs").collect();
+    const byStatus: Record<string, number> = {};
+    for (const b of all) {
+      byStatus[b.status] = (byStatus[b.status] ?? 0) + 1;
+    }
+    return { total: all.length, byStatus };
+  },
+});
+
+export const getLinkedinPostsByStatus = internalQuery({
+  args: { status: v.optional(v.string()) },
+  handler: async (ctx, { status }) => {
+    let results;
+    if (status) {
+      results = await ctx.db
+        .query("linkedinPosts")
+        .withIndex("by_status", (q) => q.eq("status", status))
+        .collect();
+    } else {
+      results = await ctx.db.query("linkedinPosts").collect();
+    }
+    return results.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+  },
+});
+
+export const getRecentQuestions = internalQuery({
+  args: { limit: v.optional(v.number()) },
+  handler: async (ctx, { limit }) => {
+    const cap = limit ?? 50;
+    const results = await ctx.db.query("questions").collect();
+    results.sort((a, b) => b.scannedAt.localeCompare(a.scannedAt));
+    return results.slice(0, cap);
+  },
+});
+
+export const getAllBriefs = internalQuery({
+  args: {},
+  handler: async (ctx) => {
+    const results = await ctx.db.query("briefs").collect();
+    return results.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+  },
+});
+
 export const getTasksByFilters = internalQuery({
   args: {
     status: v.optional(v.string()),
