@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";
-export const maxDuration = 60;
 
 export async function POST(request: Request) {
   const proxyUrl = process.env.OPENCLAW_PROXY_URL;
@@ -30,15 +29,17 @@ export async function POST(request: Request) {
     );
   }
 
-  // Forward to OpenClaw proxy
-  let upstreamResponse: Response;
+  // Fire-and-forget: send to VPS proxy, don't await the response.
+  // The proxy will collect the full agent response and push it to Convex directly.
   try {
-    upstreamResponse = await fetch(`${proxyUrl}/v1/chat/completions`, {
+    fetch(`${proxyUrl}/v1/chat/completions`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "x-proxy-secret": proxySecret,
         "x-openclaw-agent-id": agentId,
+        "x-fire-and-forget": "true",
+        "x-conversation-id": conversationId,
       },
       body: JSON.stringify({
         model: "openclaw:main",
@@ -46,6 +47,9 @@ export async function POST(request: Request) {
         stream: true,
         user: conversationId,
       }),
+    }).catch((err) => {
+      // Log but don't throw — the proxy will push an error message to Convex if it fails
+      console.error("[agent-chat] Fire-and-forget proxy call failed:", err);
     });
   } catch (err) {
     console.error("[agent-chat] Proxy connection failed:", err);
@@ -55,45 +59,5 @@ export async function POST(request: Request) {
     );
   }
 
-  if (!upstreamResponse.ok) {
-    const errorText = await upstreamResponse.text().catch(() => "");
-    console.error("[agent-chat] Proxy error:", upstreamResponse.status, errorText);
-    return NextResponse.json(
-      { error: `Proxy returned ${upstreamResponse.status}` },
-      { status: upstreamResponse.status }
-    );
-  }
-
-  // Stream the SSE response back to the browser as-is
-  const stream = upstreamResponse.body;
-  if (!stream) {
-    return NextResponse.json({ error: "Empty proxy response" }, { status: 502 });
-  }
-
-  // [DEBUG] Wrap stream to log what flows through the Netlify function
-  const startTime = Date.now();
-  console.log(`[agent-chat DEBUG] Stream started for agent=${agentId} conv=${conversationId}`);
-
-  const debugStream = stream.pipeThrough(new TransformStream({
-    transform(chunk, controller) {
-      const text = new TextDecoder().decode(chunk);
-      const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
-      const preview = text.slice(0, 120).replace(/\n/g, "\\n");
-      console.log(`[agent-chat DEBUG] T+${elapsed}s chunk (${chunk.byteLength}B): ${preview}`);
-      controller.enqueue(chunk);
-    },
-    flush() {
-      const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
-      console.log(`[agent-chat DEBUG] T+${elapsed}s stream ended (flush)`);
-    },
-  }));
-
-  return new Response(debugStream, {
-    headers: {
-      "Content-Type": "text/event-stream",
-      "Cache-Control": "no-cache",
-      Connection: "keep-alive",
-      "X-Accel-Buffering": "no",
-    },
-  });
+  return NextResponse.json({ ok: true });
 }

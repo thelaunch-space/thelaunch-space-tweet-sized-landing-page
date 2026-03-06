@@ -1,5 +1,34 @@
-import { mutation, query } from "./_generated/server";
+import { mutation, query, internalMutation } from "./_generated/server";
 import { v } from "convex/values";
+
+// Called by VPS proxy via HTTP endpoint /push/agent-message
+export const insertFromAgent = internalMutation({
+  args: {
+    conversationId: v.id("agentConversations"),
+    content: v.string(),
+    isError: v.optional(v.boolean()),
+  },
+  handler: async (ctx, args) => {
+    const now = new Date().toISOString();
+
+    // Insert the assistant message
+    await ctx.db.insert("agentMessages", {
+      conversationId: args.conversationId,
+      role: "assistant",
+      content: args.content,
+      createdAt: now,
+    });
+
+    // Update conversation meta
+    const conversation = await ctx.db.get(args.conversationId);
+    if (conversation) {
+      await ctx.db.patch(args.conversationId, {
+        lastMessageAt: now,
+        messageCount: (conversation.messageCount ?? 0) + 1,
+      });
+    }
+  },
+});
 
 export const addMessage = mutation({
   args: {

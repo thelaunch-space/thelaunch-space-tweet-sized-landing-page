@@ -920,6 +920,35 @@ http.route({
   }),
 });
 
+// ---------------------------------------------------------------------------
+// Agent Chat — fire-and-forget delivery from VPS proxy
+// ---------------------------------------------------------------------------
+
+http.route({
+  path: "/push/agent-message",
+  method: "POST",
+  handler: httpAction(async (ctx, request) => {
+    if (!validateAuth(request)) {
+      return jsonResponse({ error: "Unauthorized" }, 401);
+    }
+    try {
+      const body = await request.json();
+      const { conversationId, content, isError } = body;
+      if (!conversationId || !content) {
+        return jsonResponse({ error: "Missing conversationId or content" }, 400);
+      }
+      await ctx.runMutation(internal.agentMessages.insertFromAgent, {
+        conversationId,
+        content,
+        isError: isError ?? undefined,
+      });
+      return jsonResponse({ success: true });
+    } catch (error: unknown) {
+      return errorResponse(error);
+    }
+  }),
+});
+
 // Handle CORS preflight for all routes (legacy aliases + canonical)
 for (const path of [
   // Legacy aliases — kept for backward compatibility
@@ -939,6 +968,8 @@ for (const path of [
   "/query/clients", "/query/projects", "/query/tasks",
   "/push/clients", "/push/projects", "/push/tasks",
   "/update/task-status", "/update/task", "/delete/task",
+  // Agent chat
+  "/push/agent-message",
 ]) {
   http.route({
     path,

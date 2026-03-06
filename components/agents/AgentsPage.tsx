@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { useAuth } from "@clerk/nextjs";
 import { useQuery, useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
@@ -21,9 +21,8 @@ export default function AgentsPage({ initialConversationId }: Props) {
 
   const [selectedAgent, setSelectedAgent] = useState<AgentChatConfig>(CHAT_AGENTS[0]);
   const [activeConversationId, setActiveConversationId] = useState<string | null>(initialConversationId);
-  const [streamingContent, setStreamingContent] = useState("");
-  const [isStreaming, setIsStreaming] = useState(false);
-  const [pendingContent, setPendingContent] = useState("");
+  const [isWaitingForAgent, setIsWaitingForAgent] = useState(false);
+  const waitingSinceRef = useRef<number | null>(null);
 
   // Convex queries
   const conversations = useQuery(
@@ -47,15 +46,16 @@ export default function AgentsPage({ initialConversationId }: Props) {
       : "skip"
   );
 
-  // Clear pendingContent once the Convex subscription delivers the saved message
+  // Clear waiting state when a new assistant message arrives via Convex subscription
   useEffect(() => {
-    if (pendingContent && messages?.length) {
+    if (isWaitingForAgent && messages?.length) {
       const lastMsg = messages[messages.length - 1];
       if (lastMsg?.role === "assistant") {
-        setPendingContent("");
+        setIsWaitingForAgent(false);
+        waitingSinceRef.current = null;
       }
     }
-  }, [messages, pendingContent]);
+  }, [messages, isWaitingForAgent]);
 
   // When loading a deep-linked conversation, sync selectedAgent from Convex data
   useEffect(() => {
@@ -94,7 +94,7 @@ export default function AgentsPage({ initialConversationId }: Props) {
   }, [userId, selectedAgent, createConversation]);
 
   const handleSend = useCallback(async (text: string) => {
-    if (!userId || !activeConversationId || isStreaming) return;
+    if (!userId || !activeConversationId || isWaitingForAgent) return;
 
     const convId = activeConversationId as Id<"agentConversations">;
 
@@ -108,6 +108,13 @@ export default function AgentsPage({ initialConversationId }: Props) {
       await updateTitle({ conversationId: convId, title });
     }
 
+    // Update conversation meta
+    await updateMeta({
+      conversationId: convId,
+      lastMessageAt: new Date().toISOString(),
+      messageCount: (currentMessages.length + 1),
+    });
+
     // Build messages array for API (last 40 messages + new user message)
     const historyMessages = currentMessages.slice(-39).map((m) => ({
       role: m.role,
@@ -115,14 +122,11 @@ export default function AgentsPage({ initialConversationId }: Props) {
     }));
     const apiMessages = [...historyMessages, { role: "user", content: text }];
 
-    // Stream from proxy
-    setIsStreaming(true);
-    setStreamingContent("");
-    const streamStart = Date.now();
-    const dbg = (msg: string) => console.log(`[STREAM T+${((Date.now() - streamStart) / 1000).toFixed(1)}s] ${msg}`);
+    // Fire-and-forget: send to proxy, response comes back via Convex subscription
+    setIsWaitingForAgent(true);
+    waitingSinceRef.current = Date.now();
 
     try {
-      dbg(`Fetching /api/agent-chat agent=${selectedAgent.id}`);
       const response = await fetch("/api/agent-chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -133,81 +137,12 @@ export default function AgentsPage({ initialConversationId }: Props) {
         }),
       });
 
-      dbg(`Response status=${response.status}`);
       if (!response.ok) {
         throw new Error(`API error: ${response.status}`);
       }
-
-      const reader = response.body?.getReader();
-      if (!reader) throw new Error("No response body");
-
-      const decoder = new TextDecoder();
-      let fullContent = "";
-      let chunkCount = 0;
-      let dataEventCount = 0;
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) {
-          dbg(`reader done=true. chunks=${chunkCount} events=${dataEventCount} len=${fullContent.length}`);
-          break;
-        }
-
-        chunkCount++;
-        const chunk = decoder.decode(value, { stream: true });
-        const lines = chunk.split("\n");
-
-        for (const line of lines) {
-          if (line.startsWith(": ")) {
-            dbg(`keepalive`);
-            continue;
-          }
-          if (!line.startsWith("data: ")) continue;
-          const data = line.slice(6).trim();
-          if (data === "[DONE]") {
-            dbg(`[DONE] received. len=${fullContent.length}`);
-            break;
-          }
-
-          try {
-            const parsed = JSON.parse(data);
-            const delta = parsed?.choices?.[0]?.delta?.content;
-            if (delta) {
-              dataEventCount++;
-              fullContent += delta;
-              setStreamingContent(fullContent);
-              if (dataEventCount <= 3 || dataEventCount % 20 === 0) {
-                dbg(`delta #${dataEventCount}: "${delta.slice(0, 40)}" (total=${fullContent.length})`);
-              }
-            }
-          } catch {
-            dbg(`parse fail: "${data.slice(0, 60)}"`);
-          }
-        }
-      }
-
-      // Save complete response to Convex
-      dbg(`Saving ${fullContent.length} chars to Convex...`);
-      if (fullContent) {
-        // Keep text visible as "pending" until Convex subscription delivers it
-        setPendingContent(fullContent);
-        setIsStreaming(false);
-        setStreamingContent("");
-        await addMessage({ conversationId: convId, role: "assistant", content: fullContent });
-        await updateMeta({
-          conversationId: convId,
-          lastMessageAt: new Date().toISOString(),
-          messageCount: (currentMessages.length + 2),
-        });
-        dbg(`Saved OK`);
-      } else {
-        dbg(`WARNING: empty fullContent, nothing saved`);
-        setIsStreaming(false);
-        setStreamingContent("");
-      }
     } catch (err) {
-      dbg(`CATCH: ${err}`);
-      console.error("[AgentsPage] Stream error:", err);
+      console.error("[AgentsPage] Send error:", err);
+      // Save error message so user sees it
       try {
         await addMessage({
           conversationId: convId,
@@ -215,12 +150,12 @@ export default function AgentsPage({ initialConversationId }: Props) {
           content: "Sorry, I couldn't reach the agent. Please try again.",
         });
       } catch (saveErr) {
-        dbg(`CATCH save also failed: ${saveErr}`);
+        console.error("[AgentsPage] Error save also failed:", saveErr);
       }
-      setIsStreaming(false);
-      setStreamingContent("");
+      setIsWaitingForAgent(false);
+      waitingSinceRef.current = null;
     }
-  }, [userId, activeConversationId, isStreaming, messages, selectedAgent, addMessage, updateTitle, updateMeta]);
+  }, [userId, activeConversationId, isWaitingForAgent, messages, selectedAgent, addMessage, updateTitle, updateMeta]);
 
   // Auth gate
   if (!isSignedIn) {
@@ -261,14 +196,13 @@ export default function AgentsPage({ initialConversationId }: Props) {
             <>
               <ChatWindow
                 messages={allMessages}
-                streamingContent={streamingContent}
-                pendingContent={pendingContent}
-                isStreaming={isStreaming}
+                isWaitingForAgent={isWaitingForAgent}
+                waitingSince={waitingSinceRef.current}
                 selectedAgent={selectedAgent}
               />
               <ChatInput
                 onSend={handleSend}
-                isStreaming={isStreaming}
+                isStreaming={isWaitingForAgent}
                 agentName={selectedAgent.name}
               />
             </>
