@@ -4,6 +4,7 @@ export interface AgentScheduleItem {
   time: string; // "9:00 AM IST"
   label: string;
   agentId: string;
+  agentName?: string; // display name — from Convex or derived from agents array
   action: string; // maps to agentActivity.action
 }
 

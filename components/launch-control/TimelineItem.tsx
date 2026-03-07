@@ -5,12 +5,12 @@ import { Check, Loader2 } from "lucide-react";
 interface TimelineItemProps {
   time: string;
   label: string;
-  agentId: string;
+  agentName: string;
   accent: string;
   state: "completed" | "active" | "upcoming";
 }
 
-export default function TimelineItem({ time, label, agentId, accent, state }: TimelineItemProps) {
+export default function TimelineItem({ time, label, agentName, accent, state }: TimelineItemProps) {
   return (
     <div
       className={`relative flex items-center gap-3 py-2 transition-opacity ${
@@ -69,7 +69,7 @@ export default function TimelineItem({ time, label, agentId, accent, state }: Ti
           color: accent,
         }}
       >
-        {agentId.slice(0, 6)}
+        {agentName}
       </span>
     </div>
   );

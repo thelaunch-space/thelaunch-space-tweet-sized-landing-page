@@ -8,7 +8,9 @@ import { agents } from "@/lib/agents";
 import TimelineItem from "./TimelineItem";
 
 function getAgentAccent(agentId: string): string {
-  return agents.find((a) => a.id === agentId)?.accentHex ?? "#6B7280";
+  // "main" is Parthasarathi's OpenClaw ID, but agents array uses "parthasarathi"
+  const lookupId = agentId === "main" ? "parthasarathi" : agentId;
+  return agents.find((a) => a.id === lookupId)?.accentHex ?? "#6B7280";
 }
 
 function getCurrentISTHour(): number {
@@ -47,6 +49,7 @@ export default function DailyTimeline() {
           time: item.displayTime,
           label: item.label,
           agentId: item.agentId,
+          agentName: item.agentName,
           action: item.action,
         }))
       : DAILY_SCHEDULE_FALLBACK;
@@ -93,12 +96,16 @@ export default function DailyTimeline() {
                   ? "upcoming"
                   : "completed";
 
+            const displayName = item.agentName
+              ?? agents.find((a) => a.id === item.agentId)?.name
+              ?? item.agentId;
+
             return (
               <TimelineItem
                 key={i}
                 time={item.time}
                 label={item.label}
-                agentId={item.agentId}
+                agentName={displayName}
                 accent={getAgentAccent(item.agentId)}
                 state={state}
               />
