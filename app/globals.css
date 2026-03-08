@@ -178,6 +178,20 @@
   }
 }
 
+/* PWA standalone mode — bottom padding for tab bar */
+@media (display-mode: standalone) {
+  .pwa-bottom-pad {
+    padding-bottom: calc(56px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* iOS safe area support */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
 /* Dock component styles */
 @media (min-width: 768px) {
   .icon:hover + .icon {

@@ -4,6 +4,7 @@ import Script from "next/script";
 import NavBar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import AnnouncementRibbon from "@/components/AnnouncementRibbon";
+import PwaTabBar from "@/components/PwaTabBar";
 import ConvexClientProvider from "./ConvexClientProvider";
 import "./globals.css";
 
@@ -44,6 +45,12 @@ export const metadata: Metadata = {
     "Focus on your business, not the build. We ship your MVP, landing page, or AI tool in 3-4 weeks. Get your 24h roadmap. No BS.",
   icons: {
     icon: "/favicon.png",
+    apple: "/icon-192.png",
+  },
+  manifest: "/manifest.json",
+  other: {
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-status-bar-style": "default",
   },
   openGraph: {
     title: "thelaunch.space | Idea to Revenue in 21 Days for Founders",
@@ -89,11 +96,15 @@ export default function RootLayout({
             </Script>
           </>
         )}
+        <Script id="sw-register" strategy="afterInteractive">
+          {`if("serviceWorker" in navigator){navigator.serviceWorker.register("/sw.js")}`}
+        </Script>
         <ConvexClientProvider>
           <AnnouncementRibbon />
           <NavBar />
           <div className="flex-1 flex flex-col">{children}</div>
           <Footer />
+          <PwaTabBar />
         </ConvexClientProvider>
       </body>
     </html>

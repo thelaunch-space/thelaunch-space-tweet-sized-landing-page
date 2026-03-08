@@ -11,7 +11,7 @@ export default function AgentsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="h-dvh w-full overflow-hidden bg-[#F5F5F0]">
+    <div className="h-dvh w-full overflow-hidden bg-[#F5F5F0] pwa-bottom-pad">
       {children}
     </div>
   );

@@ -34,6 +34,9 @@ CLAUDE.md
 docs/openclaw-proxy-v2.js
 docs/vps-proxy-fire-and-forget-patch.js
 
+# Social media assets (local-only)
+timeline-social/
+
 # Next.js
 .next/
 out/

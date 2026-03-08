@@ -57,7 +57,7 @@ export default function LaunchControlDashboard({ blogPosts }: LaunchControlDashb
   }
 
   return (
-    <div className="min-h-screen lg:h-screen lg:overflow-hidden bg-background">
+    <div className="min-h-screen lg:h-screen lg:overflow-hidden bg-background pwa-bottom-pad">
       <GuidedTour />
       <HeaderBar workMode={workMode} onToggleWorkMode={toggleWorkMode} workStats={workMode ? workStats : null} />
 
