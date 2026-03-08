@@ -50,7 +50,7 @@ export default function ChatInput({ onSend, isStreaming, agentName }: Props) {
             disabled={isStreaming}
             onInput={handleResize}
             onKeyDown={handleKeyDown}
-            className="flex-1 resize-none bg-transparent text-sm text-text-primary placeholder:text-text-secondary/50 outline-none leading-relaxed max-h-[200px] disabled:opacity-50"
+            className="flex-1 resize-none bg-transparent text-base sm:text-sm text-text-primary placeholder:text-text-secondary/50 outline-none leading-relaxed max-h-[200px] disabled:opacity-50"
           />
           <button
             onClick={handleSend}
