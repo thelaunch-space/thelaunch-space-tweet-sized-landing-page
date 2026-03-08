@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { createBookingEvent } from "@/lib/google-calendar";
+import { createBookingEvent, sendBookingNotification } from "@/lib/google-calendar";
 
 export async function POST(request: Request) {
   try {
-    const { date, timeIST, email, companyName } = await request.json();
+    const { date, timeIST, email, companyName, isCustomTime = false } = await request.json();
 
     if (!date || !timeIST || !email || !companyName) {
       return NextResponse.json(
@@ -13,6 +13,12 @@ export async function POST(request: Request) {
     }
 
     const eventId = await createBookingEvent({ date, timeIST, email, companyName });
+
+    // Send notification email to Krishna (fire-and-forget)
+    sendBookingNotification({ date, timeIST, email, companyName, isCustomTime }).catch((err) =>
+      console.error("Notification email failed:", err)
+    );
+
     return NextResponse.json({ success: true, eventId });
   } catch (err) {
     console.error("Calendar booking error:", err);

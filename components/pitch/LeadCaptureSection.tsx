@@ -168,6 +168,7 @@ export default function LeadCaptureSection() {
             timeIST,
             email: email.trim(),
             companyName: companyName.trim(),
+            isCustomTime: isCustom,
           }),
         });
         const calData = await calRes.json();

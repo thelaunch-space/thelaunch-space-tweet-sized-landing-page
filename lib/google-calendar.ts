@@ -1,18 +1,20 @@
 import { google } from "googleapis";
 
-function getCalendarClient() {
+function getAuth(scopes: string[]) {
   const keyJson = process.env.GOOGLE_SERVICE_ACCOUNT_KEY;
   if (!keyJson) throw new Error("GOOGLE_SERVICE_ACCOUNT_KEY not set");
 
   const key = JSON.parse(keyJson);
-  const auth = new google.auth.JWT({
+  return new google.auth.JWT({
     email: key.client_email,
     key: key.private_key,
-    scopes: ["https://www.googleapis.com/auth/calendar"],
+    scopes,
     subject: process.env.GOOGLE_CALENDAR_ID || "krishna@thelaunch.space",
   });
+}
 
-  return google.calendar({ version: "v3", auth });
+function getCalendarClient() {
+  return google.calendar({ version: "v3", auth: getAuth(["https://www.googleapis.com/auth/calendar"]) });
 }
 
 /** Mon-Fri: 16-23 IST, Sat-Sun: 15 only */
@@ -118,4 +120,49 @@ export async function createBookingEvent({
   });
 
   return res.data.id!;
+}
+
+export async function sendBookingNotification({
+  date,
+  timeIST,
+  email,
+  companyName,
+  isCustomTime,
+}: {
+  date: string;
+  timeIST: string;
+  email: string;
+  companyName: string;
+  isCustomTime: boolean;
+}) {
+  const gmail = google.gmail({
+    version: "v1",
+    auth: getAuth(["https://www.googleapis.com/auth/gmail.send"]),
+  });
+
+  const krishnaEmail = process.env.GOOGLE_CALENDAR_ID || "krishna@thelaunch.space";
+  const [h] = timeIST.split(":").map(Number);
+  const period = h >= 12 ? "PM" : "AM";
+  const displayH = h > 12 ? h - 12 : h === 0 ? 12 : h;
+  const timeDisplay = `${displayH}:00 ${period} IST`;
+
+  const subject = `New booking: ${companyName} — ${date}, ${timeDisplay}`;
+  const body = [
+    `New lead booked a call on thelaunch.space:`,
+    ``,
+    `Company: ${companyName}`,
+    `Email: ${email}`,
+    `Date: ${date}`,
+    `Time: ${timeDisplay}`,
+    isCustomTime ? `Note: Outside regular hours — confirm manually.` : `Calendar invite sent automatically.`,
+  ].join("\n");
+
+  const raw = Buffer.from(
+    `From: ${krishnaEmail}\r\nTo: ${krishnaEmail}\r\nSubject: ${subject}\r\nContent-Type: text/plain; charset=utf-8\r\n\r\n${body}`
+  ).toString("base64url");
+
+  await gmail.users.messages.send({
+    userId: "me",
+    requestBody: { raw },
+  });
 }
