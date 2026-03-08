@@ -13,6 +13,7 @@ export const create = mutation({
     selectedDate: v.string(),
     selectedTimeIST: v.string(),
     isCustomTime: v.boolean(),
+    googleEventId: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const id = await ctx.db.insert("pitchBookings", {

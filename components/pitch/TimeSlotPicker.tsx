@@ -1,14 +1,13 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface TimeSlotPickerProps {
   onSelect: (date: string, timeIST: string, isCustom: boolean) => void;
   onBack: () => void;
+  prefetchCache?: Record<string, string[]>;
 }
-
-const PRESET_SLOTS = ["11:00", "12:00", "15:00", "16:00", "21:00", "22:00"];
 
 function getNext7Days(): { iso: string; label: string; dayName: string }[] {
   const days: { iso: string; label: string; dayName: string }[] = [];
@@ -24,14 +23,10 @@ function getNext7Days(): { iso: string; label: string; dayName: string }[] {
   return days;
 }
 
-/** Convert IST hour:minute to user's local time string */
 function istToLocal(dateISO: string, timeIST: string): { time: string; dateDiffers: boolean; localDate: string } {
   const [h, m] = timeIST.split(":").map(Number);
-  // IST is UTC+5:30
-  const utcH = h - 5;
-  const utcM = m - 30;
   const [year, month, day] = dateISO.split("-").map(Number);
-  const utc = new Date(Date.UTC(year, month - 1, day, utcH, utcM));
+  const utc = new Date(Date.UTC(year, month - 1, day, h - 5, m - 30));
 
   const localTime = utc.toLocaleTimeString("en-US", {
     hour: "numeric",
@@ -51,11 +46,17 @@ function formatISTTime(time: string): string {
   return `${displayH}:00 ${period}`;
 }
 
-export default function TimeSlotPicker({ onSelect, onBack }: TimeSlotPickerProps) {
+export default function TimeSlotPicker({ onSelect, onBack, prefetchCache }: TimeSlotPickerProps) {
   const days = useMemo(() => getNext7Days(), []);
   const [selectedDate, setSelectedDate] = useState(days[0].iso);
-  const [showCustom, setShowCustom] = useState(false);
-  const [customHour, setCustomHour] = useState("10");
+
+  const [slots, setSlots] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [, setIsFallback] = useState(false);
+
+  const [showExpanded, setShowExpanded] = useState(false);
+  const [expandedSlots, setExpandedSlots] = useState<string[]>([]);
+  const [expandedLoading, setExpandedLoading] = useState(false);
 
   const userTimezone = useMemo(() => {
     try {
@@ -65,12 +66,48 @@ export default function TimeSlotPicker({ onSelect, onBack }: TimeSlotPickerProps
     }
   }, []);
 
-  const handlePresetSelect = (time: string) => {
-    onSelect(selectedDate, time, false);
-  };
+  const fetchSlots = useCallback(async (date: string) => {
+    setShowExpanded(false);
+    setExpandedSlots([]);
 
-  const handleCustomSelect = () => {
-    onSelect(selectedDate, `${customHour.padStart(2, "0")}:00`, true);
+    // Use prefetch cache if available
+    if (prefetchCache?.[date]) {
+      setSlots(prefetchCache[date]);
+      setIsFallback(false);
+      setIsLoading(false);
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const res = await fetch(`/api/calendar/slots?date=${date}`);
+      const data = await res.json();
+      setSlots(data.slots || []);
+      setIsFallback(data.fallback || false);
+    } catch {
+      setSlots([]);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [prefetchCache]);
+
+  useEffect(() => {
+    fetchSlots(selectedDate);
+  }, [selectedDate, fetchSlots]);
+
+  const handleExpandedClick = async () => {
+    setExpandedLoading(true);
+    try {
+      const res = await fetch(`/api/calendar/slots?date=${selectedDate}&expanded=true`);
+      const data = await res.json();
+      setExpandedSlots(data.slots || []);
+      setShowExpanded(true);
+    } catch {
+      setExpandedSlots([]);
+      setShowExpanded(true);
+    } finally {
+      setExpandedLoading(false);
+    }
   };
 
   return (
@@ -120,73 +157,99 @@ export default function TimeSlotPicker({ onSelect, onBack }: TimeSlotPickerProps
           IST times shown with {userTimezone} equivalent
         </p>
 
-        <div className="grid grid-cols-2 gap-2">
-          {PRESET_SLOTS.map((slot) => {
-            const local = istToLocal(selectedDate, slot);
-            return (
-              <button
-                key={slot}
-                onClick={() => handlePresetSelect(slot)}
-                className="group flex flex-col items-center p-3 rounded-xl border border-border-color/40 hover:border-accent-blue hover:bg-accent-blue/5 transition-all text-left"
+        {isLoading ? (
+          /* Skeleton loader */
+          <div className="grid grid-cols-2 gap-2">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div
+                key={i}
+                className="flex flex-col items-center p-3 rounded-xl border border-border-color/20 animate-pulse"
               >
-                <span className="text-sm font-semibold text-text-primary group-hover:text-accent-blue transition-colors">
-                  {formatISTTime(slot)} IST
-                </span>
-                <span className="text-[11px] text-text-secondary mt-0.5">
-                  {local.time}{local.dateDiffers ? ` (${local.localDate})` : ""}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Custom time */}
-      <div>
-        {!showCustom ? (
-          <button
-            onClick={() => setShowCustom(true)}
-            className="text-xs text-accent-blue hover:text-accent-purple transition-colors"
-          >
-            None of these work?
-          </button>
-        ) : (
-          <AnimatePresence>
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              className="space-y-2.5"
-            >
-              <p className="text-xs text-text-secondary">Pick any hour (IST):</p>
-              <div className="flex items-center gap-2">
-                <select
-                  value={customHour}
-                  onChange={(e) => setCustomHour(e.target.value)}
-                  className="flex-1 p-2.5 bg-surface border border-border-color/40 rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-blue focus:ring-2 focus:ring-accent-blue/20 transition-all"
-                >
-                  {Array.from({ length: 24 }, (_, i) => {
-                    const val = String(i);
-                    const local = istToLocal(selectedDate, `${val.padStart(2, "0")}:00`);
-                    const period = i >= 12 ? "PM" : "AM";
-                    const displayH = i > 12 ? i - 12 : i === 0 ? 12 : i;
-                    return (
-                      <option key={i} value={val}>
-                        {displayH}:00 {period} IST — {local.time}
-                      </option>
-                    );
-                  })}
-                </select>
-                <button
-                  onClick={handleCustomSelect}
-                  className="shrink-0 rounded-xl bg-gradient-to-r from-accent-blue to-accent-purple px-5 py-2.5 text-sm font-semibold text-white shadow-cta hover:-translate-y-0.5 hover:shadow-cta-hover transition-all duration-300"
-                >
-                  Book It
-                </button>
+                <div className="h-4 w-20 bg-border-color/20 rounded" />
+                <div className="h-3 w-16 bg-border-color/10 rounded mt-1.5" />
               </div>
-            </motion.div>
-          </AnimatePresence>
+            ))}
+          </div>
+        ) : slots.length === 0 ? (
+          /* Empty state */
+          <div className="text-center py-6 text-sm text-text-secondary">
+            No available times on this day. Try another day or request a custom time below.
+          </div>
+        ) : (
+          /* Slot cards */
+          <div className="grid grid-cols-2 gap-2">
+            {slots.map((slot) => {
+              const local = istToLocal(selectedDate, slot);
+              return (
+                <button
+                  key={slot}
+                  onClick={() => onSelect(selectedDate, slot, false)}
+                  className="group flex flex-col items-center p-3 rounded-xl border border-border-color/40 hover:border-accent-blue hover:bg-accent-blue/5 transition-all text-left"
+                >
+                  <span className="text-sm font-semibold text-text-primary group-hover:text-accent-blue transition-colors">
+                    {formatISTTime(slot)} IST
+                  </span>
+                  <span className="text-[11px] text-text-secondary mt-0.5">
+                    {local.time}{local.dateDiffers ? ` (${local.localDate})` : ""}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         )}
       </div>
+
+      {/* Expanded slots / "None of these work?" */}
+      {!isLoading && (
+        <div>
+          {!showExpanded ? (
+            <button
+              onClick={handleExpandedClick}
+              disabled={expandedLoading}
+              className="text-xs text-accent-blue hover:text-accent-purple transition-colors disabled:opacity-50"
+            >
+              {expandedLoading ? "Loading more times..." : "None of these work?"}
+            </button>
+          ) : (
+            <AnimatePresence>
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                className="space-y-2.5"
+              >
+                <p className="text-xs text-text-secondary">Other available times:</p>
+                {expandedSlots.length === 0 ? (
+                  <p className="text-xs text-text-secondary/70">No other times available on this day.</p>
+                ) : (
+                  <div className="grid grid-cols-2 gap-2 max-h-52 overflow-y-auto">
+                    {expandedSlots.map((slot) => {
+                      const local = istToLocal(selectedDate, slot);
+                      return (
+                        <button
+                          key={slot}
+                          onClick={() => onSelect(selectedDate, slot, true)}
+                          className="group flex flex-col items-center p-3 rounded-xl border border-border-color/30 border-dashed hover:border-accent-blue hover:bg-accent-blue/5 transition-all text-left relative"
+                        >
+                          <span className="text-sm font-semibold text-text-primary group-hover:text-accent-blue transition-colors">
+                            {formatISTTime(slot)} IST
+                          </span>
+                          <span className="text-[11px] text-text-secondary mt-0.5">
+                            {local.time}{local.dateDiffers ? ` (${local.localDate})` : ""}
+                          </span>
+                          <span className="text-[9px] text-accent-purple/70 mt-1">Outside regular hours</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+                <p className="text-[10px] text-text-secondary/60">
+                  Krishna will confirm times outside regular hours within 24h.
+                </p>
+              </motion.div>
+            </AnimatePresence>
+          )}
+        </div>
+      )}
     </motion.div>
   );
 }

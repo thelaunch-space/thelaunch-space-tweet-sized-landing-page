@@ -165,6 +165,7 @@ export default defineSchema({
     source: v.string(),              // "pitch-page"
     createdAt: v.string(),           // ISO timestamp
     status: v.string(),              // "new" | "contacted" | "scheduled" | "completed"
+    googleEventId: v.optional(v.string()),
   })
     .index("by_createdAt", ["createdAt"])
     .index("by_status", ["status"]),
