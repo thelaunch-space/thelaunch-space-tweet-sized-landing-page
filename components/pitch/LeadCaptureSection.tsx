@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useRef, useCallback, FormEvent } from "react";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import { CHALLENGE_OPTIONS, COUNTRY_CODES } from "@/lib/pitch-data";
+import { COUNTRY_CODES } from "@/lib/pitch-data";
 import TimeSlotPicker from "./TimeSlotPicker";
 import { useGeo } from "@/lib/useGeo";
 import { getGeoConfig, getPriceDisplay } from "@/lib/geo-savings";
@@ -54,7 +54,10 @@ export default function LeadCaptureSection() {
   const [companyName, setCompanyName] = useState("");
   const [websiteUrl, setWebsiteUrl] = useState("");
   const [email, setEmail] = useState("");
-  const [challenge, setChallenge] = useState("");
+  const [useCase, setUseCase] = useState("");
+  const [useCaseOther, setUseCaseOther] = useState("");
+  const [blocker, setBlocker] = useState("");
+  const [blockerOther, setBlockerOther] = useState("");
   const [whatsappCountryCode, setWhatsappCountryCode] = useState("+1");
   const [whatsappNumber, setWhatsappNumber] = useState("");
   const [whatsappConsent, setWhatsappConsent] = useState(true);
@@ -123,7 +126,10 @@ export default function LeadCaptureSection() {
       setCompanyName("");
       setWebsiteUrl("");
       setEmail("");
-      setChallenge("");
+      setUseCase("");
+      setUseCaseOther("");
+      setBlocker("");
+      setBlockerOther("");
       setWhatsappNumber("");
       setWhatsappConsent(true);
       setBooking(null);
@@ -183,7 +189,10 @@ export default function LeadCaptureSection() {
         companyName: companyName.trim(),
         websiteUrl: websiteUrl.trim(),
         email: email.trim(),
-        contentChallenge: challenge || undefined,
+        useCase: useCase || undefined,
+        useCaseOther: useCase === "Other" ? useCaseOther.trim() || undefined : undefined,
+        blocker: blocker || undefined,
+        blockerOther: blocker === "Other" ? blockerOther.trim() || undefined : undefined,
         whatsappNumber: whatsappNumber.trim() || undefined,
         whatsappCountryCode: whatsappNumber.trim() ? whatsappCountryCode : undefined,
         whatsappConsent: whatsappNumber.trim() ? whatsappConsent : false,
@@ -205,7 +214,7 @@ export default function LeadCaptureSection() {
   return (
     <>
       {/* Inline CTA anchor — replaces the old inline form */}
-      <section id="contact" className="scroll-mt-24">
+      <section id="contact">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -219,7 +228,7 @@ export default function LeadCaptureSection() {
           <div className="mt-3 mb-6 flex flex-col items-center gap-1.5 text-xs text-text-secondary/70">
             <span>One-time setup. You own the system.</span>
             <span>Your agents start producing within 48 hours.</span>
-            <span>{getPriceDisplay(config)} &mdash; less than one freelance blog post.</span>
+            <span>{getPriceDisplay(config)} - less than one freelance blog post.</span>
           </div>
           <button
             onClick={handleOpen}
@@ -267,13 +276,13 @@ export default function LeadCaptureSection() {
               {/* Modal header */}
               <div className="text-center mb-6">
                 <h2 className="font-display tracking-[-0.02em] text-xl md:text-2xl text-text-primary">
-                  {step === "contact" && "Book Your Setup Call"}
+                  {step === "contact" && "Launch your agent team."}
                   {step === "time" && "Pick a Time"}
                   {step === "success" && (booking?.isCustomTime ? "Time Requested!" : "You\u2019re Booked!")}
                 </h2>
                 {step === "contact" && (
                   <p className="text-xs text-text-secondary/70 mt-1.5">
-                    25-min call &mdash; we&apos;ll map your content workflow and show how AI agents fit in.
+                    25 minutes. We&apos;ll map your workflow and show you what an agent team looks like for your business.
                   </p>
                 )}
               </div>
@@ -337,22 +346,59 @@ export default function LeadCaptureSection() {
                     </div>
 
                     <div>
-                      <label htmlFor="pitch-challenge" className="block text-sm font-medium text-text-secondary mb-1.5">
-                        What&apos;s your biggest content challenge?
+                      <label htmlFor="pitch-usecase" className="block text-sm font-medium text-text-secondary mb-1.5">
+                        What would you use AI agents for?
                       </label>
                       <select
-                        id="pitch-challenge"
-                        value={challenge}
-                        onChange={(e) => setChallenge(e.target.value)}
+                        id="pitch-usecase"
+                        value={useCase}
+                        onChange={(e) => setUseCase(e.target.value)}
                         className="w-full p-3 bg-surface border border-border-color/40 rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-blue focus:ring-2 focus:ring-accent-blue/20 transition-all"
                       >
                         <option value="">Select one...</option>
-                        {CHALLENGE_OPTIONS.map((opt) => (
-                          <option key={opt} value={opt}>
-                            {opt}
-                          </option>
-                        ))}
+                        <option value="Content Marketing / SEO">Content Marketing / SEO</option>
+                        <option value="Content / Quality Review">Content / Quality Review</option>
+                        <option value="Internal Ops / Admin">Internal Ops / Admin</option>
+                        <option value="Customer Support">Customer Support</option>
+                        <option value="Other">Other</option>
                       </select>
+                      {useCase === "Other" && (
+                        <input
+                          type="text"
+                          value={useCaseOther}
+                          onChange={(e) => setUseCaseOther(e.target.value)}
+                          placeholder="Tell us more..."
+                          className="w-full mt-2 p-3 bg-surface border border-border-color/40 rounded-lg text-sm text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:border-accent-blue focus:ring-2 focus:ring-accent-blue/20 transition-all"
+                        />
+                      )}
+                    </div>
+
+                    <div>
+                      <label htmlFor="pitch-blocker" className="block text-sm font-medium text-text-secondary mb-1.5">
+                        What&apos;s holding you back right now?
+                      </label>
+                      <select
+                        id="pitch-blocker"
+                        value={blocker}
+                        onChange={(e) => setBlocker(e.target.value)}
+                        className="w-full p-3 bg-surface border border-border-color/40 rounded-lg text-sm text-text-primary focus:outline-none focus:border-accent-blue focus:ring-2 focus:ring-accent-blue/20 transition-all"
+                      >
+                        <option value="">Select one...</option>
+                        <option value="I'm the bottleneck">I&apos;m the bottleneck</option>
+                        <option value="Quality drops when I delegate">Quality drops when I delegate</option>
+                        <option value="Can't hire fast enough">Can&apos;t hire fast enough</option>
+                        <option value="Too expensive to outsource">Too expensive to outsource</option>
+                        <option value="Other">Other</option>
+                      </select>
+                      {blocker === "Other" && (
+                        <input
+                          type="text"
+                          value={blockerOther}
+                          onChange={(e) => setBlockerOther(e.target.value)}
+                          placeholder="Tell us more..."
+                          className="w-full mt-2 p-3 bg-surface border border-border-color/40 rounded-lg text-sm text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:border-accent-blue focus:ring-2 focus:ring-accent-blue/20 transition-all"
+                        />
+                      )}
                     </div>
 
                     {/* WhatsApp section */}

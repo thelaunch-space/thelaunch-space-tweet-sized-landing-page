@@ -40,9 +40,9 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://thelaunch.space"),
-  title: "thelaunch.space | Idea to Revenue in 21 Days for Founders",
+  title: "thelaunch.space | AI Teams Trained on How You Work",
   description:
-    "Focus on your business, not the build. We ship your MVP, landing page, or AI tool in 3-4 weeks. Get your 24h roadmap. No BS.",
+    "We build AI agent teams trained on your process, your standards, your judgment — running around the clock. You stay in control.",
   icons: {
     icon: "/favicon.png",
     apple: "/icon-192.png",
@@ -53,9 +53,9 @@ export const metadata: Metadata = {
     "apple-mobile-web-app-status-bar-style": "default",
   },
   openGraph: {
-    title: "thelaunch.space | Idea to Revenue in 21 Days for Founders",
+    title: "thelaunch.space | AI Teams Trained on How You Work",
     description:
-      "Focus on your business, not the build. We ship your MVP, landing page, or AI tool in 3-4 weeks. Get your 24h roadmap. No BS.",
+      "We build AI agent teams trained on your process, your standards, your judgment — running around the clock. You stay in control.",
     url: "https://thelaunch.space",
     siteName: "thelaunch.space",
     images: [
@@ -63,16 +63,16 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "21 days. idea to revenue. We think like your cofounder, and build like your CTO",
+        alt: "AI teams trained on how you work — thelaunch.space",
       },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "thelaunch.space | Idea to Revenue in 21 Days for Founders",
+    title: "thelaunch.space | AI Teams Trained on How You Work",
     description:
-      "Focus on your business, not the build. We ship your MVP, landing page, or AI tool in 3-4 weeks. Get your 24h roadmap. No BS.",
+      "We build AI agent teams trained on your process, your standards, your judgment — running around the clock. You stay in control.",
     images: ["/og-image.png"],
   },
 };

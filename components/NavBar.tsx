@@ -8,8 +8,8 @@ import XIcon from "@/components/XIcon";
 
 export default function NavBar() {
   const pathname = usePathname();
+  const isHome = pathname === "/";
   const isBlog = pathname.startsWith("/blogs");
-  const isHireTeam = pathname.startsWith("/your-ai-team");
   const isLaunchControl = pathname.startsWith("/launch-control");
   const isAgents = pathname.startsWith("/agents");
 
@@ -60,6 +60,28 @@ export default function NavBar() {
 
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-6">
+          {isHome && (
+            <>
+              <a
+                href="#use-cases"
+                className="text-sm font-medium transition-all duration-200 rounded-lg px-3 py-1.5 text-text-secondary hover:text-text-primary hover:bg-black/[0.03]"
+              >
+                How it works
+              </a>
+              <a
+                href="#pricing"
+                className="text-sm font-medium transition-all duration-200 rounded-lg px-3 py-1.5 text-text-secondary hover:text-text-primary hover:bg-black/[0.03]"
+              >
+                Pricing
+              </a>
+            </>
+          )}
+          <Link
+            href="/launch-control"
+            className="text-sm font-medium transition-all duration-200 rounded-lg px-3 py-1.5 text-text-secondary hover:text-text-primary hover:bg-black/[0.03]"
+          >
+            Launch Control
+          </Link>
           <Link
             href="/blogs"
             className={`text-sm font-medium transition-all duration-200 rounded-lg px-3 py-1.5 ${
@@ -69,16 +91,6 @@ export default function NavBar() {
             }`}
           >
             Blog
-          </Link>
-          <Link
-            href="/your-ai-team"
-            className={`text-sm font-medium transition-all duration-200 rounded-lg px-3 py-1.5 ${
-              isHireTeam
-                ? "text-text-primary bg-accent-blue/[0.07]"
-                : "text-text-secondary hover:text-text-primary hover:bg-black/[0.03]"
-            }`}
-          >
-            Your AI Team
           </Link>
           <div className="w-px h-4 bg-border-color/60" />
           <div className={`flex items-center gap-6 transition-all duration-300 ${showCTA ? "hidden sm:flex" : "flex"}`}>
@@ -103,10 +115,10 @@ export default function NavBar() {
           </div>
           {showCTA && (
             <a
-              href="/?cta=open"
+              href="/#contact"
               className="inline-flex h-9 items-center justify-center rounded-xl bg-gradient-to-r from-accent-blue to-accent-purple px-5 text-xs font-semibold text-white shadow-[0_8px_20px_rgba(37,99,235,0.25)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_24px_rgba(37,99,235,0.35)] animate-in fade-in slide-in-from-right-2"
             >
-              Get Your Launch Roadmap
+              Book a call
             </a>
           )}
         </div>
@@ -123,6 +135,31 @@ export default function NavBar() {
         {/* Mobile dropdown */}
         {menuOpen && (
           <div className="absolute top-full left-0 right-0 mt-2 mx-2 rounded-xl border border-border-color/40 bg-surface/95 backdrop-blur-md shadow-slab p-4 flex flex-col gap-4 md:hidden animate-in fade-in slide-in-from-top-2 duration-200">
+            {isHome && (
+              <>
+                <a
+                  href="#use-cases"
+                  onClick={() => setMenuOpen(false)}
+                  className="text-sm font-medium transition-all duration-200 rounded-lg px-3 py-2 -mx-1 text-text-secondary"
+                >
+                  How it works
+                </a>
+                <a
+                  href="#pricing"
+                  onClick={() => setMenuOpen(false)}
+                  className="text-sm font-medium transition-all duration-200 rounded-lg px-3 py-2 -mx-1 text-text-secondary"
+                >
+                  Pricing
+                </a>
+              </>
+            )}
+            <Link
+              href="/launch-control"
+              onClick={() => setMenuOpen(false)}
+              className="text-sm font-medium transition-all duration-200 rounded-lg px-3 py-2 -mx-1 text-text-secondary"
+            >
+              Launch Control
+            </Link>
             <Link
               href="/blogs"
               className={`text-sm font-medium transition-all duration-200 rounded-lg px-3 py-2 -mx-1 ${
@@ -130,14 +167,6 @@ export default function NavBar() {
               }`}
             >
               Blog
-            </Link>
-            <Link
-              href="/your-ai-team"
-              className={`text-sm font-medium transition-all duration-200 rounded-lg px-3 py-2 -mx-1 ${
-                isHireTeam ? "text-text-primary bg-accent-blue/[0.07]" : "text-text-secondary"
-              }`}
-            >
-              Your AI Team
             </Link>
             <div className="h-px bg-border-color/40" />
             <div className="flex items-center gap-5">

@@ -166,6 +166,10 @@ export default defineSchema({
     createdAt: v.string(),           // ISO timestamp
     status: v.string(),              // "new" | "contacted" | "scheduled" | "completed"
     googleEventId: v.optional(v.string()),
+    useCase: v.optional(v.string()),
+    useCaseOther: v.optional(v.string()),
+    blocker: v.optional(v.string()),
+    blockerOther: v.optional(v.string()),
   })
     .index("by_createdAt", ["createdAt"])
     .index("by_status", ["status"]),

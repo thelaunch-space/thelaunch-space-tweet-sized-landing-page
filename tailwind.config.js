@@ -8,15 +8,18 @@ module.exports = {
       colors: {
         background: '#F9F9F9',
         surface: '#FFFFFF',
-        'surface-alt': '#F5F5F4',
+        'surface-alt': '#F7F7F5',
         'text-primary': '#1A1A1A',
         'text-secondary': '#6B7280',
         'accent-blue': '#003DA5',
         'accent-purple': '#6D28D9',
         'accent-emerald': '#5A9A80',
+        'accent-warm': '#B8860B',
         'accent-amber': '#D97706',
         'accent-rose': '#E11D48',
         'border-color': '#E5E5E5',
+        'cta-bg': '#111111',
+        'cta-text': '#FFFFFF',
       },
       fontFamily: {
         sans: ['var(--font-sans)', ...fontFamily.sans],
@@ -29,8 +32,8 @@ module.exports = {
         'slab': '0 1px 2px rgba(15,23,42,0.04), 0 2px 8px rgba(50,50,93,0.06), 0 8px 24px rgba(50,50,93,0.04)',
         'nav': '0 1px 0 rgba(15,23,42,0.04)',
         'nav-scroll': '0 1px 2px rgba(15,23,42,0.06), 0 8px 24px rgba(50,50,93,0.06)',
-        'cta': '0 2px 4px rgba(0,61,165,0.25), 0 8px 20px rgba(0,61,165,0.2), 0 20px 48px rgba(0,61,165,0.15)',
-        'cta-hover': '0 4px 8px rgba(0,61,165,0.3), 0 12px 28px rgba(0,61,165,0.25), 0 28px 56px rgba(0,61,165,0.18)',
+        'cta': '0 2px 4px rgba(0,61,165,0.15), 0 8px 20px rgba(0,61,165,0.1)',
+        'cta-hover': '0 4px 8px rgba(0,61,165,0.2), 0 12px 28px rgba(0,61,165,0.15)',
       },
       letterSpacing: {
         'display': '-0.03em',
@@ -53,6 +56,10 @@ module.exports = {
         'ribbon-shimmer': {
           '0%': { backgroundPosition: '-200% 0' },
           '100%': { backgroundPosition: '200% 0' },
+        },
+        'divider-draw': {
+          '0%': { transform: 'scaleX(0)' },
+          '100%': { transform: 'scaleX(1)' },
         },
       },
       animation: {
