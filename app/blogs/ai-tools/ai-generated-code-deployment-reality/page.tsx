@@ -10,7 +10,6 @@ export const metadata: Metadata = {
     siteName: "thelaunch.space",
     type: "article",
     publishedTime: "2026-02-20T00:00:00.000Z",
-    modifiedTime: "2026-03-02T00:00:00.000Z",
     authors: ["thelaunch.space"],
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "I Built My App With AI. Now What?" }],
   },
@@ -30,7 +29,7 @@ const jsonLd = {
   description: "You deployed AI-generated code to your laptop. Now it needs to reach real users. Here's the deployment reality no one talks about—and three paths forward.",
   url: "https://thelaunch.space/blogs/ai-tools/ai-generated-code-deployment-reality",
   datePublished: "2026-02-20T00:00:00.000Z",
-  dateModified: "2026-03-02T00:00:00.000Z",
+  dateModified: "2026-03-10T00:00:00.000Z",
   author: { "@type": "Organization", name: "thelaunch.space", url: "https://thelaunch.space" },
   publisher: {
     "@type": "Organization",
@@ -62,7 +61,7 @@ export default function BlogPost() {
           <div className="flex items-center gap-3 text-sm text-text-secondary mb-10">
             <span>thelaunch.space</span><span>·</span>
             <time dateTime="2026-02-20">Feb 20, 2026</time><span>·</span>
-            <span className="text-text-primary">Updated Mar 2, 2026</span><span>·</span>
+            <span>Updated Mar 10, 2026</span><span>·</span>
             <span>9 min read</span>
           </div>
 
@@ -146,7 +145,7 @@ export default function BlogPost() {
           </div>
 
           <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
-            The review bottleneck compounds the problem. <a href="https://opsera.ai/resources/report/ai-coding-impact-2026-benchmark-report/" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Opsera's 2026 AI Coding Impact Benchmark</a>, analyzing 250,000+ developers, found that <strong>AI-generated pull requests wait 4.6x longer in review queues</strong> than traditional code. Developers don't trust the output—and for good reason.
+            The review bottleneck compounds the problem. <a href="https://opsera.ai/resources/report/ai-coding-impact-2026-benchmark-report/" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Opsera's 2026 AI Coding Impact Benchmark</a>, analyzing 250,000+ developers, found that AI-generated pull requests wait 4.6x longer in review queues than traditional code. Developers don't trust the output—and for good reason.
           </p>
 
           <div className="bg-border-color/30 border border-border-color rounded-xl p-8 my-10 text-center">
@@ -155,7 +154,7 @@ export default function BlogPost() {
           </div>
 
           <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
-            According to <a href="https://www.sonarsource.com/state-of-code-developer-survey-report.pdf" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Sonar's State of Code Developer Survey</a>, only 27% find AI code easier to review—the rest find it either harder or equivalent in effort. With <strong>96% of developers struggling to fully trust AI-generated code</strong>, every line becomes a verification exercise rather than a quick scan.
+            According to <a href="https://www.sonarsource.com/state-of-code-developer-survey-report.pdf" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Sonar's State of Code Developer Survey</a>, only 27% find AI code easier to review—the rest find it either harder or equivalent in effort. With 96% of developers struggling to fully trust AI-generated code, every line becomes a verification exercise rather than a quick scan.
           </p>
 
           <div className="border-l-4 border-accent-blue pl-6 my-8">
@@ -279,40 +278,40 @@ export default function BlogPost() {
             According to <a href="https://www.chronoinnovation.com/resources/non-technical-founder-guide-2026" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">2026 data for non-technical founders</a>, deployment timelines and costs vary dramatically by approach. Here's what you can expect:
           </p>
 
-          <div className="overflow-x-auto my-10">
+          <div className="overflow-x-auto my-8">
             <table className="w-full border-collapse">
               <thead>
-                <tr className="bg-border-color/30">
-                  <th className="border border-border-color px-4 py-3 text-left text-text-primary font-semibold">Approach</th>
-                  <th className="border border-border-color px-4 py-3 text-left text-text-primary font-semibold">Timeline</th>
-                  <th className="border border-border-color px-4 py-3 text-left text-text-primary font-semibold">Cost</th>
-                  <th className="border border-border-color px-4 py-3 text-left text-text-primary font-semibold">Best For</th>
+                <tr className="border-b border-border-color">
+                  <th className="text-left py-3 px-4 text-text-primary font-semibold">Approach</th>
+                  <th className="text-left py-3 px-4 text-text-primary font-semibold">Timeline</th>
+                  <th className="text-left py-3 px-4 text-text-primary font-semibold">Cost</th>
+                  <th className="text-left py-3 px-4 text-text-primary font-semibold">Best For</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="text-text-secondary">
+                <tr className="border-b border-border-color/50">
+                  <td className="py-3 px-4">Learn to Code</td>
+                  <td className="py-3 px-4">6-18 months</td>
+                  <td className="py-3 px-4">$0-$500</td>
+                  <td className="py-3 px-4">Long timelines, no budget</td>
+                </tr>
+                <tr className="border-b border-border-color/50">
+                  <td className="py-3 px-4">AI Tools (DIY)</td>
+                  <td className="py-3 px-4">Days (prototype only)</td>
+                  <td className="py-3 px-4">$20-$200/month</td>
+                  <td className="py-3 px-4">Validation, not production</td>
+                </tr>
+                <tr className="border-b border-border-color/50">
+                  <td className="py-3 px-4">Expert-Supervised AI</td>
+                  <td className="py-3 px-4">2-6 weeks</td>
+                  <td className="py-3 px-4">$1,500-$12,000</td>
+                  <td className="py-3 px-4">Fast production deployment</td>
+                </tr>
                 <tr>
-                  <td className="border border-border-color px-4 py-3 text-text-secondary">Learn to Code</td>
-                  <td className="border border-border-color px-4 py-3 text-text-secondary">6-18 months</td>
-                  <td className="border border-border-color px-4 py-3 text-text-secondary">$0-$500</td>
-                  <td className="border border-border-color px-4 py-3 text-text-secondary">Long timelines, no budget</td>
-                </tr>
-                <tr className="bg-border-color/10">
-                  <td className="border border-border-color px-4 py-3 text-text-secondary">AI Tools (DIY)</td>
-                  <td className="border border-border-color px-4 py-3 text-text-secondary">Days (prototype only)</td>
-                  <td className="border border-border-color px-4 py-3 text-text-secondary">$20-$200/month</td>
-                  <td className="border border-border-color px-4 py-3 text-text-secondary">Validation, not production</td>
-                </tr>
-                <tr>
-                  <td className="border border-border-color px-4 py-3 text-text-secondary">Expert-Supervised AI</td>
-                  <td className="border border-border-color px-4 py-3 text-text-secondary">2-6 weeks</td>
-                  <td className="border border-border-color px-4 py-3 text-text-secondary">$1,500-$12,000</td>
-                  <td className="border border-border-color px-4 py-3 text-text-secondary">Fast production deployment</td>
-                </tr>
-                <tr className="bg-border-color/10">
-                  <td className="border border-border-color px-4 py-3 text-text-secondary">Agency Build</td>
-                  <td className="border border-border-color px-4 py-3 text-text-secondary">3-6 months</td>
-                  <td className="border border-border-color px-4 py-3 text-text-secondary">$50,000-$250,000+</td>
-                  <td className="border border-border-color px-4 py-3 text-text-secondary">Complex enterprise products</td>
+                  <td className="py-3 px-4">Agency Build</td>
+                  <td className="py-3 px-4">3-6 months</td>
+                  <td className="py-3 px-4">$50,000-$250,000+</td>
+                  <td className="py-3 px-4">Complex enterprise products</td>
                 </tr>
               </tbody>
             </table>
