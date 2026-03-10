@@ -53,6 +53,7 @@ export const listRecent = query({
     const limit = args.limit ?? 20;
     const clusters = await ctx.db
       .query("topicClusters")
+      .withIndex("by_createdAt")
       .order("desc")
       .take(limit);
     return clusters.map((c) => ({
@@ -70,7 +71,7 @@ export const listRecent = query({
 export const listByPillar = query({
   args: {},
   handler: async (ctx) => {
-    const clusters = await ctx.db.query("topicClusters").collect();
+    const clusters = await ctx.db.query("topicClusters").take(1000);
     const grouped: Record<string, typeof clusters> = {};
     for (const c of clusters) {
       if (!grouped[c.pillarName]) {
@@ -101,6 +102,7 @@ export const listFull = query({
     const limit = args.limit ?? 50;
     return await ctx.db
       .query("topicClusters")
+      .withIndex("by_createdAt")
       .order("desc")
       .take(limit);
   },

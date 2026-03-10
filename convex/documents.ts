@@ -11,8 +11,9 @@ export const listMetadata = query({
 
     const docs = await ctx.db
       .query("documents")
+      .withIndex("by_createdAt")
       .order("desc")
-      .collect();
+      .take(200);
 
     return docs.map((d) => ({
       _id: d._id,

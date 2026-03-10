@@ -111,14 +111,14 @@ export const getBoard = query({
 
     const [briefs, blogs, linkedinPosts, pitchBookings, toolOpportunities, topicClusters, manualTasks, shaktiTasksList] =
       await Promise.all([
-        ctx.db.query("briefs").collect(),
-        ctx.db.query("blogs").collect(),
-        ctx.db.query("linkedinPosts").collect(),
-        ctx.db.query("pitchBookings").collect(),
-        ctx.db.query("toolOpportunities").collect(),
-        ctx.db.query("topicClusters").collect(),
-        ctx.db.query("manualTasks").collect(),
-        ctx.db.query("tasks").collect(),
+        ctx.db.query("briefs").order("desc").take(200),
+        ctx.db.query("blogs").order("desc").take(200),
+        ctx.db.query("linkedinPosts").order("desc").take(200),
+        ctx.db.query("pitchBookings").order("desc").take(100),
+        ctx.db.query("toolOpportunities").order("desc").take(100),
+        ctx.db.query("topicClusters").order("desc").take(100),
+        ctx.db.query("manualTasks").order("desc").take(100),
+        ctx.db.query("tasks").order("desc").take(200),
       ]);
 
     // Build briefId → category (topic slug) lookup — used to construct deploy preview URLs for blogs
@@ -144,7 +144,7 @@ export const getBoard = query({
           primaryKeyword: brief.primaryKeyword,
           category: brief.category ?? null,
           krishnaFeedback: brief.krishnaFeedback ?? null,
-          revisionHistory: brief.revisionHistory ?? null,
+          revisionCount: brief.revisionHistory?.length ?? 0,
         },
       });
     }
@@ -186,10 +186,9 @@ export const getBoard = query({
           sourceBlogUrl: blogUrlBySlug.get(post.sourceBlogSlug) ?? null,
           insightNumber: post.insightNumber,
           insightText: post.insightText ?? null,
-          rationale: post.rationale ?? null,
           hookOptions: post.hookOptions ?? null,
           ctaOptions: post.ctaOptions ?? null,
-          draftText: post.draftText ?? null,
+          hasDraft: !!post.draftText,
           selectedHook: post.selectedHook ?? null,
           selectedCta: post.selectedCta ?? null,
           krishnaFeedback: post.krishnaFeedback ?? null,
@@ -295,6 +294,16 @@ export const getBoard = query({
 
     // Sort newest first within each type (stable sort, column grouping done on client)
     return tasks.sort((a, b) => b.timestamp.localeCompare(a.timestamp));
+  },
+});
+
+// Auth-gated detail query — returns full LinkedIn post record for PostBriefModal
+export const getLinkedinPostDetail = query({
+  args: { postId: v.id("linkedinPosts") },
+  handler: async (ctx, { postId }) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) return null;
+    return await ctx.db.get(postId);
   },
 });
 

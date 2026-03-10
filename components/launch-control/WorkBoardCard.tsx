@@ -94,21 +94,12 @@ export default function WorkBoardCard({ task }: WorkBoardCardProps) {
   const [selectedStatus, setSelectedStatus] = useState<string>("");
   const [feedback, setFeedback] = useState<string>("");
   const [confirming, setConfirming] = useState(false);
-  const [revisionOpen, setRevisionOpen] = useState(false);
 
   // Hook/CTA selection state (linkedin post-briefs only)
   const [pickedHook, setPickedHook] = useState<string | null>(null);
   const [pickedCta, setPickedCta] = useState<string | null>(null);
 
-  type RevisionEntry = {
-    version: number;
-    title: string;
-    primaryKeyword: string;
-    suggestedStructure?: string;
-    feedback: string;
-    revisedAt: string;
-  };
-  const revisionHistory = (task.meta.revisionHistory as RevisionEntry[] | null) ?? [];
+  const revisionCount = (task.meta.revisionCount as number) ?? 0;
 
   const menuRef = useRef<HTMLDivElement>(null);
   const btnRef = useRef<HTMLButtonElement>(null);
@@ -462,38 +453,16 @@ export default function WorkBoardCard({ task }: WorkBoardCardProps) {
     );
   }
 
-  // Revision history — shown on brief cards that have been revised in place
+  // Revision count indicator — shown on brief cards that have been revised
   function renderRevisionHistory() {
-    if (task.type !== "brief" || revisionHistory.length === 0) return null;
-    const count = revisionHistory.length;
-    const label = count === 1 ? "1 revision" : `${count} revisions`;
+    if (task.type !== "brief" || revisionCount === 0) return null;
+    const label = revisionCount === 1 ? "1 revision" : `${revisionCount} revisions`;
 
     return (
       <div className="mt-2">
-        <button
-          onClick={() => setRevisionOpen((v) => !v)}
-          className="flex items-center gap-1 text-[10px] text-text-secondary/50 hover:text-text-secondary transition-colors"
-        >
-          <span className="text-[9px]">{revisionOpen ? "▲" : "▼"}</span>
+        <span className="text-[10px] text-text-secondary/50">
           ↩ {label}
-        </button>
-        {revisionOpen && (
-          <div className="mt-1.5 space-y-1.5">
-            {[...revisionHistory].reverse().map((entry) => (
-              <div key={entry.version} className="bg-surface-alt/40 border border-border-color/20 rounded-lg px-2 py-1.5">
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-[9px] font-medium text-text-secondary/50 uppercase tracking-wide">v{entry.version}</span>
-                  <span className="text-[9px] text-text-secondary/40 font-mono">{relativeTime(entry.revisedAt)}</span>
-                </div>
-                <p className="text-[10px] text-text-secondary/60 line-through leading-snug mb-1">{entry.title}</p>
-                <span className="text-[9px] font-mono bg-surface text-text-secondary/50 px-1 py-0.5 rounded">{entry.primaryKeyword}</span>
-                {entry.feedback && (
-                  <p className="text-[10px] text-amber-700/70 mt-1.5 leading-relaxed italic">&ldquo;{entry.feedback}&rdquo;</p>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
+        </span>
       </div>
     );
   }
@@ -526,7 +495,7 @@ export default function WorkBoardCard({ task }: WorkBoardCardProps) {
   // LinkedIn phase sub-badge — inferred from status + presence of draftText
   const linkedinSubBadge: { label: string; color: string } | null = (() => {
     if (task.type !== "linkedin") return null;
-    const hasDraft = !!task.meta.draftText;
+    const hasDraft = !!task.meta.hasDraft;
     switch (task.status) {
       case "pending_review":  return { label: "Post-Brief",   color: "text-amber-600" };
       case "needs_revision":  return { label: "Needs Revision", color: "text-red-500" };
@@ -553,9 +522,9 @@ export default function WorkBoardCard({ task }: WorkBoardCardProps) {
                 {linkedinSubBadge.label}
               </span>
             )}
-            {task.type === "brief" && revisionHistory.length > 0 && (
+            {task.type === "brief" && revisionCount > 0 && (
               <span className="text-[9px] font-mono text-text-secondary/50 bg-surface-alt px-1 py-0.5 rounded border border-border-color/20 shrink-0">
-                v{revisionHistory.length + 1}
+                v{revisionCount + 1}
               </span>
             )}
           </div>

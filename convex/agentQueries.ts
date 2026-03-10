@@ -16,24 +16,33 @@ export const getBriefsByStatus = internalQuery({
 export const getAllTopicClusters = internalQuery({
   args: {},
   handler: async (ctx) => {
-    const results = await ctx.db.query("topicClusters").collect();
-    return results.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+    return await ctx.db
+      .query("topicClusters")
+      .withIndex("by_createdAt")
+      .order("asc")
+      .collect();
   },
 });
 
 export const getAllToolOpportunities = internalQuery({
   args: {},
   handler: async (ctx) => {
-    const results = await ctx.db.query("toolOpportunities").collect();
-    return results.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+    return await ctx.db
+      .query("toolOpportunities")
+      .withIndex("by_createdAt")
+      .order("asc")
+      .collect();
   },
 });
 
 export const getAllLinkedinPosts = internalQuery({
   args: {},
   handler: async (ctx) => {
-    const results = await ctx.db.query("linkedinPosts").collect();
-    return results.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+    return await ctx.db
+      .query("linkedinPosts")
+      .withIndex("by_createdAt")
+      .order("asc")
+      .collect();
   },
 });
 
@@ -73,10 +82,14 @@ export const getAllBlogs = internalQuery({
         .query("blogs")
         .withIndex("by_status", (q) => q.eq("status", status))
         .collect();
+      return results.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
     } else {
-      results = await ctx.db.query("blogs").collect();
+      return await ctx.db
+        .query("blogs")
+        .withIndex("by_createdAt")
+        .order("asc")
+        .collect();
     }
-    return results.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
   },
 });
 
@@ -147,17 +160,22 @@ export const getRecentQuestions = internalQuery({
   args: { limit: v.optional(v.number()) },
   handler: async (ctx, { limit }) => {
     const cap = limit ?? 50;
-    const results = await ctx.db.query("questions").collect();
-    results.sort((a, b) => b.scannedAt.localeCompare(a.scannedAt));
-    return results.slice(0, cap);
+    return await ctx.db
+      .query("questions")
+      .withIndex("by_scannedAt")
+      .order("desc")
+      .take(cap);
   },
 });
 
 export const getAllBriefs = internalQuery({
   args: {},
   handler: async (ctx) => {
-    const results = await ctx.db.query("briefs").collect();
-    return results.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
+    return await ctx.db
+      .query("briefs")
+      .withIndex("by_createdAt")
+      .order("asc")
+      .collect();
   },
 });
 

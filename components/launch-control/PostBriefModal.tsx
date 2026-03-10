@@ -1,8 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { X, Check, Copy } from "lucide-react";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { X, Check, Copy, Loader2 } from "lucide-react";
 import type { WorkBoardTask } from "@/lib/launch-control-types";
+import type { Id } from "@/convex/_generated/dataModel";
 
 const STATUS_CONFIG: Record<string, { label: string; color: string; bg: string }> = {
   pending_review: { label: "Pending Review", color: "text-amber-700", bg: "bg-amber-50 border-amber-200" },
@@ -62,11 +65,15 @@ export default function PostBriefModal({ task, open, onClose }: PostBriefModalPr
     bg: "bg-surface-alt border-border-color/30",
   };
 
+  // Fetch full LinkedIn post detail (includes draftText + rationale stripped from board query)
+  const postDetail = useQuery(api.workboard.getLinkedinPostDetail, { postId: task.id as Id<"linkedinPosts"> });
+  const isLoadingDetail = postDetail === undefined;
+
   const insightText = meta.insightText as string | null;
-  const rationale = meta.rationale as string | null;
+  const rationale = postDetail?.rationale ?? null;
   const hookOptions = meta.hookOptions as string[] | null;
   const ctaOptions = meta.ctaOptions as string[] | null;
-  const draftText = meta.draftText as string | null;
+  const draftText = postDetail?.draftText ?? null;
   const sourceBlogTitle = meta.sourceBlogTitle as string | null;
   const sourceBlogUrl = meta.sourceBlogUrl as string | null;
 
@@ -126,7 +133,12 @@ export default function PostBriefModal({ task, open, onClose }: PostBriefModalPr
           <div className="flex flex-col lg:flex-row">
             {/* Left — main content */}
             <div className="flex-1 p-4 sm:p-6 lg:p-8 min-w-0 space-y-6">
-              {draftText ? (
+              {isLoadingDetail ? (
+                <div className="flex items-center justify-center py-12">
+                  <Loader2 size={20} className="animate-spin text-text-secondary/50" />
+                  <span className="ml-2 text-sm text-text-secondary/50">Loading details...</span>
+                </div>
+              ) : draftText ? (
                 <>
                   {insightText && (
                     <div>

@@ -1,4 +1,4 @@
-import { internalMutation, internalQuery, query } from "./_generated/server";
+import { internalMutation, query } from "./_generated/server";
 import { v } from "convex/values";
 
 // Upsert a LinkedIn post-brief or draft (called from HTTP push route)
@@ -97,22 +97,16 @@ export const updateStatus = internalMutation({
   },
 });
 
-// Internal query — returns all posts for agent dedup checks
-export const queryAll = internalQuery({
-  args: {},
-  handler: async (ctx) => {
-    const results = await ctx.db.query("linkedinPosts").collect();
-    return results.sort((a, b) => a.createdAt.localeCompare(b.createdAt));
-  },
-});
-
 // Public auth-gated query — returns all posts for the LinkedIn posts table
 export const listAll = query({
   args: {},
   handler: async (ctx) => {
     const identity = await ctx.auth.getUserIdentity();
     if (!identity) return [];
-    const results = await ctx.db.query("linkedinPosts").collect();
-    return results.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+    return await ctx.db
+      .query("linkedinPosts")
+      .withIndex("by_createdAt")
+      .order("desc")
+      .collect();
   },
 });

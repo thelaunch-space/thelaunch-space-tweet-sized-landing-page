@@ -57,6 +57,7 @@ export const recentFeed = query({
     const limit = args.limit ?? 30;
     return await ctx.db
       .query("agentActivity")
+      .withIndex("by_timestamp")
       .order("desc")
       .take(limit);
   },
@@ -66,22 +67,38 @@ export const weeklyStats = query({
   args: {},
   handler: async (ctx) => {
     const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
-    const questions = await ctx.db.query("questions").collect();
-    const briefs = await ctx.db.query("briefs").collect();
-    const blogs = await ctx.db.query("blogs").collect();
-    const clusters = await ctx.db.query("topicClusters").collect();
-    const tools = await ctx.db.query("toolOpportunities").collect();
+    const questions = await ctx.db
+      .query("questions")
+      .withIndex("by_scannedAt", (q) => q.gte("scannedAt", sevenDaysAgo))
+      .collect();
+    const briefs = await ctx.db
+      .query("briefs")
+      .withIndex("by_createdAt", (q) => q.gte("createdAt", sevenDaysAgo))
+      .collect();
+    const blogs = await ctx.db
+      .query("blogs")
+      .withIndex("by_createdAt", (q) => q.gte("createdAt", sevenDaysAgo))
+      .collect();
+    const clusters = await ctx.db
+      .query("topicClusters")
+      .withIndex("by_createdAt", (q) => q.gte("createdAt", sevenDaysAgo))
+      .collect();
+    const tools = await ctx.db
+      .query("toolOpportunities")
+      .withIndex("by_createdAt", (q) => q.gte("createdAt", sevenDaysAgo))
+      .collect();
     return {
-      questions: questions.filter((q) => q.scannedAt >= sevenDaysAgo).length,
-      briefs: briefs.filter((b) => b.createdAt >= sevenDaysAgo).length,
+      questions: questions.length,
+      briefs: briefs.length,
       // Only count blogs that are actually live on the site
-      blogs: blogs.filter((b) => b.status === "published" && b.createdAt >= sevenDaysAgo).length,
-      clusters: clusters.filter((c) => c.createdAt >= sevenDaysAgo).length,
-      tools: tools.filter((t) => t.createdAt >= sevenDaysAgo).length,
+      blogs: blogs.filter((b) => b.status === "published").length,
+      clusters: clusters.length,
+      tools: tools.length,
     };
   },
 });
 
+// Full scan intentional — no Convex aggregation primitive for counts
 export const allTimeStats = query({
   args: {},
   handler: async (ctx) => {
@@ -104,13 +121,14 @@ export const allTimeStats = query({
 export const agentTodayActivity = query({
   args: { agentName: v.string() },
   handler: async (ctx, args) => {
-    const todayPrefix = new Date().toISOString().slice(0, 10);
-    const activities = await ctx.db
+    const todayStart = new Date().toISOString().slice(0, 10) + "T00:00:00.000Z";
+    return await ctx.db
       .query("agentActivity")
-      .withIndex("by_agentName_timestamp", (q) => q.eq("agentName", args.agentName))
+      .withIndex("by_agentName_timestamp", (q) =>
+        q.eq("agentName", args.agentName).gte("timestamp", todayStart)
+      )
       .order("desc")
       .collect();
-    return activities.filter((a) => a.timestamp.startsWith(todayPrefix));
   },
 });
 
@@ -118,12 +136,13 @@ export const agentWeeklySummary = query({
   args: { agentName: v.string() },
   handler: async (ctx, args) => {
     const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
-    const activities = await ctx.db
+    const weekActivities = await ctx.db
       .query("agentActivity")
-      .withIndex("by_agentName_timestamp", (q) => q.eq("agentName", args.agentName))
+      .withIndex("by_agentName_timestamp", (q) =>
+        q.eq("agentName", args.agentName).gte("timestamp", sevenDaysAgo)
+      )
       .order("desc")
       .collect();
-    const weekActivities = activities.filter((a) => a.timestamp >= sevenDaysAgo);
     const byAction: Record<string, number> = {};
     for (const a of weekActivities) {
       byAction[a.action] = (byAction[a.action] ?? 0) + 1;

@@ -77,6 +77,7 @@ export const listRecent = query({
     const limit = args.limit ?? 20;
     return await ctx.db
       .query("questions")
+      .withIndex("by_scannedAt")
       .order("desc")
       .take(limit);
   },
@@ -85,7 +86,7 @@ export const listRecent = query({
 export const communityBreakdown = query({
   args: {},
   handler: async (ctx) => {
-    const questions = await ctx.db.query("questions").collect();
+    const questions = await ctx.db.query("questions").take(5000);
     const grouped: Record<string, { count: number; latestScannedAt: string }> = {};
     for (const q of questions) {
       if (!grouped[q.subreddit]) {
@@ -111,6 +112,7 @@ export const listFullDetails = query({
     const limit = args.limit ?? 50;
     return await ctx.db
       .query("questions")
+      .withIndex("by_scannedAt")
       .order("desc")
       .take(limit);
   },
