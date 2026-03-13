@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     siteName: "thelaunch.space",
     type: "article",
     publishedTime: "2026-02-20T00:00:00.000Z",
-    modifiedTime: "2026-03-11T00:00:00.000Z",
+    modifiedTime: "2026-03-10T00:00:00.000Z",
     authors: ["thelaunch.space"],
     images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "I Built My App With AI. Now What?" }],
   },
@@ -30,7 +30,7 @@ const jsonLd = {
   description: "You deployed AI-generated code to your laptop. Now it needs to reach real users. Here's the deployment reality no one talks about—and three paths forward.",
   url: "https://thelaunch.space/blogs/ai-tools/ai-generated-code-deployment-reality",
   datePublished: "2026-02-20T00:00:00.000Z",
-  dateModified: "2026-03-11T00:00:00.000Z",
+  dateModified: "2026-03-10T00:00:00.000Z",
   author: { "@type": "Organization", name: "thelaunch.space", url: "https://thelaunch.space" },
   publisher: {
     "@type": "Organization",
@@ -62,7 +62,7 @@ export default function BlogPost() {
           <div className="flex items-center gap-3 text-sm text-text-secondary mb-10">
             <span>thelaunch.space</span><span>·</span>
             <time dateTime="2026-02-20">Feb 20, 2026</time><span>·</span>
-            <span className="text-text-primary">Updated Mar 11, 2026</span><span>·</span>
+            <span className="text-text-primary">Updated Mar 10, 2026</span><span>·</span>
             <span>9 min read</span>
           </div>
 
@@ -101,59 +101,17 @@ export default function BlogPost() {
           </p>
 
           <div className="bg-border-color/30 border border-border-color rounded-xl p-8 my-10 text-center">
-            <p className="text-3xl md:text-4xl font-bold text-text-primary mb-2">84%</p>
-            <p className="text-sm md:text-base text-text-secondary">of developers use AI tools in 2025—but less than 44% of AI-generated code ships to production without modification</p>
+            <p className="text-3xl md:text-4xl font-bold text-text-primary mb-2">41-42%</p>
+            <p className="text-sm md:text-base text-text-secondary">of all code is now AI-generated globally, yet only 7% of companies have scaled genAI enterprise-wide (2026 data)</p>
           </div>
 
           <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
-            The numbers reveal the production gap: According to <a href="https://www.baytechconsulting.com/blog/mastering-ai-code-revolution-2026" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Baytech Consulting's 2026 analysis</a>, main branch success rates for AI-generated code have dropped to 70.8%—the lowest in over five years and well below the recommended 90% benchmark. The gap between code generation speed and actual production readiness is widening.
+            The numbers reveal the production gap: According to <a href="https://www.baytechconsulting.com/blog/mastering-ai-code-revolution-2026" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Baytech Consulting's 2026 analysis</a>, main branch success rates for AI-generated code have dropped to 70.8%—the lowest in over five years and well below the recommended 90% benchmark. The gap between code generation speed and actual production readiness is widening. With 76% of professional developers using AI tools but only 7% of companies achieving full enterprise deployment, we're in a classic "generation is easy, production is hard" paradox.
           </p>
 
           <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
             This isn't a tutorial problem. It's a decision problem disguised as a technical one. The question isn't "how do I deploy?" The question is "should I deploy THIS, or validate my idea differently?"
           </p>
-
-          <hr className="border-border-color my-12" />
-
-          <h2 className="text-2xl md:text-3xl font-bold mt-16 mb-4">The Code Acceptance Gap: Only 30% Makes It Through</h2>
-
-          <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
-            Here's a stat that rarely gets discussed: <strong>only 30% of AI-suggested code actually gets accepted by developers</strong>. That means 70% of what AI generates either doesn't work, doesn't fit the context, or requires so much modification that it's faster to write it manually.
-          </p>
-
-          <div className="bg-border-color/30 border border-border-color rounded-xl p-8 my-10 text-center">
-            <p className="text-3xl md:text-4xl font-bold text-text-primary mb-2">42% → 65%</p>
-            <p className="text-sm md:text-base text-text-secondary">AI-generated code as percentage of all committed code (2026 → projected 2027), yet 96% of developers don't fully trust it</p>
-          </div>
-
-          <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
-            The irony is striking: <strong>42% of all committed code in 2026 is AI-generated</strong> (projected to hit 65% by 2027), and <strong>72% of developers use AI tools daily for code generation</strong>—yet 96% don't fully trust the output for functional correctness. This creates a verification bottleneck where the time saved in generation gets spent on review and debugging.
-          </p>
-
-          <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
-            <strong>Code duplication has increased 4x with AI adoption</strong>, signaling that developers are copying and pasting AI outputs rather than integrating them thoughtfully. Short-term code churn is rising. The speed of generation creates an illusion of productivity that evaporates when you measure actual delivery velocity or business outcomes.
-          </p>
-
-          <div className="space-y-4 my-8">
-            <div className="bg-border-color/20 rounded-xl p-5">
-              <p className="text-text-primary font-semibold mb-1">78% report improved productivity... but</p>
-              <p className="text-text-secondary text-base leading-relaxed">While 78% of developers say AI improves productivity and 57% find it more enjoyable, many teams report faster coding but little improvement in delivery velocity. Google's experience is telling: 25% of their code is now AI-assisted, but CEO Sundar Pichai emphasizes the real gain is only +10% engineering velocity—not the dramatic transformation many expected.</p>
-            </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
-              <p className="text-text-primary font-semibold mb-1">The new bottleneck: reviewing AI code</p>
-              <p className="text-text-secondary text-base leading-relaxed">Reviewing and validating AI code has become the #1 developer skill in 2026, surpassing code generation itself. With 38% of developers finding AI code review more effort-intensive than human-written code, and only 67% actively reviewing AI code before deployment despite 96% not trusting it, we've created a "verification debt" that accumulates silently.</p>
-            </div>
-            <div className="bg-border-color/20 rounded-xl p-5">
-              <p className="text-text-primary font-semibold mb-1">Static analysis tools are rising in response</p>
-              <p className="text-text-secondary text-base leading-relaxed">Static analysis adoption is climbing from 60% today to a projected 68% in two years, as teams realize they need automated verification to catch what AI gets wrong. Multi-agent workflows are emerging—one AI generates code, another critiques and tests it—because human review alone can't keep pace with AI's output volume.</p>
-            </div>
-          </div>
-
-          <div className="border-l-4 border-accent-blue pl-6 my-8">
-            <p className="text-base md:text-lg text-text-primary font-medium leading-relaxed">
-              For non-technical founders, this acceptance gap has direct implications: the AI-generated app on your laptop isn't just incomplete from an infrastructure standpoint—it's statistically likely to contain logic errors, edge cases, and design decisions that won't survive contact with real users. Deployment is the least of your problems if the code itself needs 70% modification.
-            </p>
-          </div>
 
           <hr className="border-border-color my-12" />
 
@@ -185,6 +143,10 @@ export default function BlogPost() {
               <p className="text-text-primary font-semibold mb-1">322% more privilege escalation paths in Fortune 50 codebases</p>
               <p className="text-text-secondary text-base leading-relaxed">Apiiro's research through June 2025 identified design flaws like authentication bypass and insecure references at rates 153% higher than human-written code, with over 10,000 new findings monthly.</p>
             </div>
+            <div className="bg-border-color/20 rounded-xl p-5">
+              <p className="text-text-primary font-semibold mb-1">Over 25% of AI "skills" and extensions contain vulnerabilities</p>
+              <p className="text-text-secondary text-base leading-relaxed">Security researchers analyzing over 30,000 AI agent skills found that more than a quarter contain at least one vulnerability—creating a supply chain risk that most non-technical founders aren't aware of.</p>
+            </div>
           </div>
 
           <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
@@ -192,12 +154,12 @@ export default function BlogPost() {
           </p>
 
           <div className="bg-border-color/30 border border-border-color rounded-xl p-8 my-10 text-center">
-            <p className="text-3xl md:text-4xl font-bold text-text-primary mb-2">38%</p>
-            <p className="text-sm md:text-base text-text-secondary">of developers find reviewing AI-generated code more effort-intensive than human-written code (Sonar 2026)</p>
+            <p className="text-3xl md:text-4xl font-bold text-text-primary mb-2">67%</p>
+            <p className="text-sm md:text-base text-text-secondary">of developers spend more time debugging AI code than they save from using AI tools (2026 data)</p>
           </div>
 
           <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
-            According to <a href="https://www.sonarsource.com/state-of-code-developer-survey-report.pdf" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Sonar's State of Code Developer Survey</a>, only 27% find AI code easier to review—the rest find it either harder or equivalent in effort. With <strong>96% of developers struggling to fully trust AI-generated code</strong>, every line becomes a verification exercise rather than a quick scan.
+            According to <a href="https://www.sonarsource.com/state-of-code-developer-survey-report.pdf" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Sonar's State of Code Developer Survey</a>, only 27% find AI code easier to review—the rest find it either harder or equivalent in effort. With <strong>96% of developers struggling to fully trust AI-generated code</strong>, every line becomes a verification exercise rather than a quick scan. AI code shows 1.7× more issues in production systems, 1.64× higher maintainability errors, and 1.57× more security findings than human code.
           </p>
 
           <div className="border-l-4 border-accent-blue pl-6 my-8">
@@ -206,28 +168,67 @@ export default function BlogPost() {
             </p>
           </div>
 
-          <h3 className="text-xl md:text-2xl font-bold mt-8 mb-3">The Package Hallucination Risk</h3>
+          <hr className="border-border-color my-12" />
+
+          <h2 className="text-2xl md:text-3xl font-bold mt-16 mb-4">Pre-Deployment Security Checklist</h2>
 
           <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
-            There's another deployment risk that's emerged in 2026: <strong>slopsquatting</strong>, where AI tools suggest dependencies that don't exist, and attackers create malicious packages with those exact names to compromise codebases.
+            Before deploying any AI-generated code to production, run through this security checklist aligned with OWASP LLM Top-10, NIST AI RMF, and 2026 best practices:
           </p>
 
-          <div className="bg-border-color/30 border border-border-color rounded-xl p-8 my-10 text-center">
-            <p className="text-3xl md:text-4xl font-bold text-text-primary mb-2">~20%</p>
-            <p className="text-sm md:text-base text-text-secondary">of AI-suggested packages don't exist—enabling attackers to publish malicious versions that developers unknowingly install</p>
+          <div className="overflow-x-auto my-10">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="bg-border-color/30">
+                  <th className="border border-border-color px-4 py-3 text-left text-text-primary font-semibold">Security Layer</th>
+                  <th className="border border-border-color px-4 py-3 text-left text-text-primary font-semibold">What to Check</th>
+                  <th className="border border-border-color px-4 py-3 text-left text-text-primary font-semibold">Why It Matters</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="border border-border-color px-4 py-3 text-text-primary font-semibold">Input Validation</td>
+                  <td className="border border-border-color px-4 py-3 text-text-secondary">Sanitize all user inputs with allow-lists, rule-based filters, and validation</td>
+                  <td className="border border-border-color px-4 py-3 text-text-secondary">Blocks prompt injection, SQL injection, XSS attacks</td>
+                </tr>
+                <tr className="bg-border-color/10">
+                  <td className="border border-border-color px-4 py-3 text-text-primary font-semibold">Authentication & Access</td>
+                  <td className="border border-border-color px-4 py-3 text-text-secondary">Verify auth flows work, check for hardcoded credentials, review permission levels</td>
+                  <td className="border border-border-color px-4 py-3 text-text-secondary">AI often generates weak or missing auth checks</td>
+                </tr>
+                <tr>
+                  <td className="border border-border-color px-4 py-3 text-text-primary font-semibold">Secrets Management</td>
+                  <td className="border border-border-color px-4 py-3 text-text-secondary">Ensure no API keys, passwords, or tokens in code; use environment variables</td>
+                  <td className="border border-border-color px-4 py-3 text-text-secondary">Hardcoded secrets are common in AI code</td>
+                </tr>
+                <tr className="bg-border-color/10">
+                  <td className="border border-border-color px-4 py-3 text-text-primary font-semibold">Dependency Scan</td>
+                  <td className="border border-border-color px-4 py-3 text-text-secondary">Run SAST tools and container scanners (Trivy, Grype) to detect vulnerabilities</td>
+                  <td className="border border-border-color px-4 py-3 text-text-secondary">Over 25% of AI dependencies have known vulnerabilities</td>
+                </tr>
+                <tr>
+                  <td className="border border-border-color px-4 py-3 text-text-primary font-semibold">Output Filtering</td>
+                  <td className="border border-border-color px-4 py-3 text-text-secondary">Filter model outputs for sensitive data, PII, policy violations before user exposure</td>
+                  <td className="border border-border-color px-4 py-3 text-text-secondary">Prevents data leaks and compliance violations</td>
+                </tr>
+                <tr className="bg-border-color/10">
+                  <td className="border border-border-color px-4 py-3 text-text-primary font-semibold">Error Handling</td>
+                  <td className="border border-border-color px-4 py-3 text-text-secondary">Verify graceful failure, no stack traces exposed to users, circuit breakers in place</td>
+                  <td className="border border-border-color px-4 py-3 text-text-secondary">AI code often fails ungracefully in edge cases</td>
+                </tr>
+                <tr>
+                  <td className="border border-border-color px-4 py-3 text-text-primary font-semibold">Rate Limiting</td>
+                  <td className="border border-border-color px-4 py-3 text-text-secondary">Implement API rate limits, abuse monitoring, cost caps</td>
+                  <td className="border border-border-color px-4 py-3 text-text-secondary">Prevents runaway costs and DDoS attacks</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
 
-          <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
-            According to 2026 security research, approximately 20% of packages recommended by AI coding assistants don't actually exist in public registries like npm or PyPI. Attackers monitor these "hallucinated" suggestions and publish malicious packages under those names. When developers blindly trust AI recommendations and run `npm install`, they're pulling in backdoors disguised as legitimate dependencies.
-          </p>
-
-          <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
-            Manual code reviews found that <strong>68-73% of AI-generated code with dependency suggestions contains vulnerabilities</strong> when those packages are either non-existent or come from untrusted sources. This supply chain attack vector is particularly dangerous because it exploits developer trust in AI output—the same trust gap we've discussed throughout this post.
-          </p>
-
-          <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
-            <span className="text-text-primary font-semibold">Before deploying any AI-generated code:</span> Verify every dependency exists in official registries, check package ages and download counts, and maintain a Software Bill of Materials (SBOM) to track what's actually in your production build. Tools like `npm audit` and dependency scanners (Snyk, Trivy, Grype) can catch some of these issues, but human verification remains critical for AI-suggested dependencies.
-          </p>
+          <div className="bg-border-color/30 border border-border-color rounded-xl p-8 my-10 text-center">
+            <p className="text-3xl md:text-4xl font-bold text-text-primary mb-2">83% vs 29%</p>
+            <p className="text-sm md:text-base text-text-secondary">83% of orgs plan to deploy agentic AI, but only 29% report being ready to operate those systems securely (2026)</p>
+          </div>
 
           <hr className="border-border-color my-12" />
 
@@ -387,60 +388,6 @@ export default function BlogPost() {
             The cost gap is significant: AI-augmented development averages $1,950-$2,800, about 80% cheaper than traditional agency builds. But the real cost isn't just money—it's opportunity cost. Six months spent waiting for an agency to deliver is six months you're not validating with real users.
           </p>
 
-          <h3 className="text-xl md:text-2xl font-bold mt-8 mb-3">Platform Hosting Costs at Different Scales</h3>
-
-          <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
-            Once you've deployed, hosting costs scale with your user base. Based on 2026 pricing for typical SaaS usage patterns (bandwidth, function invocations, database storage):
-          </p>
-
-          <div className="overflow-x-auto my-10">
-            <table className="w-full border-collapse">
-              <thead>
-                <tr className="bg-border-color/30">
-                  <th className="border border-border-color px-4 py-3 text-left text-text-primary font-semibold">Monthly Active Users</th>
-                  <th className="border border-border-color px-4 py-3 text-left text-text-primary font-semibold">Vercel (Frontend)</th>
-                  <th className="border border-border-color px-4 py-3 text-left text-text-primary font-semibold">Netlify (Frontend)</th>
-                  <th className="border border-border-color px-4 py-3 text-left text-text-primary font-semibold">Supabase (Backend)</th>
-                  <th className="border border-border-color px-4 py-3 text-left text-text-primary font-semibold">Combined Stack</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td className="border border-border-color px-4 py-3 text-text-primary font-semibold">1,000</td>
-                  <td className="border border-border-color px-4 py-3 text-text-secondary">$0 (Free)</td>
-                  <td className="border border-border-color px-4 py-3 text-text-secondary">$0 (Free, commercial OK)</td>
-                  <td className="border border-border-color px-4 py-3 text-text-secondary">$0 (Free)</td>
-                  <td className="border border-border-color px-4 py-3 text-text-primary font-semibold">$0</td>
-                </tr>
-                <tr className="bg-border-color/10">
-                  <td className="border border-border-color px-4 py-3 text-text-primary font-semibold">10,000</td>
-                  <td className="border border-border-color px-4 py-3 text-text-secondary">$20 (Pro)</td>
-                  <td className="border border-border-color px-4 py-3 text-text-secondary">$19 (Pro)</td>
-                  <td className="border border-border-color px-4 py-3 text-text-secondary">$25 (Pro)</td>
-                  <td className="border border-border-color px-4 py-3 text-text-primary font-semibold">$44-45/mo</td>
-                </tr>
-                <tr>
-                  <td className="border border-border-color px-4 py-3 text-text-primary font-semibold">50,000</td>
-                  <td className="border border-border-color px-4 py-3 text-text-secondary">$20-150</td>
-                  <td className="border border-border-color px-4 py-3 text-text-secondary">$19-100</td>
-                  <td className="border border-border-color px-4 py-3 text-text-secondary">$25-100</td>
-                  <td className="border border-border-color px-4 py-3 text-text-primary font-semibold">$44-250/mo</td>
-                </tr>
-                <tr className="bg-border-color/10">
-                  <td className="border border-border-color px-4 py-3 text-text-primary font-semibold">100,000</td>
-                  <td className="border border-border-color px-4 py-3 text-text-secondary">$150-400</td>
-                  <td className="border border-border-color px-4 py-3 text-text-secondary">$100-300</td>
-                  <td className="border border-border-color px-4 py-3 text-text-secondary">$100-300</td>
-                  <td className="border border-border-color px-4 py-3 text-text-primary font-semibold">$200-700/mo</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
-            <span className="text-text-primary font-semibold">Key takeaway:</span> Free tiers genuinely support 1K users—enough for validation. Vercel's hobby tier prohibits monetization (commercial use requires Pro), while Netlify allows commercial projects on their free tier. At scale, Netlify tends to be more cost-effective for static-heavy apps, while Vercel offers more predictable pricing for dynamic Next.js applications. Both pair well with Supabase for backend needs.
-          </p>
-
           <hr className="border-border-color my-12" />
 
           <h2 className="text-2xl md:text-3xl font-bold mt-16 mb-4">The $1,000 Decision Calculator</h2>
@@ -588,7 +535,7 @@ export default function BlogPost() {
 
             <div>
               <h3 className="text-lg md:text-xl font-bold text-text-primary mb-2">What percentage of production code is AI-generated in 2026?</h3>
-              <p className="text-base text-text-secondary leading-relaxed">As of 2026, approximately 24% of production code is AI-written globally (29% in the US), according to Aikido Security's survey of 450 organizations. Gartner forecasts this will reach 60% by the end of 2026. However, 90% of enterprises now use AI in development—the gap between usage and production deployment reflects the quality and security challenges that prevent much AI code from shipping without significant human review and modification.</p>
+              <p className="text-base text-text-secondary leading-relaxed">As of early 2026, approximately 41-42% of all code globally is AI-generated, with 76% of professional developers using or planning to use AI tools. However, only 7% of companies have fully scaled genAI enterprise-wide, and only 30% of AI experiments move to production. The gap between usage and production deployment reflects the quality and security challenges that prevent much AI code from shipping without significant human review and modification.</p>
             </div>
 
             <div>
@@ -597,18 +544,23 @@ export default function BlogPost() {
             </div>
 
             <div>
-              <h3 className="text-lg md:text-xl font-bold text-text-primary mb-2">Why is only 30% of AI-suggested code accepted by developers?</h3>
-              <p className="text-base text-text-secondary leading-relaxed">The 70% rejection rate reflects fundamental issues with AI code generation: context mismatches (the AI doesn't understand your full codebase), edge case failures (works for the happy path but breaks with unexpected inputs), and verbose but shallow logic (looks correct but doesn't solve the actual problem). Code duplication has increased 4× with AI adoption, signaling developers are copying AI outputs rather than integrating them thoughtfully. The time saved in generation often gets spent on debugging and modification, which is why 67% of developers report spending more time debugging AI code than they save from using AI tools.</p>
+              <h3 className="text-lg md:text-xl font-bold text-text-primary mb-2">Do I need a CI/CD pipeline to deploy AI-generated code?</h3>
+              <p className="text-base text-text-secondary leading-relaxed">For early validation, no. Platforms like Vercel and Netlify provide automatic CI/CD when you connect your GitHub repository—they rebuild and deploy on every push. For production apps with real users, a proper CI/CD pipeline with automated testing becomes essential. AI code shows 1.7× more production issues than human code, so automated testing before deployment catches problems early.</p>
             </div>
 
             <div>
-              <h3 className="text-lg md:text-xl font-bold text-text-primary mb-2">What is slopsquatting and how do I protect against it?</h3>
-              <p className="text-base text-text-secondary leading-relaxed">Slopsquatting is when AI tools suggest dependencies that don't exist, and attackers create malicious packages with those exact names. Approximately 20% of AI-suggested packages don't exist in public registries—creating an opening for supply chain attacks. Before deploying: verify every dependency exists in official registries (npm, PyPI), check package ages and download counts (new packages with few downloads are red flags), maintain a Software Bill of Materials (SBOM), and use dependency scanners (npm audit, Snyk, Trivy, Grype). Never blindly trust AI-recommended packages—68-73% of AI code with unchecked dependency suggestions contains vulnerabilities.</p>
+              <h3 className="text-lg md:text-xl font-bold text-text-primary mb-2">What's the minimum team size needed to deploy and maintain an AI-generated app?</h3>
+              <p className="text-base text-text-secondary leading-relaxed">For validation-stage apps with <500 users: one technically-inclined founder can manage deployment using Vercel/Netlify + Supabase. For production apps with paying customers: minimum two people—one who understands the business logic and one with deployment/security experience. AI code's higher vulnerability rate (2.74× more issues) and debugging overhead (67% of devs spend more time debugging than they save) makes solo maintenance risky at scale.</p>
             </div>
 
             <div>
-              <h3 className="text-lg md:text-xl font-bold text-text-primary mb-2">Has AI coding productivity improved from 2025 to 2026?</h3>
-              <p className="text-base text-text-secondary leading-relaxed">Yes, significantly. A METR study in July 2025 found developers using AI took 19% longer to complete tasks than working without AI—a surprising negative productivity impact. However, by February 2026, METR's updated findings show potential speedups of 4-18% for developers using the latest tools—a meaningful reversal. The tools have improved dramatically in 8 months, but early adopters paid a productivity tax while the technology matured. The catch: 78% of developers report improved productivity, yet many teams see faster coding but little improvement in actual delivery velocity or business outcomes. Speed of generation doesn't equal speed of validated, production-ready features.</p>
+              <h3 className="text-lg md:text-xl font-bold text-text-primary mb-2">How do I monitor AI-generated code after deployment?</h3>
+              <p className="text-base text-text-secondary leading-relaxed">Start with basic error tracking (Sentry, LogRocket) to catch crashes and exceptions. For production apps, add performance monitoring (response times, API usage), security monitoring (failed auth attempts, unusual traffic), and cost monitoring (especially for apps using external AI APIs). Set up alerts for errors, downtime, and cost spikes. AI code often fails in unexpected ways, so comprehensive monitoring catches issues before users complain.</p>
+            </div>
+
+            <div>
+              <h3 className="text-lg md:text-xl font-bold text-text-primary mb-2">Can I roll back a deployment if something breaks?</h3>
+              <p className="text-base text-text-secondary leading-relaxed">Yes, if you're using modern deployment platforms. Vercel, Netlify, and most cloud providers offer instant rollback to previous deployments with one click. This is critical for AI-generated code—given that AI code shows 23.5% more incidents and 30% higher failure rates post-deployment, having a rollback strategy isn't optional. Test your rollback process before you need it.</p>
             </div>
           </div>
 
