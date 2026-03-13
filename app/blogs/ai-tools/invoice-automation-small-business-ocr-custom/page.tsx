@@ -29,7 +29,7 @@ const jsonLd = {
   description: "When should you automate invoice processing? Real volume thresholds, OCR failure modes, and when custom beats both. Case study: 6 hours to 1.5 hours.",
   url: "https://thelaunch.space/blogs/ai-tools/invoice-automation-small-business-ocr-custom",
   datePublished: "2026-02-24T00:00:00.000Z",
-  dateModified: "2026-03-03T11:30:00.000Z",
+  dateModified: "2026-03-13T09:30:00.000Z",
   author: { "@type": "Organization", name: "thelaunch.space", url: "https://thelaunch.space" },
   publisher: {
     "@type": "Organization",
@@ -180,15 +180,15 @@ export default function BlogPost() {
           </p>
 
           <div className="bg-border-color/30 border border-border-color rounded-xl p-8 my-10">
-            <p className="text-2xl md:text-3xl font-bold text-text-primary mb-3">95-99%+ vs 80-95%</p>
-            <p className="text-sm md:text-base text-text-secondary mb-4">AI-driven invoice processing field-level accuracy compared to traditional OCR</p>
-            <p className="text-xs text-text-secondary">Source: <a href="https://parseur.com/blog/ai-invoice-processing-benchmarks" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Parseur AI Invoice Processing Benchmarks</a> and <a href="https://www.extend.ai/resources/invoice-processing-automation-guide" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Extend.ai</a></p>
+            <p className="text-2xl md:text-3xl font-bold text-text-primary mb-3">99% vs 85-95%</p>
+            <p className="text-sm md:text-base text-text-secondary mb-4">AI-powered invoice processing accuracy compared to traditional OCR</p>
+            <p className="text-xs text-text-secondary">The fundamental difference: OCR simply reads text, while AI interprets invoices contextually — identifying vendors, extracting totals and taxes, understanding line-item structures, and validating data consistency the way humans do. AI errors are systematic and easily caught during review, while OCR-driven manual entry errors are random and harder to detect. Source: <a href="https://parseur.com/blog/ai-invoice-processing-benchmarks" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Parseur</a></p>
           </div>
 
           <div className="bg-border-color/30 border border-border-color rounded-xl p-8 my-10">
             <p className="text-2xl md:text-3xl font-bold text-text-primary mb-3">$0.50-$5 per invoice</p>
             <p className="text-sm md:text-base text-text-secondary mb-4">Cost of automated invoice processing, down from $5-$25 manual (70-92% cost reduction)</p>
-            <p className="text-xs text-text-secondary">Processing speed: 1-30 seconds (automated) vs 10-30 minutes (manual) — up to 450x faster. Source: <a href="https://parseur.com/blog/ai-invoice-processing-benchmarks" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Parseur</a></p>
+            <p className="text-xs text-text-secondary">Processing speed: 1-30 seconds (automated) vs 10-30 minutes (manual) — up to 450x faster. At scale, cost drops from approximately $12 per invoice with traditional OCR to $2.36 per invoice with AI. Source: <a href="https://parseur.com/blog/ai-invoice-processing-benchmarks" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Parseur</a></p>
           </div>
 
           <div className="bg-border-color/30 border border-border-color rounded-xl p-8 my-10">
@@ -202,19 +202,19 @@ export default function BlogPost() {
           <h2 className="text-2xl md:text-3xl font-bold mt-16 mb-4">Why Half of Automation Projects Fail to Deliver Savings</h2>
 
           <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
-            Here is the uncomfortable reality: <span className="text-text-primary font-semibold">48% of businesses report their automation tools deliver minimal or no cost savings</span>, even after investing in software. This is not a failure of the technology — it is a failure of implementation. The tools work when set up correctly, but most organizations implement them halfway.
+            Here is the uncomfortable reality: 48% of businesses report their automation tools deliver minimal or no cost savings, even after investing in software. This is not a failure of the technology — it is a failure of implementation. The tools work when set up correctly, but most organizations implement them halfway. Additionally, <span className="text-text-primary font-semibold">67% of automation projects experience significant delays</span> due to integration complexities.
           </p>
 
-          <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
-            The most common pitfall is <span className="text-text-primary font-semibold">partial automation</span>. Organizations automate invoice capture but leave approval routing manual. They use OCR for data extraction but still require someone to manually review and import every invoice. The "automation" becomes just another step in an already complex workflow.
-          </p>
+          <div className="border-l-4 border-accent-blue pl-6 my-8">
+            <p className="text-base md:text-lg text-text-primary font-medium leading-relaxed">The most common pitfall is partial automation. Organizations automate invoice capture but leave approval routing manual. They use OCR for data extraction but still require someone to manually review and import every invoice. The "automation" becomes just another step in an already complex workflow.</p>
+          </div>
 
           <h3 className="text-xl md:text-2xl font-bold mt-8 mb-3">The Four Implementation Traps</h3>
 
           <div className="space-y-4 my-8">
             <div className="bg-border-color/20 rounded-xl p-5">
               <p className="text-text-primary font-semibold mb-1">1. Integration Failures</p>
-              <p className="text-text-secondary text-base leading-relaxed">Systems that do not reliably connect to your accounting platform create data inconsistencies between systems. You end up with additional reconciliation work rather than less. Before committing to any tool, verify it has seamless bidirectional sync with your specific accounting system version.</p>
+              <p className="text-text-secondary text-base leading-relaxed">Systems that do not reliably connect to your accounting platform create data inconsistencies between systems. You end up with additional reconciliation work rather than less. Before committing to any tool, verify it has seamless bidirectional sync with your specific accounting system version. Pre-built connectors can reduce integration timelines by 60%, but poor planning still causes most project delays.</p>
             </div>
             <div className="bg-border-color/20 rounded-xl p-5">
               <p className="text-text-primary font-semibold mb-1">2. Inadequate Data Standardization</p>
@@ -234,10 +234,36 @@ export default function BlogPost() {
             The organizations that succeed treat automation as a workflow redesign project, not just a software purchase. They document current processes, identify bottlenecks, standardize vendor requirements, and configure the system to match their actual workflow — not force their workflow to match the software's defaults.
           </p>
 
-          <div className="bg-border-color/30 border border-border-color rounded-xl p-8 my-10">
-            <p className="text-2xl md:text-3xl font-bold text-text-primary mb-3">54% → 78%</p>
-            <p className="text-sm md:text-base text-text-secondary mb-4">Finance leaders ranking AP automation as #1 digital priority → CFOs planning to increase investment 2024-2026</p>
-            <p className="text-xs text-text-secondary">Despite implementation challenges, investment is accelerating. Organizations recognize the potential — they are working to close the gap between adoption and results.</p>
+          <div className="bg-border-color/30 border border-border-color rounded-xl p-8 my-10 text-center">
+            <p className="text-3xl md:text-4xl font-bold text-text-primary mb-2">54% → 78%</p>
+            <p className="text-sm md:text-base text-text-secondary">Finance leaders ranking AP automation as #1 digital priority → CFOs planning to increase investment 2024-2026</p>
+          </div>
+
+          <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
+            Despite implementation challenges, investment is accelerating. Organizations recognize the potential — they are working to close the gap between adoption and results.
+          </p>
+
+          <hr className="border-border-color my-12" />
+
+          <h2 className="text-2xl md:text-3xl font-bold mt-16 mb-4">2026 Automation Landscape: What Has Changed</h2>
+
+          <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
+            The invoice automation market has matured significantly. What was experimental in 2023 is now production-grade. CFOs are shifting from viewing AP automation as a cost-reduction tool to seeing it as a strategic capability that provides fraud protection, cash flow optimization, and real-time financial visibility.
+          </p>
+
+          <div className="bg-gradient-to-br from-accent-blue/10 to-accent-purple/10 border border-accent-blue/30 rounded-xl p-8 my-10">
+            <h3 className="text-xl font-bold text-text-primary mb-4">Key 2026 Benchmarks</h3>
+            <div className="space-y-3 text-base text-text-secondary">
+              <p><span className="text-text-primary font-semibold">99.97% accuracy:</span> Top AP automation platforms now achieve near-perfect data capture through AI-driven classification, GL coding suggestions, and human-in-the-loop validation for high-value transactions.</p>
+              <p><span className="text-text-primary font-semibold">2.4x faster processing:</span> Modern systems process invoices 2.4 times faster than legacy AP systems, with some organizations reporting 70% reduction in invoice cycle times.</p>
+              <p><span className="text-text-primary font-semibold">98% SLA compliance:</span> Touchless AP workflows now exceed 98% SLA compliance for "invoice ready for payment within 48 hours" — a metric that matters more to CFOs than raw speed.</p>
+              <p><span className="text-text-primary font-semibold">7% → 40% adoption surge:</span> Only 7% of AP processes currently use AI, but 40% of businesses plan to adopt AI-driven AP automation in 2026 — a 5.7x increase reflecting maturation of the technology.</p>
+              <p><span className="text-text-primary font-semibold">60-80% cost reduction:</span> Organizations implementing AI, machine learning, and robotic process automation report 60-80% cost reductions and up to 70% processing time reductions.</p>
+            </div>
+          </div>
+
+          <div className="border-l-4 border-accent-blue pl-6 my-8">
+            <p className="text-base md:text-lg text-text-primary font-medium leading-relaxed">The strategic shift: CFOs now prioritize AP automation not just for labor savings, but for fraud detection, real-time cash flow visibility, and compliance with emerging global eInvoicing mandates. AP is being repositioned from a cost center to a financial intelligence function.</p>
           </div>
 
           <hr className="border-border-color my-12" />
@@ -266,62 +292,65 @@ export default function BlogPost() {
           </ul>
 
           <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
-            The key insight: custom solutions can be <span className="text-text-primary font-semibold">simpler</span> than off-the-shelf tools because they only solve your problem. No complex configuration, no feature bloat, no training on vendor formats you will never use.
+            The key insight: custom solutions can be simpler than off-the-shelf tools because they only solve your problem. No complex configuration, no feature bloat, no training on vendor formats you will never use.
           </p>
 
-          <div className="bg-border-color/30 border border-border-color rounded-xl p-8 my-10">
-            <p className="text-2xl md:text-3xl font-bold text-text-primary mb-3">29% → 52%</p>
-            <p className="text-sm md:text-base text-text-secondary mb-4">Touchless invoice processing adoption over the last two years</p>
-            <p className="text-xs text-text-secondary">AI-powered systems now achieve 93-98% accuracy (up from 70-80% three years ago). 40% of businesses plan to adopt AI-driven AP automation in 2026, up from just 7% currently using it. The technology has matured significantly.</p>
+          <div className="bg-border-color/30 border border-border-color rounded-xl p-8 my-10 text-center">
+            <p className="text-3xl md:text-4xl font-bold text-text-primary mb-2">29% → 52%</p>
+            <p className="text-sm md:text-base text-text-secondary">Touchless invoice processing adoption over the last two years</p>
           </div>
 
-          <h3 className="text-xl md:text-2xl font-bold mt-8 mb-4">Comparison: Your Four Options</h3>
+          <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
+            AI-powered systems now achieve 93-98% accuracy (up from 70-80% three years ago). 40% of businesses plan to adopt AI-driven AP automation in 2026, up from just 7% currently using it. The technology has matured significantly.
+          </p>
+
+          <h3 className="text-xl md:text-2xl font-bold mt-8 mb-3">Comparison: Your Four Options</h3>
 
           <div className="overflow-x-auto my-8">
             <table className="w-full border-collapse">
               <thead>
-                <tr className="bg-border-color/30">
-                  <th className="border border-border-color p-3 text-left text-sm font-semibold text-text-primary">Approach</th>
-                  <th className="border border-border-color p-3 text-left text-sm font-semibold text-text-primary">Cost</th>
-                  <th className="border border-border-color p-3 text-left text-sm font-semibold text-text-primary">Accuracy</th>
-                  <th className="border border-border-color p-3 text-left text-sm font-semibold text-text-primary">Time/Invoice</th>
-                  <th className="border border-border-color p-3 text-left text-sm font-semibold text-text-primary">Best For</th>
+                <tr className="border-b-2 border-border-color">
+                  <th className="text-left py-3 px-2 text-sm font-semibold text-text-primary">Approach</th>
+                  <th className="text-left py-3 px-2 text-sm font-semibold text-text-primary">Cost</th>
+                  <th className="text-left py-3 px-2 text-sm font-semibold text-text-primary">Accuracy</th>
+                  <th className="text-left py-3 px-2 text-sm font-semibold text-text-primary">Time/Invoice</th>
+                  <th className="text-left py-3 px-2 text-sm font-semibold text-text-primary">Best For</th>
                 </tr>
               </thead>
-              <tbody className="text-sm text-text-secondary">
+              <tbody>
+                <tr className="border-b border-border-color">
+                  <td className="py-3 px-2 text-sm text-text-primary font-medium">Manual (Optimized)</td>
+                  <td className="py-3 px-2 text-sm text-text-secondary">$0 additional</td>
+                  <td className="py-3 px-2 text-sm text-text-secondary">98-99% (human)</td>
+                  <td className="py-3 px-2 text-sm text-text-secondary">3-4 min</td>
+                  <td className="py-3 px-2 text-sm text-text-secondary">&lt;50 invoices/month, variable formats</td>
+                </tr>
+                <tr className="border-b border-border-color">
+                  <td className="py-3 px-2 text-sm text-text-primary font-medium">Traditional OCR</td>
+                  <td className="py-3 px-2 text-sm text-text-secondary">$20-150/month</td>
+                  <td className="py-3 px-2 text-sm text-text-secondary">80-95%</td>
+                  <td className="py-3 px-2 text-sm text-text-secondary">30-60 sec + corrections</td>
+                  <td className="py-3 px-2 text-sm text-text-secondary">100+ invoices/month, clean digital formats</td>
+                </tr>
+                <tr className="border-b border-border-color">
+                  <td className="py-3 px-2 text-sm text-text-primary font-medium">AI-Powered OCR</td>
+                  <td className="py-3 px-2 text-sm text-text-secondary">$50-300/month</td>
+                  <td className="py-3 px-2 text-sm text-text-secondary">95-99%+</td>
+                  <td className="py-3 px-2 text-sm text-text-secondary">1-30 sec</td>
+                  <td className="py-3 px-2 text-sm text-text-secondary">200+ invoices/month, varied formats</td>
+                </tr>
                 <tr>
-                  <td className="border border-border-color p-3 font-semibold text-text-primary">Manual (Optimized)</td>
-                  <td className="border border-border-color p-3">$0 additional</td>
-                  <td className="border border-border-color p-3">98-99% (human)</td>
-                  <td className="border border-border-color p-3">3-4 min</td>
-                  <td className="border border-border-color p-3">&lt;50 invoices/month, variable formats</td>
-                </tr>
-                <tr className="bg-border-color/10">
-                  <td className="border border-border-color p-3 font-semibold text-text-primary">Traditional OCR</td>
-                  <td className="border border-border-color p-3">$20-150/month</td>
-                  <td className="border border-border-color p-3">80-95%</td>
-                  <td className="border border-border-color p-3">30-60 sec + corrections</td>
-                  <td className="border border-border-color p-3">100+ invoices/month, clean digital formats</td>
-                </tr>
-                <tr>
-                  <td className="border border-border-color p-3 font-semibold text-text-primary">AI-Powered OCR</td>
-                  <td className="border border-border-color p-3">$50-300/month</td>
-                  <td className="border border-border-color p-3">95-99%+</td>
-                  <td className="border border-border-color p-3">1-30 sec</td>
-                  <td className="border border-border-color p-3">200+ invoices/month, varied formats</td>
-                </tr>
-                <tr className="bg-border-color/10">
-                  <td className="border border-border-color p-3 font-semibold text-text-primary">Custom Solution</td>
-                  <td className="border border-border-color p-3">$2,000-5,000 one-time</td>
-                  <td className="border border-border-color p-3">98-99%+</td>
-                  <td className="border border-border-color p-3">1-10 sec</td>
-                  <td className="border border-border-color p-3">50-300 invoices/month, consistent vendors</td>
+                  <td className="py-3 px-2 text-sm text-text-primary font-medium">Custom Solution</td>
+                  <td className="py-3 px-2 text-sm text-text-secondary">$2,000-5,000 one-time</td>
+                  <td className="py-3 px-2 text-sm text-text-secondary">98-99%+</td>
+                  <td className="py-3 px-2 text-sm text-text-secondary">1-10 sec</td>
+                  <td className="py-3 px-2 text-sm text-text-secondary">50-300 invoices/month, consistent vendors</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-          <p className="text-sm text-text-secondary mb-6">
+          <p className="text-xs text-text-secondary mb-6">
             Accuracy and timing data based on <a href="https://parseur.com/blog/ai-invoice-processing-benchmarks" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Parseur</a>, <a href="https://www.extend.ai/resources/invoice-processing-automation-guide" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Extend.ai</a>, and our client implementations.
           </p>
 
@@ -333,9 +362,9 @@ export default function BlogPost() {
             We built this for a client — let us call them a mid-sized distribution company — who was drowning in invoice processing. Their bookkeeper spent 6+ hours per week entering 40 invoices into QuickBooks. They had tried Dext (formerly Receipt Bank) and Bill.com. Both created more frustration than they solved.
           </p>
 
-          <div className="bg-border-color/30 border border-border-color rounded-xl p-6 my-8">
-            <p className="text-text-primary font-medium">The problem: Their invoices came from 8 main suppliers. Most were PDFs, but formats varied. The off-the-shelf tools kept misreading totals, confusing invoice numbers with PO numbers, and requiring constant manual correction.</p>
-          </div>
+          <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
+            The problem: Their invoices came from 8 main suppliers. Most were PDFs, but formats varied. The off-the-shelf tools kept misreading totals, confusing invoice numbers with PO numbers, and requiring constant manual correction.
+          </p>
 
           <h3 className="text-xl md:text-2xl font-bold mt-8 mb-3">What We Built</h3>
 
@@ -343,13 +372,13 @@ export default function BlogPost() {
             A custom processor that:
           </p>
 
-          <ol className="list-decimal list-inside space-y-2 text-text-secondary text-base md:text-lg mb-6">
+          <ul className="list-disc list-inside space-y-2 text-text-secondary text-base md:text-lg mb-6">
             <li>Watches a specific email inbox for incoming invoices</li>
             <li>Uses AI extraction (Claude API) trained on their specific vendor formats</li>
             <li>Validates extracted data against business rules (amount ranges, known vendor names, expected GL accounts)</li>
             <li>Pushes approved invoices directly to QuickBooks Online via API</li>
             <li>Flags exceptions for human review rather than auto-importing errors</li>
-          </ol>
+          </ul>
 
           <div className="bg-border-color/30 border border-border-color rounded-xl p-8 my-10 text-center">
             <p className="text-3xl md:text-4xl font-bold text-text-primary mb-2">6 hours → 1.5 hours</p>
@@ -359,7 +388,7 @@ export default function BlogPost() {
           <h3 className="text-xl md:text-2xl font-bold mt-8 mb-3">The Math</h3>
 
           <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
-            The build cost was approximately $2,200. At 4.5 hours saved per week, with bookkeeper time valued at $30/hour, the weekly savings were $135. <span className="text-text-primary font-semibold">Payback period: roughly 16 weeks, or about 4 months.</span>
+            The build cost was approximately $2,200. At 4.5 hours saved per week, with bookkeeper time valued at $30/hour, the weekly savings were $135. Payback period: roughly 16 weeks, or about 4 months.
           </p>
 
           <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
@@ -435,8 +464,13 @@ export default function BlogPost() {
             </div>
 
             <div className="border-l-4 border-accent-blue/50 pl-6 py-2">
+              <h3 className="text-lg font-semibold text-text-primary mb-2">What accuracy should I expect from 2026 AI-powered systems?</h3>
+              <p className="text-base text-text-secondary leading-relaxed">Top AI-powered AP automation platforms now achieve 99.97% accuracy through AI-driven invoice classification, GL coding suggestions, and human-in-the-loop validation for high-value transactions. This represents a significant jump from the 85-95% accuracy of traditional OCR. The best systems process invoices 2.4 times faster than legacy systems, with 98% SLA compliance for "invoice ready within 48 hours." However, this level of performance requires proper implementation — including vendor format standardization and integration quality.</p>
+            </div>
+
+            <div className="border-l-4 border-accent-blue/50 pl-6 py-2">
               <h3 className="text-lg font-semibold text-text-primary mb-2">Will automation work with my existing QuickBooks or accounting system?</h3>
-              <p className="text-base text-text-secondary leading-relaxed">Most modern invoice automation tools offer API integrations with QuickBooks Online, Xero, and major ERP systems. Custom solutions can connect directly to any system with an API. The integration quality varies — some tools push data seamlessly, while others require CSV exports and manual imports. Ask vendors specifically about your accounting system before committing.</p>
+              <p className="text-base text-text-secondary leading-relaxed">Most modern invoice automation tools offer API integrations with QuickBooks Online, Xero, and major ERP systems. Custom solutions can connect directly to any system with an API. The integration quality varies — some tools push data seamlessly, while others require CSV exports and manual imports. Pre-built connectors can reduce integration timelines by 60%, but you must verify seamless integration with your specific accounting software version before purchase. Ask vendors specifically about your accounting system before committing.</p>
             </div>
 
             <div className="border-l-4 border-accent-blue/50 pl-6 py-2">
@@ -445,8 +479,18 @@ export default function BlogPost() {
             </div>
 
             <div className="border-l-4 border-accent-blue/50 pl-6 py-2">
+              <h3 className="text-lg font-semibold text-text-primary mb-2">What role does automation play in fraud prevention?</h3>
+              <p className="text-base text-text-secondary leading-relaxed">Modern AP automation systems now include real-time fraud detection through pattern analysis, anomaly detection, and automated supplier validation checks. CFOs in 2026 prioritize automation not just for labor savings, but specifically for fraud protection — especially against deepfake fraud and payment diversion schemes. Systems can flag unusual invoice amounts, detect duplicate submissions, validate supplier bank account changes, and maintain comprehensive audit trails. This is a major shift from 2023-2024 when automation was primarily a cost-reduction play.</p>
+            </div>
+
+            <div className="border-l-4 border-accent-blue/50 pl-6 py-2">
               <h3 className="text-lg font-semibold text-text-primary mb-2">What happens when an invoice doesn't match the expected format?</h3>
               <p className="text-base text-text-secondary leading-relaxed">Good automation systems flag exceptions for human review rather than guessing. Traditional OCR struggles with format changes and may require retraining. AI-powered systems adapt better to variations but still need human oversight for edge cases. Custom solutions can be updated quickly when a vendor changes their format — typically an afternoon of work rather than waiting for a vendor to update their training models.</p>
+            </div>
+
+            <div className="border-l-4 border-accent-blue/50 pl-6 py-2">
+              <h3 className="text-lg font-semibold text-text-primary mb-2">How do eInvoicing compliance requirements affect my automation choice?</h3>
+              <p className="text-base text-text-secondary leading-relaxed">Global eInvoicing mandates are accelerating, requiring real-time validation, structured data formats, and comprehensive audit trails. If your business operates internationally or has government clients, compliance may dictate your automation approach. Modern systems offer built-in compliance features including tax ID validation, structured data capture meeting regulatory formats, and audit trail documentation. Poor master data (like invalid tax IDs) can trigger penalties, so ensure your automation system includes data governance and validation capabilities. This is particularly critical in EU markets where eInvoicing mandates are expanding.</p>
             </div>
 
             <div className="border-l-4 border-accent-blue/50 pl-6 py-2">
@@ -466,7 +510,7 @@ export default function BlogPost() {
 
             <div className="border-l-4 border-accent-blue/50 pl-6 py-2">
               <h3 className="text-lg font-semibold text-text-primary mb-2">Why do so many automation projects fail to deliver savings?</h3>
-              <p className="text-base text-text-secondary leading-relaxed">48% of organizations report minimal or no cost savings from automation tools — not because the tools fail, but because implementation is partial. Common pitfalls include poor integration with accounting systems, inconsistent vendor invoice formats that automation cannot handle, inadequate change management leading to parallel manual processes, and incomplete workflow coverage that automates capture but leaves approval and matching manual. Success requires treating automation as a workflow redesign project, not just a software purchase.</p>
+              <p className="text-base text-text-secondary leading-relaxed">48% of organizations report minimal or no cost savings from automation tools — not because the tools fail, but because implementation is partial. Common pitfalls include poor integration with accounting systems, inconsistent vendor invoice formats that automation cannot handle, inadequate change management leading to parallel manual processes, and incomplete workflow coverage that automates capture but leaves approval and matching manual. Additionally, 67% of automation projects experience significant delays due to integration complexities. Success requires treating automation as a workflow redesign project, not just a software purchase.</p>
             </div>
 
             <div className="border-l-4 border-accent-blue/50 pl-6 py-2">
