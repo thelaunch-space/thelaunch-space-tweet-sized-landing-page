@@ -29,7 +29,7 @@ const jsonLd = {
   description: "Hit the no-code ceiling with Bubble, Webflow, or Airtable? Here's how to know when to transition, which parts to rebuild, and the AI-assisted middle path that costs $3,000 instead of $50,000.",
   url: "https://thelaunch.space/blogs/startup-mvps/when-no-code-tools-stop-working",
   datePublished: "2026-02-12T00:00:00.000Z",
-  dateModified: "2026-02-27T00:00:00.000Z",
+  dateModified: "2026-03-15T00:00:00.000Z",
   author: { "@type": "Organization", name: "thelaunch.space", url: "https://thelaunch.space" },
   publisher: {
     "@type": "Organization",
@@ -60,8 +60,8 @@ export default function BlogPost() {
           <div className="flex items-center gap-3 text-sm text-text-secondary mb-10">
             <span>thelaunch.space</span><span>·</span>
             <time dateTime="2026-02-12">Feb 12, 2026</time><span>·</span>
-            <span>Updated Feb 27, 2026</span><span>·</span>
-            <span>9 min read</span>
+            <span>Updated Mar 15, 2026</span><span>·</span>
+            <span>11 min read</span>
           </div>
 
           <p className="text-lg md:text-xl text-text-primary leading-relaxed mb-8">
@@ -105,6 +105,52 @@ export default function BlogPost() {
               <li><a href="https://kissflow.com/low-code/low-code-trends-statistics/" target="_blank" rel="noopener noreferrer" className="text-accent-blue hover:underline">Only 12% of enterprises actively manage business processes using low-code tools after purchase</a></li>
             </ul>
           </div>
+
+          <hr className="border-border-color my-12" />
+
+          <h2 className="text-2xl md:text-3xl font-bold mt-16 mb-4">The Performance Penalty: What the Numbers Show</h2>
+
+          <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
+            Here is what platform documentation rarely mentions: no-code applications consistently underperform custom code equivalents. Recent benchmarks show that no-code platforms execute <span className="text-text-primary font-semibold">20-50% slower than custom-built applications</span> under comparable workloads. This is not a hypothetical problem - it is a measurable tax you pay at every interaction.
+          </p>
+
+          <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
+            More concerning: <span className="text-text-primary font-semibold">25-30% of no-code projects require costly rewrites within two years</span>, typically costing between $50,000 and $250,000 each. The very speed that made no-code attractive for validation becomes the constraint that forces expensive migrations later.
+          </p>
+
+          <div className="bg-surface border border-border-color/40 shadow-card rounded-2xl p-6 my-10 overflow-x-auto">
+            <p className="text-text-primary font-semibold mb-4 text-lg">Platform-Specific Scaling Limits (2026 Data)</p>
+            <table className="w-full text-left">
+              <thead>
+                <tr className="border-b border-border-color">
+                  <th className="pb-3 pr-4 text-text-primary font-semibold text-sm md:text-base">Platform</th>
+                  <th className="pb-3 pr-4 text-text-primary font-semibold text-sm md:text-base">Primary Bottleneck</th>
+                  <th className="pb-3 text-text-primary font-semibold text-sm md:text-base">Enterprise Ceiling</th>
+                </tr>
+              </thead>
+              <tbody className="text-text-secondary text-sm md:text-base">
+                <tr className="border-b border-border-color/40">
+                  <td className="py-4 pr-4 font-medium text-text-primary">Bubble</td>
+                  <td className="py-4 pr-4">Workload unit consumption spikes under concurrent users; database query bottlenecks with complex searches</td>
+                  <td className="py-4">Performance degradation typically starts around 500-1,000 daily active users</td>
+                </tr>
+                <tr className="border-b border-border-color/40">
+                  <td className="py-4 pr-4 font-medium text-text-primary">Webflow</td>
+                  <td className="py-4 pr-4">CMS item limits; hosting costs scale linearly</td>
+                  <td className="py-4">Enterprise plan supports 1M+ CMS items but requires custom pricing; lower tiers cap at 2,000-20,000 items</td>
+                </tr>
+                <tr>
+                  <td className="py-4 pr-4 font-medium text-text-primary">Airtable</td>
+                  <td className="py-4 pr-4">Record limits; concurrent access throttling; API rate limits</td>
+                  <td className="py-4">Enterprise tier supports 500,000+ records per base but hits throttling with high concurrent users</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p className="text-base md:text-lg text-text-secondary leading-relaxed mb-6">
+            Understanding these platform-specific limits helps you plan transitions before they become emergencies. If your Bubble app is approaching 500 daily active users or your Airtable base is hitting 100,000 records, you are in the warning zone.
+          </p>
 
           <hr className="border-border-color my-12" />
 
